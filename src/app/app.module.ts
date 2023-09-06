@@ -9,7 +9,7 @@ import { SidebarComponent } from './modulos/sidebar/sidebar.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    SidebarComponent
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
