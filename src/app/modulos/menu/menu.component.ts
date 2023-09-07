@@ -2,20 +2,23 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { AllScriptsService } from '../scripts/all-scripts.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.css']
 })
-export class LoginComponent implements OnInit {
+export class MenuComponent implements OnInit {
 
   constructor(private renderer: Renderer2, private el: ElementRef, private AllScripts: AllScriptsService) {
 
-    AllScripts.Cargar(["menu"]);
+    AllScripts.Cargar(["default/menu"]);
+    
+   }
 
-  }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+
   }
 
+  
 }
