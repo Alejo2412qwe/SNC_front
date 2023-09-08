@@ -263,11 +263,11 @@ footer a {
 }
 
 .layout {
-    width: 90%;
+    width: 80%;
     height: 690px;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 8px;
     margin-left: auto;
     margin-right: auto;
@@ -287,10 +287,12 @@ footer a {
         grid-template-rows: 1fr;
         grid-template-columns: repeat(1, 1fr);
         gap: 8px;
-        margin-bottom: 20px;
-    }
+        margin-left: auto;
+        margin-right: auto;
+        justify-content: center;
+        align-items: center;    }
 
-    img.img {
+    img {
         width: 50%;
         display: inline-block;  
         margin: 0 auto;
@@ -298,5 +300,21 @@ footer a {
 
     .form {
         width: 70%;
+        margin-left: auto;
+        margin-right: auto;
     }
+    
+    .lay{
+
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+        width: 100%; /* Ajusta el ancho del div al 100% del contenedor padre si es necesario */
+        height: 100%; 
+    }
+
+    .contenedor img {
+        max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor */
+        max-height: 100%; /* Asegura que la imagen no exceda la altura del contenedor */
+      }
 }

@@ -13,8 +13,7 @@ signInButton.addEventListener('click', () => {
 
 });
 
-function registro() {
-  const ventanaFlotante = document.querySelector('.container');
-  ventanaFlotante.classList.remove("right-panel-active") ;
-}
+
+
+
 
