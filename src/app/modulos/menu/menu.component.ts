@@ -10,8 +10,8 @@ export class MenuComponent implements OnInit {
 
   constructor(private renderer: Renderer2, private el: ElementRef, private AllScripts: AllScriptsService) {
 
-    AllScripts.Cargar(["default/menu"]);
-    
+    AllScripts.Cargar(["header"]);
+
    }
 
 
