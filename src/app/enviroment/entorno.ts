@@ -1,4 +1,6 @@
-export const entorno = {
-  urlApi: 'http://localhost:8080/api',
-  urlPublica: 'http://localhost:8080',
+export const environment = {
+
+  apiuri: 'http://localhost:8080/api',
+  apiuriPublic: 'http://localhost:8080',
+
 };
