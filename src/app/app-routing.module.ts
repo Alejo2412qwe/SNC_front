@@ -6,11 +6,10 @@ import { LoginComponent } from './modulos/login/login.component';
 
 const routes: Routes = [
 
-
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'sidebar', component: SidebarComponent },
 
-  //publico
   { path: '**', redirectTo: 'sidebar' },
 ];
 

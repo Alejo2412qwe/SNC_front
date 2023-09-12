@@ -5,13 +5,19 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './modulos/login/login.component';
 import { SidebarComponent } from './modulos/sidebar/sidebar.component';
 import { MenuComponent } from './modulos/menu/menu.component';
+import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
+import { RegistroComponent } from './modulos/registro/registro.component';
+import { PermisosComponent } from './modulos/permisos/permisos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SidebarComponent,
-    MenuComponent
+    MenuComponent,
+    AsistenciaComponent,
+    RegistroComponent,
+    PermisosComponent
   ],
   imports: [
     BrowserModule,
