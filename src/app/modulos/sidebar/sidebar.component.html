@@ -79,10 +79,11 @@
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
-                                    <button id="studioButton" class="nav-link active" onclick="showComponent('studio')">
-                                        <i class="material-icons">visibility</i>
-                                        VISUALIZACIÓN DE ASISTENCIA
-                                    </button>
+                                    <a href="/asis"> <button id="studioButton" class="nav-link active" onclick="">
+                                            <i class="material-icons">visibility</i>
+                                            VISUALIZACIÓN DE ASISTENCIA
+                                        </button></a>
+
                                 </li>
                                 <li class="nav-item">
                                     <button id="worksButton" class="nav-link" onclick="showComponent('works')">
@@ -107,9 +108,6 @@
                     </div>
                 </div>
                 <div class="cargarinfo">
-                    <div id="studioComponent" class="component fade-in" style="display: none;">
-                        <app-asistencia></app-asistencia>
-                    </div>
                     <div id="worksComponent" class="component fade-in" style="display: none;">
                         <app-permisos></app-permisos>
                     </div>
@@ -119,7 +117,7 @@
                     <div id="datasetComponent" class="component fade-in" style="display: none;">
                         <!-- Contenido de REPORTE GENERAL -->
                     </div>
-                    
+
                 </div>
 
             </div>
