@@ -148,6 +148,11 @@ a .material-icons {
     z-index: 3;
 }
 
+.navbar-translate {
+    width: 80%;
+    padding-bottom: 35px;
+  }
+
 .profile-page .profile {
     text-align: center;
 }
@@ -657,3 +662,15 @@ body {
       opacity: 1;
     }
   }
+
+@media only screen and (max-width:995px) {
+
+    .nav-pills,
+    .nav-tabs {
+        border: 0;
+        border-radius: 3px;
+        padding: 0 15px;
+        width: auto;
+    }
+
+}
