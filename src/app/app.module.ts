@@ -8,6 +8,7 @@ import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
+import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GestionComponent } from './modulos/gestion/gestion.component';
     AsistenciaComponent,
     RegistroComponent,
     PermisosComponent,
-    GestionComponent
+    GestionComponent,
+    ReportevacionesComponent
   ],
   imports: [
     BrowserModule,

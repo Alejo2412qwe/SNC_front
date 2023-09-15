@@ -4,6 +4,7 @@ import { MenuComponent } from './modulos/menu/menu.component';
 import { LoginComponent } from './modulos/login/login.component';
 import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
+import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 
 const routes: Routes = [
 
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'gestion', component: GestionComponent },
+  { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: '**', redirectTo: 'gestion' },
 ];
 
