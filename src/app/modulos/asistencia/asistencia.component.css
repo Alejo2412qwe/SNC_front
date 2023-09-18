@@ -4,37 +4,45 @@ body {
 }
 
 
-#table-header .col, #table-body .col {
+#table-header .col,
+#table-body .col {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 80px; /* Ajusta la altura según sea necesario */
+  height: 80px;
+  /* Ajusta la altura según sea necesario */
   width: 14.28%;
 }
 
 #table-header .col {
-  font-weight: bold; /* Puedes hacer que los nombres de los días sean más gruesos */
+  font-weight: bold;
+  /* Puedes hacer que los nombres de los días sean más gruesos */
 }
 
 #table-body .col {
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background-color 0.3s ease; /* Agrega una transición de color de fondo en el hover */
+  transition: background-color 0.3s ease;
+  /* Agrega una transición de color de fondo en el hover */
 }
 
 /* Estilos para los números de los días */
 .day-number {
-  font-size: 18px; /* Ajusta el tamaño de la fuente según sea necesario */
+  font-size: 18px;
+  /* Ajusta el tamaño de la fuente según sea necesario */
 }
 
 /* Estilos para los días seleccionados */
 .selected-day {
-  background-color: #E0E0E0; /* Cambia el color de fondo de los días seleccionados */
+  background-color: #E0E0E0;
+  /* Cambia el color de fondo de los días seleccionados */
 }
 
-h3,h4,h5 {
+h3,
+h4,
+h5 {
   font-weight: 300 !important;
 }
 
@@ -83,6 +91,7 @@ h3,h4,h5 {
   top: 70%;
   transform: translate(-50%, -50%);
 }
+
 .calendar-footer {
   height: 200px;
   font-family: 'Roboto', sans-serif;
@@ -301,6 +310,7 @@ h3,h4,h5 {
   box-shadow: 0 4px 25px #192975;
 
 }
+
 .mobile-header {
   padding: 0;
   display: none;
@@ -333,46 +343,54 @@ h3,h4,h5 {
 
 @media (max-width:992px) {
   .content-wrapper {
-     margin-left: 0;
+    margin-left: 0;
   }
+
   .mobile-header {
-     display: block;
+    display: block;
   }
+
   .calendar-wrapper {
-     margin-top: 80px;
+    margin-top: 80px;
   }
+
   .sidebar-wrapper {
-     background-color: #556de1 !important;
+    background-color: #556de1 !important;
   }
+
   .sidebar-title {
-     background-color: #ffffff !important;
+    background-color: #ffffff !important;
   }
+
   .empty-message {
-     color: black;
+    color: black;
   }
 }
 
 @media (max-width:767px) {
   .content-wrapper .container {
-     width: auto;
+    width: auto;
   }
+
   .calendar-content {
-     padding-left: 5%;
-     padding-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
   }
+
   body .row {
-     margin-bottom: 0;
+    margin-bottom: 0;
   }
 }
 
 @media (max-width:450px) {
   .content-wrapper {
-     padding-left: 0;
-     padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
+
   .content-wrapper .container {
-     padding-left: 0;
-     padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -425,4 +443,45 @@ button::before {
 
 button:hover::before {
   width: 100%;
+}
+
+.container5 {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 2fr 100px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+  height: 200px;
+}
+
+
+@media only screen and (max-width:1300px) {
+
+  .container5 {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 2fr 100px;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+    height: 140px;
+  }
+}
+
+@media only screen and (max-width:1000px) {
+
+  .container5 {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 2fr 100px;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+    height: 140px;
+    margin-top: 100px;
+  }
 }

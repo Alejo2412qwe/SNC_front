@@ -12,7 +12,8 @@ export class ReportevacionesComponent implements OnInit {
     AllScripts.Cargar(["reportes"]);
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+
   }
 
 }

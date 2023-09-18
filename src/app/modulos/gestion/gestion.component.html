@@ -15,12 +15,12 @@
         color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html" target="_blank"
+                <a class="navbar-brand" href="/" target="_blank"
                     style="font-size: 14px; padding-bottom: 50px;">
                     <img src="assets/img/escudo.png" width="20%" alt="">
                     Secretaria de Educacion Superior, Ciencia, Tecnologia e Innovación</a>
-                <button style="padding-top: 20px;" class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button style="padding-top: 20px;" class="navbar-toggler" type="button" data-toggle="collapse"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -71,7 +71,7 @@
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
-                                    <a href="/asistencia">
+                                    <a href="/asistencia" style="text-decoration: none;">
                                         <button id="studioButton" class="nav-link active" onclick="">
                                             <i class="material-icons">visibility</i>
                                             VISUALIZACIÓN DE ASISTENCIA
@@ -87,17 +87,17 @@
                                 <li class="nav-item">
                                     <button id="favoriteButton" class="nav-link" onclick="showComponent('favorite')">
                                         <i class="material-icons">report</i>
-                                        REPORTE PERSONAL
+                                        REGISTRO DE USUARIOS
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <button id="datasetButton" class="nav-link" onclick="showComponent('dataset')">
+                                    <button id="vacacionButton" class="nav-link" onclick="showComponent('vacacion')">
                                         <i class="material-icons">dataset</i>
-                                        REPORTE GENERAL
+                                        REPORTE VACACIONES
                                     </button>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/menu">
+                                    <a href="/menu" style="text-decoration: none;">
                                         <button id="studioButton" class="nav-link" onclick="">
                                             <i class="material-icons">person</i>
                                             MI PERFIL
@@ -117,6 +117,9 @@
                     </div>
                     <div id="datasetComponent" class="component fade-in" style="display: none;">
                         <!-- Contenido de REPORTE GENERAL -->
+                    </div>
+                    <div id="vacacionComponent" class="component fade-in" style="display: none;">
+                        <app-reportevaciones></app-reportevaciones>
                     </div>
                 </div>
 
@@ -147,10 +150,6 @@
                     <ul class="footer-links">
                         <p>(07) 408-3574</p>
                         <li><a href="http://scanfcode.com/about/">Avenida España 912, Cuenca 010102</a></li>
-                        <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-                        <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-                        <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-                        <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
@@ -166,14 +165,11 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a class="facebook" href="https://www.facebook.com/EduSuperiorEc/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/senescyt?lang=es"><i class="fa fa-twitter"></i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
-
 </body>
