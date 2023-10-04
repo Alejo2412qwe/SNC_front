@@ -9,6 +9,7 @@ import { RegistroComponent } from './modulos/registro/registro.component';
 import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
 import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
+import { ModalComponent } from './modulos/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReportevacionesComponent } from './modulos/reportevaciones/reportevacio
     RegistroComponent,
     PermisosComponent,
     GestionComponent,
-    ReportevacionesComponent
+    ReportevacionesComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
