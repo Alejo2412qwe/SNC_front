@@ -2,29 +2,127 @@
     <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario</h1>
 </div>
 
-<section class="layout">
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">NOMBRE:</label>
-            <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input">
-            <div class="underline"></div>
+<form name="registroUsuario">
+
+    <div class="contentForm">
+        <div style="width: 100%; padding-bottom: 15px;">
+
+            <h2 style="text-align: center; font-weight: bolder;">Datos personales</h2>
         </div>
+        <section class="layout">
+
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">CEDULA:</label>
+                    <input placeholder="Ingresa el CI del Usuario" type="text" class="input" name="perCedula"
+                        [(ngModel)]="persona.perCedula">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">NOMBRES:</label>
+                    <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input" name="perNombre"
+                        [(ngModel)]="persona.perNombre">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">APELLIDOS:</label>
+                    <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input" name="perApellido"
+                        [(ngModel)]="persona.perApellido">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div class="input-container">
+                <label for="name" class="name">FECHA DE NACIMIENTO:</label>
+                <input class="input" type="date" name="perFechaNacimiento" placeholder="Fecha de nacimiento"
+                    name="perFechaNacimiento" [(ngModel)]="persona.perFechaNacimiento">
+                <div class="underline"></div>
+            </div>
+
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">PROVINCIA:</label>
+                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                        <option value="manzana">Selecciona tu Provincia</option>
+                        <option value="banana">Banana</option>
+                        <option value="uva">Uva</option>
+                        <option value="naranja">Naranja</option>
+                        <option value="pera">Pera</option>
+                    </select>
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">CIUDAD:</label>
+                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                        <option value="manzana">Selecciona tu Ciudad</option>
+                        <option value="banana">Banana</option>
+                        <option value="uva">Uva</option>
+                        <option value="naranja">Naranja</option>
+                        <option value="pera">Pera</option>
+                    </select>
+                    <div class="underline"></div>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">TELÉFONO:</label>
+                    <input placeholder="Ingresa el número de teléfono" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">DIRECCION:</label>
+                    <input placeholder="Ingresa la direccion del domicilio" type="text" class="input"
+                        name="perDireccion" [(ngModel)]="persona.perDireccion">
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </section>
     </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">APELLIDO:</label>
-            <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input">
-            <div class="underline"></div>
+
+    <div class="contentForm">
+        <div style="width: 100%; padding-bottom: 15px;">
+
+            <h2 style="text-align: center; font-weight: bolder;">Datos de Usuario</h2>
         </div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">CEDULA:</label>
-            <input placeholder="Ingresa el CI del Usuario" type="text" class="input">
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
+        <section class="layout">
+
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">CEDULA:</label>
+                    <input placeholder="Ingresa el CI del Usuario" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">NOMBRES:</label>
+                    <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">APELLIDOS:</label>
+                    <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div class="input-container">
+                <label for="name" class="name">FECHA DE NACIMIENTO:</label>
+                <input class="input" type="date" name="perFechaNacimiento" placeholder="Fecha de nacimiento" required>
+                <div class="underline"></div>
+            </div>
+
+            <!-- <div>
         <div class="input-container">
             <label for="name" class="name">PUESTO - CARGO:</label>
             <select id="frutas" name="frutas" class="input2" style="color: #777;">
@@ -36,115 +134,116 @@
             </select>
             <div class="underline"></div>
         </div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">PROVINCIA:</label>
-            <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                <option value="manzana">Selecciona tu Provincia</option>
-                <option value="banana">Banana</option>
-                <option value="uva">Uva</option>
-                <option value="naranja">Naranja</option>
-                <option value="pera">Pera</option>
-            </select>
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">CIUDAD:</label>
-            <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                <option value="manzana">Selecciona tu Ciudad</option>
-                <option value="banana">Banana</option>
-                <option value="uva">Uva</option>
-                <option value="naranja">Naranja</option>
-                <option value="pera">Pera</option>
-            </select>
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">PROVINCIA:</label>
-            <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                <option value="manzana">Selecciona tu Provincia</option>
-                <option value="banana">Banana</option>
-                <option value="uva">Uva</option>
-                <option value="naranja">Naranja</option>
-                <option value="pera">Pera</option>
-            </select>
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">PROVINCIA:</label>
-            <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                <option value="manzana">Selecciona tu Provincia</option>
-                <option value="banana">Banana</option>
-                <option value="uva">Uva</option>
-                <option value="naranja">Naranja</option>
-                <option value="pera">Pera</option>
-            </select>
-            <div class="underline"></div>
-        </div>
-    </div>
-</section>
+    </div> -->
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">PROVINCIA:</label>
+                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                        <option value="manzana">Selecciona tu Provincia</option>
+                        <option value="banana">Banana</option>
+                        <option value="uva">Uva</option>
+                        <option value="naranja">Naranja</option>
+                        <option value="pera">Pera</option>
+                    </select>
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">CIUDAD:</label>
+                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                        <option value="manzana">Selecciona tu Ciudad</option>
+                        <option value="banana">Banana</option>
+                        <option value="uva">Uva</option>
+                        <option value="naranja">Naranja</option>
+                        <option value="pera">Pera</option>
+                    </select>
+                    <div class="underline"></div>
+                </div>
+            </div>
 
-<div style="width: 100%;">
 
-    <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
-</div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">TELÉFONO:</label>
+                    <input placeholder="Ingresa el número de teléfono" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="name" class="name">DIRECCION:</label>
+                    <input placeholder="Ingresa la direccion del domicilio" type="text" class="input">
+                    <div class="underline"></div>
+                </div>
+            </div>
+        </section>
+    </div>
 
-<div style="width: 100%; margin-top: 30px;">
-    <table class="table-fill">
-        <thead>
-            <tr>
-                <th class="text-left">Rol</th>
-                <th class="text-left">Descripcion</th>
-            </tr>
-        </thead>
-        <tbody class="table-hover">
-            <tr>
-                <td class="text-left">SuperAdminstrador</td>
-                <td class="text-left">Tendra a su disposcion todas las funciones, generacion de usuarios, permisos,
-                    vacaciones, gestion de cuentas, etc.</td>
-            </tr>
-            <tr>
-                <td class="text-left">Funcionario</td>
-                <td class="text-left"></td>
-            </tr>
-            <tr>
-                <td class="text-left">Docente</td>
-                <td class="text-left"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="contentForm">
+        <div style="width: 100%; padding-bottom: 15px;">
 
-    <section class="container3" style="margin-top: 50px; display: flex; flex-direction: column; align-items: center; text-align: center;">
-        <div>
-            <h3 style="font-size: 18px; font-weight: bolder; margin: auto;">Selecciona el tipo de rol para usuario que vas a crear:</h3>
+            <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
         </div>
-        <div>
-            <div class="input-container">
-                <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                    <option value="manzana">Selecciona el tipo de rol</option>
-                    <option value="banana">Banana</option>
-                    <option value="uva">Uva</option>
-                    <option value="naranja">Naranja</option>
-                    <option value="pera">Pera</option>
-                </select>
-                <div class="underline"></div>
+
+        <div style="width: 100%; margin-top: 30px;">
+            <table class="table-fill">
+                <thead>
+                    <tr>
+                        <th class="text-left">Rol</th>
+                        <th class="text-left">Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover">
+                    <tr>
+                        <td class="text-left">SuperAdminstrador</td>
+                        <td class="text-left">Tendra a su disposcion todas las funciones, generacion de usuarios,
+                            permisos,
+                            vacaciones, gestion de cuentas, etc.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Funcionario</td>
+                        <td class="text-left"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left">Docente</td>
+                        <td class="text-left"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <section class="container3"
+                style="margin-top: 50px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+                <div>
+                    <h3 style="font-size: 18px; font-weight: bolder; margin: auto;">Selecciona el tipo de rol para
+                        usuario
+                        que
+                        vas a crear:</h3>
+                </div>
+                <div>
+                    <div class="input-container">
+                        <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                            <option value="manzana">Selecciona el tipo de rol</option>
+                            <option value="banana">Banana</option>
+                            <option value="uva">Uva</option>
+                            <option value="naranja">Naranja</option>
+                            <option value="pera">Pera</option>
+                        </select>
+                        <div class="underline"></div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
+                <button class="learn-more" style="margin-bottom: 40px; width: 50%;" onclick="registrar()">
+                    <span class="circle" aria-hidden="true">
+                        <span class="icon arrow"></span>
+                    </span>
+                    <span class="button-text">Registrar Nuevo Usuario</span>
+                </button>
             </div>
         </div>
-    </section>
-    
-
-    <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
-        <button class="learn-more" style="margin-bottom: 40px; width: 50%;">
-            <span class="circle" aria-hidden="true">
-                <span class="icon arrow"></span>
-            </span>
-            <span class="button-text">Registrar Nuevo Usuario</span>
-        </button>
     </div>
+</form>

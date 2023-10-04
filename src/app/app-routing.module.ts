@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'gestion', component: GestionComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: '**', redirectTo: 'gestion' },
-];
+ ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

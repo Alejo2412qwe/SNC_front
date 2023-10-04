@@ -1,15 +1,18 @@
-import { Persona } from "./persona.component";
-import { Rol } from "./rol.component";
+import { Persona } from "./persona";
+import { Rol } from "./rol";
 
 
 export class Usuario {
   usuId: number;
   usuNombreUsuario: string;
   usuContrasena: string;
+  usuCorreo: string;
   usuEstado: number;
   usuFechaRegistro: Date;
   usuPerId: Persona;
   rolId: Rol;
+  // insId: Institucion;
+  // funId: Funciones;
 
   constructor(
     usuId?: number,
@@ -18,7 +21,10 @@ export class Usuario {
     usuEstado?: number,
     usuFechaRegistro?: Date,
     usuPerId?: Persona,
-    rolId?: Rol
+    rolId?: Rol,
+    usuCorreo?: string,
+    // insId?:Institucion,
+    // funId?: Funciones,
   ) {
     this.usuId = usuId || 0;
     this.usuNombreUsuario = usuNombreUsuario || '';
@@ -27,5 +33,8 @@ export class Usuario {
     this.usuFechaRegistro = usuFechaRegistro || new Date();
     this.usuPerId = usuPerId || new Persona();
     this.rolId = rolId || new Rol();
+    this.usuCorreo = usuCorreo || '';
+    // this.insId= new Institucion();
+    // this.funId= new Funciones();
   }
 }
