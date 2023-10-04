@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from 'src/app/modelo/persona';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -17,5 +18,14 @@ export class RegistroComponent implements OnInit {
 
   registrar(): void {
     console.log('¡Registrado!');
+
+    Swal.fire({
+      title: 'Crear Nuevo Rol',
+      html:
+        '<input id="swal-input1" class="swal2-input" placeholder="Rol">',
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      cancelButtonText: 'Cancelar',
+    });
   }
 }
