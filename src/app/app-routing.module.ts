@@ -5,12 +5,14 @@ import { LoginComponent } from './modulos/login/login.component';
 import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
 import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
+import { RegistroComponent } from './modulos/registro/registro.component';
 
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
+  { path: 'registro', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: '**', redirectTo: 'gestion' },

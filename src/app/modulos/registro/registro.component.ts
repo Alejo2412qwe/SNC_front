@@ -8,15 +8,14 @@ import { Persona } from 'src/app/modelo/persona';
 })
 export class RegistroComponent implements OnInit {
 
+  persona: Persona = new Persona();
+
+  constructor() { }
+  
   ngOnInit(): void {
   }
 
-  persona: Persona = new Persona();
-
   registrar(): void {
-    console.log(this.persona)
+    console.log('¡Registrado!');
   }
-
-
-
 }
