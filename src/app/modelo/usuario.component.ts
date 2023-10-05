@@ -29,3 +29,4 @@ export class Usuario {
     this.rolId = rolId || new Rol();
   }
 }
+
