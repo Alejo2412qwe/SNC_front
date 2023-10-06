@@ -41,16 +41,16 @@
                     name="perFechaNacimiento" [(ngModel)]="persona.perFechaNacimiento">
                 <div class="underline"></div>
             </div>
-
             <div>
                 <div class="input-container">
                     <label for="name" class="name">PROVINCIA:</label>
-                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                        <option value="manzana">Selecciona tu Provincia</option>
-                        <option value="banana">Banana</option>
-                        <option value="uva">Uva</option>
-                        <option value="naranja">Naranja</option>
-                        <option value="pera">Pera</option>
+                    <select id="provincias" name="provincias" class="input2" style="color: #777;"
+                        (change)="mostrarProv()" [(ngModel)]="selectProvincia">
+                        <option value="0">Seleccione una Provincia</option>
+                        <option *ngFor="let provincia of listProvincias" [value]="provincia.proId">
+                            {{ provincia.proNombre }}
+                        </option>
+
                     </select>
                     <div class="underline"></div>
                 </div>
@@ -58,12 +58,12 @@
             <div>
                 <div class="input-container">
                     <label for="name" class="name">CIUDAD:</label>
-                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                        <option value="manzana">Selecciona tu Ciudad</option>
-                        <option value="banana">Banana</option>
-                        <option value="uva">Uva</option>
-                        <option value="naranja">Naranja</option>
-                        <option value="pera">Pera</option>
+                    <select id="ciudades" name="ciudades" class="input2" style="color: #777;">
+                        <option value="0">Selecciona tu Ciudad</option>
+                        <option *ngFor="let provincia of listProvincias" [value]="provincia.proId">
+                            {{ provincia.proNombre }}
+                        </option>
+
                     </select>
                     <div class="underline"></div>
                 </div>
@@ -73,7 +73,8 @@
             <div>
                 <div class="input-container">
                     <label for="name" class="name">TELÉFONO:</label>
-                    <input placeholder="Ingresa el número de teléfono" type="text" class="input">
+                    <input placeholder="Ingresa el número de teléfono" type="text" class="input" name="perTelefono"
+                        [(ngModel)]="persona.perTelefono">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -135,32 +136,7 @@
             <div class="underline"></div>
         </div>
     </div> -->
-            <div>
-                <div class="input-container">
-                    <label for="name" class="name">PROVINCIA:</label>
-                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                        <option value="manzana">Selecciona tu Provincia</option>
-                        <option value="banana">Banana</option>
-                        <option value="uva">Uva</option>
-                        <option value="naranja">Naranja</option>
-                        <option value="pera">Pera</option>
-                    </select>
-                    <div class="underline"></div>
-                </div>
-            </div>
-            <div>
-                <div class="input-container">
-                    <label for="name" class="name">CIUDAD:</label>
-                    <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                        <option value="manzana">Selecciona tu Ciudad</option>
-                        <option value="banana">Banana</option>
-                        <option value="uva">Uva</option>
-                        <option value="naranja">Naranja</option>
-                        <option value="pera">Pera</option>
-                    </select>
-                    <div class="underline"></div>
-                </div>
-            </div>
+
 
 
             <div>
@@ -244,9 +220,9 @@
                     </span>
                     <span class="button-text">Registrar Nuevo Usuario</span>
                 </button>
-                            
-                
-                
+
+
+
             </div>
         </div>
     </div>

@@ -10,6 +10,10 @@ import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
 import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 
 @NgModule({
   declarations: [
@@ -26,8 +30,15 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenExpirationInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

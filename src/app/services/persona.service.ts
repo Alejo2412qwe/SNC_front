@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, map, of } from 'rxjs';
-import { API_URL } from '../../assets/config//api-config';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService } from './session-storage.service'; // Importa SessionStorageService
 import { Persona } from '../modelo/persona';
+import { entorno } from '../enviroment/entorno';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonaServiceService {
-
-  private url: string = `${API_URL}/persona`
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
-  private token = this.sessionStorage.retrieve('token');
-
+export class PersonaService {
 
   constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
+
+  private url: string = `${entorno.urlPublica}/persona`
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
+  private token = this.sessionStorage.getItem('token');
+
+
 
   createPersona(persona: Persona): Observable<Persona> {
     // Construir el encabezado de autorización con el token JWT
