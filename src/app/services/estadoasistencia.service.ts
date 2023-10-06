@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EstadoAsistencia } from '../modelo/estadoasistencia';
 import { Observable } from 'rxjs';
-import { environment } from '../enviroment/entorno';
+import { entorno } from '../enviroment/entorno';
 
 export class EstadoAsistenciaService {
   constructor(private http: HttpClient) {}
@@ -10,7 +10,7 @@ export class EstadoAsistenciaService {
     estadoasistencia: EstadoAsistencia
   ): Observable<EstadoAsistencia> {
     return this.http.post<EstadoAsistencia>(
-      environment.apiuri + '/estadoasistencia/create',
+      entorno.urlPublica + '/estadoasistencia/create',
       estadoasistencia
     );
   }
