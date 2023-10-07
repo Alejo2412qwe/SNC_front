@@ -10,8 +10,8 @@ export class Provincia {
 
 
   ) {
-    this.proId = proId;
-    this.proNombre = proNombre;
+    this.proId = proId || 0;
+    this.proNombre = proNombre || 'Seleccione una Provincia';
 
 
   }

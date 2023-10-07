@@ -27,6 +27,6 @@ export class Persona {
     this.perDireccion = perDireccion || '';
     this.perTelefono = perTelefono || '';
     this.perFechaNacimiento = perFechaNacimiento || new Date();
-    this.ciuId = ciuId || new Ciudad()
+    this.ciuId = ciuId || new Ciudad(0, 'Seleccione una Ciudad')
   }
 }
