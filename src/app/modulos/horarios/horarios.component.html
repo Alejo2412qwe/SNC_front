@@ -1,0 +1,184 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU DE GESTION(HOME)</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+    <link rel="stylesgeet"
+        href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+</head>
+
+<body class="profile-page">
+    <nav class="navbar navbar-custom-bg navbar-color-on-scroll navbar-transparent navbar-expand-lg"
+        color-on-scroll="100" id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="/" target="_blank" style="font-size: 14px; padding-bottom: 50px;">
+                    <img src="assets/img/escudo.png" width="20%" alt="">
+                    Secretaria de Educacion Superior, Ciencia, Tecnologia e Innovación</a>
+                <button style="padding-top: 20px;" class="navbar-toggler" type="button" data-toggle="collapse"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="dropdown nav-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons">apps</i>Components
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-header header-filter" data-parallax="true"
+        style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
+
+        <div class="d-flex flex-column justify-content-center w-100 h-100">
+
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <h1 style="text-align: center;     margin-bottom: 170px;
+                width: 100%; font-size: 80px; color: white;">Horarios</h1>
+
+            </div>
+        </div>
+
+<!-- Agrega esta sección en tu HTML existente, dentro del div con class "container" -->
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Gestión de Horarios</h2>
+        
+        <!-- Formulario para agregar un nuevo horario -->
+        <form (submit)="agregarHorario()">
+            <div class="form-group">
+                <label for="numHoras">Número de Horas:</label>
+                <input type="text" id="numHoras" [(ngModel)]="nuevoHorario.horNumHoras" required>
+            </div>
+            <div class="form-group">
+                <label for="horaIngreso">Hora de Ingreso:</label>
+                <input type="text" id="horaIngreso" [(ngModel)]="nuevoHorario.horHoraIngreso" required>
+            </div>
+            <div class="form-group">
+                <label for="horaSalida">Hora de Salida:</label>
+                <input type="text" id="horaSalida" [(ngModel)]="nuevoHorario.horHoraSalida" required>
+            </div>
+            <div class="form-group">
+                <label for="horaAlmuerzoInicio">Hora de Inicio de Almuerzo:</label>
+                <input type="text" id="horaAlmuerzoInicio" [(ngModel)]="nuevoHorario.horHoraAlmuerzoInicio" required>
+            </div>
+            <div class="form-group">
+                <label for="horaAlmuerzoFin">Hora de Fin de Almuerzo:</label>
+                <input type="text" id="horaAlmuerzoFin" [(ngModel)]="nuevoHorario.horHoraAlmuerzoFin" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar Horario</button>
+        </form>
+        
+        <!-- Lista de horarios -->
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Número de Horas</th>
+                        <th>Hora de Ingreso</th>
+                        <th>Hora de Salida</th>
+                        <th>Hora de Inicio de Almuerzo</th>
+                        <th>Hora de Fin de Almuerzo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let horario of horarios | slice:paginaActual*5:paginaActual*5+5">
+                        <td>{{ horario.horNumHoras }}</td>
+                        <td>{{ horario.horHoraIngreso }}</td>
+                        <td>{{ horario.horHoraSalida }}</td>
+                        <td>{{ horario.horHoraAlmuerzoInicio }}</td>
+                        <td>{{ horario.horHoraAlmuerzoFin }}</td>
+                        <td>
+                            <button class="btn btn-info" (click)="editarHorario(horario)">Editar</button>
+                            <button class="btn btn-danger" (click)="eliminarHorario(horario)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Paginación -->
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" *ngFor="let i of paginas" [class.active]="i === paginaActual">
+                    <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Búsqueda por fecha -->
+        <div class="form-group">
+            <label for="buscarFecha">Buscar por Fecha:</label>
+            <input type="date" id="buscarFecha" [(ngModel)]="fechaBusqueda">
+            <button class="btn btn-primary" (click)="buscarPorFecha()">Buscar</button>
+        </div>
+    </div>
+</div>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <h6>Pagina</h6>
+                    <p class="text-justify">Senescyt - Secretaria de Educación Superior, Ciencia, Tecnologia e
+                        Innovacion</p>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
+                        <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
+                        <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3">
+                    <h6>Contactos</h6>
+                    <ul class="footer-links">
+                        <p>(07) 408-3574</p>
+                        <li><a href="http://scanfcode.com/about/">Avenida España 912, Cuenca 010102</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 col-xs-12">
+                    <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
+                        <a href="#">Scanfcode</a>.
+                    </p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="https://www.facebook.com/EduSuperiorEc/"><i
+                                    class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="https://twitter.com/senescyt?lang=es"><i
+                                    class="fa fa-twitter"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
