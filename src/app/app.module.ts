@@ -31,8 +31,8 @@ import { TokenExpirationInterceptor } from './enviroment/TokenExpirationIntercep
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

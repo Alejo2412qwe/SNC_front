@@ -17,7 +17,6 @@ export class GestionComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpYXQiOjE2OTY2MzgzMzgsImV4cCI6MTY5NjcyNDczOH0.hxLG_kOLcb1LuRS0c5IIArGLWf1SuZebc2aIymkchVM');
 
   }
 
