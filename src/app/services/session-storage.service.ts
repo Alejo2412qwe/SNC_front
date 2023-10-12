@@ -23,4 +23,9 @@ export class SessionStorageService {
   removeItem(key: string): void {
     sessionStorage.removeItem(key);
   }
+
+  // Método para eliminar todos los elementos de sessionStorage
+  clear(): void {
+    sessionStorage.clear();
+  }
 }

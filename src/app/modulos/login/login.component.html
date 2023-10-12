@@ -15,9 +15,11 @@
                     <div class="form-container sign-in-container">
                         <form action="#">
                             <h1 style="margin-bottom: 20px;">INICIAR SESIÓN</h1>
-                            <input type="email" placeholder="Ingresa tu Número de Cedula" />
-                            <input type="password" placeholder="Ingresa tu Contraseña" />
-                            <button style="margin-top: 20px;">Iniciar Sesión</button>
+                            <input type="email" placeholder="Ingrese su nombre de usuario" name="usuNombreUsuario"
+                                [(ngModel)]="loginRequest.usuNombreUsuario" />
+                            <input type="password" placeholder="Ingrese su contraseña" name="usuContrasena"
+                                [(ngModel)]="loginRequest.usuContrasena" />
+                            <button style="margin-top: 20px;" (click)="logIn()">Iniciar Sesión</button>
                         </form>
                     </div>
                     <div class="overlay-container">
@@ -28,8 +30,9 @@
                                 <button class="ghost" id="signIn">Iniciar Sesion</button>
                             </div>
                             <div class="overlay-panel overlay-right">
-                                <img style="display: inline-block; margin: 0 auto; margin-bottom: 30px;" src="assets/img/senescyt.png" alt="" width="70%">
-    
+                                <img style="display: inline-block; margin: 0 auto; margin-bottom: 30px;"
+                                    src="assets/img/senescyt.png" alt="" width="70%">
+
                                 <h1>¿Olvidaste tu Contraseña?</h1>
                                 <p>Accede para recuperarla</p>
                                 <button class="ghost" id="signUp">Recuperar Contraseña</button>
@@ -40,5 +43,5 @@
             </div>
         </div>
     </section>
-    
+
 </div>

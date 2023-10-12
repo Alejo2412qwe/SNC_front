@@ -6,7 +6,15 @@ import { SessionStorageService } from '../../services/session-storage.service'; 
 import { Provincia } from 'src/app/modelo/provincia';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { Router } from '@angular/router';
-
+import { Ciudad } from 'src/app/modelo/ciudad';
+import { CiudadService } from 'src/app/services/ciudad.service';
+import { PersonaService } from 'src/app/services/persona.service';
+import { Usuario } from 'src/app/modelo/usuario';
+import { Rol } from 'src/app/modelo/rol';
+import { RolService } from 'src/app/services/rol.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { validarLetras, validarNumeros, validarLetrasNum, validarCedula, calcularEdad, validarCorreo } from 'src/app/common/validaciones';
+import { Observable, map } from 'rxjs';
 
 
 @Component({
@@ -17,51 +25,334 @@ import { Router } from '@angular/router';
 export class RegistroComponent implements OnInit {
 
   constructor(private sessionStorage: SessionStorageService,
-    private router: Router, private toastr: ToastrService, private provinciaService: ProvinciaService
+    private router: Router, private toastr: ToastrService,
+    //SERVICES
+    private provinciaService: ProvinciaService, private ciudadService: CiudadService,
+    private personaService: PersonaService, private rolService: RolService, private usuarioService: UsuarioService
   ) { }
 
 
 
 
-  //Objetos
+  //OBJETOS
   persona: Persona = new Persona();
-  selectProvincia: Provincia = new Provincia(0, 'Seleccione una Provincia');
-  listProvincias: Provincia[] = []; // Inicializa provincias como un array vacío
+  usuario: Usuario = new Usuario();
+  selectProvincia: Provincia = new Provincia();
+  selectRol: Rol = new Rol();
+
+  //VARIABLES
+  confirmarPass: string = '';
+  timeToastr: number = 4000;
+  edadMinima = 18;
+
+  //LISTAS
+  listProvincias: Provincia[] = [];
+  listCiudades: Ciudad[] = [];
+  listRoles: Rol[] = [];
 
   ngOnInit(): void {
-    // console.log(this.sessionStorage.getItem('token'))
+    this.cargarRoles();
     this.cargarProvincias()
+  }
+
+  cargarRoles() {
+    this.rolService.getAllRoles().subscribe(
+      response => {
+        this.listRoles = response; // Asigna los datos al array provincias
+      }
+    );
   }
 
   cargarProvincias() {
     this.provinciaService.getAllProvincias().subscribe(
       response => {
-        console.log(response);
         this.listProvincias = response; // Asigna los datos al array provincias
       }
     );
   }
 
+  cargarCiudades() {
+    this.listCiudades = [];
 
-  mostrarProv() {
-    alert(this.selectProvincia)
+
+    if (this.selectProvincia !== undefined && this.selectProvincia.proId !== undefined) {
+      const proId = this.selectProvincia.proId as number; // Realiza un type casting a number
+      this.ciudadService.getCiudadByProv(proId).subscribe(
+        response => {
+          this.listCiudades = response; // Asigna los datos al array provincias
+        }
+      );
+
+
+    }
   }
 
-  registrar(): void {
-    // Recupera el token de SessionStorage
-    // const token = this.sessionStorage.retrieve('miToken');
 
-    console.log('¡Registrado! ' + JSON.stringify(this.persona));
-    // console.log('Token: ' + token); // Imprime el token en la consola
+  designarRol(): boolean {
 
-    Swal.fire({
-      title: 'Crear Nuevo Rol',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Rol">',
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-      cancelButtonText: 'Cancelar',
-    });
+    const rolEncontrado = this.listRoles.find((rol) => rol.rolId.toString() === this.usuario.rolId?.rolId.toString());
+
+
+    if (rolEncontrado) {
+      this.usuario.rolId = rolEncontrado;
+      // console.log(this.usuario.rolId)
+      return true
+    } else {
+      // Manejar el caso en el que no se encontró un rol
+      console.log('No se encontró un rol con el ID correspondiente.');
+      return false;
+    }
+
   }
 
+  registrar() {
+
+
+    if (this.validarRegistro()) {
+      this.personaService.cedulaUnica(this.persona.perCedula?.trim() || '').subscribe(
+        (response => {
+          if (response) {
+            this.usuarioService.usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '').subscribe(
+              (res => {
+                if (res) {
+
+                  const rolEncontrado = this.listRoles.find((rol) => rol.rolId.toString() === this.usuario.rolId?.rolId.toString());
+                  if (rolEncontrado) {
+                    this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+                    // console.log(this.usuario.rolId)
+                    console.log(this.usuario.rolId)
+
+                    //REGISTRAR PERSONA
+                    this.personaService.registrarPersona(this.persona).subscribe(
+                      response => {
+
+                        this.usuario.usuEstado = 1;
+                        this.usuario.usuPerId = response;
+
+
+                        //RESGISTRAR USUARIO
+                        this.usuarioService.registrarUsuario(this.usuario).subscribe(
+                          response => {
+                            Swal.fire({
+                              title: '¡Registro Exitoso!',
+                              text: response.rolId + ' agregado correctamente',
+                              icon: 'success',
+                              confirmButtonText: 'Confirmar',
+                              showCancelButton: false, // No mostrar el botón de cancelar
+                            }).then(() => {
+                              this.limpiarRegistro();
+                            });
+                          }
+
+                        )
+
+                      }
+                    )
+
+
+                    // return true
+                  }
+
+                } else {
+                  this.toastr.error('El nombre de usuario que ingresaste ya se encuentra registrado', 'Usuario duplicado', {
+                    timeOut: this.timeToastr
+                  });
+                }
+
+
+
+              })
+            );
+
+          } else {
+            this.toastr.error('La cédula que ingresaste ya se encuantra registrada', 'Cédula duplicada', {
+              timeOut: this.timeToastr
+            });
+          }
+
+
+        })
+      );
+
+
+    }
+  }
+
+
+
+  validarRegistro(): boolean {
+
+
+
+    //CEDULA
+    if (!this.persona.perCedula) {
+      this.toastr.error('Cedula es un campo obligatorio', 'Ingrese un numero de identificación', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    } else {
+      if (!validarCedula(this.persona.perCedula)) {
+
+        this.toastr.error('Digite correctamente su numero de identificación', 'Cedula invalido', {
+          timeOut: this.timeToastr
+        });
+        return false;
+      }
+    }
+
+
+
+    //NOMBRES
+    if (!this.persona.perNombre) {
+      this.toastr.error('Nombre es un campo obligatorio', 'Ingrese los nombres del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //APELLIDOS
+    if (!this.persona.perApellido) {
+      this.toastr.error('Apellido es un campo obligatorio', 'Ingrese los apellidos del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //FECHA DE NACIMIENTO
+    if (calcularEdad(this.persona.perFechaNacimiento) < this.edadMinima) {
+      this.toastr.error('Debe ser mayor de edad para registrarse', '', {
+        timeOut: 3000
+      });
+      return false;
+
+    }
+
+    //PROVINCIA
+    if (this.selectProvincia.proId <= 0) {
+      this.toastr.error('Provincia es un campo obligatorio', 'Seleccione una provincia', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //CIUDAD
+    if (this.persona.ciuId.ciuId <= 0) {
+      this.toastr.error('Ciudad es un campo obligatorio', 'Seleccione una ciudad', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //TELEFONO
+    if (!this.persona.perTelefono) {
+      this.toastr.error('Teléfono es un campo obligatorio', 'Ingrese el teléfono del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //DIRECCION
+    if (!this.persona.perDireccion) {
+      this.toastr.error('Dirección es un campo obligatorio', 'Ingrese la dirección del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //NOMBRE DE USUARIO
+    if (!this.usuario.usuNombreUsuario) {
+      this.toastr.error('Nombre de usuario es un campo obligatorio', 'Ingrese un nombre de usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    // CORREO ELECTRONICO
+
+
+    if (!this.usuario.usuCorreo) {
+      this.toastr.error('Correo es un campo obligatorio', 'Ingrese el correo del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    } else {
+      if (!validarCorreo(this.usuario.usuCorreo)) {
+        this.toastr.error('Digite correctamente el correo electronico', 'Correo invalido', {
+          timeOut: this.timeToastr
+        });
+        return false;
+      }
+    }
+
+
+
+    //CONTRASEÑA
+    if (!this.usuario.usuContrasena) {
+      this.toastr.error('Contraseña es un campo obligatorio', 'Ingrese la contraseña del usuario', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    //CONFIRMACION DE CONTRASEÑA
+
+    if (!this.confirmarPass) {
+      this.toastr.error('Es obligatorio confirmar la contraseña', 'Confirme la contraseña', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    } else {
+      if (this.usuario.usuContrasena !== this.confirmarPass) {
+        this.toastr.error('Las contraseñas no coinciden, digite correctamente', 'La contraseñá no coincide', {
+          timeOut: this.timeToastr
+        });
+
+        return false;
+      }
+    }
+
+    //ROL
+    if (this.usuario.rolId.rolId <= 0) {
+      this.toastr.error('Debe seleccionar el rol del usuario', 'Seleccione el rol', {
+        timeOut: this.timeToastr
+      });
+
+      return false;
+    }
+
+    return true;
+
+  }
+
+
+  limpiarRegistro() {
+    this.usuario = new Usuario();
+    this.persona = new Persona();
+    this.listCiudades = [];
+    this.selectProvincia = new Provincia();
+    this.confirmarPass = '';
+  }
+
+  /// RESTRICCION DE TECLAS
+  validarLetras(event: KeyboardEvent) {
+    validarLetras(event);
+  }
+  validarNumeros(event: KeyboardEvent) {
+    validarNumeros(event);
+  }
+  validarLetrasNum(event: KeyboardEvent) {
+    validarLetrasNum(event);
+  }
 
 }
