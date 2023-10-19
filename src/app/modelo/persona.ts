@@ -7,7 +7,7 @@ export class Persona {
   perApellido?: string;
   perDireccion?: string;
   perTelefono?: string;
-  perFechaNacimiento?: Date;
+  perFechaNacimiento: Date;
   ciuId: Ciudad;
 
   constructor(

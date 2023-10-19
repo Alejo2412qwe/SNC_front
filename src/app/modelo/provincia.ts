@@ -1,5 +1,5 @@
 export class Provincia {
-  proId?: number;
+  proId: number;
   proNombre?: string;
 
 

@@ -1,13 +1,13 @@
 import { Provincia } from "./provincia";
 
 export class Ciudad {
-    ciuId?: number;
+    ciuId: number;
     ciuNombre?: string;
     proId?: Provincia;
 
 
     constructor(
-        ciuId?: number,
+        ciuId: number,
         ciuNombre?: string,
         proId?: Provincia,
 

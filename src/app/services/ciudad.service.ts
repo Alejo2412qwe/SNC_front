@@ -11,15 +11,15 @@ export class CiudadService {
 
   constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
 
-  private url: string = `${entorno.urlPublica}/ciudad`
+  private url: string = `${entorno.urlPrivada}/ciudad`
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' })
-  private token = this.sessionStorage.getItem('token');
+  // private token = this.sessionStorage.getItem('token')
 
   getCiudadByProv(idProv: number) {
 
     // Construir el encabezado de autorización
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
     });
 
     // Realiza la solicitud HTTP con el encabezado de autorización

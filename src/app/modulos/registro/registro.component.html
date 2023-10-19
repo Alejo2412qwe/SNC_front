@@ -33,7 +33,7 @@
                 <div class="input-container">
                     <label for="name" class="name">CEDULA:</label>
                     <input placeholder="Ingresa el CI del Usuario" type="text" class="input" name="perCedula"
-                        [(ngModel)]="persona.perCedula">
+                        (keydown)="validarNumeros($event)" [(ngModel)]="persona.perCedula">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <div class="input-container">
                     <label for="name" class="name">NOMBRES:</label>
                     <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input" name="perNombre"
-                        [(ngModel)]="persona.perNombre">
+                        (keydown)="validarLetras($event)" [(ngModel)]="persona.perNombre">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="input-container">
                     <label for="name" class="name">APELLIDOS:</label>
                     <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input2" name="perApellido"
-                        [(ngModel)]="persona.perApellido">
+                        (keydown)="validarLetras($event)" [(ngModel)]="persona.perApellido">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                 <div class="input-container">
                     <label for="name" class="name">TELÉFONO:</label>
                     <input placeholder="Ingresa el número de teléfono" type="text" class="input" name="perTelefono"
-                        [(ngModel)]="persona.perTelefono">
+                        (keydown)="validarNumeros($event)" [(ngModel)]="persona.perTelefono">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 <div class="input-container">
                     <label for="name" class="name">DIRECCION:</label>
                     <input placeholder="Ingresa la direccion del domicilio" type="text" class="input"
-                        name="perDireccion" [(ngModel)]="persona.perDireccion">
+                        (keydown)="validarLetrasNum($event)" name="perDireccion" [(ngModel)]="persona.perDireccion">
                     <div class="underline"></div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 <div class="input-container">
                     <label for="name" class="name">NOMBRE DE USUARIO: *</label>
                     <input placeholder="Ingresar un Nombre de Usuario" type="text" class="input" name="usuNombreUsuario"
-                        [(ngModel)]="usuario.usuNombreUsuario">
+                        (keydown)="validarLetrasNum($event)" [(ngModel)]="usuario.usuNombreUsuario">
                     <div class="underline"></div>
                 </div>
             </div>
