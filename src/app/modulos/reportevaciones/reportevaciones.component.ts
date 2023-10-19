@@ -12,7 +12,7 @@ export class ReportevacionesComponent implements OnInit {
     AllScripts.Cargar(["reportes"]);
   }
   ngOnInit(): void {
-
+    
 
   }
 
