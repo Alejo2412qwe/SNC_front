@@ -909,3 +909,18 @@ thead tr:nth-child(1) th {
     box-shadow: #99120d 0 3px 7px inset;
     transform: translateY(2px);
    }
+
+   @media only screen and (max-width:988px) {
+
+    .containertabla {
+        margin-top: 50px;
+        display: inline;
+        grid-template-columns: 23.3% 23.3% 23.3% 30%;
+        grid-template-rows: 2fr;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        justify-items: stretch;
+        align-items: stretch;
+    }
+
+}
