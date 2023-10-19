@@ -1,27 +1,57 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { SessionStorageService } from './session-storage.service'; // Importa SessionStorageService
+import { Horarios } from '../modelo/horario';
+import { entorno } from '../enviroment/entorno';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HorarioService {
-  private baseUrl = 'URL_DEL_BACKEND'; // Reemplaza por la URL de tu backend
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
+
+  private url: string = `${entorno.urlPublica}/horarios`
+  private token = this.sessionStorage.getItem('token');
+
 
   getHorarios() {
-    return this.http.get(this.baseUrl + '/horarios');
+    return this.http.get<Horarios[]>(this.url + '/horarios');
   }
 
-  agregarHorario(horario: any) {
-    return this.http.post(this.baseUrl + '/horarios', horario);
+  agregarHorario(horario: Horarios): Observable<Horarios> {
+
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.post<Horarios>(`${this.url}/create`, horario, { headers });
+
   }
 
-  actualizarHorario(id: number, horario: any) {
-    return this.http.put(this.baseUrl + `/horarios/${id}`, horario);
+  actualizarHorario(id: number, horario: Horarios): Observable<Horarios> {
+
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+
+    return this.http.put<Horarios>(`${this.url}/update/${id}`, horario, {headers});
+
   }
 
   eliminarHorario(id: number) {
-    return this.http.delete(this.baseUrl + `/horarios/${id}`);
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+    });
+
+    return this.http.delete(`${this.url}/delete/${id}`);
   }
+
 }
