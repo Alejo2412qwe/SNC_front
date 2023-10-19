@@ -6,7 +6,11 @@ import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
 import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
+
 import { HorariosComponent } from './modulos/horarios/horarios.component';
+
+import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
+
 
 const routes: Routes = [
 
@@ -15,6 +19,7 @@ const routes: Routes = [
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
+  { path: 'listausu', component: ListausuariosComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   {path:  'horarios', component:HorariosComponent },
   { path: '**', redirectTo: 'gestion' },

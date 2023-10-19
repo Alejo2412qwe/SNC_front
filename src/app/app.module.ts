@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { HorariosComponent } from './modulos/horarios/horarios.component';
+import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { HorariosComponent } from './modulos/horarios/horarios.component';
     GestionComponent,
     ReportevacionesComponent,
     VacacionesComponent,
-    HorariosComponent
+    HorariosComponent,
+    ListausuariosComponent,
   ],
   imports: [
     BrowserModule,
