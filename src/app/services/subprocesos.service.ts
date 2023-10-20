@@ -10,6 +10,7 @@ export class SuprocesosService {
     private sessionStorage: SessionStorageService
   ) {}
 
+  private url: string = `${entorno.urlPrivada}/subprocesos`
   public saveSubprocesos(subprocesos: Subprocesos): Observable<Subprocesos> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
@@ -17,7 +18,7 @@ export class SuprocesosService {
     });
 
     return this.http.post<Subprocesos>(
-      entorno.urlPublica + '/subprocesos/create',
+       `${this.url}/create`,
       subprocesos,
       { headers }
     );

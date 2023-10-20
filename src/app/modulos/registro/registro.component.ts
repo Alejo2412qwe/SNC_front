@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Persona } from 'src/app/modelo/persona';
-import Swal from 'sweetalert2';
-import { ToastrService } from 'ngx-toastr';
-import { SessionStorageService } from '../../services/session-storage.service'; // Importa SessionStorageService
-import { Provincia } from 'src/app/modelo/provincia';
-import { ProvinciaService } from 'src/app/services/provincia.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { validarCedula, calcularEdad, validarCorreo, validarLetras, validarNumeros, validarLetrasNum } from 'src/app/common/validaciones';
 import { Ciudad } from 'src/app/modelo/ciudad';
+import { Persona } from 'src/app/modelo/persona';
+import { Procesos } from 'src/app/modelo/procesos';
+import { Provincia } from 'src/app/modelo/provincia';
+import { Rol } from 'src/app/modelo/rol';
+import { Subprocesos } from 'src/app/modelo/subprocesos';
+import { Usuario } from 'src/app/modelo/usuario';
 import { CiudadService } from 'src/app/services/ciudad.service';
 import { PersonaService } from 'src/app/services/persona.service';
-import { Usuario } from 'src/app/modelo/usuario';
-import { Rol } from 'src/app/modelo/rol';
+import { ProcesosService } from 'src/app/services/procesos.service';
+import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { SuprocesosService } from 'src/app/services/subprocesos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { validarLetras, validarNumeros, validarLetrasNum, validarCedula, calcularEdad, validarCorreo } from 'src/app/common/validaciones';
-import { Observable, map } from 'rxjs';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -28,7 +32,7 @@ export class RegistroComponent implements OnInit {
     private router: Router, private toastr: ToastrService,
     //SERVICES
     private provinciaService: ProvinciaService, private ciudadService: CiudadService,
-    private personaService: PersonaService, private rolService: RolService, private usuarioService: UsuarioService
+    private personaService: PersonaService, private rolService: RolService, private usuarioService: UsuarioService,private suprocesosService:SuprocesosService,private procesoService:ProcesosService
   ) { }
 
 
@@ -39,6 +43,8 @@ export class RegistroComponent implements OnInit {
   usuario: Usuario = new Usuario();
   selectProvincia: Provincia = new Provincia();
   selectRol: Rol = new Rol();
+  subproceso:Subprocesos = new Subprocesos();
+  proceso:Procesos = new Procesos();
 
   //VARIABLES
   confirmarPass: string = '';
@@ -356,21 +362,56 @@ export class RegistroComponent implements OnInit {
     Swal.fire({
       title: 'Crear Nuevo Proceso',
       html:
-        '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona">',
+        '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
-    });
+    }).then((result) =>{
+      if(result.isConfirmed){
+        this.procesoService.saveProcesos(this.proceso).subscribe(
+          response =>{
+            this.proceso = response
+            Swal.fire({
+              title: '¡Registro Exitoso!',
+              text: response.procNombre + ' agregado correctamente',
+              icon: 'success',
+              confirmButtonText: 'Confirmar',
+              showCancelButton: false, // No mostrar el botón de cancelar
+            })
+          }
+        )
+      }else if(result.isDenied){
+        console.log('denegado')
+      }
+    });;
   }
 
   crearSubproceso() {
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
       html:
-        '<input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
+        '<input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento" [(ngModel)]="subproceso.subNombre">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
+    }).then((result) =>{
+      if(result.isConfirmed){
+        this.suprocesosService.saveSubprocesos(this.subproceso).subscribe(
+          response =>{
+            this.subproceso = response
+            this.subproceso.procId.procId = response.procId.procId
+            Swal.fire({
+              title: '¡Registro Exitoso!',
+              text: response.subNombre + ' agregado correctamente',
+              icon: 'success',
+              confirmButtonText: 'Confirmar',
+              showCancelButton: false, // No mostrar el botón de cancelar
+            })
+          }
+        )
+      }else if(result.isDenied){
+        console.log('denegado')
+      }
     });
   }
 
@@ -395,6 +436,11 @@ export class RegistroComponent implements OnInit {
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
     });
+  }
+
+  visible?:boolean;
+  showDialogCrearProcesos(){
+    this.visible = true;
   }
 }
 
