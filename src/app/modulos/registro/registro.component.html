@@ -73,7 +73,23 @@
         </div>
         <div>
             <div class="input-container">
-                <label for="name" class="name">PROCESO:</label>
+                <label for="name" class="name">INSTITUCION:</label>
+                <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                    <option value="manzana">Selecciona tu institucion</option>
+                    <option value="banana">Banana</option>
+                    <option value="uva">Uva</option>
+                    <option value="naranja">Naranja</option>
+                    <option value="pera">Pera</option>
+                </select>
+                <div class="underline"></div>
+            </div>
+            <div>
+                <button class="flot" (click)="crearInstituto()">CREAR NUEVA INSTITUCION</button>
+              </div>
+        </div>
+        <div>
+            <div class="input-container">
+                <label for="name" class="name">PROCESO - ZONA:</label>
                 <select id="frutas" name="frutas" class="input2" style="color: #777;">
                     <option value="manzana">Selecciona tu Provincia</option>
                     <option value="banana">Banana</option>
@@ -81,24 +97,52 @@
                     <option value="naranja">Naranja</option>
                     <option value="pera">Pera</option>
                 </select>
+                <div class="underline"></div>
+            </div>
+            <div>
+                <button class="flot" (click)="crearProceso()">CREAR NUEVO PROCESO - ZONA</button>
+              </div>
+        </div>
+        <div>
+            <div class="input-container">
+                <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
+                <select id="frutas" name="frutas" class="input2" style="color: #777;">
+                    <option value="manzana">Selecciona tu Provincia</option>
+                    <option value="banana">Banana</option>
+                    <option value="uva">Uva</option>
+                    <option value="naranja">Naranja</option>
+                    <option value="pera">Pera</option>
+                </select>
+                <div class="underline"></div>
+            </div>
+            <div>
+                <button class="flot" (click)="crearSubproceso()">CREAR NUEVO SUBPROCESO - DEPARTAMENTO</button>
+              </div>
+        </div>
+    </section>
+
+    <div style="width: 100%; margin-top: 20px; margin-bottom: 50px;">
+        <h1 style="text-align: center; font-weight: bolder; ">Datos del Usuario</h1>
+    </div>
+
+    <section class="layout4">
+        <div>
+            <div class="input-container">
+                <label for="name" class="name" data-tooltip="Ingrese su nombre">CORREO:</label>
+                <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input">
                 <div class="underline"></div>
             </div>
         </div>
         <div>
             <div class="input-container">
-                <label for="name" class="name">SUBPROCESO:</label>
-                <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                    <option value="manzana">Selecciona tu Provincia</option>
-                    <option value="banana">Banana</option>
-                    <option value="uva">Uva</option>
-                    <option value="naranja">Naranja</option>
-                    <option value="pera">Pera</option>
-                </select>
+                <label for="name" class="name" data-tooltip="Ingrese su nombre">CONTRASEÑA:</label>
+                <input placeholder="Ingresa el Nombre del Usuario" type="password" class="input">
                 <div class="underline"></div>
             </div>
         </div>
-    </section>
 
+          
+    </section>
     <div class="containerrol">
         <div>
             <section class="container3" style="margin-top: 50px;">
@@ -115,6 +159,9 @@
                         </select>
                         <div class="underline"></div>
                     </div>
+                    <div>
+                        <button class="flot" (click)="crearRol()">CREAR NUEVA INSTITUCION</button>
+                      </div>
                 </div>
             </section>
 
@@ -158,4 +205,5 @@
         </div>
     </div>
 </body>
+
 </html>
