@@ -801,6 +801,57 @@ body {
     box-shadow: 2px 2px 0px rgb(33, 92, 24);
 }
 
+/* BOTON DE CREAR PERSONA */
+
+.Btn3 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    height: 50px;
+    border: none;
+    padding: 0px 20px;
+    background-color: #C08261;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: rgba(208, 167, 70, 0.5) 0 10px 20px;
+    transition-duration: .3s;
+    margin-top: 7px;
+}
+
+.svg {
+    width: 13px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    fill: white;
+    transition-duration: .3s;
+}
+
+.Btn3:hover {
+    color: transparent;
+    background-color: #C08261;
+    box-shadow: rgba(28, 95, 27, 0.5) 0 10px 20px;
+}
+
+.Btn3:hover svg {
+    right: 47%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition-duration: .3s;
+}
+
+.Btn3:active {
+    transform: translate(3px, 3px);
+    transition-duration: .3s;
+    box-shadow: 2px 2px 0px rgba(173, 137, 26, 0.781);
+}
+
+
 /* TABLA RESPONSIVE */
 
 .table-responsive {
