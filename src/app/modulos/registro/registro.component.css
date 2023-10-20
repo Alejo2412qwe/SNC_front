@@ -946,6 +946,18 @@ label {
   outline: none;
 }
 
+
+.input[type="date"] {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  color: #333;
+  width: 100%;
+  outline: none;
+}
+
 .input2 {
   padding: 10px;
   font-size: 16px;
