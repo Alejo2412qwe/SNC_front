@@ -41,5 +41,14 @@ export class PersonaService {
   }
 
 
+  getPersonas(): Observable<Persona[]> {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    return this.http.get(this.url + "/listar").pipe(map(response => response as Persona[]));
+  }
+
 
 }

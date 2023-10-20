@@ -107,7 +107,6 @@ export class RegistroComponent implements OnInit {
 
   registrar() {
 
-
     if (this.validarRegistro()) {
       this.personaService.cedulaUnica(this.persona.perCedula?.trim() || '').subscribe(
         (response => {
@@ -181,8 +180,6 @@ export class RegistroComponent implements OnInit {
 
 
   validarRegistro(): boolean {
-
-
 
     //CEDULA
     if (!this.persona.perCedula) {
