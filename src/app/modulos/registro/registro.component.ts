@@ -429,6 +429,7 @@ export class RegistroComponent implements OnInit {
         confirmButtonText: 'Confirmar',
         showCancelButton: false, // No mostrar el botón de cancelar
       });
+      this.toastr.success('SE HA CREADO EL PROCESO', 'REGISTRO ÉXITOSO');
     });
   }
 
@@ -462,6 +463,7 @@ export class RegistroComponent implements OnInit {
           confirmButtonText: 'Confirmar',
           showCancelButton: false, // No mostrar el botón de cancelar
         });
+        this.toastr.success('SE HA CREADO EL SUBPROCESO', 'REGISTRO ÉXITOSO');
       });
   }
 
