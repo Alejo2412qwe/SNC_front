@@ -3,7 +3,11 @@ import { Observable } from 'rxjs';
 import { entorno } from '../enviroment/entorno';
 import { Subprocesos } from '../modelo/subprocesos';
 import { SessionStorageService } from './session-storage.service';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class SuprocesosService {
   constructor(
     private http: HttpClient,

@@ -421,7 +421,6 @@ export class RegistroComponent implements OnInit {
 
   saveProceso() {
     this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
-      this.proceso = data;
       this.cargarProcesos();
       Swal.fire({
         title: '¡Registro Exitoso!',
@@ -430,7 +429,6 @@ export class RegistroComponent implements OnInit {
         confirmButtonText: 'Confirmar',
         showCancelButton: false, // No mostrar el botón de cancelar
       });
-      this.toastr.success('SE HA CREADO EL PROCESO', 'REGISTRO ÉXITOSO');
     });
   }
 
@@ -446,7 +444,7 @@ export class RegistroComponent implements OnInit {
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
         this.proceso.procNombre = this.newProceso;
-        this.saveSubproceso();
+        this.saveProceso();
         this.cargarProcesos();
       },
     });
@@ -456,7 +454,6 @@ export class RegistroComponent implements OnInit {
     this.suprocesosService
       .saveSubprocesos(this.subproceso)
       .subscribe((data) => {
-        this.subproceso = data;
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.subNombre + ' agregado correctamente',
@@ -464,14 +461,13 @@ export class RegistroComponent implements OnInit {
           confirmButtonText: 'Confirmar',
           showCancelButton: false, // No mostrar el botón de cancelar
         });
-        this.toastr.success('SE HA CREADO EL SUBPROCESO', 'REGISTRO ÉXITOSO');
       });
   }
 
   openCrearSubproceso() {
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
+      html: ' <select id="swal-input2" class="swal2-select" [(ngModel)]="proceso.procNombre"><option value="0">Selecciona el proceso</option> <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">{{ proceso.procNombre }}</option><input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
