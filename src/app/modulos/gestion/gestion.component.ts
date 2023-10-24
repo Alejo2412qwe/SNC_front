@@ -16,6 +16,12 @@ export class GestionComponent implements OnInit {
     AllScripts.Cargar(["side"]);
 
   }
+
+  cerrarSesion(): void {
+    localStorage.removeItem('userData');
+
+  }
+  
   ngOnInit(): void {
 
   }
