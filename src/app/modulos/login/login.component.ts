@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +32,29 @@ export class LoginComponent implements OnInit {
 
   loginRequest: LoginRequest = new LoginRequest();
 
+  decodeToken(token: string) {
+    try {
+      const decodedToken: any = jwt_decode(token);
+      if (decodedToken) {
 
+        const rol = decodedToken['rol']; // Accede a la reclamación "rol"
+        this.sessionStorage.setItem('rol', rol[0].authority);
+        // console.log("rol= " + this.sessionStorage.getItem('rol'))
+
+        const username = decodedToken['sub']; // Accede a la reclamación "sub"
+        this.sessionStorage.setItem('username', username);
+        // console.log("username= " + this.sessionStorage.getItem('username'))
+
+        return
+      } else {
+        console.error("Token inválido o no contiene información de rol.");
+        return
+      }
+    } catch (error) {
+      console.error("Error al decodificar el token:", error);
+      return
+    }
+  }
 
   logIn() {
     this.usuarioService.usuarioValido(this.loginRequest.usuNombreUsuario?.trim() || '').subscribe(
@@ -41,6 +64,7 @@ export class LoginComponent implements OnInit {
             response => {
               if (response) {
                 this.sessionStorage.setItem('token', response.token);
+                this.decodeToken(response.token);
 
                 Swal.fire({
                   title: '¡LogIn exitoso!',

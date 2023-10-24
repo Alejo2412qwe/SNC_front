@@ -951,10 +951,14 @@ td::-webkit-scrollbar-track {
     transform: translateY(2px);
 }
 
+.svgTbl {
+    fill: white;
+}
+
 .button-name2 {
     align-items: center;
     appearance: none;
-    background-color: #b04343;
+    background-color: #c51d1d;
     border-radius: 4px;
     border-width: 0;
     box-sizing: border-box;
@@ -1013,36 +1017,36 @@ td::-webkit-scrollbar-track {
 .cta {
     border: none;
     background: none;
-  }
-  
-  .cta span {
+}
+
+.cta span {
     padding-bottom: 7px;
     letter-spacing: 4px;
     font-size: 13px;
     padding-right: 15px;
     text-transform: uppercase;
-  }
-  
-  .cta svg {
+}
+
+.cta svg {
     transform: translateX(-8px);
     transition: all 0.3s ease;
-  }
-  
-  .cta:hover svg {
+}
+
+.cta:hover svg {
     transform: translateX(0);
-  }
-  
-  .cta:active svg {
+}
+
+.cta:active svg {
     transform: scale(0.9);
-  }
-  
-  .hover-underline-animation {
+}
+
+.hover-underline-animation {
     position: relative;
     color: black;
     padding-bottom: 20px;
-  }
-  
-  .hover-underline-animation:after {
+}
+
+.hover-underline-animation:after {
     content: "";
     position: absolute;
     width: 100%;
@@ -1053,15 +1057,15 @@ td::-webkit-scrollbar-track {
     background-color: #000000;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
-  }
-  
-  .cta:hover .hover-underline-animation:after {
+}
+
+.cta:hover .hover-underline-animation:after {
     transform: scaleX(1);
     transform-origin: bottom left;
-  }
+}
 
 
-  .containerregre {
+.containerregre {
     grid-template-columns: 60% 40%;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
@@ -1070,4 +1074,4 @@ td::-webkit-scrollbar-track {
     margin-top: 50px;
     display: flex;
     justify-content: flex-end;
- }
+}
