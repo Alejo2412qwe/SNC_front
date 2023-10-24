@@ -56,6 +56,7 @@ export class RegistroComponent implements OnInit {
   edadMinima = 18;
   newSubproceso: string = '';
   newProceso: string = '';
+  id: number = 0;
 
   //LISTAS
   listProvincias: Provincia[] = [];
@@ -63,7 +64,7 @@ export class RegistroComponent implements OnInit {
   listRoles: Rol[] = [];
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
-  id: number = 0;
+
   ngOnInit(): void {
     this.cargarRoles();
     this.cargarProvincias();
