@@ -6,7 +6,7 @@ import { SessionStorageService } from './session-storage.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SuprocesosService {
   constructor(
@@ -16,13 +16,13 @@ export class SuprocesosService {
 
   private url: string = `${entorno.urlPrivada}/subprocesos`;
 
-  saveSubprocesos(subprocesos: Subprocesos): Observable<Subprocesos> {
+  saveSubprocesos(Subproceso: Subprocesos): Observable<Subprocesos> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.post<Subprocesos>(`${this.url}/create`, subprocesos, {
+    return this.http.post<Subprocesos>(`${this.url}/create`, Subproceso, {
       headers,
     });
   }
@@ -33,6 +33,8 @@ export class SuprocesosService {
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Subprocesos>(`${this.url}/getSubprocesos/${id}`,{headers});
+    return this.http.get<Subprocesos>(`${this.url}/getSubprocesos/${id}`, {
+      headers,
+    });
   }
 }

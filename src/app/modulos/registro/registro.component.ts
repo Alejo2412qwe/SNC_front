@@ -49,6 +49,7 @@ export class RegistroComponent implements OnInit {
   selectRol: Rol = new Rol();
   subproceso: Subprocesos = new Subprocesos();
   proceso: Procesos = new Procesos();
+  procesoSelected: any;
 
   //VARIABLES
   confirmarPass: string = '';
@@ -465,9 +466,10 @@ export class RegistroComponent implements OnInit {
   }
 
   openCrearSubproceso() {
+    this.cargarProcesos();
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
-      html: ' <select id="swal-input2" class="swal2-select" [(ngModel)]="proceso.procNombre"><option value="0">Selecciona el proceso</option> <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">{{ proceso.procNombre }}</option><input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
+      html: '<select id="procesos" name="procesos" class="input2" style="color: #777;" [(ngModel)]="proceso.procId" (change)="procesoSelected = proceso.procId"> <option value="0">Selecciona el proceso</option> <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId"> {{ proceso.procNombre }}</option></select> <input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
@@ -476,6 +478,7 @@ export class RegistroComponent implements OnInit {
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
         this.subproceso.subNombre = this.newSubproceso;
+        this.subproceso.procId.procId = this.procesoSelected;
         this.saveSubproceso();
       },
     });
