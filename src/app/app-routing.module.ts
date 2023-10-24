@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: '**', redirectTo: 'gestion' },
+  { path: '**', redirectTo: 'login' },
  ];
 
 @NgModule({
