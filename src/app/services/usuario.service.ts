@@ -52,8 +52,6 @@ export class UsuarioService {
       'Authorization': `Bearer ${this.sessionStorage.getItem('token')}`
     });
 
-    console.log(`${this.url}/usuarioUnico?user=${user}`)
-
     return this.http.get<boolean>(`${this.url}/usuarioUnico?user=${user}`, { headers });
   }
 

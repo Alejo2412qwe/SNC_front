@@ -140,7 +140,6 @@ export class RegistroComponent implements OnInit {
                               showCancelButton: false, // No mostrar el botón de cancelar
                             }).then(() => {
                               this.limpiarRegistro();
-                              this.router.navigate(['/listausu']);
                             });
                           }
 
@@ -386,7 +385,7 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-
+  
   crearRol() {
     Swal.fire({
       title: 'Crear Nuevo Rol',
