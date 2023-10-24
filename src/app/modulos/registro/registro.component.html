@@ -207,8 +207,7 @@
                                     <div class="input-container">
                                         <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
                                         <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="subproceso"
-                                            (change)="getSubprocesosByProcesoId(proceso.procId)">
+                                            [(ngModel)]="subproceso" (change)="getSubprocesosByProcesoId()">
                                             <option value="0">Selecciona el subproceso</option>
                                             <option *ngFor="let subproceso of listaSubprocesos"
                                                 [value]="subproceso.subNombre">

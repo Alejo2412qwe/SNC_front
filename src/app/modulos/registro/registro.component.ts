@@ -62,18 +62,21 @@ export class RegistroComponent implements OnInit {
   listCiudades: Ciudad[] = [];
   listRoles: Rol[] = [];
   listaProcesos: Procesos[] = [];
-  listaSubprocesos:Subprocesos[] = [];
-
+  listaSubprocesos: Subprocesos[] = [];
+  id: number = 0;
   ngOnInit(): void {
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
   }
 
-  getSubprocesosByProcesoId(id:number) {
-    this.suprocesosService.getSubprocesosByProcesoId(id).subscribe((data) => {
-      this.listaSubprocesos.push(data);
-    });
+  getSubprocesosByProcesoId() {
+    this.id = this.proceso.procId;
+    this.suprocesosService
+      .getSubprocesosByProcesoId(this.id)
+      .subscribe((data) => {
+        this.listaSubprocesos.push(data);
+      });
   }
 
   cargarProcesos() {
