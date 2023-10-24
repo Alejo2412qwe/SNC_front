@@ -110,8 +110,8 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">APELLIDOS:</label>
-                                        <input placeholder="Ingresa el Apellido del Usuario" type="text"
-                                            class="input2" name="perApellido" (keydown)="validarLetras($event)"
+                                        <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input2"
+                                            name="perApellido" (keydown)="validarLetras($event)"
                                             [(ngModel)]="persona.perApellido">
                                         <div class="underline"></div>
                                     </div>
@@ -126,12 +126,10 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">PROVINCIA:</label>
-                                        <select id="provincias" name="provincias" class="input2"
-                                            style="color: #777;" (change)="cargarCiudades()"
-                                            [(ngModel)]="selectProvincia.proId">
+                                        <select id="provincias" name="provincias" class="input2" style="color: #777;"
+                                            (change)="cargarCiudades()" [(ngModel)]="selectProvincia.proId">
                                             <option value="0">Seleccione una Provincia</option>
-                                            <option *ngFor="let provincia of listProvincias"
-                                                [value]="provincia.proId">
+                                            <option *ngFor="let provincia of listProvincias" [value]="provincia.proId">
                                                 {{ provincia.proNombre }}
                                             </option>
 
@@ -191,12 +189,12 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">PROCESO - ZONA:</label>
-                                        <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                                            <option value="manzana">Selecciona tu Provincia</option>
-                                            <option value="banana">Banana</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="naranja">Naranja</option>
-                                            <option value="pera">Pera</option>
+                                        <select id="procesos" name="procesos" class="input2" style="color: #777;"
+                                            [(ngModel)]="proceso.procId">
+                                            <option value="0">Selecciona el proceso</option>
+                                            <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">
+                                                {{ proceso.procNombre }}
+                                            </option>
                                         </select>
                                         <div class="underline"></div>
                                     </div>
@@ -208,12 +206,14 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
-                                        <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                                            <option value="manzana">Selecciona tu Provincia</option>
-                                            <option value="banana">Banana</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="naranja">Naranja</option>
-                                            <option value="pera">Pera</option>
+                                        <select id="frutas" name="frutas" class="input2" style="color: #777;"
+                                            [(ngModel)]="subproceso"
+                                            (change)="getSubprocesosByProcesoId(proceso.procId)">
+                                            <option value="0">Selecciona el subproceso</option>
+                                            <option *ngFor="let subproceso of listaSubprocesos"
+                                                [value]="subproceso.subNombre">
+                                                {{subproceso.subNombre }}
+                                            </option>
                                         </select>
                                         <div class="underline"></div>
                                     </div>
@@ -244,8 +244,8 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">CORREO ELECTRONICO: *</label>
-                                        <input placeholder="Ingresar un Correo Electronico" type="text"
-                                            class="input" name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
+                                        <input placeholder="Ingresar un Correo Electronico" type="text" class="input"
+                                            name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
                                         <div class="underline"></div>
                                     </div>
                                 </div>
@@ -308,10 +308,9 @@
 
                                     </tbody>
                                 </table>
-                                <div
-                                    style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
-                                    <button class="learn-more" style="margin-bottom: 40px; width: 50%;" routerLink="/listausu"
-                                        (click)="registrar()">
+                                <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
+                                    <button class="learn-more" style="margin-bottom: 40px; width: 50%;"
+                                        routerLink="/listausu" (click)="registrar()">
                                         <span class="circle" aria-hidden="true">
                                             <span class="icon arrow"></span>
                                         </span>

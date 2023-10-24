@@ -61,10 +61,25 @@ export class RegistroComponent implements OnInit {
   listProvincias: Provincia[] = [];
   listCiudades: Ciudad[] = [];
   listRoles: Rol[] = [];
+  listaProcesos: Procesos[] = [];
+  listaSubprocesos:Subprocesos[] = [];
 
   ngOnInit(): void {
     this.cargarRoles();
     this.cargarProvincias();
+    this.cargarProcesos();
+  }
+
+  getSubprocesosByProcesoId(id:number) {
+    this.suprocesosService.getSubprocesosByProcesoId(id).subscribe((data) => {
+      this.listaSubprocesos.push(data);
+    });
+  }
+
+  cargarProcesos() {
+    this.procesoService.getAllProcesos().subscribe((data) => {
+      this.listaProcesos = data;
+    });
   }
 
   cargarRoles() {
@@ -403,6 +418,7 @@ export class RegistroComponent implements OnInit {
   saveProceso() {
     this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
       this.proceso = data;
+      this.cargarProcesos();
       Swal.fire({
         title: '¡Registro Exitoso!',
         text: data.procNombre + ' agregado correctamente',
@@ -426,6 +442,7 @@ export class RegistroComponent implements OnInit {
         ).value;
         this.proceso.procNombre = this.newProceso;
         this.saveSubproceso();
+        this.cargarProcesos();
       },
     });
   }
