@@ -8,9 +8,9 @@ import { ReportevacionesComponent } from './modulos/reportevaciones/reportevacio
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
+import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 
 const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'listasub-procesos', component: ListaprocesosSubprocesosComponent },
+  { path: 'listainstituciones', component: ListainstitucionesComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: '**', redirectTo: 'login' },
@@ -28,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

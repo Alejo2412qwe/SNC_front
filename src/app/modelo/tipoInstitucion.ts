@@ -1,4 +1,4 @@
-export class tipoInstitucion {
+export class TipoInstitucion {
   
   tipId: number;
   tipNombre: string;
