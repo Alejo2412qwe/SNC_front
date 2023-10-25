@@ -19,17 +19,26 @@ export class ListausuariosComponent implements OnInit {
 
   constructor(private serper: PersonaService, private activatedRoute: ActivatedRoute, private router: Router,
     //SERVICES
-    private usuarioService: UsuarioService, private toastr: ToastrService, private sessionStorage: SessionStorageService,) { }
+    private usuarioService: UsuarioService, private toastr: ToastrService, private sessionStorage: SessionStorageService,) {
+    this.estList = 1;
+  }
 
   ngOnInit(): void {
-
-    this.loadUsers(1);
+    this.setActive()
+    this.loadUsers(this.estList);
   }
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
   searchString: string = '';
   listUsers: Usuario[] = [];
+  estList: number = 1; // Inicialmente establecido en 1 para "Activo"
 
+  updateSelection(value: number) {
+    this.estList = value;
+  }
+  setActive() {
+    this.estList = 1; // Cambia el valor de estList a 1
+  }
   calcularEdad(fechaNacimiento: Date) {
     return calcularEdad(fechaNacimiento)
   }

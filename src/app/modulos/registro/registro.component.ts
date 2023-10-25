@@ -62,7 +62,6 @@ export class RegistroComponent implements OnInit {
   newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
-
   //LISTAS
   listProvincias: Provincia[] = [];
   listCiudades: Ciudad[] = [];
@@ -76,6 +75,7 @@ export class RegistroComponent implements OnInit {
     this.cargarProcesos();
     this.validateMode();
   }
+
 
 
   validateMode() {

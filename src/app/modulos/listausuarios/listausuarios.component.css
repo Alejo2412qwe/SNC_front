@@ -647,9 +647,9 @@ body {
     width: 100%;
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 44% 20% 13% 14% 9%; 
+    grid-template-columns: 44% 20% 13% 14% 9%;
     grid-template-rows: 2fr;
-    grid-column-gap:3px ;
+    grid-column-gap: 3px;
     grid-row-gap: 20px;
     justify-items: stretch;
     align-items: stretch;
@@ -712,7 +712,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 55px;    height: 50px;
+    width: 55px;
+    height: 50px;
     border: none;
     padding: 0px 20px;
     background-color: #556de1;
@@ -759,7 +760,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 130px;    height: 50px;
+    width: 130px;
+    height: 50px;
     border: none;
     padding: 0px 20px;
     background-color: #4e9649;
@@ -999,7 +1001,7 @@ td::-webkit-scrollbar-track {
     .containertabla {
         margin-top: 50px;
         display: inline;
-        grid-template-columns: 40% 15% 15% 15% 15%; 
+        grid-template-columns: 40% 15% 15% 15% 15%;
         grid-template-rows: 2fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;
