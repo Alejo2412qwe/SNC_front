@@ -29,6 +29,19 @@ export class PersonaService {
     return this.http.post<Persona>(`${this.url}/create`, persona, { headers });
   }
 
+  update(id: number, persona: Persona): Observable<Persona> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<Persona>(`${this.url}/update?id=${id}`, persona, { headers });
+  }
+
+  delete(id: number) {
+
+  }
 
   cedulaUnica(ci: string) {
     // Construir el encabezado de autorización con el token JWT

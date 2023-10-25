@@ -14,15 +14,16 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'editar-usuario/:id', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: '**', redirectTo: 'login' },
- ];
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

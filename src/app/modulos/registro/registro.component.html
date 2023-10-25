@@ -309,11 +309,13 @@
                                 </table>
                                 <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
                                     <button class="learn-more" style="margin-bottom: 40px; width: 50%;"
-                                        routerLink="/listausu" (click)="registrar()">
+                                        (click)="editeMode? editar() : registrar()">
                                         <span class="circle" aria-hidden="true">
                                             <span class="icon arrow"></span>
                                         </span>
-                                        <span class="button-text">Registrar Nuevo Usuario</span>
+                                        <span class="button-text">
+                                            {{editeMode? 'Editar Usuario' : 'Registrar Nuevo Usuario'}}
+                                        </span>
                                     </button>
                                 </div>
 

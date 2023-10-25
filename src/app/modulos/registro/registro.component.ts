@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {
   validarCedula,
@@ -32,6 +33,7 @@ import Swal from 'sweetalert2';
 export class RegistroComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
+    private router: Router,
     //SERVICES
     private provinciaService: ProvinciaService,
     private ciudadService: CiudadService,
@@ -39,8 +41,9 @@ export class RegistroComponent implements OnInit {
     private rolService: RolService,
     private usuarioService: UsuarioService,
     private suprocesosService: SuprocesosService,
-    private procesoService: ProcesosService
-  ) {}
+    private procesoService: ProcesosService,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
   //OBJETOS
   persona: Persona = new Persona();
@@ -58,6 +61,7 @@ export class RegistroComponent implements OnInit {
   newSubproceso: string = '';
   newProceso: string = '';
   id: number = 0;
+  editeMode: boolean = false;
 
   //LISTAS
   listProvincias: Provincia[] = [];
@@ -70,6 +74,39 @@ export class RegistroComponent implements OnInit {
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
+    this.validateMode();
+  }
+
+
+  validateMode() {
+
+    this.activatedRoute.params.subscribe(params => {
+
+      const userId = params['id'];
+
+      if (userId !== undefined) {
+        this.editeMode = true;
+        this.loadEdit(userId);
+      } else {
+      }
+
+    });
+
+  }
+
+  loadEdit(idUser: number) {
+    this.usuarioService.searchUsersId(idUser).subscribe((response) => {
+      this.usuario = response;
+      if (response.usuPerId.ciuId?.proId) {
+        this.selectProvincia = response.usuPerId.ciuId?.proId;
+        this.cargarCiudades();
+      }
+      this.usuario.usuContrasena = '';
+      this.persona = response.usuPerId;
+
+
+
+    })
   }
 
   getSubprocesosByProcesoId() {
@@ -160,6 +197,7 @@ export class RegistroComponent implements OnInit {
                         this.usuarioService
                           .registrarUsuario(this.usuario)
                           .subscribe((response) => {
+
                             Swal.fire({
                               title: '¡Registro Exitoso!',
                               text: response.rolId + ' agregado correctamente',
@@ -168,6 +206,7 @@ export class RegistroComponent implements OnInit {
                               showCancelButton: false, // No mostrar el botón de cancelar
                             }).then(() => {
                               this.limpiarRegistro();
+                              this.router.navigate(['/listausu']);
                             });
                           });
                       });
@@ -196,6 +235,52 @@ export class RegistroComponent implements OnInit {
         });
     }
   }
+
+
+
+  editar() {
+    if (this.validarRegistro()) {
+
+
+      const rolEncontrado = this.listRoles.find(
+        (rol) =>
+          rol.rolId.toString() ===
+          this.usuario.rolId?.rolId.toString()
+      );
+      if (rolEncontrado) {
+        this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
+        // console.log(this.usuario.rolId)
+
+        //REGISTRAR PERSONA
+        this.personaService
+          .update(this.persona.perId, this.persona)
+          .subscribe((response) => {
+            this.usuario.usuEstado = 1;
+            this.usuario.usuPerId = response;
+
+            //RESGISTRAR USUARIO
+            this.usuarioService
+              .update(this.usuario.usuId, this.usuario)
+              .subscribe((response) => {
+
+                Swal.fire({
+                  title: '¡Edición Exitosa!',
+                  text: response.rolId + ' agregado correctamente',
+                  icon: 'success',
+                  confirmButtonText: 'Confirmar',
+                  showCancelButton: false, // No mostrar el botón de cancelar
+                }).then(() => {
+                  this.limpiarRegistro();
+                  this.router.navigate(['/listausu']);
+                });
+              });
+          });
+
+        // return true
+      }
+    }
+  }
+
 
   validarRegistro(): boolean {
     //CEDULA
@@ -346,8 +431,9 @@ export class RegistroComponent implements OnInit {
       }
     }
 
+
     //CONTRASEÑA
-    if (!this.usuario.usuContrasena) {
+    if (!this.usuario.usuContrasena && !this.editeMode) {
       this.toastr.error(
         'Contraseña es un campo obligatorio',
         'Ingrese la contraseña del usuario',
@@ -361,7 +447,7 @@ export class RegistroComponent implements OnInit {
 
     //CONFIRMACION DE CONTRASEÑA
 
-    if (!this.confirmarPass) {
+    if (!this.confirmarPass && !this.editeMode) {
       this.toastr.error(
         'Es obligatorio confirmar la contraseña',
         'Confirme la contraseña',
