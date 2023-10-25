@@ -172,18 +172,14 @@
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">INSTITUCION:</label>
-                                        <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                                            <option value="manzana">Selecciona tu institucion</option>
-                                            <option value="banana">Banana</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="naranja">Naranja</option>
-                                            <option value="pera">Pera</option>
+                                        <select id="institucion" name="institucion" class="input2" style="color: #777;"
+                                            [(ngModel)]="institucion.insId">
+                                            <option value="0">Selecciona tu institución</option>
+                                            <option *ngFor="let ins of listaInstituciones" [value]="institucion.insId">
+                                                {{ins.insNombre}}
+                                            </option>
                                         </select>
                                         <div class="underline"></div>
-                                    </div>
-                                    <div>
-                                        <button class="flot" (click)="openCrearInstitucion()">CREAR NUEVA
-                                            INSTITUCION</button>
                                     </div>
                                 </div>
                                 <div>

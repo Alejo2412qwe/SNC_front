@@ -500,38 +500,6 @@ export class RegistroComponent implements OnInit {
     validarLetrasNum(event);
   }
 
-  saveInstitucion() {
-    this.institucionService
-      .saveInstitucion(this.institucion)
-      .subscribe((data) => {
-        Swal.fire({
-          title: '¡Registro Exitoso!',
-          text: data.insNombre + ' agregado correctamente',
-          icon: 'success',
-          confirmButtonText: 'Confirmar',
-          showCancelButton: false, // No mostrar el botón de cancelar
-        });
-      });
-  }
-
-  openCrearInstitucion() {
-    Swal.fire({
-      title: 'Crear Nueva Institucion',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newInstitucion = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        this.institucion.insNombre = this.newInstitucion;
-        this.saveInstitucion();
-        this.cargarInstituciones();
-      },
-    });
-  }
-
   crearRol() {
     Swal.fire({
       title: 'Crear Nuevo Rol',
