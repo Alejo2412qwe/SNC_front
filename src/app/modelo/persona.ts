@@ -1,7 +1,7 @@
 import { Ciudad } from "./ciudad";
 
 export class Persona {
-  perId?: number;
+  perId: number;
   perCedula?: string;
   perNombre?: string;
   perApellido?: string;

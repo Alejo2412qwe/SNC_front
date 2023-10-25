@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
+import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
     PermisosComponent,
     GestionComponent,
     ReportevacionesComponent,
-    ListausuariosComponent
+    ListausuariosComponent,
+    ListaprocesosSubprocesosComponent
   ],
   imports: [
     BrowserModule,
