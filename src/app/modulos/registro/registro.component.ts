@@ -83,8 +83,6 @@ export class RegistroComponent implements OnInit {
     this.cargarInstituciones;
   }
 
-
-
   validateMode() {
     this.activatedRoute.params.subscribe((params) => {
       const userId = params['id'];
