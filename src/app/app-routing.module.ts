@@ -7,6 +7,7 @@ import { GestionComponent } from './modulos/gestion/gestion.component';
 import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
+import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'editar-usuario/:id', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
+  { path: 'listasub-procesos', component: ListaprocesosSubprocesosComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: '**', redirectTo: 'login' },
