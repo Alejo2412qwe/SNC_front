@@ -47,4 +47,17 @@ export class SubprocesosService {
 
     return this.http.get<Subprocesos[]>(`${this.url}/read`, { headers });
   }
+
+  getSubprocesosByProcEstado(est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Subprocesos[]>(
+      `${this.url}/getSubprocesosByProcEstado?est=${est}`,
+      { headers }
+    );
+  }
 }

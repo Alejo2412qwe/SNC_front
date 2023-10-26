@@ -21,6 +21,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarSubprocesos();
     this.loadProcesosByEstado(this.estadoActivo);
+    this.loadSubprocesosByProcEstado(this.estadoActivo);
   }
 
   //OBJETOS
@@ -51,7 +52,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   /*inicio del proceso*/
   saveProceso() {
     this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
-      this.loadProcesosByEstado(this.proceso.procEstado);
+      this.loadProcesosByEstado(this.estadoActivo);
       Swal.fire({
         title: '¡Registro Exitoso!',
         text: data.procNombre + ' agregado correctamente',
@@ -65,8 +66,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   updateProceso(id: number) {
     this.procesoService.updateProcesos(this.proceso, id).subscribe((data) => {
       this.loadProcesosByEstado(this.estadoActivo);
+      this.loadSubprocesosByProcEstado(this.estadoActivo);
       Swal.fire({
-        title: '¡Registro Exitoso!',
+        title: 'Edición Exitosa!',
         text: data.procNombre + ' agregado correctamente',
         icon: 'success',
         confirmButtonText: 'Confirmar',
@@ -94,24 +96,42 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
-    this.procesoService.updateEst(id, est).subscribe({
-      next: () => {
+    Swal.fire({
+      title: `Al eliminar el proceso también deshabilitará los subprocesos pertenecientes, ¿Està seguro de ello?`,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.procesoService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadProcesosByEstado(this.estadoActivo);
+            this.loadSubprocesosByProcEstado(this.estadoActivo);
+            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {},
+        });
+      } else if (result.isDenied) {
         this.loadProcesosByEstado(this.estadoActivo);
-        this.toastr.success(
-          'ELIMINADO CORRECTAMENTE',
-          'ÉXITO AL REALIZAR LA ACCIÓN'
-        );
-      },
-      error: (error) => {
-        // Manejar errores
-      },
-      complete: () => {},
+        this.loadSubprocesosByProcEstado(this.estadoActivo);
+        this.toastr.warning('Acción Cancelada');
+      }
     });
   }
 
-  openUpdateProceso(nombre:string,id: number) {
+  openUpdateProceso(nombre: string, id: number) {
     Swal.fire({
-      title: 'Editar '+nombre,
+      title: 'Editar ' + nombre,
       html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
       showCancelButton: true,
       confirmButtonText: 'Editar',
@@ -123,6 +143,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.proceso.procNombre = this.newProceso;
         this.updateProceso(id);
         this.loadProcesosByEstado(this.estadoActivo);
+        this.loadSubprocesosByProcEstado(this.estadoActivo);
       },
     });
   }
@@ -167,6 +188,14 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.saveSubproceso();
       },
     });
+  }
+
+  loadSubprocesosByProcEstado(est: number) {
+    this.subprocesosService
+      .getSubprocesosByProcEstado(est)
+      .subscribe((response) => {
+        this.listaSubprocesos = response; // Asigna los datos al array provincias
+      });
   }
   /*fin del proceso*/
 }

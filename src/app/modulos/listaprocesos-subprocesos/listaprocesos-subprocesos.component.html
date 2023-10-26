@@ -155,8 +155,11 @@
                                             <td><button role="button" class="button-name"
                                                     (click)="openCrearSubproceso(pro.procId)">Agregar
                                                     Subproceso</button></td>
-                                            <td><button role="button" class="button-name" (click)="openUpdateProceso(pro.procNombre,pro.procId)">Editar</button></td>
-                                            <td><button role="button" class="button-name2" (click)="updateEstProceso(pro.procId,0)">Eliminar</button></td>
+                                            <td><button role="button" class="button-name"
+                                                    (click)="openUpdateProceso(pro.procNombre,pro.procId)">Editar</button>
+                                            </td>
+                                            <td><button role="button" class="button-name2"
+                                                    (click)="updateEstProceso(pro.procId,0)">Eliminar</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -211,7 +214,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="Btn3" routerLink="/registro">Refrescar Tabla
+                                    <button class="Btn3">Refrescar Tabla
                                         <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
