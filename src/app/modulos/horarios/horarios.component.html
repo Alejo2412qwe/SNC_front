@@ -1,8 +1,4 @@
-<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MENU DE GESTION(HOME)</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <link rel="stylesheet"
         href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
@@ -17,29 +13,22 @@
 <body class="profile-page">
     <nav class="navbar navbar-custom-bg navbar-color-on-scroll navbar-transparent navbar-expand-lg"
         color-on-scroll="100" id="sectionsNav">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="/" target="_blank" style="font-size: 14px; padding-bottom: 50px;">
-                    <img src="assets/img/escudo.png" width="20%" alt="">
-                    Secretaria de Educacion Superior, Ciencia, Tecnologia e Innovación</a>
-                <button style="padding-top: 20px;" class="navbar-toggler" type="button" data-toggle="collapse"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class="container2">
+
+            <div class="container">
+                <div class="navbar-translate">
+                    <a class="navbar-brand" href="/" target="_blank" style="font-size: 14px; padding-bottom: 50px;">
+                        <img src="assets/img/escudo.png" width="20%" alt="">
+                        Secretaría de Educación Superior, Ciencia, Tecnología e Innovación</a>
+                </div>
+            </div>
+            <div>
+                <app-despegablemene></app-despegablemene>
+
             </div>
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                            <i class="material-icons">apps</i>Components
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
+
     </nav>
 
     <div class="page-header header-filter" data-parallax="true"
@@ -49,112 +38,176 @@
 
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <h1 style="text-align: center;     margin-bottom: 170px;
-                width: 100%; font-size: 80px; color: white;">Horarios</h1>
-
+                width: 100%; font-size: 80px; color: white;">Tabla de Horarios</h1>
             </div>
-        </div>
-
-<!-- Agrega esta sección en tu HTML existente, dentro del div con class "container" -->
-
-<div class="row">
-    <div class="col-md-12">
-        <h2>Gestión de Horarios</h2>
-        
-        <!-- Formulario para agregar un nuevo horario -->
-        <form (submit)="agregarHorario()">
-            <div class="form-group">
-                <label for="numHoras">Número de Horas:</label>
-                <input type="text" id="numHoras" [(ngModel)]="nuevoHorario.horNumHoras" required>
-            </div>
-            <div class="form-group">
-                <label for="horaIngreso">Hora de Ingreso:</label>
-                <input type="text" id="horaIngreso" [(ngModel)]="nuevoHorario.horHoraIngreso" required>
-            </div>
-            <div class="form-group">
-                <label for="horaSalida">Hora de Salida:</label>
-                <input type="text" id="horaSalida" [(ngModel)]="nuevoHorario.horHoraSalida" required>
-            </div>
-            <div class="form-group">
-                <label for="horaAlmuerzoInicio">Hora de Inicio de Almuerzo:</label>
-                <input type="text" id="horaAlmuerzoInicio" [(ngModel)]="nuevoHorario.horHoraAlmuerzoInicio" required>
-            </div>
-            <div class="form-group">
-                <label for="horaAlmuerzoFin">Hora de Fin de Almuerzo:</label>
-                <input type="text" id="horaAlmuerzoFin" [(ngModel)]="nuevoHorario.horHoraAlmuerzoFin" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar Horario</button>
-        </form>
-        
-        <!-- Lista de horarios -->
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Número de Horas</th>
-                        <th>Hora de Ingreso</th>
-                        <th>Hora de Salida</th>
-                        <th>Hora de Inicio de Almuerzo</th>
-                        <th>Hora de Fin de Almuerzo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let horario of horarios | slice:paginaActual*5:paginaActual*5+5">
-                        <td>{{ horario.horNumHoras }}</td>
-                        <td>{{ horario.horHoraIngreso }}</td>
-                        <td>{{ horario.horHoraSalida }}</td>
-                        <td>{{ horario.horHoraAlmuerzoInicio }}</td>
-                        <td>{{ horario.horHoraAlmuerzoFin }}</td>
-                        <td>
-                            <button class="btn btn-info" (click)="editarHorario(horario)">Editar</button>
-                            <button class="btn btn-danger" (click)="eliminarHorario(horario)">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Paginación -->
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" *ngFor="let i of paginas" [class.active]="i === paginaActual">
-                    <a class="page-link" (click)="cambiarPagina(i)">{{ i + 1 }}</a>
-                </li>
-            </ul>
-        </nav>
-        
-        <!-- Búsqueda por fecha -->
-        <div class="form-group">
-            <label for="buscarFecha">Buscar por Fecha:</label>
-            <input type="date" id="buscarFecha" [(ngModel)]="fechaBusqueda">
-            <button class="btn btn-primary" (click)="buscarPorFecha()">Buscar</button>
         </div>
     </div>
-</div>
+
+    <!-- Agrega esta sección en tu HTML existente, dentro del div con class "container" -->
+
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <h2>Gestión de Horarios</h2>
+
+                        <!-- Formulario para agregar un nuevo horario -->
+                        <form (submit)="agregarHorario()">
+
+                            <div>
+                                <div class="input-container">
+                                    <label for="name" class="name">Número de Horas:</label>
+                                    <input placeholder="Ingresa el Número de horas totales al día" type="text" class="input"
+                                        name="horNumHoras" (keydown)="validarNumeros($event)"
+                                        [(ngModel)]="nuevoHorario.horNumHoras">
+                                    <div class="underline"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="input-container">
+                                    <label for="name" class="name">Hora de Ingreso:</label>
+                                    <input placeholder="Ingrese su Hora de ingreso" type="text" class="input"
+                                        name="horHoraIngreso" (keydown)="validarNumeros($event)"
+                                        [(ngModel)]="nuevoHorario.horHoraIngreso">
+                                    <div class="underline"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="input-container">
+                                    <label for="name" class="name">Hora de Salida:</label>
+                                    <input placeholder="Ingrese su Hora de salida" type="text" class="input"
+                                        name="horHoraSalida" (keydown)="validarNumeros($event)"
+                                        [(ngModel)]="nuevoHorario.horHoraSalida">
+                                    <div class="underline"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="input-container">
+                                    <label for="name" class="name">Hora de Inicio de Almuerzo:</label>
+                                    <input placeholder="Ingrese la hora que comienza su Almuerzo" type="text" class="input"
+                                        name="horHoraAlmuerzoInicio" (keydown)="validarNumeros($event)"
+                                        [(ngModel)]="nuevoHorario.horHoraAlmuerzoInicio">
+                                    <div class="underline"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="input-container">
+                                    <label for="name" class="name">Hora de Fin de Almuerzo:</label>
+                                    <input placeholder="Ingrese la hora que termina su Almuerzo" type="text" class="input"
+                                        name="horHoraAlmuerzoFin" (keydown)="validarNumeros($event)"
+                                        [(ngModel)]="nuevoHorario.horHoraAlmuerzoFin">
+                                    <div class="underline"></div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Agregar Horario</button>
+                        </form>
+
+
+                        <!-- Lista de horarios -->
+
+                        <div style="width: 100%; margin-top: 50px;">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="job-table">
+                                    <thead className="theadTab">
+                                        <tr class="text-center" style="background-color: rgb(78, 130, 189);">
+                                            <th class="tipo" scope="col">Número de Horas</th>
+                                            <th class="tipo" scope="col">Hora de Ingreso</th>
+                                            <th class="tipo" scope="col">Hora de Salida</th>
+                                            <th class="tipo" scope="col">Hora de Inicio de Almuerzo</th>
+                                            <th class="tipo" scope="col">Hora de Fin de Almuerzo</th>
+                                            <th class="tipo" scope="col">EDITAR</th>
+                                            <th class="tipo" scope="col">ELIMINAR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center tableBody">
+                                        <tr key={key} *ngFor="let horario of horarios">
+                                            <td class="tdTbl">{{horario.horNumHoras}}</td>
+                                            <td class="tdTbl">{{horario.horHoraIngreso}}</td>
+                                            <td class="tdTbl">{{horario.horHoraSalida}}</td>
+                                            <td class="tdTbl">{{horario.horHoraAlmuerzoInicio}}</td>
+                                            <td class="tdTbl">{{horario.horHoraAlmuerzoFin}}</td>
+
+                                            <td class="tdTbl"><button role="button" class="button-name2"
+                                                (click)="editarHorario(horario)">
+                                                    <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
+                                                        height="1.25em"
+                                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                        <path
+                                                            d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                            <td class="tdTbl"><button role="button" class="button-name2"
+                                                    (click)="eliminarHorario(horario)">
+                                                    <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
+                                                        height="1.25em"
+                                                        viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                        <path
+                                                            d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Búsqueda por fecha -->
+                        <div class="form-group">
+                            <label for="buscarFecha">Buscar por Hora:</label>
+                            <input type="date" id="buscarFecha" [(ngModel)]="fechaBusqueda">
+                            <button class="btn btn-primary" (click)="buscarPorFecha()">Buscar</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="height: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="footer text-center">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-6">
-                    <h6>Pagina</h6>
-                    <p class="text-justify">Senescyt - Secretaria de Educación Superior, Ciencia, Tecnologia e
-                        Innovacion</p>
+                    <h6>About</h6>
+                    <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to help the
+                        upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or
+                        snippets as the code wants to be simple. We will help programmers build up concepts in different
+                        programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android,
+                        SQL and Algorithm.</p>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
-                    <h6>Categorias</h6>
+                    <h6>Categories</h6>
                     <ul class="footer-links">
                         <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
                         <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
                         <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
+                        <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
+                        <li><a href="http://scanfcode.com/category/android/">Android</a></li>
+                        <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3">
-                    <h6>Contactos</h6>
+                    <h6>Quick Links</h6>
                     <ul class="footer-links">
-                        <p>(07) 408-3574</p>
-                        <li><a href="http://scanfcode.com/about/">Avenida España 912, Cuenca 010102</a></li>
+                        <li><a href="http://scanfcode.com/about/">About Us</a></li>
+                        <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
+                        <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
+                        <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
@@ -163,22 +216,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
+                    <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by
                         <a href="#">Scanfcode</a>.
                     </p>
                 </div>
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <ul class="social-icons">
-                        <li><a class="facebook" href="https://www.facebook.com/EduSuperiorEc/"><i
-                                    class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="https://twitter.com/senescyt?lang=es"><i
-                                    class="fa fa-twitter"></i></a></li>
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
 
-
-
+</body>

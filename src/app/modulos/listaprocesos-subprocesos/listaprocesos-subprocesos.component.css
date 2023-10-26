@@ -2,6 +2,11 @@ html * {
     -webkit-font-smoothing: antialiased;
 }
 
+*{
+
+    font-family: "Roboto Slab", "Times New Roman", serif;
+}
+
 .dropdown-toggle.nav-link {
     width: 150px;
 }
@@ -40,6 +45,7 @@ h6 {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
 
 
 .navbar {
@@ -289,7 +295,7 @@ img.rounded {
     position: relative;
     padding: 12px 30px;
     margin: .3125rem 1px;
-    font-size: .30rem;
+    font-size: .75rem;
     font-weight: 400;
     line-height: 1.428571;
     text-decoration: none;
@@ -334,6 +340,7 @@ img.rounded {
 
 
 
+
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -355,6 +362,7 @@ img.rounded {
     transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .2s cubic-bezier(.4, 0, .2, 1);
 }
 
+
 .dropdown-menu .dropdown-item:focus,
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu a:active,
@@ -373,6 +381,7 @@ img.rounded {
     will-change: transform;
     transition: transform .15s linear;
 }
+
 
 .dropdown-menu .dropdown-item,
 .dropdown-menu li>a {
@@ -640,12 +649,11 @@ body {
 }
 
 .containertabla {
-    width: 100%;
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 44% 20% 13% 14% 9%;
+    grid-template-columns: 23.3% 23.3% 23.3% 30%;
     grid-template-rows: 2fr;
-    grid-column-gap: 3px;
+    grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: stretch;
     align-items: stretch;
@@ -655,7 +663,7 @@ body {
 
 .searchBox {
     display: flex;
-    max-width: 100%px;
+    max-width: 230px;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
@@ -696,9 +704,8 @@ body {
     background: none;
     outline: none;
     color: rgb(0, 0, 0);
-    font-size: 10px;
+    font-size: 15px;
     padding: 24px 46px 24px 26px;
-    width: 100%;
 }
 
 /* REFRESCAR BOTON */
@@ -708,7 +715,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 55px;
+    width: 200px;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -756,7 +763,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 130px;
+    width: 200px;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -806,7 +813,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 105px;
+    width: 200px;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -848,6 +855,7 @@ body {
     transition-duration: .3s;
     box-shadow: 2px 2px 0px rgba(173, 137, 26, 0.781);
 }
+
 
 /* TABLA RESPONSIVE */
 
@@ -997,7 +1005,7 @@ td::-webkit-scrollbar-track {
     .containertabla {
         margin-top: 50px;
         display: inline;
-        grid-template-columns: 40% 15% 15% 15% 15%;
+        grid-template-columns: 23.3% 23.3% 23.3% 30%;
         grid-template-rows: 2fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;
@@ -1005,6 +1013,10 @@ td::-webkit-scrollbar-track {
         align-items: stretch;
     }
 
+}
+
+.svgTbl {
+    fill: white;
 }
 
 .cta {
@@ -1068,66 +1080,3 @@ td::-webkit-scrollbar-track {
     display: flex;
     justify-content: flex-end;
 }
-
-.radio-inputs {
-    margin-top: 8px;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #EEE;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: 200px;
-    height: 50px;
-    font-size: 14px;
-}
-
-.radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-}
-
-.radio-inputs .radio input {
-    display: none;
-}
-
-.radio-inputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .8rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
-}
-
-.radio-inputs .radio input:checked+.name {
-    background-color: #556de1;
-    font-weight: 600;
-    color: white;
-}
-
-.containerbus {
-    width: 100%;
-    margin-top: 50px;
-    display: grid;
-    grid-template-columns: 80% 20%;
-    grid-template-rows: 2fr;
-    grid-row-gap: 20px;
-    justify-items: stretch;
-    align-items: stretch;
-}
-
-.container2 {
-    display: grid;
-    grid-template-columns: 60% 40%;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    justify-items: stretch;
-    align-items: stretch;
-    width: 100%;
- }

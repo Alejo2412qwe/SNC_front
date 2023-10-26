@@ -1,37 +1,43 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { entorno } from '../enviroment/entorno';
-import { Procesos } from '../modelo/procesos';
+import { TipoInstitucion } from '../modelo/tipoInstitucion';
 import { SessionStorageService } from './session-storage.service';
-import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProcesosService {
+export class tipoInstitucionService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
   ) {}
 
-  private url: string = `${entorno.urlPrivada}/procesos`;
+  private url: string = `${entorno.urlPrivada}/tipoinstitucion`;
 
-  saveProcesos(Procesos: Procesos): Observable<Procesos> {
+  saveTipoInstitucion(
+    tipInstitucion: TipoInstitucion
+  ): Observable<TipoInstitucion> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.post<Procesos>(`${this.url}/create`, Procesos, {
-      headers,
-    });
+    return this.http.post<TipoInstitucion>(
+      `${this.url}/create`,
+      tipInstitucion,
+      {
+        headers,
+      }
+    );
   }
 
-  getAllProcesos() {
+  getAllTipoInstituciones() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Procesos[]>(`${this.url}/read`, { headers });
+    return this.http.get<TipoInstitucion[]>(`${this.url}/read`, { headers });
   }
 }

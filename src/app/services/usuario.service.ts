@@ -18,7 +18,41 @@ export class UsuarioService {
   private urlPublica: string = `${entorno.urlPublica}`
   // private token = this.sessionStorage.getItem('token');
 
+  allUsersData(est: number) {
 
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Usuario[]>(`${this.url}/allUsersData?est=${est}`, { headers });
+
+  }
+
+  searchUsersData(search: string, est: number) {
+
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Usuario[]>(`${this.url}/searchUsersData?search=${search}&est=${est}`, { headers });
+
+  }
+
+  searchUsersId(id: number) {
+
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Usuario>(`${this.url}/searchUserId?id=${id}`, { headers });
+
+  }
 
   registrarUsuario(usuario: Usuario): Observable<Usuario> {
     // Construir el encabezado de autorización con el token JWT
@@ -29,6 +63,28 @@ export class UsuarioService {
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.post<Usuario>(`${this.url}/register`, usuario, { headers });
   }
+
+  update(id: number, usuario: Usuario): Observable<Usuario> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}`
+    });
+
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<Usuario>(`${this.url}/update?id=${id}`, usuario, { headers });
+  }
+
+  updateEst(id: number, est: number): Observable<void> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}`
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<void>(`${this.url}/updateEst?id=${id}&est=${est}`, null, { headers });
+  }
+
 
   logIn(login: LoginRequest): Observable<AuthResponse> {
     // Construir el encabezado de autorización con el token JWT

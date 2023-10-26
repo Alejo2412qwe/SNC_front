@@ -1,9 +1,9 @@
 import { Procesos } from './procesos';
 
 export class Subprocesos {
-  subId?: number;
-  subNombre?: string;
-  procId?: Procesos;
+  subId: number;
+  subNombre: string;
+  procId: Procesos;
 
   constructor(subId?: number, subNombre?: string, procId?: Procesos) {
     (this.subId = subId || 0),

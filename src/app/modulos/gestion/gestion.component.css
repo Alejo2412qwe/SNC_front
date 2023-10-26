@@ -149,8 +149,9 @@ a .material-icons {
 }
 
 .navbar-translate {
-    width: 80%;
+    width: 100%;
     padding-bottom: 35px;
+    padding-left: 10%;
   }
 
 .profile-page .profile {
@@ -674,3 +675,14 @@ body {
     }
 
 }
+
+
+.container2 {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 100%;
+ }
