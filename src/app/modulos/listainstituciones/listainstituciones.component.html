@@ -155,8 +155,12 @@
                                             <td><button role="button" class="button-name"
                                                     (click)="openCrearInstitucion(tipInst.tipId)">Agregar
                                                     Institución</button></td>
-                                            <td><button role="button" class="button-name">Editar</button></td>
-                                            <td><button role="button" class="button-name2">Eliminar</button></td>
+                                            <td><button role="button" class="button-name"
+                                                    (click)="openUpdateTipoInstitucion(tipInst.tipNombre,tipInst.tipId)">Editar</button>
+                                            </td>
+                                            <td><button role="button" class="button-name2"
+                                                    (click)="updateEstTipoInstitucion(tipInst.tipId,0)">Eliminar</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -222,7 +226,8 @@
                                     </button>
                                 </div>
                                 <div>
-                                    <button class="Btn3" routerLink="/registro">Refrescar Tabla
+                                    <button class="Btn3" routerLink="/registro"
+                                        (click)="loadInstitucionesByTipId(1,1)">Refrescar Tabla
                                         <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -264,8 +269,11 @@
                                             <td>{{inst.instNombre}}</td>
                                             <td>{{inst.instDireccion}}</td>
                                             <td>{{inst.tipId.tipNombre}}</td>
-                                            <td><button role="button" class="button-name">Editar</button></td>
-                                            <td><button role="button" class="button-name2">Eliminar</button></td>
+                                            <td><button role="button" class="button-name"
+                                                    (click)="openUpdateInstitucion(inst.instNombre,inst.instId)">Editar</button>
+                                            </td>
+                                            <td><button role="button" class="button-name2"
+                                                    (click)="updateEstInstitucion(inst.instId,0)">Eliminar</button></td>
 
                                         </tr>
                                     </tbody>
