@@ -108,6 +108,12 @@
                             <button type="submit" class="btn btn-primary">Agregar Horario</button>
                         </form>
 
+                        <!-- Búsqueda por Hora -->
+                        <div class="form-group">
+                            <label for="buscarHora">Buscar por Hora:</label>
+                            <input type="text" id="buscarHora" [(ngModel)]="horaBusqueda">
+                            <button class="btn btn-primary" (click)="buscarPorHora()">Buscar</button>
+                        </div>
 
                         <!-- Lista de horarios -->
 
@@ -161,12 +167,6 @@
                             </div>
                         </div>
                         
-                        <!-- Búsqueda por fecha -->
-                        <div class="form-group">
-                            <label for="buscarFecha">Buscar por Hora:</label>
-                            <input type="date" id="buscarFecha" [(ngModel)]="fechaBusqueda">
-                            <button class="btn btn-primary" (click)="buscarPorFecha()">Buscar</button>
-                        </div>
                     </div>
 
                 </div>
