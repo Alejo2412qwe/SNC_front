@@ -176,6 +176,7 @@
                                         <tr class="text-center" style="background-color: aquamarine;">
                                             <th class="tipo" scope="col">ID DEL TIPO DE INSTITUCIÓN</th>
                                             <th class="tipo" scope="col">TIPO DE INSTITUCIÓN</th>
+                                            <th class="tipo" scope="col">AGREGAR INSTITUCIÓN</th>
                                             <th class="tipo" scope="col">EDITAR</th>
                                             <th class="tipo" scope="col">ELIMINAR</th>
                                         </tr>
@@ -184,6 +185,7 @@
                                         <tr key={key} *ngFor="let tipInst of listaTipoInstituciones">
                                             <td>{{tipInst.tipId}}</td>
                                             <td>{{tipInst.tipNombre}}</td>
+                                            <td><button role="button" class="button-name" (click)="openCrearInstitucion(tipInst.tipId)">Agregar Institución</button></td>
                                             <td><button role="button" class="button-name">Editar</button></td>
                                             <td><button role="button" class="button-name2">Eliminar</button></td>
                                         </tr>
@@ -240,7 +242,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="Btn3" (click)="openCrearInstitucion()">Crear Institución
+                                    <button class="Btn3">Crear Institución
                                         <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -280,6 +282,7 @@
                                         <tr class="text-center" style="background-color: aquamarine;">
                                             <th class="tipo" scope="col">ID DE LA INSTITUCIÓN</th>
                                             <th class="tipo" scope="col">INSTITUCIÓN</th>
+                                            <th class="tipo" scope="col">DIRECCIÓN</th>
                                             <th class="tipo" scope="col">TIPO AL QUE PERTENECE</th>
                                             <th class="tipo" scope="col">EDITAR</th>
                                             <th class="tipo" scope="col">ELIMINAR</th>

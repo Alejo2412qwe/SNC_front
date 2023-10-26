@@ -182,14 +182,16 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-center tableBody">
-                                        <tr key= key *ngFor="let pro of listaProcesos">
-                                          <td>{{pro.procId}}</td>
-                                          <td>{{pro.procNombre}}</td>
-                                          <td><button role="button" class="button-name" (click)="openCrearSubproceso(pro.procId)">Agregar Subproceso</button></td>
-                                          <td><button role="button" class="button-name">Editar</button></td>
-                                          <td><button role="button" class="button-name2">Eliminar</button></td>
+                                        <tr key=key *ngFor="let pro of listaProcesos">
+                                            <td>{{pro.procId}}</td>
+                                            <td>{{pro.procNombre}}</td>
+                                            <td><button role="button" class="button-name"
+                                                    (click)="openCrearSubproceso(pro.procId)">Agregar
+                                                    Subproceso</button></td>
+                                            <td><button role="button" class="button-name">Editar</button></td>
+                                            <td><button role="button" class="button-name2">Eliminar</button></td>
                                         </tr>
-                                      </tbody>
+                                    </tbody>
                                 </table>
                             </div>
                             <div style="height: 50px; font-weight: bolder; margin-top: 20px;">

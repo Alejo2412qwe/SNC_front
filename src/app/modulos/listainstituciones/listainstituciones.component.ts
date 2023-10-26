@@ -38,6 +38,7 @@ export class ListainstitucionesComponent implements OnInit {
 
   //VARIABLES
   newInstitucion: string = '';
+  newInstDireccion: string = '';
   newTipoinstitucion: string = '';
 
   //LISTAS
@@ -65,6 +66,7 @@ export class ListainstitucionesComponent implements OnInit {
     this.institucionService
       .saveInstitucion(this.institucion)
       .subscribe((data) => {
+        this.cargarInstituciones();
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.insNombre + ' agregado correctamente',
@@ -75,10 +77,11 @@ export class ListainstitucionesComponent implements OnInit {
       });
   }
 
-  openCrearInstitucion() {
+  openCrearInstitucion(tipId: number) {
+    this.cargarInstituciones();
     Swal.fire({
       title: 'Crear Nueva Institucion',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="institucion.insNombre">',
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Institución" [(ngModel)]="institucion.insNombre"><input id="swal-input2" class="swal2-input" placeholder="Dirección" [(ngModel)]="institucion.intDireccion">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
@@ -86,9 +89,13 @@ export class ListainstitucionesComponent implements OnInit {
         this.newInstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
+        this.newInstDireccion = (
+          document.getElementById('swal-input2') as HTMLInputElement
+        ).value;
+        this.institucion.tipId.tipId = tipId;
         this.institucion.insNombre = this.newInstitucion;
+        this.institucion.intDireccion = this.newInstDireccion;
         this.saveInstitucion();
-        this.cargarInstituciones();
       },
     });
   }

@@ -99,7 +99,6 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   openCrearSubproceso(procId: number) {
-    // Aquí puedes usar 'procId' para crear el subproceso
     this.cargarSubprocesos();
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
@@ -111,8 +110,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newSubproceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        // Aquí puedes usar 'procId' y 'newSubproceso' para crear el subproceso
-        this.subproceso.procId.procId = procId; // Asigna el 'procId' al subproceso
+        this.subproceso.procId.procId = procId;
         this.subproceso.subNombre = this.newSubproceso;
         this.saveSubproceso();
       },
