@@ -13,7 +13,7 @@ export class VacacionesComponent implements OnInit {
   paginaActual: number = 0; // Define la propiedad paginaActual y establece un valor inicial
   paginas: number[] = []; 
 
-  fechaBusqueda: string = ''; // Agregar la propiedad fechaBusqueda
+  fechaBusquedaVac: string = ''; // Agregar la propiedad fechaBusqueda
 
   constructor(private vacacioneService: VacacionesService) {}
 
@@ -49,8 +49,8 @@ export class VacacionesComponent implements OnInit {
   }
 
   buscarPorFecha() {
-    if (this.fechaBusqueda) {
-      this.vacacioneService.buscarVacaciones(this.fechaBusqueda).subscribe((response: Vacaciones[]) => {
+    if (this.fechaBusquedaVac) {
+      this.vacacioneService.buscarVacaciones(this.fechaBusquedaVac).subscribe((response: Vacaciones[]) => {
         this.vacaciones = response;
       },
       (error: any) => {
