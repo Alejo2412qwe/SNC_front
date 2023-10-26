@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
+import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
     GestionComponent,
     ReportevacionesComponent,
     ListausuariosComponent,
-    ListaprocesosSubprocesosComponent
+    ListaprocesosSubprocesosComponent,
+    DespegablemeneComponent
   ],
   imports: [
     BrowserModule,
