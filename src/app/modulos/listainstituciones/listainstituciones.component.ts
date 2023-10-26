@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Institucion } from 'src/app/modelo/Institucion';
 import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { InstitucionService } from 'src/app/services/institucion.service';
@@ -13,7 +14,8 @@ import Swal from 'sweetalert2';
 export class ListainstitucionesComponent implements OnInit {
   constructor(
     private institucionService: InstitucionService,
-    private tipInstitucionService: tipoInstitucionService
+    private tipInstitucionService: tipoInstitucionService,
+    private toastr: ToastrService
   ) {}
 
   //OBJETOS
@@ -31,7 +33,7 @@ export class ListainstitucionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarInstituciones();
-    this.cargarTipoInstituciones();
+    this.loadTipoInstitucionByEstado(1);
   }
 
   cargarInstituciones() {
@@ -46,6 +48,7 @@ export class ListainstitucionesComponent implements OnInit {
     });
   }
 
+  /*inicio de Institucion*/
   saveInstitucion() {
     this.institucionService
       .saveInstitucion(this.institucion)
@@ -84,11 +87,90 @@ export class ListainstitucionesComponent implements OnInit {
     });
   }
 
+  openUpdateInstitucion(nombre: string, id: number) {
+    Swal.fire({
+      title: 'Editar ' + nombre,
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Institución" [(ngModel)]="institucion.insNombre"><input id="swal-input2" class="swal2-input" placeholder="Dirección" [(ngModel)]="institucion.intDireccion">',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        this.newInstitucion = (
+          document.getElementById('swal-input1') as HTMLInputElement
+        ).value;
+        this.newInstDireccion = (
+          document.getElementById('swal-input2') as HTMLInputElement
+        ).value;
+        this.institucion.instNombre = this.newInstitucion;
+        this.institucion.instDireccion = this.newInstDireccion;
+        this.updateInstitucion(id);
+        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+      },
+    });
+  }
+
+  updateInstitucion(id: number) {
+    this.institucionService
+      .updateInstitucion(this.institucion, id)
+      .subscribe((data) => {
+        this.loadInstitucionesByTipId(1, 1);
+        Swal.fire({
+          title: 'Edición Exitosa!',
+          text: data.instNombre + ' editado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false, // No mostrar el botón de cancelar
+        });
+      });
+  }
+
+  updateEstInstitucion(id: number, est: number) {
+    Swal.fire({
+      title: `Está a punto de eliminar la institucion, ¿desea continuar?`,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.institucionService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadInstitucionesByTipId(1, 1);
+            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {},
+        });
+      } else if (result.isDenied) {
+        this.loadInstitucionesByTipId(1, 1);
+        this.toastr.warning('Acción Cancelada');
+      }
+    });
+  }
+
+  loadInstitucionesByTipId(tipid: number, instid: number) {
+    this.institucionService
+      .getInstitucionesByTipId(tipid, instid)
+      .subscribe((response) => {
+        this.listaInstituciones = response; // Asigna los datos al array provincias
+      });
+  }
+  /*fin de Institucion*/
+
+  /*Inicio de Tipo de Institucion*/
   saveTipoInstitucion() {
     this.tipInstitucionService
       .saveTipoInstitucion(this.tipInstitucion)
       .subscribe((data) => {
-        this.cargarTipoInstituciones();
+        this.loadTipoInstitucionByEstado(1);
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.tipNombre + ' agregado correctamente',
@@ -100,7 +182,6 @@ export class ListainstitucionesComponent implements OnInit {
   }
 
   openCrearTipoInstitucion() {
-    this.cargarTipoInstituciones();
     Swal.fire({
       title: 'Crear Nueva Institucion',
       html: '<input id="swal-input1" class="swal2-input" placeholder="Tipo de Institución" [(ngModel)]="tipInstitucion.tipNombre">',
@@ -113,7 +194,86 @@ export class ListainstitucionesComponent implements OnInit {
         ).value;
         this.tipInstitucion.tipNombre = this.newTipoinstitucion;
         this.saveTipoInstitucion();
+        this.loadTipoInstitucionByEstado(1);
       },
     });
   }
+
+  openUpdateTipoInstitucion(nombre: string, id: number) {
+    Swal.fire({
+      title: 'Editar ' + nombre,
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Tipo de Institución" [(ngModel)]="tipInstitucion.tipNombre">',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        this.newTipoinstitucion = (
+          document.getElementById('swal-input1') as HTMLInputElement
+        ).value;
+        this.tipInstitucion.tipNombre = this.newTipoinstitucion;
+        this.updateTipoInstitucion(id);
+        this.loadTipoInstitucionByEstado(1);
+        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+      },
+    });
+  }
+
+  updateTipoInstitucion(id: number) {
+    this.tipInstitucionService
+      .updateTipoInstitucion(this.tipInstitucion, id)
+      .subscribe((data) => {
+        this.loadTipoInstitucionByEstado(1);
+        this.loadInstitucionesByTipId(1, 1);
+        Swal.fire({
+          title: 'Edición Exitosa!',
+          text: data.tipNombre + ' agregado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false, // No mostrar el botón de cancelar
+        });
+      });
+  }
+
+  updateEstTipoInstitucion(id: number, est: number) {
+    Swal.fire({
+      title: `Al eliminar el proceso también deshabilitará los institutos pertenecientes, ¿Està seguro de ello?`,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipInstitucionService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadTipoInstitucionByEstado(1);
+            this.loadInstitucionesByTipId(1, 1);
+            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {},
+        });
+      } else if (result.isDenied) {
+        this.loadTipoInstitucionByEstado(1);
+        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        this.toastr.warning('Acción Cancelada');
+      }
+    });
+  }
+
+  loadTipoInstitucionByEstado(est: number) {
+    this.tipInstitucionService
+      .getTipoInstitucionByEstado(est)
+      .subscribe((response) => {
+        this.listaTipoInstituciones = response; // Asigna los datos al array provincias
+      });
+  }
+  /*fin de Tipo de Institucion*/
 }
