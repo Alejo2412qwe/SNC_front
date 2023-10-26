@@ -37,4 +37,12 @@ export class SuprocesosService {
       headers,
     });
   }
+
+  getAllSubProcesos() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    return this.http.get<Subprocesos[]>(`${this.url}/read`, { headers });
+  }
 }

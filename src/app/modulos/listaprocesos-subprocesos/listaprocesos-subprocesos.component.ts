@@ -18,12 +18,13 @@ import Swal from 'sweetalert2';
 })
 export class ListaprocesosSubprocesosComponent implements OnInit {
   constructor(
-    private suprocesosService: SuprocesosService,
+    private subprocesosService: SuprocesosService,
     private procesoService: ProcesosService
   ) {}
 
   ngOnInit(): void {
     this.cargarProcesos();
+    this.cargarSubprocesos();
   }
 
   //OBJETOS
@@ -42,6 +43,12 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   cargarProcesos() {
     this.procesoService.getAllProcesos().subscribe((data) => {
       this.listaProcesos = data;
+    });
+  }
+
+  cargarSubprocesos() {
+    this.subprocesosService.getAllSubProcesos().subscribe((data) => {
+      this.listaSubprocesos = data;
     });
   }
 
@@ -77,9 +84,10 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   saveSubproceso() {
-    this.suprocesosService
+    this.subprocesosService
       .saveSubprocesos(this.subproceso)
       .subscribe((data) => {
+        this.cargarSubprocesos();
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.subNombre + ' agregado correctamente',
@@ -90,11 +98,12 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       });
   }
 
-  openCrearSubproceso() {
-    this.cargarProcesos();
+  openCrearSubproceso(procId: number) {
+    // Aquí puedes usar 'procId' para crear el subproceso
+    this.cargarSubprocesos();
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
-      html: '<select id="procesos" name="procesos" class="input2" style="color: #777;" [(ngModel)]="proceso.procId" (change)="procesoSelected = proceso.procId"> <option value="0">Selecciona el proceso</option> <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId"> {{ proceso.procNombre }}</option></select> <input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
@@ -102,8 +111,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newSubproceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
+        // Aquí puedes usar 'procId' y 'newSubproceso' para crear el subproceso
+        this.subproceso.procId.procId = procId; // Asigna el 'procId' al subproceso
         this.subproceso.subNombre = this.newSubproceso;
-        this.subproceso.procId.procId = this.procesoSelected;
         this.saveSubproceso();
       },
     });
