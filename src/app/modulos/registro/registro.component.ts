@@ -113,7 +113,7 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  getInstitucionBydTipId() {
+  getInstitucionByTipId() {
     this.listaInstituciones = [];
 
     if (
