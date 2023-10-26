@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { SessionStorageService } from './session-storage.service'; // Importa SessionStorageService
-import { Horarios } from '../modelo/Horarios'; 
+import { Horarios } from '../modelo/horario'; 
 import { entorno } from '../enviroment/entorno';
 import { Observable } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Horarios } from 'src/app/modelo/Horarios';
 import { HorarioService } from 'src/app/services/horarios.service';
 import { validarLetras, validarNumeros, validarLetrasNum} from 'src/app/common/validaciones';
+import { Horarios } from 'src/app/modelo/horario';
 
 @Component({
   selector: 'app-horarios',
@@ -49,9 +49,9 @@ export class HorariosComponent implements OnInit {
     this.paginaActual = 0;
   });
   }
-/*
+
   buscarporHoras() {
-    if (this.fechaBusqueda) {
+    /*if (this.fechaBusqueda) {
       this.horarioService.buscarHorarios(this.fechaBusqueda).subscribe((response: Horarios[]) => {
         this.horarios = response;
       },
@@ -64,9 +64,9 @@ export class HorariosComponent implements OnInit {
         console.log('La operación se ha completado');
       }
     );
-    }
+    }*/
   }
-*/
+
   cambiarPagina(pagina: number) {
     this.paginaActual = pagina;
   }

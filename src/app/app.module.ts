@@ -18,6 +18,7 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { HorariosComponent } from './modulos/horarios/horarios.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
     RegistroComponent,
     PermisosComponent,
     GestionComponent,
+    HorariosComponent,
     ReportevacionesComponent,
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
