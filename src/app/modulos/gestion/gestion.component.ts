@@ -13,7 +13,6 @@ export class GestionComponent implements OnInit {
   constructor(private renderer: Renderer2, private el: ElementRef, private AllScripts: AllScriptsService,
     private sessionStorage: SessionStorageService) {
 
-    AllScripts.Cargar(["side"]);
 
   }
   username = this.sessionStorage.getItem('username');

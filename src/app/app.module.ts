@@ -19,7 +19,8 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { HorariosComponent } from './modulos/horarios/horarios.component';
-
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { HorariosComponent } from './modulos/horarios/horarios.component';
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent,
-    ListainstitucionesComponent
-
+    ListainstitucionesComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,13 +46,15 @@ import { HorariosComponent } from './modulos/horarios/horarios.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenExpirationInterceptor,
-    multi: true,
-  },],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenExpirationInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -46,6 +46,11 @@ export class LoginComponent implements OnInit {
         this.sessionStorage.setItem('username', username);
         // console.log("username= " + this.sessionStorage.getItem('username'))
 
+        const userId = decodedToken['id']; // Accede a la reclamación "sub"
+        this.sessionStorage.setItem('userId', userId);
+        // console.log("username= " + this.sessionStorage.getItem('username'))
+
+
         return
       } else {
         console.error("Token inválido o no contiene información de rol.");

@@ -12,10 +12,9 @@ import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { HorariosComponent } from './modulos/horarios/horarios.component';
 
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'perfil', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'editar-usuario/:id', component: RegistroComponent },
