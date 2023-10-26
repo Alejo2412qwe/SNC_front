@@ -12,12 +12,16 @@ export class HorarioService {
 
   constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
 
-  private url: string = `${entorno.urlPublica}/horarios`
+  private url: string = `${entorno.urlPrivada}/horarios`
   private token = this.sessionStorage.getItem('token');
 
 
   getHorarios() {
-    return this.http.get<Horarios[]>(this.url + '/horarios');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+    });
+
+    return this.http.get<Horarios[]>(this.url + '/read',{headers});
   }
 
   agregarHorario(horario: Horarios): Observable<Horarios> {
