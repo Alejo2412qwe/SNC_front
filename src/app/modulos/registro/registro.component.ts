@@ -49,7 +49,7 @@ export class RegistroComponent implements OnInit {
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   //OBJETOS
   persona: Persona = new Persona();
@@ -116,13 +116,13 @@ export class RegistroComponent implements OnInit {
   getInstitucionByTipId() {
     this.listaInstituciones = [];
 
+
     if (
       this.tipInstitucionSelected !== undefined &&
       this.tipInstitucionSelected.tipId !== undefined
     ) {
-      const tipId = this.tipInstitucionSelected.tipId as number;
       this.institucionService
-        .getInstitucionByTipId(tipId)
+        .getInstitucionByTipId(this.tipInstitucionSelected.tipId)
         .subscribe((response) => {
           this.listaInstituciones = response;
         });
@@ -154,6 +154,7 @@ export class RegistroComponent implements OnInit {
   cargarTipoInstitucion() {
     this.tipInstitucionService.getAllTipoInstituciones().subscribe((data) => {
       this.listaTipoInstitucion = data;
+      console.log(data)
     });
   }
 
@@ -222,8 +223,10 @@ export class RegistroComponent implements OnInit {
                   );
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                    // console.log(this.usuario.rolId)
-                    console.log(this.usuario.rolId);
+                    this.usuario.procId = this.procesoSelected;
+                    this.usuario.insId = this.institucion;
+                    console.log(this.usuario.procId)
+                    console.log(this.usuario.insId);
 
                     //REGISTRAR PERSONA
                     this.personaService
@@ -238,7 +241,7 @@ export class RegistroComponent implements OnInit {
                           .subscribe((response) => {
                             Swal.fire({
                               title: '¡Registro Exitoso!',
-                              text: response.rolId + ' agregado correctamente',
+                              text: response.rolId.rolNombre + ' agregado correctamente',
                               icon: 'success',
                               confirmButtonText: 'Confirmar',
                               showCancelButton: false, // No mostrar el botón de cancelar

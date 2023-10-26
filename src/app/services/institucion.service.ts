@@ -12,7 +12,7 @@ export class InstitucionService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) { }
 
   private url: string = `${entorno.urlPrivada}/institucion`;
 
@@ -32,6 +32,8 @@ export class InstitucionService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
+
+    console.log(`${this.url}/getInstitucionByTipId/${tipId}`)
 
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.get<Institucion[]>(
