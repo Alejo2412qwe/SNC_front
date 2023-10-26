@@ -36,6 +36,14 @@ export class HorarioService {
 
   }
 
+
+
+  
+
+
+
+
+
   // Método para buscar horarios por hora de ingreso
   buscarporHora(horaIngreso: string): Observable<Horarios[]> {
     const headers = new HttpHeaders({
