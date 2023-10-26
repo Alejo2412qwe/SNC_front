@@ -8,7 +8,7 @@ import { Rol } from 'src/app/modelo/rol';
 import { Subprocesos } from 'src/app/modelo/subprocesos';
 import { Usuario } from 'src/app/modelo/usuario';
 import { ProcesosService } from 'src/app/services/procesos.service';
-import { SuprocesosService } from 'src/app/services/subprocesos.service';
+import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class ListaprocesosSubprocesosComponent implements OnInit {
   constructor(
-    private subprocesosService: SuprocesosService,
+    private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService
   ) {}
 

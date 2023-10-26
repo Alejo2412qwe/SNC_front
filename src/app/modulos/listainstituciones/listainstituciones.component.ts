@@ -1,24 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Institucion } from 'src/app/modelo/Institucion';
-import { Ciudad } from 'src/app/modelo/ciudad';
-import { Persona } from 'src/app/modelo/persona';
-import { Procesos } from 'src/app/modelo/procesos';
-import { Provincia } from 'src/app/modelo/provincia';
-import { Rol } from 'src/app/modelo/rol';
-import { Subprocesos } from 'src/app/modelo/subprocesos';
 import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
-import { Usuario } from 'src/app/modelo/usuario';
-import { CiudadService } from 'src/app/services/ciudad.service';
 import { InstitucionService } from 'src/app/services/institucion.service';
-import { PersonaService } from 'src/app/services/persona.service';
-import { ProcesosService } from 'src/app/services/procesos.service';
-import { ProvinciaService } from 'src/app/services/provincia.service';
-import { RolService } from 'src/app/services/rol.service';
-import { SuprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
 @Component({

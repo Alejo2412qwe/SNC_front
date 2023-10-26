@@ -24,7 +24,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
-import { SuprocesosService } from 'src/app/services/subprocesos.service';
+import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
@@ -44,7 +44,7 @@ export class RegistroComponent implements OnInit {
     private personaService: PersonaService,
     private rolService: RolService,
     private usuarioService: UsuarioService,
-    private suprocesosService: SuprocesosService,
+    private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
@@ -60,7 +60,7 @@ export class RegistroComponent implements OnInit {
   proceso: Procesos = new Procesos();
   institucion: Institucion = new Institucion();
   tipInstitucion: TipoInstitucion = new TipoInstitucion();
-  procesoSelected: any;
+  procesoSelected: Procesos = new Procesos();
 
   //VARIABLES
   confirmarPass: string = '';
@@ -114,12 +114,19 @@ export class RegistroComponent implements OnInit {
   }
 
   getSubprocesosByProcesoId() {
-    this.id = this.proceso.procId;
-    this.suprocesosService
-      .getSubprocesosByProcesoId(this.id)
-      .subscribe((data) => {
-        this.listaSubprocesos.push(data);
-      });
+    this.listaSubprocesos = [];
+
+    if (
+      this.procesoSelected !== undefined &&
+      this.procesoSelected.procId !== undefined
+    ) {
+      const procId = this.procesoSelected.procId as number; // Realiza un type casting a number
+      this.subprocesosService
+        .getSubprocesosByProcesoId(procId)
+        .subscribe((response) => {
+          this.listaSubprocesos = response; // Asigna los datos al array provincias
+        });
+    }
   }
 
   cargarInstituciones() {
