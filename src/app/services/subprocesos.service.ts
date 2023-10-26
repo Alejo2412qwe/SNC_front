@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class SuprocesosService {
+export class SubprocesosService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
@@ -27,14 +27,24 @@ export class SuprocesosService {
     });
   }
 
-  getSubprocesosByProcesoId(id: number) {
-    // Construir el encabezado de autorización con el token JWT
+  getSubprocesosByProcesoId(procId: number) {
+    // Construir el encabezado de autorización
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Subprocesos>(`${this.url}/getSubprocesos/${id}`, {
-      headers,
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Subprocesos[]>(
+      `${this.url}/getSubprocesosByProcId/${procId}`,
+      { headers }
+    );
+  }
+
+  getAllSubProcesos() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
+
+    return this.http.get<Subprocesos[]>(`${this.url}/read`, { headers });
   }
 }

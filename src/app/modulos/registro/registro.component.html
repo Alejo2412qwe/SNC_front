@@ -171,26 +171,36 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">INSTITUCION:</label>
-                                        <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                                            <option value="manzana">Selecciona tu institucion</option>
-                                            <option value="banana">Banana</option>
-                                            <option value="uva">Uva</option>
-                                            <option value="naranja">Naranja</option>
-                                            <option value="pera">Pera</option>
+                                        <label for="name" class="name">TIPO DE INSTITUCION:</label>
+                                        <select id="tipInstitucion" name="tipInstitucion" class="input2"
+                                            style="color: #777;" [(ngModel)]="tipInstitucion.tipId">
+                                            <option value="0">Selecciona el tipo de institucion</option>
+                                            <option *ngFor="let tip of listaTipoInstitucion"
+                                                [value]="tipInstitucion.tipId">
+                                                {{tip.tipNombre}}
+                                            </option>
                                         </select>
                                         <div class="underline"></div>
                                     </div>
-                                    <div>
-                                        <button class="flot" (click)="crearInstituto()">CREAR NUEVA
-                                            INSTITUCION</button>
+                                </div>
+                                <div>
+                                    <div class="input-container">
+                                        <label for="name" class="name">INSTITUCION:</label>
+                                        <select id="institucion" name="institucion" class="input2" style="color: #777;"
+                                            [(ngModel)]="institucion.insId">
+                                            <option value="0">Selecciona tu institución</option>
+                                            <option *ngFor="let ins of listaInstituciones" [value]="institucion.insId">
+                                                {{ins.insNombre}}
+                                            </option>
+                                        </select>
+                                        <div class="underline"></div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">PROCESO - ZONA:</label>
                                         <select id="procesos" name="procesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="proceso.procId">
+                                            [(ngModel)]="procesoSelected.procId" (change)="getSubprocesosByProcesoId()">
                                             <option value="0">Selecciona el proceso</option>
                                             <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">
                                                 {{ proceso.procNombre }}
@@ -198,27 +208,19 @@
                                         </select>
                                         <div class="underline"></div>
                                     </div>
-                                    <div>
-                                        <button class="flot" (click)="openCrearProceso()">CREAR NUEVO PROCESO -
-                                            ZONA</button>
-                                    </div>
                                 </div>
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
                                         <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="subproceso.subId" (change)="getSubprocesosByProcesoId()">
+                                            [(ngModel)]="subproceso.subId">
                                             <option value="0">Selecciona el subproceso</option>
                                             <option *ngFor="let subproceso of listaSubprocesos"
-                                                [value]="subproceso.subNombre">
+                                                [value]="subproceso.subId">
                                                 {{subproceso.subNombre }}
                                             </option>
                                         </select>
                                         <div class="underline"></div>
-                                    </div>
-                                    <div>
-                                        <button class="flot" (click)="openCrearSubproceso()">CREAR NUEVO SUBPROCESO -
-                                            DEPARTAMENTO</button>
                                     </div>
                                 </div>
                             </section>

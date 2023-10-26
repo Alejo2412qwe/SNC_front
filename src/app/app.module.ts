@@ -17,6 +17,8 @@ import { TokenExpirationInterceptor } from './enviroment/TokenExpirationIntercep
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
+import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent
+    ListainstitucionesComponent
+
   ],
   imports: [
     BrowserModule,
