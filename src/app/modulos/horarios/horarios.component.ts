@@ -20,7 +20,6 @@ export class HorariosComponent implements OnInit {
   resultados: Horarios[]= []; // Propiedad para almacenar los resultados de la búsqueda
 
   horaBusqueda: string = ''; // Propiedad para almacenar la hora de búsqueda
-  miFormulario: FormGroup;
 
   /// RESTRICCION DE TECLAS
   validarLetras(event: KeyboardEvent) {
@@ -33,15 +32,7 @@ export class HorariosComponent implements OnInit {
     validarLetrasNum(event);
   }
 
-  constructor(private horarioService: HorarioService, private formBuilder: FormBuilder) {
-    this.miFormulario = this.formBuilder.group({
-      horNumHoras: ['', Validators.required],
-      horHoraIngreso: ['', Validators.required],
-      horHoraSalida: ['', Validators.required],
-      horHoraAlmuerzoInicio: [''],
-      horHoraAlmuerzoFin: ['']
-    });
-  }
+  constructor(private horarioService: HorarioService){}
 
   ngOnInit() {
     this.obtenerHorarios();
@@ -75,9 +66,7 @@ export class HorariosComponent implements OnInit {
     });
   }
 
-  editarHorario(horario: Horarios) {
-    this.miFormulario.patchValue(horario); // Asigna los valores del horario al formulario
-  }
+  
   actualizarHorario(horario: Horarios) {
     const confirmarEdicion = confirm('¿Estás seguro de que deseas editar este horario?');
     if (confirmarEdicion) {
@@ -98,6 +87,8 @@ export class HorariosComponent implements OnInit {
             }
         );
     }
+
+
 }
 
 }

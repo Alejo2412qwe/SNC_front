@@ -55,7 +55,7 @@ export class HorarioService {
 
     // Realiza la solicitud HTTP con el encabezado de autorización
 
-    return this.http.put<Horarios>(`${this.url}/update/id=${id}`, horario, {headers});
+    return this.http.put<Horarios>(`${this.url}/update/${id}`, horario, {headers});
 
   }
 
