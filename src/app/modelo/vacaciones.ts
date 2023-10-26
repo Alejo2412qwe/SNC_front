@@ -1,5 +1,5 @@
 export class Vacaciones {
-    vacId?: number;
+    vacId: number;
     vacDetalle?: string;
     vacSaldo?: number;
     vacDiasAnticipacion?: number;
