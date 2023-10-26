@@ -175,9 +175,9 @@
                                         <select id="tipInstitucion" name="tipInstitucion" class="input2"
                                             style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId" (change)="getInstitucionBydTipId()">
                                             <option value="0">Selecciona el tipo de institucion</option>
-                                            <option *ngFor="let tip of listaTipoInstitucion"
+                                            <option *ngFor="let tipo of listaTipoInstitucion"
                                                 [value]="tipInstitucion.tipId">
-                                                {{tip.tipNombre}}
+                                                {{tipo.tipNombre}}
                                             </option>
                                         </select>
                                         <div class="underline"></div>
@@ -187,10 +187,10 @@
                                     <div class="input-container">
                                         <label for="name" class="name">INSTITUCION:</label>
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
-                                            [(ngModel)]="institucion.insId">
+                                            [(ngModel)]="institucion.instId">
                                             <option value="0">Selecciona tu institución</option>
-                                            <option *ngFor="let ins of listaInstituciones" [value]="institucion.insId">
-                                                {{ins.insNombre}}
+                                            <option *ngFor="let inst of listaInstituciones" [value]="institucion.instId">
+                                                {{inst.instNombre}}
                                             </option>
                                         </select>
                                         <div class="underline"></div>

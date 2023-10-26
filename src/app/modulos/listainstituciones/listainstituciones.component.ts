@@ -53,7 +53,7 @@ export class ListainstitucionesComponent implements OnInit {
         this.cargarInstituciones();
         Swal.fire({
           title: '¡Registro Exitoso!',
-          text: data.insNombre + ' agregado correctamente',
+          text: data.instNombre + ' agregado correctamente',
           icon: 'success',
           confirmButtonText: 'Confirmar',
           showCancelButton: false, // No mostrar el botón de cancelar
@@ -77,8 +77,8 @@ export class ListainstitucionesComponent implements OnInit {
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
         this.institucion.tipId.tipId = tipId;
-        this.institucion.insNombre = this.newInstitucion;
-        this.institucion.intDireccion = this.newInstDireccion;
+        this.institucion.instNombre = this.newInstitucion;
+        this.institucion.instDireccion = this.newInstDireccion;
         this.saveInstitucion();
       },
     });

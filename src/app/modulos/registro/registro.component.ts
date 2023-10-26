@@ -86,7 +86,6 @@ export class RegistroComponent implements OnInit {
     this.cargarProvincias();
     this.cargarProcesos();
     this.validateMode();
-    this.cargarInstituciones();
     this.cargarTipoInstitucion();
   }
 
