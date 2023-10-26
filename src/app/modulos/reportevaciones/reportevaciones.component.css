@@ -16,21 +16,11 @@ thead tr:nth-child(1) th {
   z-index: 10;
 }
 
-<<<<<<< HEAD
- h1 {
-   font-size: 14px;
-   font-weight: bolder;
-   line-height: 1em;
-   text-align: center;
-   color: #000000;
- }
-=======
 .tipo {
   font-weight: bolder;
   border-left: 1px solid #dcdcdc;
   border-right: 1px solid #dcdcdc;
 }
->>>>>>> SalvaRama1
 
 td {
   overflow: auto;
@@ -51,20 +41,11 @@ td::-webkit-scrollbar {
   /* Cambia el valor del ancho del scroll */
 }
 
-<<<<<<< HEAD
- .container th h1 {
-   font-weight: bold;
-   font-size: 14px;
-   text-align: left;
-   color: #ffffff;
- }
-=======
 /* Cambia el color del scroll en navegadores compatibles */
 td::-webkit-scrollbar-thumb {
   background-color: #888;
   /* Cambia el color del scroll */
 }
->>>>>>> SalvaRama1
 
 /* Cambia el color del fondo del scroll en navegadores compatibles */
 td::-webkit-scrollbar-track {
@@ -153,15 +134,10 @@ td::-webkit-scrollbar-track {
   box-shadow: #8d0707 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-<<<<<<< HEAD
-   box-shadow: #ababab -1px 1px, #ababab -1px 1px, #ababab -1px 1px, #ababab -2px 2px, #ababab -2px 2px, #ababab -2px 2px;
-   transform: translate3d(3px, -3px, 0);
-=======
 .button-name2:hover {
   box-shadow: rgba(141, 13, 13, 0.814)0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
   transform: translateY(-2px);
 }
->>>>>>> SalvaRama1
 
 .button-name2:active {
   box-shadow: #99120d 0 3px 7px inset;
