@@ -7,6 +7,7 @@ import {
   validarLetrasNum,
 } from 'src/app/common/validaciones';
 import { Horarios } from 'src/app/modelo/horario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-horarios',
@@ -19,6 +20,11 @@ export class HorariosComponent implements OnInit {
  
   resultados: Horarios[]= []; // Propiedad para almacenar los resultados de la búsqueda
 
+
+  //VARIABLES
+  newProceso: string = '';
+  newSubproceso: string = '';
+  estadoActivo: number = 1;
   horaBusqueda: string = ''; // Propiedad para almacenar la hora de búsqueda
 
   /// RESTRICCION DE TECLAS
@@ -89,21 +95,49 @@ export class HorariosComponent implements OnInit {
     }
 
 }
-/*
-updateEstUser(id: number, est: number) {
-  this.horarioService.updateEst(id, est).subscribe({
-    next: () => {
-      console.log('eliminado')
-      this.loadUsers(1)
+
+loadProcesosByEstado(est: number) {
+  this.horarioService.getProcesosByEstado(est).subscribe((response) => {
+    this.listaProcesos = response; // Asigna los datos al array provincias
+  });
+}
+
+
+updateEstProceso(id: number, est: number) {
+  Swal.fire({
+    title: `Al eliminar el horario, se deshabilitará y no podra ser recuperado, ¿Està seguro de ello?`,
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Si',
+    denyButtonText: 'No',
+    customClass: {
+      actions: 'my-actions',
+      cancelButton: 'order-1 right-gap',
+      confirmButton: 'order-2',
+      denyButton: 'order-3',
     },
-    error: (error) => {
-      // Manejar errores
-    },
-    complete: () => {
-      // Manejar completado
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.horarioService.updateEst(id, est).subscribe({
+        next: () => {
+          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadSubprocesosByProcEstado(1, 1);
+          this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+        },
+        error: (error) => {
+          // Manejar errores
+        },
+        complete: () => {},
+      });
+    } else if (result.isDenied) {
+      this.loadProcesosByEstado(this.estadoActivo);
+      this.loadSubprocesosByProcEstado(
+        this.estadoActivo,
+        this.subproceso.subEstado
+      );
+      this.toastr.warning('Acción Cancelada');
     }
   });
-
-}*/
+}
 
 }
