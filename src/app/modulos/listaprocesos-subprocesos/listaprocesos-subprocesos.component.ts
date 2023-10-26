@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Institucion } from 'src/app/modelo/Institucion';
-import { Ciudad } from 'src/app/modelo/ciudad';
-import { Persona } from 'src/app/modelo/persona';
+import { ToastrService } from 'ngx-toastr';
 import { Procesos } from 'src/app/modelo/procesos';
-import { Provincia } from 'src/app/modelo/provincia';
-import { Rol } from 'src/app/modelo/rol';
 import { Subprocesos } from 'src/app/modelo/subprocesos';
-import { Usuario } from 'src/app/modelo/usuario';
 import { ProcesosService } from 'src/app/services/procesos.service';
 import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import Swal from 'sweetalert2';
@@ -19,12 +14,13 @@ import Swal from 'sweetalert2';
 export class ListaprocesosSubprocesosComponent implements OnInit {
   constructor(
     private subprocesosService: SubprocesosService,
-    private procesoService: ProcesosService
+    private procesoService: ProcesosService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.cargarProcesos();
     this.cargarSubprocesos();
+    this.loadProcesosByEstado(this.estadoActivo);
   }
 
   //OBJETOS
@@ -35,6 +31,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   //VARIABLES
   newProceso: string = '';
   newSubproceso: string = '';
+  estadoActivo: number = 1;
 
   //LISTAS
   listaProcesos: Procesos[] = [];
@@ -51,10 +48,23 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       this.listaSubprocesos = data;
     });
   }
-
+  /*inicio del proceso*/
   saveProceso() {
     this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
-      this.cargarProcesos();
+      this.loadProcesosByEstado(this.proceso.procEstado);
+      Swal.fire({
+        title: '¡Registro Exitoso!',
+        text: data.procNombre + ' agregado correctamente',
+        icon: 'success',
+        confirmButtonText: 'Confirmar',
+        showCancelButton: false, // No mostrar el botón de cancelar
+      });
+    });
+  }
+
+  updateProceso(id: number) {
+    this.procesoService.updateProcesos(this.proceso, id).subscribe((data) => {
+      this.loadProcesosByEstado(this.estadoActivo);
       Swal.fire({
         title: '¡Registro Exitoso!',
         text: data.procNombre + ' agregado correctamente',
@@ -78,11 +88,53 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         ).value;
         this.proceso.procNombre = this.newProceso;
         this.saveProceso();
-        this.cargarProcesos();
+        this.loadProcesosByEstado(this.estadoActivo);
       },
     });
   }
 
+  updateEstProceso(id: number, est: number) {
+    this.procesoService.updateEst(id, est).subscribe({
+      next: () => {
+        this.loadProcesosByEstado(this.estadoActivo);
+        this.toastr.success(
+          'ELIMINADO CORRECTAMENTE',
+          'ÉXITO AL REALIZAR LA ACCIÓN'
+        );
+      },
+      error: (error) => {
+        // Manejar errores
+      },
+      complete: () => {},
+    });
+  }
+
+  openUpdateProceso(nombre:string,id: number) {
+    Swal.fire({
+      title: 'Editar '+nombre,
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        this.newProceso = (
+          document.getElementById('swal-input1') as HTMLInputElement
+        ).value;
+        this.proceso.procNombre = this.newProceso;
+        this.updateProceso(id);
+        this.loadProcesosByEstado(this.estadoActivo);
+      },
+    });
+  }
+
+  loadProcesosByEstado(est: number) {
+    this.procesoService.getProcesosByEstado(est).subscribe((response) => {
+      this.listaProcesos = response; // Asigna los datos al array provincias
+    });
+  }
+  /*fin del proceso*/
+
+  /*inicio del subproceso*/
   saveSubproceso() {
     this.subprocesosService
       .saveSubprocesos(this.subproceso)
@@ -116,4 +168,5 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       },
     });
   }
+  /*fin del proceso*/
 }
