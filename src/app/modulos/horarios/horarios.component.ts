@@ -88,7 +88,22 @@ export class HorariosComponent implements OnInit {
         );
     }
 
-
 }
+/*
+updateEstUser(id: number, est: number) {
+  this.horarioService.updateEst(id, est).subscribe({
+    next: () => {
+      console.log('eliminado')
+      this.loadUsers(1)
+    },
+    error: (error) => {
+      // Manejar errores
+    },
+    complete: () => {
+      // Manejar completado
+    }
+  });
+
+}*/
 
 }
