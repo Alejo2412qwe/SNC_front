@@ -16,6 +16,7 @@ import { Procesos } from 'src/app/modelo/procesos';
 import { Provincia } from 'src/app/modelo/provincia';
 import { Rol } from 'src/app/modelo/rol';
 import { Subprocesos } from 'src/app/modelo/subprocesos';
+import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { Usuario } from 'src/app/modelo/usuario';
 import { CiudadService } from 'src/app/services/ciudad.service';
 import { InstitucionService } from 'src/app/services/institucion.service';
@@ -24,6 +25,7 @@ import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
 import { SuprocesosService } from 'src/app/services/subprocesos.service';
+import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -45,6 +47,7 @@ export class RegistroComponent implements OnInit {
     private suprocesosService: SuprocesosService,
     private procesoService: ProcesosService,
     private institucionService: InstitucionService,
+    private tipInstitucionService: tipoInstitucionService,
     private activatedRoute: ActivatedRoute
   ) {}
 
@@ -56,6 +59,7 @@ export class RegistroComponent implements OnInit {
   subproceso: Subprocesos = new Subprocesos();
   proceso: Procesos = new Procesos();
   institucion: Institucion = new Institucion();
+  tipInstitucion: TipoInstitucion = new TipoInstitucion();
   procesoSelected: any;
 
   //VARIABLES
@@ -74,13 +78,15 @@ export class RegistroComponent implements OnInit {
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
   listaInstituciones: Institucion[] = [];
+  listaTipoInstitucion: TipoInstitucion[] = [];
 
   ngOnInit(): void {
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
     this.validateMode();
-    this.cargarInstituciones;
+    this.cargarInstituciones();
+    this.cargarTipoInstitucion();
   }
 
   validateMode() {
@@ -119,6 +125,12 @@ export class RegistroComponent implements OnInit {
   cargarInstituciones() {
     this.institucionService.getAllInstituciones().subscribe((data) => {
       this.listaInstituciones = data;
+    });
+  }
+
+  cargarTipoInstitucion() {
+    this.tipInstitucionService.getAllTipoInstituciones().subscribe((data) => {
+      this.listaTipoInstitucion = data;
     });
   }
 

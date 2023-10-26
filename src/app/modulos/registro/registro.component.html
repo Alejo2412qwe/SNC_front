@@ -171,6 +171,20 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
+                                        <label for="name" class="name">TIPO DE INSTITUCION:</label>
+                                        <select id="institucion" name="institucion" class="input2" style="color: #777;"
+                                            [(ngModel)]="tipInstitucion.tipId">
+                                            <option value="0">Selecciona tu institución</option>
+                                            <option *ngFor="let tip of listaTipoInstitucion"
+                                                [value]="tipInstitucion.tipId">
+                                                {{tip.tipNombre}}
+                                            </option>
+                                        </select>
+                                        <div class="underline"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="input-container">
                                         <label for="name" class="name">INSTITUCION:</label>
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
                                             [(ngModel)]="institucion.insId">
