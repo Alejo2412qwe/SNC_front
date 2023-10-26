@@ -50,7 +50,7 @@ export class HorariosComponent implements OnInit {
   });
   }
 
-  buscarporHoras() {
+  buscarPorFecha() {
     /*if (this.fechaBusqueda) {
       this.horarioService.buscarHorarios(this.fechaBusqueda).subscribe((response: Horarios[]) => {
         this.horarios = response;
