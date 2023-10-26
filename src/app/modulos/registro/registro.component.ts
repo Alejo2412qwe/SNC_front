@@ -154,7 +154,6 @@ export class RegistroComponent implements OnInit {
   cargarTipoInstitucion() {
     this.tipInstitucionService.getAllTipoInstituciones().subscribe((data) => {
       this.listaTipoInstitucion = data;
-      console.log(data)
     });
   }
 
@@ -216,17 +215,19 @@ export class RegistroComponent implements OnInit {
               .usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '')
               .subscribe((res) => {
                 if (res) {
+
+                  console.log(this.usuario.rolId?.rolId.toString())
                   const rolEncontrado = this.listRoles.find(
                     (rol) =>
-                      rol.rolId.toString() ===
-                      this.usuario.rolId?.rolId.toString()
+                      rol.rolId, toString() === this.usuario.rolId?.rolId.toString()
                   );
+
+
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
                     this.usuario.procId = this.procesoSelected;
                     this.usuario.insId = this.institucion;
-                    console.log(this.usuario.procId)
-                    console.log(this.usuario.insId);
+
 
                     //REGISTRAR PERSONA
                     this.personaService
@@ -235,13 +236,15 @@ export class RegistroComponent implements OnInit {
                         this.usuario.usuEstado = 1;
                         this.usuario.usuPerId = response;
 
+                        console.log(this.usuario)
+
                         //RESGISTRAR USUARIO
                         this.usuarioService
                           .registrarUsuario(this.usuario)
                           .subscribe((response) => {
                             Swal.fire({
                               title: '¡Registro Exitoso!',
-                              text: response.rolId.rolNombre + ' agregado correctamente',
+                              text: this.usuario.rolId.rolNombre + ' agregado correctamente',
                               icon: 'success',
                               confirmButtonText: 'Confirmar',
                               showCancelButton: false, // No mostrar el botón de cancelar
