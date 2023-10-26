@@ -9,6 +9,7 @@ import { RegistroComponent } from './modulos/registro/registro.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
+
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 
 const routes: Routes = [
