@@ -16,7 +16,8 @@ export class GestionComponent implements OnInit {
     AllScripts.Cargar(["side"]);
 
   }
-
+  username = this.sessionStorage.getItem('username');
+  
   cerrarSesion(): void {
     localStorage.removeItem('userData');
 

@@ -27,6 +27,19 @@ export class InstitucionService {
     });
   }
 
+  getInstitucionByTipId(tipId: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Institucion[]>(
+      `${this.url}/getInstitucionByTipId/${tipId}`,
+      { headers }
+    );
+  }
+
   getAllInstituciones() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí

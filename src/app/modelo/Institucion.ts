@@ -1,20 +1,20 @@
 import { TipoInstitucion } from './tipoInstitucion';
 
 export class Institucion {
-  insId: number;
-  insNombre: string;
-  intDireccion: string;
+  instId: number;
+  instNombre: string;
+  instDireccion: string;
   tipId: TipoInstitucion;
 
   constructor(
-    insId?: number,
-    insNombre?: string,
-    intDireccion?: string,
+    instId?: number,
+    instNombre?: string,
+    instDireccion?: string,
     tipId?: TipoInstitucion
   ) {
-    (this.insId = insId || 0),
-      (this.insNombre = insNombre || ''),
-      (this.intDireccion = intDireccion || ''),
+    (this.instId = instId || 0),
+      (this.instNombre = instNombre || ''),
+      (this.instDireccion = instDireccion || ''),
       (this.tipId = tipId || new TipoInstitucion());
   }
 }
