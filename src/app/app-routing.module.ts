@@ -11,7 +11,6 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'perfil', component: MenuComponent },
@@ -32,4 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
