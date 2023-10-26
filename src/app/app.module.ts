@@ -32,7 +32,7 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
     ReportevacionesComponent,
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
-    DespegablemeneComponent
+    DespegablemeneComponent,
     ListainstitucionesComponent
 
   ],
