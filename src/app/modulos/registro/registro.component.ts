@@ -61,6 +61,7 @@ export class RegistroComponent implements OnInit {
   institucion: Institucion = new Institucion();
   tipInstitucion: TipoInstitucion = new TipoInstitucion();
   procesoSelected: Procesos = new Procesos();
+  tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
 
   //VARIABLES
   confirmarPass: string = '';
@@ -113,6 +114,22 @@ export class RegistroComponent implements OnInit {
     });
   }
 
+  getInstitucionBydTipId() {
+    this.listaInstituciones = [];
+
+    if (
+      this.tipInstitucionSelected !== undefined &&
+      this.tipInstitucionSelected.tipId !== undefined
+    ) {
+      const tipId = this.tipInstitucionSelected.tipId as number;
+      this.institucionService
+        .getInstitucionByTipId(tipId)
+        .subscribe((response) => {
+          this.listaInstituciones = response;
+        });
+    }
+  }
+
   getSubprocesosByProcesoId() {
     this.listaSubprocesos = [];
 
@@ -120,11 +137,11 @@ export class RegistroComponent implements OnInit {
       this.procesoSelected !== undefined &&
       this.procesoSelected.procId !== undefined
     ) {
-      const procId = this.procesoSelected.procId as number; // Realiza un type casting a number
+      const procId = this.procesoSelected.procId as number;
       this.subprocesosService
         .getSubprocesosByProcesoId(procId)
         .subscribe((response) => {
-          this.listaSubprocesos = response; // Asigna los datos al array provincias
+          this.listaSubprocesos = response;
         });
     }
   }

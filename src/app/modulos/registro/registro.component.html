@@ -173,7 +173,7 @@
                                     <div class="input-container">
                                         <label for="name" class="name">TIPO DE INSTITUCION:</label>
                                         <select id="tipInstitucion" name="tipInstitucion" class="input2"
-                                            style="color: #777;" [(ngModel)]="tipInstitucion.tipId">
+                                            style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId" (change)="getInstitucionBydTipId()">
                                             <option value="0">Selecciona el tipo de institucion</option>
                                             <option *ngFor="let tip of listaTipoInstitucion"
                                                 [value]="tipInstitucion.tipId">
