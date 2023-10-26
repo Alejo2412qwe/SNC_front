@@ -214,7 +214,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="Btn3">Refrescar Tabla
+                                    <button class="Btn3" (click)="loadSubprocesosByProcEstado(1,1)">Refrescar Tabla
                                         <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -254,8 +254,11 @@
                                             <td>{{sub.subId}}</td>
                                             <td>{{sub.subNombre}}</td>
                                             <td>{{sub.procId.procNombre}}</td>
-                                            <td><button role="button" class="button-name">Editar</button></td>
-                                            <td><button role="button" class="button-name2">Eliminar</button></td>
+                                            <td><button role="button" class="button-name"
+                                                    (click)="openUpdateSubproceso(sub.subNombre,sub.subId)">Editar</button>
+                                            </td>
+                                            <td><button role="button" class="button-name2"
+                                                    (click)="updateEstSubproceso(sub.subId,0)">Eliminar</button></td>
 
                                         </tr>
                                     </tbody>
