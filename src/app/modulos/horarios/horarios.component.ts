@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { HorarioService } from 'src/app/services/horarios.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   validarLetras,
   validarNumeros,
@@ -18,8 +19,8 @@ export class HorariosComponent implements OnInit {
  
   resultados: Horarios[]= []; // Propiedad para almacenar los resultados de la búsqueda
 
-  fechaBusqueda: string = ''; // Agregar la propiedad fechaBusqueda
   horaBusqueda: string = ''; // Propiedad para almacenar la hora de búsqueda
+  miFormulario: FormGroup;
 
   /// RESTRICCION DE TECLAS
   validarLetras(event: KeyboardEvent) {
@@ -32,7 +33,15 @@ export class HorariosComponent implements OnInit {
     validarLetrasNum(event);
   }
 
-  constructor(private horarioService: HorarioService) { }
+  constructor(private horarioService: HorarioService, private formBuilder: FormBuilder) {
+    this.miFormulario = this.formBuilder.group({
+      horNumHoras: ['', Validators.required],
+      horHoraIngreso: ['', Validators.required],
+      horHoraSalida: ['', Validators.required],
+      horHoraAlmuerzoInicio: [''],
+      horHoraAlmuerzoFin: ['']
+    });
+  }
 
   ngOnInit() {
     this.obtenerHorarios();
@@ -67,20 +76,28 @@ export class HorariosComponent implements OnInit {
   }
 
   editarHorario(horario: Horarios) {
-    // Clona el horario para no modificar el original directamente
-    const horarioEditado = { ...horario };
-  
-    // enviar una solicitud al servidor para actualizar el horario en la base de datos.
-    this.horarioService.actualizarHorario(horario.horId, horarioEditado).subscribe(
-      (response: Horarios) => {
-        // Maneja la respuesta exitosa, por ejemplo, actualizando la lista de horarios.
-        this.obtenerHorarios();
-      },
-      (error: any) => {
-        // Maneja los errores, por ejemplo, muestra un mensaje de error al usuario.
-        console.error('Ocurrió un error al actualizar el horario: ', error);
-      }
-    );
+    this.miFormulario.patchValue(horario); // Asigna los valores del horario al formulario
   }
+  actualizarHorario(horario: Horarios) {
+    const confirmarEdicion = confirm('¿Estás seguro de que deseas editar este horario?');
+    if (confirmarEdicion) {
+        // Realiza una copia profunda del horario para no modificar el original directamente
+        const horarioEditado = JSON.parse(JSON.stringify(horario));
+
+        // Realiza validaciones aquí antes de enviar la solicitud al servidor
+
+        // Envía la solicitud al servidor para actualizar el horario
+        this.horarioService.actualizaHorario(horario.horId, horarioEditado).subscribe(
+            (response: Horarios) => {
+                // Maneja la respuesta exitosa, por ejemplo, actualizando la lista de horarios.
+                this.obtenerHorarios();
+            },
+            (error: any) => {
+                // Maneja los errores, por ejemplo, muestra un mensaje de error al usuario.
+                console.error('Ocurrió un error al actualizar el horario: ', error);
+            }
+        );
+    }
+}
 
 }

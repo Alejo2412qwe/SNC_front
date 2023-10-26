@@ -37,13 +37,6 @@ export class HorarioService {
   }
 
 
-
-  
-
-
-
-
-
   // Método para buscar horarios por hora de ingreso
   buscarporHora(horaIngreso: string): Observable<Horarios[]> {
     const headers = new HttpHeaders({
@@ -53,7 +46,7 @@ export class HorarioService {
     return this.http.get<Horarios[]>(`${this.url}/searchByHour/${horaIngreso}`, {headers});
   }
 
-  actualizarHorario(id: number, horario: Horarios): Observable<Horarios> {
+  actualizaHorario(id: number, horario: Horarios): Observable<Horarios> {
 
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
@@ -62,7 +55,7 @@ export class HorarioService {
 
     // Realiza la solicitud HTTP con el encabezado de autorización
 
-    return this.http.put<Horarios>(`${this.url}/update/${id}`, horario, {headers});
+    return this.http.put<Horarios>(`${this.url}/update/id=${id}`, horario, {headers});
 
   }
 
