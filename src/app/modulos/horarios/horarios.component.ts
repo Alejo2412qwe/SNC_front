@@ -1,6 +1,13 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { HorarioService } from 'src/app/services/horarios.service';
-import { validarLetras, validarNumeros, validarLetrasNum} from 'src/app/common/validaciones';
+import {
+  validarCedula,
+  calcularEdad,
+  validarCorreo,
+  validarLetras,
+  validarNumeros,
+  validarLetrasNum,
+} from 'src/app/common/validaciones';
 import { Horarios } from 'src/app/modelo/horario';
 
 @Component({
@@ -16,6 +23,16 @@ export class HorariosComponent implements OnInit {
 
   fechaBusqueda: string = ''; // Agregar la propiedad fechaBusqueda
 
+  /// RESTRICCION DE TECLAS
+  validarLetras(event: KeyboardEvent) {
+    validarLetras(event);
+  }
+  validarNumeros(event: KeyboardEvent) {
+    validarNumeros(event);
+  }
+  validarLetrasNum(event: KeyboardEvent) {
+    validarLetrasNum(event);
+  }
 
   constructor(private horarioService: HorarioService) { }
 
