@@ -8,7 +8,9 @@ import { ReportevacionesComponent } from './modulos/reportevaciones/reportevacio
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
+import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +24,7 @@ const routes: Routes = [
   { path: 'listainstituciones', component: ListainstitucionesComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'des', component: DespegablemeneComponent },
   { path: '**', redirectTo: 'login' },
 ];
 
