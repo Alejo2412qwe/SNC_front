@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { HorarioService } from 'src/app/services/horarios.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import {
   validarLetras,
   validarNumeros,
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./horarios.component.css']
 })
 export class HorariosComponent implements OnInit {
-  nuevoHorario: Horarios = new Horarios(); // Utiliza el modelo Horario para definir el nuevoHorario
+  //LISTAS
   horarios: Horarios[] = []; // Utiliza el modelo Horario para definir el arreglo de horarios
  
   resultados: Horarios[]= []; // Propiedad para almacenar los resultados de la búsqueda
@@ -26,6 +26,8 @@ export class HorariosComponent implements OnInit {
   newSubproceso: string = '';
   estadoActivo: number = 1;
   horaBusqueda: string = ''; // Propiedad para almacenar la hora de búsqueda
+
+  nuevoHorario: Horarios = new Horarios(); // Utiliza el modelo Horario para definir el nuevoHorario
 
   /// RESTRICCION DE TECLAS
   validarLetras(event: KeyboardEvent) {
@@ -38,26 +40,201 @@ export class HorariosComponent implements OnInit {
     validarLetrasNum(event);
   }
 
-  constructor(private horarioService: HorarioService){}
+  constructor(
+    private horarioService: HorarioService,
+    private toastr: ToastrService){}
 
   ngOnInit() {
-    this.obtenerHorarios();
+    this.loadHorariosByEstado(this.estadoActivo);
   }
 
+  /*
   agregarHorario() {
     this.horarioService.agregarHorario(this.nuevoHorario).subscribe((response: any) => {
       this.nuevoHorario = new Horarios(); // Reinicia el objeto nuevoHorario después de agregar
       this.obtenerHorarios();
     });
   }
-
-
-  eliminarHorario(horario: Horarios) {
-    if (confirm('¿Estás seguro de que deseas eliminar este horario?')) {
-      this.horarioService.eliminarHorario(horario.horId).subscribe((response: any) => {
-        this.obtenerHorarios(); // Vuelve a cargar la lista de horarios después de eliminar uno
+*/
+agregarHorario() {
+    this.horarioService.agregarHorario(this.nuevoHorario).subscribe((data) => {
+      this.loadHorariosByEstado(this.estadoActivo);
+      Swal.fire({
+        title: '¡Registro Exitoso!',
+        text: 'Horario agregado correctamente',
+        icon: 'success',
+        confirmButtonText: 'Confirmar',
+        showCancelButton: false, // No mostrar el botón de cancelar
       });
-    }
+    });
+  }
+
+  openCrearHorario() {
+    Swal.fire({
+      title: 'Crear Nuevo Horario',
+      html: `<div>
+      <div class="input-container">
+          <label for="name" class="name">Número de Horas:</label>
+          <input placeholder="Ingresa el Número de horas totales al día" type="text" class="input"
+              name="horNumHoras" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horNumHoras">
+          <div class="underline"></div>
+      </div>
+  </div>
+
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Ingreso:</label>
+          <input placeholder="Ingrese su Hora de ingreso" type="text" class="input"
+              name="horHoraIngreso" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraIngreso">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Salida:</label>
+          <input placeholder="Ingrese su Hora de salida" type="text" class="input"
+              name="horHoraSalida" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraSalida">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Inicio de Almuerzo:</label>
+          <input placeholder="Ingrese la hora que comienza su Almuerzo" type="text" class="input"
+              name="horHoraAlmuerzoInicio" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraAlmuerzoInicio">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Fin de Almuerzo:</label>
+          <input placeholder="Ingrese la hora que termina su Almuerzo" type="text" class="input"
+              name="horHoraAlmuerzoFin" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraAlmuerzoFin">
+          <div class="underline"></div>
+      </div>
+  </div>`,
+      showCancelButton: true,
+      confirmButtonText: 'Crear',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        // Utiliza Swal.getInput() para obtener los valores de entrada
+        const inputNumHoras = document.querySelector('input[name="horNumHoras"]') as HTMLInputElement;
+        this.nuevoHorario.horNumHoras = inputNumHoras.value;
+  
+        const inputHoraIngreso = document.querySelector('input[name="horHoraIngreso"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraIngreso = inputHoraIngreso.value;
+  
+        const inputHoraSalida = document.querySelector('input[name="horHoraSalida"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraSalida = inputHoraSalida.value;
+  
+        const inputHoraAlmuerzoInicio = document.querySelector('input[name="horHoraAlmuerzoInicio"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraAlmuerzoInicio = inputHoraAlmuerzoInicio.value;
+  
+        const inputHoraAlmuerzoFin = document.querySelector('input[name="horHoraAlmuerzoFin"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraAlmuerzoFin = inputHoraAlmuerzoFin.value;
+  
+        this.agregarHorario();
+        this.loadHorariosByEstado(this.estadoActivo);
+      },
+    });
+  }
+
+  actualizarHorario(id: number) {
+    this.horarioService.actualizaHorario(this.nuevoHorario, id).subscribe((data) => {
+      this.loadHorariosByEstado(this.estadoActivo);
+      Swal.fire({
+        title: 'Edición Exitosa!',
+        text: 'Horario agregado correctamente',
+        icon: 'success',
+        confirmButtonText: 'Confirmar',
+        showCancelButton: false, // No mostrar el botón de cancelar
+      });
+    });
+  }
+
+  openUpdateProceso(nombre: string, id: number) {
+    Swal.fire({
+      title: 'Editar ' + nombre,
+      html: `<div>
+      <div class="input-container">
+          <label for="name" class="name">Número de Horas:</label>
+          <input placeholder="Ingresa el Número de horas totales al día" type="text" class="input"
+              name="horNumHoras" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horNumHoras">
+          <div class="underline"></div>
+      </div>
+  </div>
+
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Ingreso:</label>
+          <input placeholder="Ingrese su Hora de ingreso" type="text" class="input"
+              name="horHoraIngreso" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraIngreso">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Salida:</label>
+          <input placeholder="Ingrese su Hora de salida" type="text" class="input"
+              name="horHoraSalida" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraSalida">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Inicio de Almuerzo:</label>
+          <input placeholder="Ingrese la hora que comienza su Almuerzo" type="text" class="input"
+              name="horHoraAlmuerzoInicio" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraAlmuerzoInicio">
+          <div class="underline"></div>
+      </div>
+  </div>
+  
+  <div>
+      <div class="input-container">
+          <label for="name" class="name">Hora de Fin de Almuerzo:</label>
+          <input placeholder="Ingrese la hora que termina su Almuerzo" type="text" class="input"
+              name="horHoraAlmuerzoFin" (keydown)="validarNumeros($event)"
+              [(ngModel)]="nuevoHorario.horHoraAlmuerzoFin">
+          <div class="underline"></div>
+      </div>
+  </div>`,
+      showCancelButton: true,
+      confirmButtonText: 'Editar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        // Utiliza Swal.getInput() para obtener los valores de entrada
+        const inputNumHoras = document.querySelector('input[name="horNumHoras"]') as HTMLInputElement;
+        this.nuevoHorario.horNumHoras = inputNumHoras.value;
+  
+        const inputHoraIngreso = document.querySelector('input[name="horHoraIngreso"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraIngreso = inputHoraIngreso.value;
+  
+        const inputHoraSalida = document.querySelector('input[name="horHoraSalida"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraSalida = inputHoraSalida.value;
+  
+        const inputHoraAlmuerzoInicio = document.querySelector('input[name="horHoraAlmuerzoInicio"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraAlmuerzoInicio = inputHoraAlmuerzoInicio.value;
+  
+        const inputHoraAlmuerzoFin = document.querySelector('input[name="horHoraAlmuerzoFin"]') as HTMLInputElement;
+        this.nuevoHorario.horHoraAlmuerzoFin = inputHoraAlmuerzoFin.value;
+        this.actualizarHorario(id);
+        this.loadHorariosByEstado(this.estadoActivo);
+      },
+    });
   }
 
   obtenerHorarios() {
@@ -72,7 +249,7 @@ export class HorariosComponent implements OnInit {
     });
   }
 
-  
+  /*
   actualizarHorario(horario: Horarios) {
     const confirmarEdicion = confirm('¿Estás seguro de que deseas editar este horario?');
     if (confirmarEdicion) {
@@ -94,14 +271,13 @@ export class HorariosComponent implements OnInit {
         );
     }
 
-}
+}*/
 
-loadProcesosByEstado(est: number) {
-  this.horarioService.getProcesosByEstado(est).subscribe((response) => {
-    this.listaProcesos = response; // Asigna los datos al array provincias
+loadHorariosByEstado(est: number) {
+  this.horarioService.getHorariosByEstado(est).subscribe((response) => {
+    this.horarios = response; // Asigna los datos al array provincias
   });
 }
-
 
 updateEstProceso(id: number, est: number) {
   Swal.fire({
@@ -120,8 +296,7 @@ updateEstProceso(id: number, est: number) {
     if (result.isConfirmed) {
       this.horarioService.updateEst(id, est).subscribe({
         next: () => {
-          this.loadProcesosByEstado(this.estadoActivo);
-          this.loadSubprocesosByProcEstado(1, 1);
+          this.loadHorariosByEstado(this.estadoActivo);
           this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
         },
         error: (error) => {
@@ -130,11 +305,7 @@ updateEstProceso(id: number, est: number) {
         complete: () => {},
       });
     } else if (result.isDenied) {
-      this.loadProcesosByEstado(this.estadoActivo);
-      this.loadSubprocesosByProcEstado(
-        this.estadoActivo,
-        this.subproceso.subEstado
-      );
+      this.loadHorariosByEstado(this.estadoActivo);
       this.toastr.warning('Acción Cancelada');
     }
   });
