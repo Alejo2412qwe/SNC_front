@@ -10,6 +10,7 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { ListaFuncionesComponent } from './modulos/lista-funciones/lista-funciones.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
+  { path: 'listaFun', component: ListaFuncionesComponent },
   { path: '**', redirectTo: 'login' },
 ];
 
