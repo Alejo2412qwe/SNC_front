@@ -47,7 +47,8 @@ export class ListainstitucionesComponent implements OnInit {
       this.listaTipoInstituciones = data;
     });
   }
-  //validacion de letras y numeros
+
+  //validacion de letras, numeros y espacios
   validarLetrasYNumerosConEspacios(texto: string): boolean {
     const pattern = /^[a-zA-Z0-9\s]*$/;
     return pattern.test(texto);
