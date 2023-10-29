@@ -56,8 +56,8 @@
                                     class="img-raised rounded-circle img-fluid">
                             </div>
                             <div class="name">
-                                <h3 class="title">NOMBRE DE USUARIO</h3>
-                                <h6>FUNCION O ROL QUE CUMPLE</h6>
+                                <h3 class="title">{{usuario.usuNombreUsuario}}</h3>
+                                <h6>{{usuario.rolId.rolNombre}}</h6>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i
                                         class="fa fa-dribbble"></i></a>
                                 <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i
@@ -80,27 +80,33 @@
                                 </tr>
                                 <tr>
                                     <td>NOMBRE:</td>
-                                    <td>Daniel Andrade</td>
+                                    <td>{{usuario.usuPerId.perNombre}}</td>
+                                </tr>
+                                <tr>
+                                    <td>APELLIDO:</td>
+                                    <td>{{usuario.usuPerId.perApellido}}</td>
                                 </tr>
                                 <tr>
                                     <td>CEDULA:</td>
-                                    <td>0106434665</td>
+                                    <td>{{usuario.usuPerId.perCedula}}</td>
                                 </tr>
                                 <tr>
                                     <td>CIUDAD:</td>
-                                    <td>CUENCA</td>
+                                    <td>{{usuario.usuPerId.ciuId.ciuNombre}} -
+                                        {{usuario.usuPerId.ciuId.proId?.proNombre}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>DIRECCIÓN:</td>
-                                    <td>13 de Abril y Gonzales Suarez</td>
+                                    <td>{{usuario.usuPerId.perDireccion}}</td>
                                 </tr>
                                 <tr>
                                     <td>TELÉFONO:</td>
-                                    <td>0978717957</td>
+                                    <td>{{usuario.usuPerId.perTelefono}}</td>
                                 </tr>
                                 <tr>
                                     <td>EMAIL:</td>
-                                    <td>Andy.andrade@gmail.com</td>
+                                    <td>{{usuario.usuCorreo}}</td>
                                 </tr>
                             </table>
                         </div>
@@ -116,24 +122,21 @@
                                 </tr>
                                 <tr>
                                     <td>USUARIO:</td>
-                                    <td>Daniel012</td>
+                                    <td>{{usuario.usuNombreUsuario}}</td>
                                 </tr>
-                                <tr>
-                                    <td>CONTRASEÑA:</td>
-                                    <td>2002asd12</td>
-                                </tr>
+
                                 <tr>
                                     <td>INSTITUCIÓN:</td>
-                                    <td>Senescyt</td>
+                                    <td>{{usuario.insId.instNombre}}</td>
                                 </tr>
                                 <tr>
-                                    <td>ZONA:</td>
-                                    <td>Zona 6</td>
+                                    <td>ZONA / PROCESO:</td>
+                                    <td>{{usuario.procId.procNombre}}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td>DEPARTAMENTO:</td>
                                     <td>Docente</td>
-                                </tr>
+                                </tr> -->
                             </table>
                         </div>
                     </div>

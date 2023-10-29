@@ -390,10 +390,10 @@
                                     <div class="input-container">
                                         <label for="name" class="name">TIPO DE INSTITUCION:</label>
                                         <select id="tipInstitucion" name="tipInstitucion" class="input2"
-                                            style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId" (change)="getInstitucionByTipId()">
+                                            style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
+                                            (change)="getInstitucionByTipId()">
                                             <option value="0">Selecciona el tipo de institucion</option>
-                                            <option *ngFor="let tipo of listaTipoInstitucion"
-                                                [value]="tipInstitucion.tipId">
+                                            <option *ngFor="let tipo of listaTipoInstitucion" [value]="tipo.tipId">
                                                 {{tipo.tipNombre}}
                                             </option>
                                         </select>
@@ -406,7 +406,7 @@
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
                                             [(ngModel)]="institucion.instId">
                                             <option value="0">Selecciona tu institución</option>
-                                            <option *ngFor="let inst of listaInstituciones" [value]="institucion.instId">
+                                            <option *ngFor="let inst of listaInstituciones" [value]="inst.instId">
                                                 {{inst.instNombre}}
                                             </option>
                                         </select>

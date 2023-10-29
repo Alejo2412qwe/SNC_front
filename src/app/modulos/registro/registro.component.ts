@@ -49,7 +49,7 @@ export class RegistroComponent implements OnInit {
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   //OBJETOS
   persona: Persona = new Persona();
@@ -116,13 +116,13 @@ export class RegistroComponent implements OnInit {
   getInstitucionByTipId() {
     this.listaInstituciones = [];
 
+
     if (
       this.tipInstitucionSelected !== undefined &&
       this.tipInstitucionSelected.tipId !== undefined
     ) {
-      const tipId = this.tipInstitucionSelected.tipId as number;
       this.institucionService
-        .getInstitucionByTipId(tipId)
+        .getInstitucionByTipId(this.tipInstitucionSelected.tipId)
         .subscribe((response) => {
           this.listaInstituciones = response;
         });
@@ -215,15 +215,19 @@ export class RegistroComponent implements OnInit {
               .usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '')
               .subscribe((res) => {
                 if (res) {
+
+                  console.log(this.usuario.rolId?.rolId.toString())
                   const rolEncontrado = this.listRoles.find(
                     (rol) =>
-                      rol.rolId.toString() ===
-                      this.usuario.rolId?.rolId.toString()
+                      rol.rolId, toString() === this.usuario.rolId?.rolId.toString()
                   );
+
+
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                    // console.log(this.usuario.rolId)
-                    console.log(this.usuario.rolId);
+                    this.usuario.procId = this.procesoSelected;
+                    this.usuario.insId = this.institucion;
+
 
                     //REGISTRAR PERSONA
                     this.personaService
@@ -232,13 +236,15 @@ export class RegistroComponent implements OnInit {
                         this.usuario.usuEstado = 1;
                         this.usuario.usuPerId = response;
 
+                        console.log(this.usuario)
+
                         //RESGISTRAR USUARIO
                         this.usuarioService
                           .registrarUsuario(this.usuario)
                           .subscribe((response) => {
                             Swal.fire({
                               title: '¡Registro Exitoso!',
-                              text: response.rolId + ' agregado correctamente',
+                              text: this.usuario.rolId.rolNombre + ' agregado correctamente',
                               icon: 'success',
                               confirmButtonText: 'Confirmar',
                               showCancelButton: false, // No mostrar el botón de cancelar

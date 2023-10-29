@@ -18,7 +18,7 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'perfil', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'editar-usuario/:id', component: RegistroComponent },
@@ -37,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
