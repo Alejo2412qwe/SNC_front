@@ -21,6 +21,7 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funcione
     HeaderComponent,
     FooterComponent,
     ListaFuncionesComponent,
+    ListaperiodosComponent,
   ],
   imports: [
     BrowserModule,
