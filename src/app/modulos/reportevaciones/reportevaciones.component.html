@@ -12,7 +12,7 @@
 <body>
 
     <h1 style="font-size: 20px;">TABLA DE REPORTE VACACIONALES</h1>
-    <h1 style="font-size: 20px;">POR ASISTENCIA</h1>
+    <h1 style="font-size: 20px;">POR COMISION</h1>
     <div style="width: 100%; margin-bottom: 40px;">
 
         <h4>NOMBRE: <label for="">DANIEL ANDRADE</label></h4>
@@ -27,34 +27,22 @@
                     <h1>DETALLE</h1>
                 </th>
                 <th>
-                    <h1>DESDE</h1>
-                </th>
-                <th>
-                    <h1>HASTA</h1>
+                    <h1>FECHA DE INICIO</h1>
                 </th>
                 <th>
                     <h1>DIAS</h1>
                 </th>
-                <th>
-                    <h1>LUGAR</h1>
-                </th>
-                <th>
-                    <h1>INFORME</h1>
-                </th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>DATOS</td>
-                <td>DATOS</td>
-                <td>DATOS</td>
-                <td>DATOS</td>
-                <td>DATOS</td>
-                <td>DATOS</td>
-            </tr>
+            <tr *ngFor="let vacacion of vacaciones">
+                <td>{{ vacacion.vacDetalle }}</td>
+                <td>{{ vacacion.vacFecha }}</td>
+                <td>{{ vacacion.vacDiasComision }}</td>
+              </tr>
         </tbody>
     </table>
-    <h1 style="font-size: 20px;">POR COMISION</h1>
+    <h1 style="font-size: 20px;">POR ASISTENCIA</h1>
     <div style="width: 100%; margin-bottom: 40px;">
 
         <h4>NOMBRE: <label for="">DANIEL ANDRADE</label></h4>

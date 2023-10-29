@@ -7,6 +7,7 @@ export class Vacaciones {
     vacTotalDiasDisponibles?: number;
     vacDiasUsados?: number;
     vacDiasGanados?: number;
+    vacDiasComision?: number;
     vacFecha?: Date;
 
     constructor(
@@ -18,7 +19,8 @@ export class Vacaciones {
         vacDiasCaducados?: number,
         vacTotalDiasDisponibles?: number,
         vacDiasUsados?: number,
-        vacDiasGanados?: number
+        vacDiasGanados?: number,
+        vacDiasComision?: number
     ) {
         this.vacId = vacId || 0;
         this.vacDetalle = vacDetalle || '';
@@ -29,5 +31,6 @@ export class Vacaciones {
         this.vacTotalDiasDisponibles = vacTotalDiasDisponibles || 0;
         this.vacDiasUsados = vacDiasUsados || 0;
         this.vacDiasGanados = vacDiasGanados || 0;
+        this.vacDiasComision = vacDiasComision || 0;
     }
 }
