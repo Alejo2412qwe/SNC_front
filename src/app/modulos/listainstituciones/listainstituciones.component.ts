@@ -47,6 +47,11 @@ export class ListainstitucionesComponent implements OnInit {
       this.listaTipoInstituciones = data;
     });
   }
+  //validacion de letras y numeros
+  validarLetrasYNumerosConEspacios(texto: string): boolean {
+    const pattern = /^[a-zA-Z0-9\s]*$/;
+    return pattern.test(texto);
+  }
 
   /*inicio de Institucion*/
   saveInstitucion() {
@@ -79,10 +84,15 @@ export class ListainstitucionesComponent implements OnInit {
         this.newInstDireccion = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        this.institucion.tipId.tipId = tipId;
-        this.institucion.instNombre = this.newInstitucion;
-        this.institucion.instDireccion = this.newInstDireccion;
-        this.saveInstitucion();
+        if (
+          this.validarLetrasYNumerosConEspacios(this.newInstitucion) &&
+          this.validarLetrasYNumerosConEspacios(this.newInstDireccion)
+        ) {
+          this.institucion.tipId.tipId = tipId;
+          this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instDireccion = this.newInstDireccion;
+          this.saveInstitucion();
+        }
       },
     });
   }
@@ -101,10 +111,15 @@ export class ListainstitucionesComponent implements OnInit {
         this.newInstDireccion = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        this.institucion.instNombre = this.newInstitucion;
-        this.institucion.instDireccion = this.newInstDireccion;
-        this.updateInstitucion(id);
-        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        if (
+          this.validarLetrasYNumerosConEspacios(this.newInstitucion) &&
+          this.validarLetrasYNumerosConEspacios(this.newInstDireccion)
+        ) {
+          this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instDireccion = this.newInstDireccion;
+          this.updateInstitucion(id);
+          this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        }
       },
     });
   }
@@ -192,9 +207,11 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.tipInstitucion.tipNombre = this.newTipoinstitucion;
-        this.saveTipoInstitucion();
-        this.loadTipoInstitucionByEstado(1);
+        if (this.validarLetrasYNumerosConEspacios(this.newTipoinstitucion)) {
+          this.tipInstitucion.tipNombre = this.newTipoinstitucion;
+          this.saveTipoInstitucion();
+          this.loadTipoInstitucionByEstado(1);
+        }
       },
     });
   }
@@ -210,10 +227,12 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.tipInstitucion.tipNombre = this.newTipoinstitucion;
-        this.updateTipoInstitucion(id);
-        this.loadTipoInstitucionByEstado(1);
-        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        if (this.validarLetrasYNumerosConEspacios(this.newTipoinstitucion)) {
+          this.tipInstitucion.tipNombre = this.newTipoinstitucion;
+          this.updateTipoInstitucion(id);
+          this.loadTipoInstitucionByEstado(1);
+          this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        }
       },
     });
   }
