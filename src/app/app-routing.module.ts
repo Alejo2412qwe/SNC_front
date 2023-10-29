@@ -10,7 +10,7 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
-import { ListaFuncionesComponent } from './modulos/lista-funciones/lista-funciones.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

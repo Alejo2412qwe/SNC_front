@@ -20,7 +20,7 @@ import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { ListaFuncionesComponent } from './modulos/lista-funciones/lista-funciones.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 
 @NgModule({
   declarations: [
