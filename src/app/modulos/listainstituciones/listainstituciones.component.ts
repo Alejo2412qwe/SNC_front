@@ -6,6 +6,7 @@ import { InstitucionService } from 'src/app/services/institucion.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import Swal from 'sweetalert2';
 import { validarCadena } from 'src/app/common/validaciones';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
   selector: 'app-listainstituciones',
@@ -14,10 +15,16 @@ import { validarCadena } from 'src/app/common/validaciones';
 })
 export class ListainstitucionesComponent implements OnInit {
   constructor(
+    //services
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sessionStorage: SessionStorageService
   ) {}
+
+  //usuario de la sesion actual
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //OBJETOS
   institucion: Institucion = new Institucion();

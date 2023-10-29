@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Procesos } from 'src/app/modelo/procesos';
 import { Subprocesos } from 'src/app/modelo/subprocesos';
 import { ProcesosService } from 'src/app/services/procesos.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import Swal from 'sweetalert2';
 
@@ -13,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ListaprocesosSubprocesosComponent implements OnInit {
   constructor(
+    private sessionStorage: SessionStorageService,
     private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
     private toastr: ToastrService
@@ -23,6 +25,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
     this.loadProcesosByEstado(this.estadoActivo);
     this.loadSubprocesosByProcEstado(this.estadoActivo, this.estadoActivo);
   }
+
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //OBJETOS
   subproceso: Subprocesos = new Subprocesos();

@@ -2,18 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Funciones } from 'src/app/modelo/funciones';
 import { FuncionesService } from 'src/app/services/funciones.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-funciones',
   templateUrl: './lista-funciones.component.html',
-  styleUrls: ['./lista-funciones.component.css']
+  styleUrls: ['./lista-funciones.component.css'],
 })
 export class ListaFuncionesComponent implements OnInit {
   constructor(
+    private sessionStorage: SessionStorageService,
     private funcionesService: FuncionesService,
     private toastr: ToastrService
   ) {}
+
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //OBJETOS
   funciones: Funciones = new Funciones();
@@ -22,15 +27,15 @@ export class ListaFuncionesComponent implements OnInit {
   //VARIABLES
   newFunciones: string = '';
   estadoActivo: number = 1;
-   
+
   //LISTAS
   listaFunciones: Funciones[] = [];
-   
+
   ngOnInit(): void {
     this.cargarFunciones();
     this.loadFuncionesByEstado(this.estadoActivo);
   }
-  
+
   cargarFunciones() {
     this.funcionesService.getAllFunciones().subscribe((data) => {
       this.listaFunciones = data;
@@ -55,7 +60,6 @@ export class ListaFuncionesComponent implements OnInit {
       this.listaFunciones = response; // Asigna los datos al array Funciones
     });
   }
- 
 
   openCrearFuncion() {
     Swal.fire({
@@ -75,19 +79,20 @@ export class ListaFuncionesComponent implements OnInit {
     });
   }
   updateFuncion(id: number) {
-    this.funcionesService.updateFunciones(this.funciones, id).subscribe((data) => {
-      this.loadFuncionesByEstado(this.estadoActivo);
-      Swal.fire({
-        title: 'Edición Exitosa!',
-        text: data.funNombre + ' agregado correctamente',
-        icon: 'success',
-        confirmButtonText: 'Confirmar',
-        showCancelButton: false, // No mostrar el botón de cancelar
+    this.funcionesService
+      .updateFunciones(this.funciones, id)
+      .subscribe((data) => {
+        this.loadFuncionesByEstado(this.estadoActivo);
+        Swal.fire({
+          title: 'Edición Exitosa!',
+          text: data.funNombre + ' agregado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false, // No mostrar el botón de cancelar
+        });
       });
-    });
   }
 
-  
   updateEstFuncion(id: number, est: number) {
     Swal.fire({
       title: `Al eliminar el proceso también deshabilitará los subprocesos pertenecientes, ¿Està seguro de ello?`,
@@ -115,10 +120,7 @@ export class ListaFuncionesComponent implements OnInit {
         });
       } else if (result.isDenied) {
         this.loadFuncionesByEstado(this.estadoActivo);
-        (
-          this.estadoActivo
-      
-        );
+        this.estadoActivo;
         this.toastr.warning('Acción Cancelada');
       }
     });
@@ -137,9 +139,7 @@ export class ListaFuncionesComponent implements OnInit {
         this.funciones.funNombre = this.newFunciones;
         this.updateFuncion(id);
         this.loadFuncionesByEstado(this.estadoActivo);
-        
       },
     });
   }
-
 }
