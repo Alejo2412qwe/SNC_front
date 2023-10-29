@@ -5,6 +5,7 @@ import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { InstitucionService } from 'src/app/services/institucion.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import Swal from 'sweetalert2';
+import { validarCadena } from 'src/app/common/validaciones';
 
 @Component({
   selector: 'app-listainstituciones',
@@ -48,10 +49,12 @@ export class ListainstitucionesComponent implements OnInit {
     });
   }
 
-  //validacion de letras, numeros y espacios
-  validarLetrasYNumerosConEspacios(texto: string): boolean {
-    const pattern = /^[a-zA-Z0-9\s]*$/;
-    return pattern.test(texto);
+  showErrorAlCrear() {
+    Swal.fire({
+      icon: 'error',
+      title: 'No se puede crear',
+      text: 'No se puede crear el elemento en este momento.',
+    });
   }
 
   /*inicio de Institucion*/
@@ -86,13 +89,15 @@ export class ListainstitucionesComponent implements OnInit {
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
         if (
-          this.validarLetrasYNumerosConEspacios(this.newInstitucion) &&
-          this.validarLetrasYNumerosConEspacios(this.newInstDireccion)
+          validarCadena(this.newInstitucion) &&
+          validarCadena(this.newInstDireccion)
         ) {
           this.institucion.tipId.tipId = tipId;
           this.institucion.instNombre = this.newInstitucion;
           this.institucion.instDireccion = this.newInstDireccion;
           this.saveInstitucion();
+        } else {
+          this.showErrorAlCrear();
         }
       },
     });
@@ -113,13 +118,15 @@ export class ListainstitucionesComponent implements OnInit {
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
         if (
-          this.validarLetrasYNumerosConEspacios(this.newInstitucion) &&
-          this.validarLetrasYNumerosConEspacios(this.newInstDireccion)
+          validarCadena(this.newInstitucion) &&
+          validarCadena(this.newInstDireccion)
         ) {
           this.institucion.instNombre = this.newInstitucion;
           this.institucion.instDireccion = this.newInstDireccion;
           this.updateInstitucion(id);
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        } else {
+          this.showErrorAlCrear();
         }
       },
     });
@@ -208,10 +215,12 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        if (this.validarLetrasYNumerosConEspacios(this.newTipoinstitucion)) {
+        if (validarCadena(this.newTipoinstitucion)) {
           this.tipInstitucion.tipNombre = this.newTipoinstitucion;
           this.saveTipoInstitucion();
           this.loadTipoInstitucionByEstado(1);
+        } else {
+          this.showErrorAlCrear();
         }
       },
     });
@@ -228,11 +237,13 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        if (this.validarLetrasYNumerosConEspacios(this.newTipoinstitucion)) {
+        if (validarCadena(this.newTipoinstitucion)) {
           this.tipInstitucion.tipNombre = this.newTipoinstitucion;
           this.updateTipoInstitucion(id);
           this.loadTipoInstitucionByEstado(1);
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        } else {
+          this.showErrorAlCrear();
         }
       },
     });
