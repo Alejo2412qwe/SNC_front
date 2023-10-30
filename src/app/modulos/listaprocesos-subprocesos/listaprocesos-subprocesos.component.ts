@@ -6,6 +6,8 @@ import { ProcesosService } from 'src/app/services/procesos.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import Swal from 'sweetalert2';
+import { validarCadena } from 'src/app/common/validaciones';
+import { showErrorAlCrear } from 'src/app/common/validaciones';
 
 @Component({
   selector: 'app-listaprocesos-subprocesos',
@@ -73,9 +75,13 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newProceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.proceso.procNombre = this.newProceso;
-        this.saveProceso();
-        this.loadProcesosByEstado(this.estadoActivo);
+        if (validarCadena(this.newProceso)) {
+          this.proceso.procNombre = this.newProceso;
+          this.saveProceso();
+          this.loadProcesosByEstado(this.estadoActivo);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -142,13 +148,17 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newProceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.proceso.procNombre = this.newProceso;
-        this.updateProceso(id);
-        this.loadProcesosByEstado(this.estadoActivo);
-        this.loadSubprocesosByProcEstado(
-          this.estadoActivo,
-          this.subproceso.subEstado
-        );
+        if (validarCadena(this.newProceso)) {
+          this.proceso.procNombre = this.newProceso;
+          this.updateProceso(id);
+          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadSubprocesosByProcEstado(
+            this.estadoActivo,
+            this.subproceso.subEstado
+          );
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -188,9 +198,11 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newSubproceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.subproceso.procId.procId = procId;
-        this.subproceso.subNombre = this.newSubproceso;
-        this.saveSubproceso();
+        if (validarCadena(this.newSubproceso)) {
+          this.subproceso.procId.procId = procId;
+          this.subproceso.subNombre = this.newSubproceso;
+          this.saveSubproceso();
+        }
       },
     });
   }
@@ -206,13 +218,15 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.newSubproceso = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.subproceso.subNombre = this.newSubproceso;
-        this.updateSubproceso(id);
-        this.loadProcesosByEstado(this.estadoActivo);
-        this.loadSubprocesosByProcEstado(
-          this.estadoActivo,
-          this.subproceso.subEstado
-        );
+        if (validarCadena(this.newSubproceso)) {
+          this.subproceso.subNombre = this.newSubproceso;
+          this.updateSubproceso(id);
+          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadSubprocesosByProcEstado(
+            this.estadoActivo,
+            this.subproceso.subEstado
+          );
+        }
       },
     });
   }

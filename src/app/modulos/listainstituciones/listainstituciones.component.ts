@@ -5,8 +5,9 @@ import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { InstitucionService } from 'src/app/services/institucion.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import Swal from 'sweetalert2';
-import { validarCadena } from 'src/app/common/validaciones';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { validarCadena } from 'src/app/common/validaciones';
+import { showErrorAlCrear } from 'src/app/common/validaciones';
 
 @Component({
   selector: 'app-listainstituciones',
@@ -56,14 +57,6 @@ export class ListainstitucionesComponent implements OnInit {
     });
   }
 
-  showErrorAlCrear() {
-    Swal.fire({
-      icon: 'error',
-      title: 'No se puede crear',
-      text: 'No se puede crear el elemento en este momento.',
-    });
-  }
-
   /*inicio de Institucion*/
   saveInstitucion() {
     this.institucionService
@@ -104,7 +97,7 @@ export class ListainstitucionesComponent implements OnInit {
           this.institucion.instDireccion = this.newInstDireccion;
           this.saveInstitucion();
         } else {
-          this.showErrorAlCrear();
+          showErrorAlCrear();
         }
       },
     });
@@ -133,7 +126,7 @@ export class ListainstitucionesComponent implements OnInit {
           this.updateInstitucion(id);
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);
         } else {
-          this.showErrorAlCrear();
+          showErrorAlCrear();
         }
       },
     });
@@ -227,7 +220,7 @@ export class ListainstitucionesComponent implements OnInit {
           this.saveTipoInstitucion();
           this.loadTipoInstitucionByEstado(1);
         } else {
-          this.showErrorAlCrear();
+          showErrorAlCrear();
         }
       },
     });
@@ -250,7 +243,7 @@ export class ListainstitucionesComponent implements OnInit {
           this.loadTipoInstitucionByEstado(1);
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);
         } else {
-          this.showErrorAlCrear();
+          showErrorAlCrear();
         }
       },
     });
