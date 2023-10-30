@@ -5,25 +5,14 @@ import { SessionStorageService } from '../../services/session-storage.service'; 
 @Component({
   selector: 'app-gestion',
   templateUrl: './gestion.component.html',
-  styleUrls: ['./gestion.component.css']
+  styleUrls: ['./gestion.component.css'],
 })
 export class GestionComponent implements OnInit {
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    private AllScripts: AllScriptsService
+  ) {}
 
-
-  constructor(private renderer: Renderer2, private el: ElementRef, private AllScripts: AllScriptsService,
-    private sessionStorage: SessionStorageService) {
-
-
-  }
-  username = this.sessionStorage.getItem('username');
-  
-  cerrarSesion(): void {
-    localStorage.removeItem('userData');
-
-  }
-  
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 }
