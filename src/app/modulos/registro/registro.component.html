@@ -135,6 +135,14 @@
                                         <div class="underline"></div>
                                     </div>
                                 </div>
+                            </section>
+                        </div>
+                        <div class="contentForm">
+                            <div style="width: 100%; ">
+
+                                <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
+                            </div>
+                            <section class="layout">
                                 <div>
                                     <div class="input-container">
                                         <label for="name" class="name">TIPO DE INSTITUCION:</label>
@@ -153,7 +161,7 @@
                                     <div class="input-container">
                                         <label for="name" class="name">INSTITUCION:</label>
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
-                                            [(ngModel)]="institucion.instId">
+                                            [(ngModel)]="usuario.insId.instId">
                                             <option value="0">Selecciona tu institución</option>
                                             <option *ngFor="let inst of listaInstituciones" [value]="inst.instId">
                                                 {{inst.instNombre}}
@@ -166,7 +174,7 @@
                                     <div class="input-container">
                                         <label for="name" class="name">PROCESO - ZONA:</label>
                                         <select id="procesos" name="procesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="procesoSelected.procId" (change)="getSubprocesosByProcesoId()">
+                                            [(ngModel)]="usuario.procId.procId" (change)="getSubprocesosByProcesoId()">
                                             <option value="0">Selecciona el proceso</option>
                                             <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">
                                                 {{ proceso.procNombre }}
@@ -175,7 +183,7 @@
                                         <div class="underline"></div>
                                     </div>
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <div class="input-container">
                                         <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
                                         <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
@@ -188,7 +196,22 @@
                                         </select>
                                         <div class="underline"></div>
                                     </div>
+                                </div> -->
+                                <div>
+                                    <div class="input-container">
+                                        <label for="name" class="name">FUNCIÓN:</label>
+                                        <select id="funcion" name="funcion" class="input2" style="color: #777;"
+                                            [(ngModel)]="usuario.funId.funId">
+                                            <option value="0">Selecciona la función edl usuario</option>
+                                            <option *ngFor="let funcion of listFunciones" [value]="funcion.funId">
+                                                {{funcion.funNombre }}
+                                            </option>
+                                        </select>
+                                        <div class="underline"></div>
+                                    </div>
                                 </div>
+
+
                             </section>
                         </div>
                         <div class="contentForm">
