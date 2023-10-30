@@ -241,9 +241,6 @@ export class RegistroComponent implements OnInit {
 
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                    this.usuario.procId = this.procesoSelected;
-                    this.usuario.insId = this.institucion;
-
 
                     //REGISTRAR PERSONA
                     this.personaService
