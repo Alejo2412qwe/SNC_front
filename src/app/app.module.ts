@@ -22,6 +22,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
+import { SidebarComponent } from './modulos/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.co
     FooterComponent,
     ListaFuncionesComponent,
     ListaperiodosComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

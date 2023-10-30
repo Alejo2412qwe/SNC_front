@@ -215,6 +215,8 @@ p {
     border-radius: 3px;
     padding: 0 15px;
     width: max-content;
+    margin-left: auto;
+  margin-right: auto;
 }
 
 .nav .nav-item {
@@ -671,6 +673,8 @@ body {
         border-radius: 3px;
         padding: 0 15px;
         width: auto;
+        margin-left: auto;
+  margin-right: auto;
     }
 
 }
@@ -685,3 +689,11 @@ body {
     align-items: stretch;
     width: 100%;
  }
+
+ .containerside {
+    display: grid;
+    grid-template-columns: 4% 96%;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 100%;
+  }
