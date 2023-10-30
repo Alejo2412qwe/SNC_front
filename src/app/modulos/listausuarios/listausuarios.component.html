@@ -11,42 +11,9 @@
 </head>
 
 <body class="profile-page">
-    <nav class="navbar navbar-custom-bg navbar-color-on-scroll navbar-transparent navbar-expand-lg"
-        color-on-scroll="100" id="sectionsNav">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" routerLink="#" style="font-size: 14px;">
-                    <img src="assets/img/escudo.png" width="20%" alt="">
-                    Secretaria de Educacion Superior, Ciencia, Tecnologia e Innovación</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                            <i class="material-icons">apps</i> Components
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../index.html" class="dropdown-item">
-                                <i class="material-icons">layers</i> All Components
-                            </a>
+    <app-header></app-header>
 
-                            <a href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html"
-                                class="dropdown-item">
-                                <i class="material-icons">content_paste</i> Documentation
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div class="page-header header-filter" data-parallax="true"
         style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
 
@@ -96,7 +63,7 @@
                                     <input class="searchInput" type="text" name=""
                                         placeholder="Buscar por cedula, nombre, apellido, username, telefono"
                                         title="Buscar por cedula, nombre, apellido, username, telefono"
-                                        [(ngModel)]="searchString" (input)="searchUser(searchString, 1)">
+                                        [(ngModel)]="searchString" (input)="searchUser(searchString, estList)">
                                     <button class="searchButton" onclick="">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29"
                                             viewBox="0 0 29 29" fill="none">
@@ -137,21 +104,37 @@
                                     </button>
                                 </div>
                             </div>
-                            <div style="display: flex;
+                            <!-- <div style="display: flex;
                             justify-content: center;
                             align-items: center;
                             height: 100%;">
                                 <div class="radio-inputs">
                                     <label class="radio">
-                                        <input type="radio" name="radio" checked="">
+                                        <input type="radio" name="radio" checked="" (click)="loadUsers(1)">
                                         <span class="name">Activo</span>
                                     </label>
                                     <label class="radio">
-                                        <input type="radio" name="radio">
+                                        <input type="radio" name="radio" (click)="loadUsers(0)">
+                                        <span class="name">Inactivo</span>
+                                    </label>
+                                </div>
+                            </div> -->
+                            <div
+                                style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                <div class="radio-inputs">
+                                    <label class="radio">
+                                        <input type="radio" name="radio" [(ngModel)]="estList" value=1
+                                            [checked]="estList === 1" (change)="loadUsers(estList)">
+                                        <span class="name">Activo</span>
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" name="radio" [(ngModel)]="estList" value=0
+                                            [checked]="estList === 0" (change)="loadUsers(estList)">
                                         <span class="name">Inactivo</span>
                                     </label>
                                 </div>
                             </div>
+
                             <div style="display: flex;
                             justify-content: center;
                             align-items: center;
@@ -181,23 +164,23 @@
                                             d="M19.129,31l-2.411-4.561c-0.092-0.171-0.186-0.483-0.284-0.938h-0.037c-0.046,0.215-0.154,0.541-0.324,0.979L13.652,31H9.895l4.462-7.001L10.274,17h3.837l2.001,4.196c0.156,0.331,0.296,0.725,0.42,1.179h0.04c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z" />
                                     </svg>
                                 </button></div>
-                                <div style="display: flex;
+                            <div style="display: flex;
                                 justify-content: center;
                                 align-items: center;
                                 height: 100%;">
-                                    <button class="Btn" (click)="loadUsers(1)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
-                                            viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                            <style>
-                                                svg {
-                                                    fill: #ffffff
-                                                }
-                                            </style>
-                                            <path
-                                                d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H336c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V448c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H176c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z" />
-                                        </svg>
-                                    </button>
-                                </div>
+                                <button class="Btn" (click)="setActive(); loadUsers(estList); searchString='' ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                        <style>
+                                            svg {
+                                                fill: #ffffff
+                                            }
+                                        </style>
+                                        <path
+                                            d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160H336c-17.7 0-32 14.3-32 32s14.3 32 32 32H463.5c0 0 0 0 0 0h.4c17.7 0 32-14.3 32-32V64c0-17.7-14.3-32-32-32s-32 14.3-32 32v51.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1V448c0 17.7 14.3 32 32 32s32-14.3 32-32V396.9l17.6 17.5 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352H176c17.7 0 32-14.3 32-32s-14.3-32-32-32H48.4c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         <div style="width: 100%; margin-top: 50px;">
                             <div class="table-responsive">
@@ -214,6 +197,9 @@
                                             <th class="tipo" scope="col">CIUDAD</th>
                                             <th class="tipo" scope="col">TELEFONO</th>
                                             <th class="tipo" scope="col">DIRECCION</th>
+                                            <th class="tipo" scope="col">INSTITUCION</th>
+                                            <th class="tipo" scope="col">PROCESO</th>
+                                            <th class="tipo" scope="col">FUNCIÓN</th>
                                             <th class="tipo" scope="col">FECHA DE REGISTRO</th>
                                             <th class="tipo" scope="col">EDITAR</th>
                                             <th class="tipo" scope="col">ELIMINAR</th>
@@ -233,6 +219,9 @@
                                                 {{user.usuPerId.ciuId.proId?.proNombre}}</td>
                                             <td class="tdTbl">{{user.usuPerId.perTelefono}}</td>
                                             <td class="tdTbl">{{user.usuPerId.perDireccion}}</td>
+                                            <td class="tdTbl">{{user.insId.instNombre}}</td>
+                                            <td class="tdTbl">{{user.procId.procNombre}}</td>
+                                            <td class="tdTbl">{{user.funId.funNombre}}</td>
                                             <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}</td>
 
                                             <td class="tdTbl"><button role="button" class="button-name2"
@@ -270,61 +259,6 @@
         </div>
     </div>
 
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h6>About</h6>
-                    <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative to help the
-                        upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or
-                        snippets as the code wants to be simple. We will help programmers build up concepts in different
-                        programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android,
-                        SQL and Algorithm.</p>
-                </div>
-
-                <div class="col-xs-6 col-md-3">
-                    <h6>Categories</h6>
-                    <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-                        <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-                        <li><a href="http://scanfcode.com/category/java-programming-language/">Java</a></li>
-                        <li><a href="http://scanfcode.com/category/android/">Android</a></li>
-                        <li><a href="http://scanfcode.com/category/templates/">Templates</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-xs-6 col-md-3">
-                    <h6>Quick Links</h6>
-                    <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/about/">About Us</a></li>
-                        <li><a href="http://scanfcode.com/contact/">Contact Us</a></li>
-                        <li><a href="http://scanfcode.com/contribute-at-scanfcode/">Contribute</a></li>
-                        <li><a href="http://scanfcode.com/privacy-policy/">Privacy Policy</a></li>
-                        <li><a href="http://scanfcode.com/sitemap/">Sitemap</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by
-                        <a href="#">Scanfcode</a>.
-                    </p>
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <ul class="social-icons">
-                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <app-footer></app-footer>
 
 </body>

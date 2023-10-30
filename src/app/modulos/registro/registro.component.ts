@@ -9,19 +9,25 @@ import {
   validarNumeros,
   validarLetrasNum,
 } from 'src/app/common/validaciones';
+import { Institucion } from 'src/app/modelo/Institucion';
 import { Ciudad } from 'src/app/modelo/ciudad';
+import { Funciones } from 'src/app/modelo/funciones';
 import { Persona } from 'src/app/modelo/persona';
 import { Procesos } from 'src/app/modelo/procesos';
 import { Provincia } from 'src/app/modelo/provincia';
 import { Rol } from 'src/app/modelo/rol';
 import { Subprocesos } from 'src/app/modelo/subprocesos';
+import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { Usuario } from 'src/app/modelo/usuario';
 import { CiudadService } from 'src/app/services/ciudad.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
+import { InstitucionService } from 'src/app/services/institucion.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
-import { SuprocesosService } from 'src/app/services/subprocesos.service';
+import { SubprocesosService } from 'src/app/services/subprocesos.service';
+import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -40,8 +46,11 @@ export class RegistroComponent implements OnInit {
     private personaService: PersonaService,
     private rolService: RolService,
     private usuarioService: UsuarioService,
-    private suprocesosService: SuprocesosService,
+    private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
+    private institucionService: InstitucionService,
+    private tipInstitucionService: tipoInstitucionService,
+    private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
   ) { }
 
@@ -52,36 +61,43 @@ export class RegistroComponent implements OnInit {
   selectRol: Rol = new Rol();
   subproceso: Subprocesos = new Subprocesos();
   proceso: Procesos = new Procesos();
-  procesoSelected: any;
+  institucion: Institucion = new Institucion();
+  tipInstitucion: TipoInstitucion = new TipoInstitucion();
+  procesoSelected: Procesos = new Procesos();
+  tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
+  funcion: Funciones = new Funciones();
 
   //VARIABLES
   confirmarPass: string = '';
   timeToastr: number = 4000;
   edadMinima = 18;
   newSubproceso: string = '';
+  newInstitucion: string = '';
   newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
 
   //LISTAS
   listProvincias: Provincia[] = [];
+  listFunciones: Funciones[] = [];
   listCiudades: Ciudad[] = [];
   listRoles: Rol[] = [];
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
+  listaInstituciones: Institucion[] = [];
+  listaTipoInstitucion: TipoInstitucion[] = [];
 
   ngOnInit(): void {
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
     this.validateMode();
+    this.cargarTipoInstitucion();
+    this.cargarFunciones();
   }
 
-
   validateMode() {
-
-    this.activatedRoute.params.subscribe(params => {
-
+    this.activatedRoute.params.subscribe((params) => {
       const userId = params['id'];
 
       if (userId !== undefined) {
@@ -89,33 +105,72 @@ export class RegistroComponent implements OnInit {
         this.loadEdit(userId);
       } else {
       }
-
     });
-
   }
 
   loadEdit(idUser: number) {
     this.usuarioService.searchUsersId(idUser).subscribe((response) => {
       this.usuario = response;
+      console.log(response)
       if (response.usuPerId.ciuId?.proId) {
         this.selectProvincia = response.usuPerId.ciuId?.proId;
         this.cargarCiudades();
       }
+      this.tipInstitucionSelected.tipId = response.insId.tipId.tipId;
+      this.getSubprocesosByProcesoId();
+      this.getInstitucionByTipId();
       this.usuario.usuContrasena = '';
       this.persona = response.usuPerId;
+    });
+  }
 
+  getInstitucionByTipId() {
+    this.listaInstituciones = [];
 
-
-    })
+    if (
+      this.tipInstitucionSelected !== undefined &&
+      this.tipInstitucionSelected.tipId !== undefined
+    ) {
+      this.institucionService
+        .getInstitucionByTipId(this.tipInstitucionSelected.tipId)
+        .subscribe((response) => {
+          this.listaInstituciones = response;
+        });
+    }
   }
 
   getSubprocesosByProcesoId() {
-    this.id = this.proceso.procId;
-    this.suprocesosService
-      .getSubprocesosByProcesoId(this.id)
-      .subscribe((data) => {
-        this.listaSubprocesos.push(data);
-      });
+    this.listaSubprocesos = [];
+
+    if (
+      this.usuario.procId !== undefined &&
+      this.usuario.procId.procId !== undefined
+    ) {
+      const procId = this.usuario.procId.procId as number;
+      this.subprocesosService
+        .getSubprocesosByProcesoId(procId)
+        .subscribe((response) => {
+          this.listaSubprocesos = response;
+        });
+    }
+  }
+
+  cargarInstituciones() {
+    this.institucionService.getAllInstituciones().subscribe((data) => {
+      this.listaInstituciones = data;
+    });
+  }
+
+  cargarFunciones() {
+    this.funcionService.getAllFunciones().subscribe((data) => {
+      this.listFunciones = data;
+    });
+  }
+
+  cargarTipoInstitucion() {
+    this.tipInstitucionService.getAllTipoInstituciones().subscribe((data) => {
+      this.listaTipoInstitucion = data;
+    });
   }
 
   cargarProcesos() {
@@ -176,15 +231,19 @@ export class RegistroComponent implements OnInit {
               .usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '')
               .subscribe((res) => {
                 if (res) {
+
+                  console.log(this.usuario.rolId?.rolId.toString())
                   const rolEncontrado = this.listRoles.find(
                     (rol) =>
-                      rol.rolId.toString() ===
-                      this.usuario.rolId?.rolId.toString()
+                      rol.rolId, toString() === this.usuario.rolId?.rolId.toString()
                   );
+
+
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-                    // console.log(this.usuario.rolId)
-                    console.log(this.usuario.rolId);
+                    this.usuario.procId = this.procesoSelected;
+                    this.usuario.insId = this.institucion;
+
 
                     //REGISTRAR PERSONA
                     this.personaService
@@ -193,14 +252,15 @@ export class RegistroComponent implements OnInit {
                         this.usuario.usuEstado = 1;
                         this.usuario.usuPerId = response;
 
+                        console.log(this.usuario)
+
                         //RESGISTRAR USUARIO
                         this.usuarioService
                           .registrarUsuario(this.usuario)
                           .subscribe((response) => {
-
                             Swal.fire({
                               title: '¡Registro Exitoso!',
-                              text: response.rolId + ' agregado correctamente',
+                              text: this.usuario.rolId.rolNombre + ' agregado correctamente',
                               icon: 'success',
                               confirmButtonText: 'Confirmar',
                               showCancelButton: false, // No mostrar el botón de cancelar
@@ -236,16 +296,10 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-
-
   editar() {
     if (this.validarRegistro()) {
-
-
       const rolEncontrado = this.listRoles.find(
-        (rol) =>
-          rol.rolId.toString() ===
-          this.usuario.rolId?.rolId.toString()
+        (rol) => rol.rolId.toString() === this.usuario.rolId?.rolId.toString()
       );
       if (rolEncontrado) {
         this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
@@ -262,7 +316,6 @@ export class RegistroComponent implements OnInit {
             this.usuarioService
               .update(this.usuario.usuId, this.usuario)
               .subscribe((response) => {
-
                 Swal.fire({
                   title: '¡Edición Exitosa!',
                   text: response.rolId + ' agregado correctamente',
@@ -280,7 +333,6 @@ export class RegistroComponent implements OnInit {
       }
     }
   }
-
 
   validarRegistro(): boolean {
     //CEDULA
@@ -431,7 +483,6 @@ export class RegistroComponent implements OnInit {
       }
     }
 
-
     //CONTRASEÑA
     if (!this.usuario.usuContrasena && !this.editeMode) {
       this.toastr.error(
@@ -504,80 +555,6 @@ export class RegistroComponent implements OnInit {
   }
   validarLetrasNum(event: KeyboardEvent) {
     validarLetrasNum(event);
-  }
-
-  saveProceso() {
-    this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
-      this.cargarProcesos();
-      Swal.fire({
-        title: '¡Registro Exitoso!',
-        text: data.procNombre + ' agregado correctamente',
-        icon: 'success',
-        confirmButtonText: 'Confirmar',
-        showCancelButton: false, // No mostrar el botón de cancelar
-      });
-    });
-  }
-
-  openCrearProceso() {
-    Swal.fire({
-      title: 'Crear Nuevo Proceso',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newProceso = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        this.proceso.procNombre = this.newProceso;
-        this.saveProceso();
-        this.cargarProcesos();
-      },
-    });
-  }
-
-  saveSubproceso() {
-    this.suprocesosService
-      .saveSubprocesos(this.subproceso)
-      .subscribe((data) => {
-        Swal.fire({
-          title: '¡Registro Exitoso!',
-          text: data.subNombre + ' agregado correctamente',
-          icon: 'success',
-          confirmButtonText: 'Confirmar',
-          showCancelButton: false, // No mostrar el botón de cancelar
-        });
-      });
-  }
-
-  openCrearSubproceso() {
-    this.cargarProcesos();
-    Swal.fire({
-      title: 'Crear Nuevo Subproceso',
-      html: '<select id="procesos" name="procesos" class="input2" style="color: #777;" [(ngModel)]="proceso.procId" (change)="procesoSelected = proceso.procId"> <option value="0">Selecciona el proceso</option> <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId"> {{ proceso.procNombre }}</option></select> <input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento">',
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newSubproceso = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        this.subproceso.subNombre = this.newSubproceso;
-        this.subproceso.procId.procId = this.procesoSelected;
-        this.saveSubproceso();
-      },
-    });
-  }
-
-  crearInstituto() {
-    Swal.fire({
-      title: 'Crear Nuevo Instituto',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Instituto">',
-      showCancelButton: true,
-      confirmButtonText: 'Crear',
-      cancelButtonText: 'Cancelar',
-    });
   }
 
   crearRol() {

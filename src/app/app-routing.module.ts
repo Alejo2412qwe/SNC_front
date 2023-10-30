@@ -8,19 +8,24 @@ import { ReportevacionesComponent } from './modulos/reportevaciones/reportevacio
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
+import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
+import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 
 const routes: Routes = [
-
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'perfil', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'editar-usuario/:id', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'listasub-procesos', component: ListaprocesosSubprocesosComponent },
+  { path: 'listainstituciones', component: ListainstitucionesComponent },
   { path: 'repvacaciones', component: ReportevacionesComponent },
   { path: 'registro', component: RegistroComponent },
+  { path: 'des', component: DespegablemeneComponent },
+  { path: 'listaFun', component: ListaFuncionesComponent },
   { path: '**', redirectTo: 'login' },
 ];
 
@@ -28,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

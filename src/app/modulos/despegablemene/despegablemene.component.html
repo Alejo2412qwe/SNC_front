@@ -1,0 +1,34 @@
+<header>
+    <nav class="menu" style="padding: 1.3000rem 0;">
+        <ul class="nav">
+            <li> <a routerLink="/gestion">Inicio</a>
+            </li>
+            <li> <a> Personal</a>
+                <ul>
+                    <li><a id="publica" routerLink="/listausu">Ver Personal</a></li>
+                </ul>
+            </li>
+            <li> <a>Asistencia</a>
+                <ul>
+                    <li><a id="publica">Ingresar Asistencia</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>Ver Otros</a>
+                <ul>
+                    <li><a id="publica2" routerLink="/listasub-procesos">Subprocesos</a></li>
+                    <li><a id="publica2" routerLink="/listainstituciones">Instituciones</a></li>
+                    <li><a id="publica2" routerLink="/listaFun">Funciones</a></li>
+                </ul>
+            </li>
+            <li> <a> Perfil</a>
+                <ul>
+                    <li><a id="publica2" routerLink="/perfil"> Mi Perfil</a></li>
+                    <li><a id="publica2" (click)="cerrarSesion()"> Cerrar Sesion</a></li>
+
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+</header>

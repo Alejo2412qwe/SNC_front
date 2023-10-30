@@ -1,80 +1,75 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SessionStorageService } from './session-storage.service';
-import { entorno } from '../enviroment/entorno';
 import { Observable } from 'rxjs';
-import { Institucion } from '../modelo/Institucion';
+import { entorno } from '../enviroment/entorno';
+import { TipoInstitucion } from '../modelo/tipoInstitucion';
+import { SessionStorageService } from './session-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class InstitucionService {
+export class tipoInstitucionService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
   ) {}
 
-  private url: string = `${entorno.urlPrivada}/institucion`;
+  private url: string = `${entorno.urlPrivada}/tipoinstitucion`;
 
-  saveInstitucion(Institucion: Institucion): Observable<Institucion> {
+  saveTipoInstitucion(
+    tipInstitucion: TipoInstitucion
+  ): Observable<TipoInstitucion> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.post<Institucion>(`${this.url}/create`, Institucion, {
-      headers,
-    });
-  }
-
-  getInstitucionByTipId(tipId: number) {
-    // Construir el encabezado de autorización
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
-    });
-
-    console.log(`${this.url}/getInstitucionByTipId/${tipId}`);
-
-    // Realiza la solicitud HTTP con el encabezado de autorización
-    return this.http.get<Institucion[]>(
-      `${this.url}/getInstitucionByTipId/${tipId}`,
-      { headers }
+    return this.http.post<TipoInstitucion>(
+      `${this.url}/create`,
+      tipInstitucion,
+      {
+        headers,
+      }
     );
   }
 
-  getAllInstituciones() {
+  getAllTipoInstituciones() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Institucion[]>(`${this.url}/read`, { headers });
+    return this.http.get<TipoInstitucion[]>(`${this.url}/read`, { headers });
   }
 
-  getInstitucionesByTipId(tipid: number, instid: number) {
+  getTipoInstitucionByEstado(est: number) {
     // Construir el encabezado de autorización
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
     // Realiza la solicitud HTTP con el encabezado de autorización
-    return this.http.get<Institucion[]>(
-      `${this.url}/getInstitucionesByTipId?tipid=${tipid}&instid=${instid}`,
+    return this.http.get<TipoInstitucion[]>(
+      `${this.url}/getTipoInstitucionByEstado?est=${est}`,
       { headers }
     );
   }
 
-  updateInstitucion(
-    Institucion: Institucion,
+  updateTipoInstitucion(
+    TipoInstitucion: TipoInstitucion,
     id: number
-  ): Observable<Institucion> {
+  ): Observable<TipoInstitucion> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.put<Institucion>(`${this.url}/update/${id}`, Institucion, {
-      headers,
-    });
+    return this.http.put<TipoInstitucion>(
+      `${this.url}/update/${id}`,
+      TipoInstitucion,
+      {
+        headers,
+      }
+    );
   }
 
   updateEst(id: number, est: number): Observable<void> {

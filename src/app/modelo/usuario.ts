@@ -1,4 +1,7 @@
+import { Institucion } from "./Institucion";
+import { Funciones } from "./funciones";
 import { Persona } from "./persona";
+import { Procesos } from "./procesos";
 import { Rol } from "./rol";
 
 
@@ -11,8 +14,9 @@ export class Usuario {
   usuFechaRegistro: Date;
   usuPerId: Persona;
   rolId: Rol;
-  // insId: Institucion;
-  // funId: Funciones;
+  insId: Institucion;
+  procId: Procesos;
+  funId: Funciones;
 
   constructor(
     usuId?: number,
@@ -23,8 +27,9 @@ export class Usuario {
     usuPerId?: Persona,
     rolId?: Rol,
     usuCorreo?: string,
-    // insId?:Institucion,
-    // funId?: Funciones,
+    insId?: Institucion,
+    procId?: Procesos,
+    funId?: Funciones,
   ) {
     this.usuId = usuId || 0;
     this.usuNombreUsuario = usuNombreUsuario || '';
@@ -34,7 +39,8 @@ export class Usuario {
     this.usuPerId = usuPerId || new Persona();
     this.rolId = rolId || new Rol();
     this.usuCorreo = usuCorreo || '';
-    // this.insId= new Institucion();
-    // this.funId= new Funciones();
+    this.insId = new Institucion();
+    this.procId = new Procesos();
+    this.funId = new Funciones();
   }
 }

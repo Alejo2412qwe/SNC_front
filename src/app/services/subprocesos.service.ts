@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class SuprocesosService {
+export class SubprocesosService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
@@ -27,13 +27,64 @@ export class SuprocesosService {
     });
   }
 
-  getSubprocesosByProcesoId(id: number) {
+  getSubprocesosByProcesoId(procId: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Subprocesos[]>(
+      `${this.url}/getSubprocesosByProcId/${procId}`,
+      { headers }
+    );
+  }
+
+  getAllSubProcesos() {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    return this.http.get<Subprocesos[]>(`${this.url}/read`, { headers });
+  }
+
+  getSubprocesosByProcEstado(estproc: number, estsub: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Subprocesos[]>(
+      `${this.url}/getSubprocesosByProcEstado?estproc=${estproc}&estsub=${estsub}`,
+      { headers }
+    );
+  }
+
+  updateEst(id: number, est: number): Observable<void> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<void>(
+      `${this.url}/updateEst?id=${id}&est=${est}`,
+      null,
+      { headers }
+    );
+  }
+
+  updateSubproceso(
+    Subprocesos: Subprocesos,
+    id: number
+  ): Observable<Subprocesos> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Subprocesos>(`${this.url}/getSubprocesos/${id}`, {
+    return this.http.put<Subprocesos>(`${this.url}/update/${id}`, Subprocesos, {
       headers,
     });
   }

@@ -16,6 +16,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
+import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
+import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
     GestionComponent,
     ReportevacionesComponent,
     ListausuariosComponent,
-    ListaprocesosSubprocesosComponent
+    ListaprocesosSubprocesosComponent,
+    DespegablemeneComponent,
+    ListainstitucionesComponent,
+    HeaderComponent,
+    FooterComponent,
+    ListaFuncionesComponent,
+    ListaperiodosComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,13 +48,15 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenExpirationInterceptor,
-    multi: true,
-  },],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenExpirationInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

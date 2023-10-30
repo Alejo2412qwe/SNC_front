@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,37 +16,8 @@
 </head>
 
 <body class="profile-page">
-    <nav class="navbar navbar-custom-bg navbar-color-on-scroll navbar-transparent navbar-expand-lg"
-        color-on-scroll="100" id="sectionsNav">
-        <div class="container">
-            <div class="navbar-translate">
-                <a class="navbar-brand" href="/" target="_blank" style="font-size: 14px; padding-bottom: 50px;">
-                    <img src="assets/img/escudo.png" width="20%" alt="">
-                    Secretaria de Educacion Superior, Ciencia, Tecnologia e Innovación</a>
-                <button style="padding-top: 20px;" class="navbar-toggler" type="button" data-toggle="collapse"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
-                            <i class="material-icons">apps</i>Components
-                        </a>
-                    </li>
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" (click)="cerrarSesion()" aria-expanded="false">
-                            <i class="material-icons">login</i>CERRAR SESION
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <app-header></app-header>
 
     <div class="page-header header-filter" data-parallax="true"
         style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
@@ -54,7 +26,7 @@
 
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <h1 style="text-align: center;     margin-bottom: 170px;
-                width: 100%; font-size: 80px; color: white;">MENU DE GESTION</h1>
+                width: 100%; font-size: 80px; color: white;">MENU DE GESTIÓN</h1>
 
             </div>
         </div>
@@ -68,8 +40,8 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile">
                             <div class="name">
-                                <h3 class="title">NOMBRE DE USUARIO</h3>
-                                <h6>FUNCION O ROL QUE CUMPLE</h6>
+                                <h1 class="title">Bienvenido {{username}}</h1>
+                                <h5>¿Que deseas realizar el día de hoy?</h5>
                             </div>
                         </div>
                     </div>
@@ -78,14 +50,14 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <a href="/asistencia" style="text-decoration: none;">
-                                        <button id="studioButton" class="nav-link active" onclick="">
-                                            <i class="material-icons">visibility</i>
-                                            VISUALIZACIÓN DE ASISTENCIA
-                                        </button></a>
-
-                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 ml-auto mr-auto">
+                        <div class="profile-tabs">
+                            <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
                                 <li class="nav-item">
                                     <button id="worksButton" class="nav-link" onclick="showComponent('works')">
                                         <i class="material-icons">timer</i>
@@ -95,22 +67,8 @@
                                 <li class="nav-item">
                                     <button id="vacacionButton" class="nav-link" onclick="showComponent('vacacion')">
                                         <i class="material-icons">dataset</i>
-                                        REPORTE VACACIONES
+                                        VACACIONES
                                     </button>
-                                </li>
-                                <li class="nav-item">
-                                    <button id="worksButton" class="nav-link" routerLink="/listausu">
-                                        <i class="material-icons">timer</i>
-                                        TABLAS
-                                    </button>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/menu" style="text-decoration: none;">
-                                        <button id="studioButton" class="nav-link" onclick="">
-                                            <i class="material-icons">person</i>
-                                            MI PERFIL
-                                        </button></a>
-
                                 </li>
                             </ul>
                         </div>
@@ -135,51 +93,8 @@
         </div>
     </div>
 
-    <footer class="footer text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h6>Pagina</h6>
-                    <p class="text-justify">Senescyt - Secretaria de Educación Superior, Ciencia, Tecnologia e
-                        Innovacion</p>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <h6>Categorias</h6>
-                    <ul class="footer-links">
-                        <li><a href="http://scanfcode.com/category/c-language/">C</a></li>
-                        <li><a href="http://scanfcode.com/category/front-end-development/">UI Design</a></li>
-                        <li><a href="http://scanfcode.com/category/back-end-development/">PHP</a></li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <h6>Contactos</h6>
-                    <ul class="footer-links">
-                        <p>(07) 408-3574</p>
-                        <li><a href="http://scanfcode.com/about/">Avenida España 912, Cuenca 010102</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-6 col-xs-12">
-                    <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
-                        <a href="#">Scanfcode</a>.
-                    </p>
-                </div>
+    <app-footer></app-footer>
 
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <ul class="social-icons">
-                        <li><a class="facebook" href="https://www.facebook.com/EduSuperiorEc/"><i
-                                    class="fa fa-facebook"></i></a></li>
-                        <li><a class="twitter" href="https://twitter.com/senescyt?lang=es"><i
-                                    class="fa fa-twitter"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 </body>
 
 </html>
