@@ -11,8 +11,10 @@ export class GestionComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
-    private AllScripts: AllScriptsService
+    private AllScripts: AllScriptsService,
+    private sessionStorage: SessionStorageService
   ) {}
+  username = this.sessionStorage.getItem('username');
 
   ngOnInit(): void {}
 }
