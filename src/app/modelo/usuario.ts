@@ -39,8 +39,8 @@ export class Usuario {
     this.usuPerId = usuPerId || new Persona();
     this.rolId = rolId || new Rol();
     this.usuCorreo = usuCorreo || '';
-    this.insId = new Institucion();
-    this.procId = new Procesos();
-    this.funId = new Funciones();
+    this.insId = insId ||  new Institucion();
+    this.procId = procId ||  new Procesos();
+    this.funId =  funId || new Funciones();
   }
 }
