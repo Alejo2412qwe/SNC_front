@@ -4,6 +4,8 @@ import { Funciones } from 'src/app/modelo/funciones';
 import { FuncionesService } from 'src/app/services/funciones.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import Swal from 'sweetalert2';
+import { validarCadena } from 'src/app/common/validaciones';
+import { showErrorAlCrear } from 'src/app/common/validaciones';
 
 @Component({
   selector: 'app-lista-funciones',
@@ -72,9 +74,13 @@ export class ListaFuncionesComponent implements OnInit {
         this.newFunciones = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.funciones.funNombre = this.newFunciones;
-        this.saveProceso();
-        this.loadFuncionesByEstado(this.estadoActivo);
+        if (validarCadena(this.newFunciones)) {
+          this.funciones.funNombre = this.newFunciones;
+          this.saveProceso();
+          this.loadFuncionesByEstado(this.estadoActivo);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -136,9 +142,13 @@ export class ListaFuncionesComponent implements OnInit {
         this.newFunciones = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.funciones.funNombre = this.newFunciones;
-        this.updateFuncion(id);
-        this.loadFuncionesByEstado(this.estadoActivo);
+        if (validarCadena(this.newFunciones)) {
+          this.funciones.funNombre = this.newFunciones;
+          this.updateFuncion(id);
+          this.loadFuncionesByEstado(this.estadoActivo);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
