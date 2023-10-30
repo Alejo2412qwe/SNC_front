@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 export function validarLetras(event: KeyboardEvent) {
   // Obtener el carácter ingresado
   const char = event.key;
@@ -121,4 +123,12 @@ export function calcularEdad(edadUsuario: Date): number {
 export function validarCadena(cadena: string): boolean {
   const expresionRegular = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s;.,]+$/;
   return expresionRegular.test(cadena) && cadena.trim() !== '';
+}
+
+export function showErrorAlCrear() {
+  Swal.fire({
+    icon: 'error',
+    title: 'No se puede crear',
+    text: 'No se puede crear el elemento en este momento.',
+  });
 }

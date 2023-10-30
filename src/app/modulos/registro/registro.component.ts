@@ -26,6 +26,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -52,7 +53,8 @@ export class RegistroComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
-  ) { }
+    private sessionStorage: SessionStorageService
+  ) {}
 
   //OBJETOS
   persona: Persona = new Persona();
@@ -76,6 +78,8 @@ export class RegistroComponent implements OnInit {
   newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //LISTAS
   listProvincias: Provincia[] = [];
@@ -111,7 +115,7 @@ export class RegistroComponent implements OnInit {
   loadEdit(idUser: number) {
     this.usuarioService.searchUsersId(idUser).subscribe((response) => {
       this.usuario = response;
-      console.log(response)
+      console.log(response);
       if (response.usuPerId.ciuId?.proId) {
         this.selectProvincia = response.usuPerId.ciuId?.proId;
         this.cargarCiudades();
@@ -231,19 +235,16 @@ export class RegistroComponent implements OnInit {
               .usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '')
               .subscribe((res) => {
                 if (res) {
-
-                  console.log(this.usuario.rolId?.rolId.toString())
+                  console.log(this.usuario.rolId?.rolId.toString());
                   const rolEncontrado = this.listRoles.find(
-                    (rol) =>
-                      rol.rolId, toString() === this.usuario.rolId?.rolId.toString()
+                    (rol) => rol.rolId,
+                    toString() === this.usuario.rolId?.rolId.toString()
                   );
-
 
                   if (rolEncontrado) {
                     this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
                     this.usuario.procId = this.procesoSelected;
                     this.usuario.insId = this.institucion;
-
 
                     //REGISTRAR PERSONA
                     this.personaService
@@ -252,7 +253,7 @@ export class RegistroComponent implements OnInit {
                         this.usuario.usuEstado = 1;
                         this.usuario.usuPerId = response;
 
-                        console.log(this.usuario)
+                        console.log(this.usuario);
 
                         //RESGISTRAR USUARIO
                         this.usuarioService
@@ -260,7 +261,9 @@ export class RegistroComponent implements OnInit {
                           .subscribe((response) => {
                             Swal.fire({
                               title: '¡Registro Exitoso!',
-                              text: this.usuario.rolId.rolNombre + ' agregado correctamente',
+                              text:
+                                this.usuario.rolId.rolNombre +
+                                ' agregado correctamente',
                               icon: 'success',
                               confirmButtonText: 'Confirmar',
                               showCancelButton: false, // No mostrar el botón de cancelar

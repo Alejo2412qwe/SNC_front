@@ -46,7 +46,7 @@
                         <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario</h1>
                     </div>
 
-                    <form name="registroUsuario" style="width: 100%;">
+                    <form name="registroUsuario">
 
                         <div class="contentForm">
                             <div style="width: 100%; padding-bottom: 15px;">
@@ -57,7 +57,7 @@
 
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">CÉDULA:</label>
+                                        <label for="name" class="name">CEDULA:</label>
                                         <input placeholder="Ingresa el CI del Usuario" type="text" class="input"
                                             name="perCedula" (keydown)="validarNumeros($event)"
                                             [(ngModel)]="persona.perCedula">
@@ -128,7 +128,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">DIRECCIÓN:</label>
+                                        <label for="name" class="name">DIRECCION:</label>
                                         <input placeholder="Ingresa la direccion del domicilio" type="text"
                                             class="input" (keydown)="validarLetrasNum($event)" name="perDireccion"
                                             [(ngModel)]="persona.perDireccion">
@@ -142,10 +142,10 @@
 
                                 <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
                             </div>
-                            <section class="layout2">
+                            <section class="layout">
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">TIPO DE INSTITUCIÓN:</label>
+                                        <label for="name" class="name">TIPO DE INSTITUCION:</label>
                                         <select id="tipInstitucion" name="tipInstitucion" class="input2"
                                             style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
                                             (change)="getInstitucionByTipId()">
@@ -159,7 +159,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">INSTITUCIÓN:</label>
+                                        <label for="name" class="name">INSTITUCION:</label>
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
                                             [(ngModel)]="usuario.insId.instId">
                                             <option value="0">Selecciona tu institución</option>
@@ -219,7 +219,7 @@
 
                                 <h2 style="text-align: center; font-weight: bolder;">Datos de Usuario</h2>
                             </div>
-                            <section class="layout3">
+                            <section class="layout">
 
                                 <div>
                                     <div class="input-container">
@@ -233,7 +233,7 @@
 
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">CORREO ELECTRÓNICO: *</label>
+                                        <label for="name" class="name">CORREO ELECTRONICO: *</label>
                                         <input placeholder="Ingresar un Correo Electronico" type="text" class="input"
                                             name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
                                         <div class="underline"></div>
@@ -279,7 +279,7 @@
                         <div class="contentForm">
                             <div style="width: 100%; padding-bottom: 15px;">
 
-                                <h2 style="text-align: center; font-weight: bolder;">Designación de Rol</h2>
+                                <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
                             </div>
 
                             <div style="width: 100%; margin-top: 30px;">
@@ -287,7 +287,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-left">Rol</th>
-                                            <th class="text-left">Descripción</th>
+                                            <th class="text-left">Descripcion</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-hover">
