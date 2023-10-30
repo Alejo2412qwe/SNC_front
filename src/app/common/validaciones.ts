@@ -119,6 +119,6 @@ export function calcularEdad(edadUsuario: Date): number {
 }
 
 export function validarCadena(cadena: string): boolean {
-  const expresionRegular = /^[A-Za-z0-9\s;.,]+$/;
+  const expresionRegular = /^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ0-9\s;.,]+$/;
   return expresionRegular.test(cadena) && cadena.trim() !== '';
 }
