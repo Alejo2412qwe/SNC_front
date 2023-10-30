@@ -11,6 +11,7 @@ import {
 } from 'src/app/common/validaciones';
 import { Institucion } from 'src/app/modelo/Institucion';
 import { Ciudad } from 'src/app/modelo/ciudad';
+import { Funciones } from 'src/app/modelo/funciones';
 import { Persona } from 'src/app/modelo/persona';
 import { Procesos } from 'src/app/modelo/procesos';
 import { Provincia } from 'src/app/modelo/provincia';
@@ -19,6 +20,7 @@ import { Subprocesos } from 'src/app/modelo/subprocesos';
 import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { Usuario } from 'src/app/modelo/usuario';
 import { CiudadService } from 'src/app/services/ciudad.service';
+import { FuncionesService } from 'src/app/services/funciones.service';
 import { InstitucionService } from 'src/app/services/institucion.service';
 import { PersonaService } from 'src/app/services/persona.service';
 import { ProcesosService } from 'src/app/services/procesos.service';
@@ -48,7 +50,8 @@ export class RegistroComponent implements OnInit {
     private procesoService: ProcesosService,
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
-    private activatedRoute: ActivatedRoute
+    private funcionService: FuncionesService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   //OBJETOS
@@ -62,6 +65,7 @@ export class RegistroComponent implements OnInit {
   tipInstitucion: TipoInstitucion = new TipoInstitucion();
   procesoSelected: Procesos = new Procesos();
   tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
+  funcion: Funciones = new Funciones();
 
   //VARIABLES
   confirmarPass: string = '';
@@ -72,8 +76,10 @@ export class RegistroComponent implements OnInit {
   newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
+
   //LISTAS
   listProvincias: Provincia[] = [];
+  listFunciones: Funciones[] = [];
   listCiudades: Ciudad[] = [];
   listRoles: Rol[] = [];
   listaProcesos: Procesos[] = [];
@@ -87,6 +93,7 @@ export class RegistroComponent implements OnInit {
     this.cargarProcesos();
     this.validateMode();
     this.cargarTipoInstitucion();
+    this.cargarFunciones();
   }
 
   validateMode() {
@@ -104,10 +111,14 @@ export class RegistroComponent implements OnInit {
   loadEdit(idUser: number) {
     this.usuarioService.searchUsersId(idUser).subscribe((response) => {
       this.usuario = response;
+      console.log(response)
       if (response.usuPerId.ciuId?.proId) {
         this.selectProvincia = response.usuPerId.ciuId?.proId;
         this.cargarCiudades();
       }
+      this.tipInstitucionSelected.tipId = response.insId.tipId.tipId;
+      this.getSubprocesosByProcesoId();
+      this.getInstitucionByTipId();
       this.usuario.usuContrasena = '';
       this.persona = response.usuPerId;
     });
@@ -115,7 +126,6 @@ export class RegistroComponent implements OnInit {
 
   getInstitucionByTipId() {
     this.listaInstituciones = [];
-
 
     if (
       this.tipInstitucionSelected !== undefined &&
@@ -133,10 +143,10 @@ export class RegistroComponent implements OnInit {
     this.listaSubprocesos = [];
 
     if (
-      this.procesoSelected !== undefined &&
-      this.procesoSelected.procId !== undefined
+      this.usuario.procId !== undefined &&
+      this.usuario.procId.procId !== undefined
     ) {
-      const procId = this.procesoSelected.procId as number;
+      const procId = this.usuario.procId.procId as number;
       this.subprocesosService
         .getSubprocesosByProcesoId(procId)
         .subscribe((response) => {
@@ -148,6 +158,12 @@ export class RegistroComponent implements OnInit {
   cargarInstituciones() {
     this.institucionService.getAllInstituciones().subscribe((data) => {
       this.listaInstituciones = data;
+    });
+  }
+
+  cargarFunciones() {
+    this.funcionService.getAllFunciones().subscribe((data) => {
+      this.listFunciones = data;
     });
   }
 
