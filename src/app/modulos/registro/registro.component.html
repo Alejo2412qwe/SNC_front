@@ -35,9 +35,9 @@
                                     class="img-raised rounded-circle img-fluid">
                             </div>
                             <div class="name">
-                                <h3 class="title">NOMBRE DE USUARIO</h3>
+                                <h3 class="title">Usuario: {{username}}</h3>
                                 <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                <h6>SUPERADMINISTRADOR SIEMPRE</h6>
+                                <h6>Rol: {{rol}}</h6>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
 
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">CEDULA:</label>
+                                        <label for="name" class="name">CÉDULA: *</label>
                                         <input placeholder="Ingresa el CI del Usuario" type="text" class="input"
                                             name="perCedula" (keydown)="validarNumeros($event)"
                                             [(ngModel)]="persona.perCedula">
@@ -66,7 +66,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">NOMBRES:</label>
+                                        <label for="name" class="name">NOMBRES: *</label>
                                         <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input"
                                             name="perNombre" (keydown)="validarLetras($event)"
                                             [(ngModel)]="persona.perNombre">
@@ -75,7 +75,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">APELLIDOS:</label>
+                                        <label for="name" class="name">APELLIDOS: *</label>
                                         <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input2"
                                             name="perApellido" (keydown)="validarLetras($event)"
                                             [(ngModel)]="persona.perApellido">
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="input-container">
-                                    <label for="name" class="name">FECHA DE NACIMIENTO:</label>
+                                    <label for="name" class="name">FECHA DE NACIMIENTO: *</label>
                                     <input class="input" type="date" name="perFechaNacimiento"
                                         placeholder="Fecha de nacimiento" name="perFechaNacimiento"
                                         [(ngModel)]="persona.perFechaNacimiento">
@@ -91,7 +91,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">PROVINCIA:</label>
+                                        <label for="name" class="name">PROVINCIA: *</label>
                                         <select id="provincias" name="provincias" class="input2" style="color: #777;"
                                             (change)="cargarCiudades()" [(ngModel)]="selectProvincia.proId">
                                             <option value="0">Seleccione una Provincia</option>
@@ -105,7 +105,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">CIUDAD:</label>
+                                        <label for="name" class="name">CIUDAD: *</label>
                                         <select id="ciudades" name="ciudades" class="input2" style="color: #777;"
                                             [(ngModel)]="persona.ciuId.ciuId">
                                             <option value="0">Seleccione una Ciudad</option>
@@ -128,7 +128,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">DIRECCION:</label>
+                                        <label for="name" class="name">DIRECCIÓN:</label>
                                         <input placeholder="Ingresa la direccion del domicilio" type="text"
                                             class="input" (keydown)="validarLetrasNum($event)" name="perDireccion"
                                             [(ngModel)]="persona.perDireccion">
@@ -145,7 +145,7 @@
                             <section class="layout">
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">TIPO DE INSTITUCION:</label>
+                                        <label for="name" class="name">TIPO DE INSTITUCIÓN: *</label>
                                         <select id="tipInstitucion" name="tipInstitucion" class="input2"
                                             style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
                                             (change)="getInstitucionByTipId()">
@@ -159,7 +159,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">INSTITUCION:</label>
+                                        <label for="name" class="name">INSTITUCIÓN: *</label>
                                         <select id="institucion" name="institucion" class="input2" style="color: #777;"
                                             [(ngModel)]="usuario.insId.instId">
                                             <option value="0">Selecciona tu institución</option>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div>
                                     <div class="input-container">
-                                        <label for="name" class="name">PROCESO - ZONA:</label>
+                                        <label for="name" class="name">PROCESO - ZONA: *</label>
                                         <select id="procesos" name="procesos" class="input2" style="color: #777;"
                                             [(ngModel)]="usuario.procId.procId" (change)="getSubprocesosByProcesoId()">
                                             <option value="0">Selecciona el proceso</option>
@@ -202,7 +202,7 @@
                                         <label for="name" class="name">FUNCIÓN:</label>
                                         <select id="funcion" name="funcion" class="input2" style="color: #777;"
                                             [(ngModel)]="usuario.funId.funId">
-                                            <option value="0">Selecciona la función edl usuario</option>
+                                            <option value="0">Selecciona la función del usuario</option>
                                             <option *ngFor="let funcion of listFunciones" [value]="funcion.funId">
                                                 {{funcion.funNombre }}
                                             </option>
@@ -279,7 +279,7 @@
                         <div class="contentForm">
                             <div style="width: 100%; padding-bottom: 15px;">
 
-                                <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
+                                <h2 style="text-align: center; font-weight: bolder;">Designación de Rol</h2>
                             </div>
 
                             <div style="width: 100%; margin-top: 30px;">
@@ -287,7 +287,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-left">Rol</th>
-                                            <th class="text-left">Descripcion</th>
+                                            <th class="text-left">Descripción</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-hover">
