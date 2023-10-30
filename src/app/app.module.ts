@@ -8,12 +8,13 @@ import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
-import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
+import { VacacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
+import { HorariosComponent } from './modulos/horarios/horarios.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
@@ -32,7 +33,8 @@ import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.co
     RegistroComponent,
     PermisosComponent,
     GestionComponent,
-    ReportevacionesComponent,
+    HorariosComponent,
+    VacacionesComponent,
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent,
