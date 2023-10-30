@@ -2,6 +2,12 @@ html * {
     -webkit-font-smoothing: antialiased;
 }
 
+*{
+
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    
+    }
+
 .dropdown-toggle.nav-link {
     width: 150px;
 }

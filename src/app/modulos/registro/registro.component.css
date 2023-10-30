@@ -642,6 +642,7 @@ body {
   align-items: center;
 }
 
+
 .containertabla {
   margin-top: 50px;
   display: grid;
@@ -914,9 +915,35 @@ td::-webkit-scrollbar-track {
   gap: 8px;
   margin-right: auto;
   margin-left: auto;
+}
 
+.layout2 {
+
+  width: 90%;
+  height: 215px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-right: auto;
+  margin-left: auto;
 
 }
+
+.layout3 {
+
+  width: 90%;
+  height: 225px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+
 
 .contentForm {
   margin-top: 40px;
