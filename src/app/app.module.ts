@@ -23,6 +23,10 @@ import { FooterComponent } from './footer/footer.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
 import { SidebarComponent } from './modulos/sidebar/sidebar.component';
+import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
+import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
+import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
+import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,10 @@ import { SidebarComponent } from './modulos/sidebar/sidebar.component';
     ListaFuncionesComponent,
     ListaperiodosComponent,
     SidebarComponent,
+    ListamotivopermisoComponent,
+    ListatipopermisosComponent,
+    ListatipoformularioComponent,
+    ListavalorhoraComponent,
   ],
   imports: [
     BrowserModule,

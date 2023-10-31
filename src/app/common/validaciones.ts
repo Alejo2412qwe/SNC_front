@@ -125,10 +125,24 @@ export function validarCadena(cadena: string): boolean {
   return expresionRegular.test(cadena) && cadena.trim() !== '';
 }
 
+export function validarDouble(cadena: string): boolean {
+  // Expresión regular para números con dos decimales separados por punto
+  const expresionRegular = /^(\d+(\.\d{1,2})?)?$/;
+  return expresionRegular.test(cadena) && cadena.trim() !== '';
+}
+
 export function showErrorAlCrear() {
   Swal.fire({
     icon: 'error',
     title: 'No se puede crear',
     text: 'No se puede crear el elemento en este momento.',
+  });
+}
+
+export function showMasRegistros() {
+  Swal.fire({
+    icon: 'error',
+    title: 'No se puede crear',
+    text: 'Este es un valor único, por lo que solo puede editarse',
   });
 }
