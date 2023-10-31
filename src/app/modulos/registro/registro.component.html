@@ -10,314 +10,321 @@
         href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
 </head>
 
-<body class="profile-page">
+<div class="containerside">
+    <div style="border-radius: 15px;">
 
-    <app-header></app-header>
-    <div class="page-header header-filter" data-parallax="true"
-        style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
-
-        <div class="d-flex flex-column justify-content-center w-100 h-100">
-
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                <h1 style="text-align: center;     margin-bottom: 170px;
-                width: 100%; font-size: 80px; color: white;">TABLA DE REGISTRO DE USUARIOS</h1>
-            </div>
-        </div>
+        <app-sidebar></app-sidebar>
     </div>
-    <div class="main main-raised">
-        <div class="profile-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 ml-auto mr-auto">
-                        <div class="profile">
-                            <div class="avatar">
-                                <img src="assets/img/usuario.jpg" alt="Circle Image"
-                                    class="img-raised rounded-circle img-fluid">
-                            </div>
-                            <div class="name">
-                                <h3 class="title">NOMBRE DE USUARIO</h3>
-                                <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                <h6>SUPERADMINISTRADOR SIEMPRE</h6>
-                            </div>
-                        </div>
+
+    <div>
+        <body class="profile-page">
+
+            <app-header></app-header>
+        
+                <div class="d-flex flex-column justify-content-center w-100 h-50">
+        
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <h1 style="text-align: center;     margin-bottom: 170px;
+                        width: 100%; font-size: 80px; color: white;">TABLA DE REGISTRO DE USUARIOS</h1>
                     </div>
-
-                    <div style="width: 100%; margin-top: 20px; margin-bottom: 50px;">
-                        <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario</h1>
-                    </div>
-
-                    <form name="registroUsuario">
-
-                        <div class="contentForm">
-                            <div style="width: 100%; padding-bottom: 15px;">
-
-                                <h2 style="text-align: center; font-weight: bolder;">Datos personales</h2>
-                            </div>
-                            <section class="layout">
-
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">CEDULA:</label>
-                                        <input placeholder="Ingresa el CI del Usuario" type="text" class="input"
-                                            name="perCedula" (keydown)="validarNumeros($event)"
-                                            [(ngModel)]="persona.perCedula">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">NOMBRES:</label>
-                                        <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input"
-                                            name="perNombre" (keydown)="validarLetras($event)"
-                                            [(ngModel)]="persona.perNombre">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">APELLIDOS:</label>
-                                        <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input2"
-                                            name="perApellido" (keydown)="validarLetras($event)"
-                                            [(ngModel)]="persona.perApellido">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div class="input-container">
-                                    <label for="name" class="name">FECHA DE NACIMIENTO:</label>
-                                    <input class="input" type="date" name="perFechaNacimiento"
-                                        placeholder="Fecha de nacimiento" name="perFechaNacimiento"
-                                        [(ngModel)]="persona.perFechaNacimiento">
-                                    <div class="underline"></div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">PROVINCIA:</label>
-                                        <select id="provincias" name="provincias" class="input2" style="color: #777;"
-                                            (change)="cargarCiudades()" [(ngModel)]="selectProvincia.proId">
-                                            <option value="0">Seleccione una Provincia</option>
-                                            <option *ngFor="let provincia of listProvincias" [value]="provincia.proId">
-                                                {{ provincia.proNombre }}
-                                            </option>
-
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">CIUDAD:</label>
-                                        <select id="ciudades" name="ciudades" class="input2" style="color: #777;"
-                                            [(ngModel)]="persona.ciuId.ciuId">
-                                            <option value="0">Seleccione una Ciudad</option>
-                                            <option *ngFor="let ciudad of listCiudades" [value]="ciudad.ciuId">
-                                                {{ ciudad.ciuNombre }}
-                                            </option>
-
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">TELÉFONO:</label>
-                                        <input placeholder="Ingresa el número de teléfono" type="text" class="input"
-                                            name="perTelefono" (keydown)="validarNumeros($event)"
-                                            [(ngModel)]="persona.perTelefono">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">DIRECCION:</label>
-                                        <input placeholder="Ingresa la direccion del domicilio" type="text"
-                                            class="input" (keydown)="validarLetrasNum($event)" name="perDireccion"
-                                            [(ngModel)]="persona.perDireccion">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <div class="contentForm">
-                            <div style="width: 100%; ">
-
-                                <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
-                            </div>
-                            <section class="layout">
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">TIPO DE INSTITUCION:</label>
-                                        <select id="tipInstitucion" name="tipInstitucion" class="input2"
-                                            style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
-                                            (change)="getInstitucionByTipId()">
-                                            <option value="0">Selecciona el tipo de institucion</option>
-                                            <option *ngFor="let tipo of listaTipoInstitucion" [value]="tipo.tipId">
-                                                {{tipo.tipNombre}}
-                                            </option>
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">INSTITUCION:</label>
-                                        <select id="institucion" name="institucion" class="input2" style="color: #777;"
-                                            [(ngModel)]="usuario.insId.instId">
-                                            <option value="0">Selecciona tu institución</option>
-                                            <option *ngFor="let inst of listaInstituciones" [value]="inst.instId">
-                                                {{inst.instNombre}}
-                                            </option>
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">PROCESO - ZONA:</label>
-                                        <select id="procesos" name="procesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="usuario.procId.procId" (change)="getSubprocesosByProcesoId()">
-                                            <option value="0">Selecciona el proceso</option>
-                                            <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">
-                                                {{ proceso.procNombre }}
-                                            </option>
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <!-- <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
-                                        <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
-                                            [(ngModel)]="subproceso.subId">
-                                            <option value="0">Selecciona el subproceso</option>
-                                            <option *ngFor="let subproceso of listaSubprocesos"
-                                                [value]="subproceso.subId">
-                                                {{subproceso.subNombre }}
-                                            </option>
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div> -->
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">FUNCIÓN:</label>
-                                        <select id="funcion" name="funcion" class="input2" style="color: #777;"
-                                            [(ngModel)]="usuario.funId.funId">
-                                            <option value="0">Selecciona la función edl usuario</option>
-                                            <option *ngFor="let funcion of listFunciones" [value]="funcion.funId">
-                                                {{funcion.funNombre }}
-                                            </option>
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-
-
-                            </section>
-                        </div>
-                        <div class="contentForm">
-                            <div style="width: 100%; padding-bottom: 15px;">
-
-                                <h2 style="text-align: center; font-weight: bolder;">Datos de Usuario</h2>
-                            </div>
-                            <section class="layout">
-
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">NOMBRE DE USUARIO: *</label>
-                                        <input placeholder="Ingresar un Nombre de Usuario" type="text" class="input"
-                                            name="usuNombreUsuario" (keydown)="validarLetrasNum($event)"
-                                            [(ngModel)]="usuario.usuNombreUsuario">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">CORREO ELECTRONICO: *</label>
-                                        <input placeholder="Ingresar un Correo Electronico" type="text" class="input"
-                                            name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">CONTRASEÑA: *</label>
-                                        <input placeholder="Ingresar una contraseña" type="password" class="input2"
-                                            name="usuContrasena" [(ngModel)]="usuario.usuContrasena">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">CONFIRMAR CONTRASEÑA: *</label>
-                                        <input placeholder="Repita la contraseña" type="password" class="input2"
-                                            name="confirmarPass" [(ngModel)]="confirmarPass">
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="input-container">
-                                        <label for="name" class="name">DESIGNAR ROL:</label>
-                                        <select id="roles" name="roles" class="input2" style="color: #777;"
-                                            [(ngModel)]="usuario.rolId.rolId">
-                                            <option value="0">Seleccione una Ciudad</option>
-                                            <option *ngFor="let rol of listRoles" [value]="rol.rolId">
-                                                {{ rol.rolNombre }}
-                                            </option>
-
-                                        </select>
-                                        <div class="underline"></div>
-                                    </div>
-                                </div>
-
-
-                            </section>
-                        </div>
-
-                        <div class="contentForm">
-                            <div style="width: 100%; padding-bottom: 15px;">
-
-                                <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
-                            </div>
-
-                            <div style="width: 100%; margin-top: 30px;">
-                                <table class="table-fill">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-left">Rol</th>
-                                            <th class="text-left">Descripcion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-hover">
-                                        <tr *ngFor="let rol of listRoles">
-                                            <td class="text-left">{{rol.rolNombre}}</td>
-                                            <td class="text-left">{{rol.rolDescripcion}}</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                                <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
-                                    <button class="learn-more" style="margin-bottom: 40px; width: 50%;"
-                                        (click)="editeMode? editar() : registrar()">
-                                        <span class="circle" aria-hidden="true">
-                                            <span class="icon arrow"></span>
-                                        </span>
-                                        <span class="button-text">
-                                            {{editeMode? 'Editar Usuario' : 'Registrar Nuevo Usuario'}}
-                                        </span>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
                 </div>
-                <div style="height: 20px;"></div>
+            <div class="main main-raised">
+                <div class="profile-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto">
+                                <div class="profile">
+                                    <div class="avatar">
+                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
+                                            class="img-raised rounded-circle img-fluid">
+                                    </div>
+                                    <div class="name">
+                                        <h3 class="title">NOMBRE DE USUARIO</h3>
+                                        <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
+                                        <h6>SUPERADMINISTRADOR SIEMPRE</h6>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div style="width: 100%; margin-top: 20px; margin-bottom: 50px;">
+                                <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario</h1>
+                            </div>
+        
+                            <form name="registroUsuario">
+        
+                                <div class="contentForm">
+                                    <div style="width: 100%; padding-bottom: 15px;">
+        
+                                        <h2 style="text-align: center; font-weight: bolder;">Datos personales</h2>
+                                    </div>
+                                    <section class="layout">
+        
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">CEDULA:</label>
+                                                <input placeholder="Ingresa el CI del Usuario" type="text" class="input"
+                                                    name="perCedula" (keydown)="validarNumeros($event)"
+                                                    [(ngModel)]="persona.perCedula">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">NOMBRES:</label>
+                                                <input placeholder="Ingresa el Nombre del Usuario" type="text" class="input"
+                                                    name="perNombre" (keydown)="validarLetras($event)"
+                                                    [(ngModel)]="persona.perNombre">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">APELLIDOS:</label>
+                                                <input placeholder="Ingresa el Apellido del Usuario" type="text" class="input2"
+                                                    name="perApellido" (keydown)="validarLetras($event)"
+                                                    [(ngModel)]="persona.perApellido">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div class="input-container">
+                                            <label for="name" class="name">FECHA DE NACIMIENTO:</label>
+                                            <input class="input" type="date" name="perFechaNacimiento"
+                                                placeholder="Fecha de nacimiento" name="perFechaNacimiento"
+                                                [(ngModel)]="persona.perFechaNacimiento">
+                                            <div class="underline"></div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">PROVINCIA:</label>
+                                                <select id="provincias" name="provincias" class="input2" style="color: #777;"
+                                                    (change)="cargarCiudades()" [(ngModel)]="selectProvincia.proId">
+                                                    <option value="0">Seleccione una Provincia</option>
+                                                    <option *ngFor="let provincia of listProvincias" [value]="provincia.proId">
+                                                        {{ provincia.proNombre }}
+                                                    </option>
+        
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">CIUDAD:</label>
+                                                <select id="ciudades" name="ciudades" class="input2" style="color: #777;"
+                                                    [(ngModel)]="persona.ciuId.ciuId">
+                                                    <option value="0">Seleccione una Ciudad</option>
+                                                    <option *ngFor="let ciudad of listCiudades" [value]="ciudad.ciuId">
+                                                        {{ ciudad.ciuNombre }}
+                                                    </option>
+        
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">TELÉFONO:</label>
+                                                <input placeholder="Ingresa el número de teléfono" type="text" class="input"
+                                                    name="perTelefono" (keydown)="validarNumeros($event)"
+                                                    [(ngModel)]="persona.perTelefono">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">DIRECCION:</label>
+                                                <input placeholder="Ingresa la direccion del domicilio" type="text"
+                                                    class="input" (keydown)="validarLetrasNum($event)" name="perDireccion"
+                                                    [(ngModel)]="persona.perDireccion">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="contentForm">
+                                    <div style="width: 100%; ">
+        
+                                        <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
+                                    </div>
+                                    <section class="layout">
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">TIPO DE INSTITUCION:</label>
+                                                <select id="tipInstitucion" name="tipInstitucion" class="input2"
+                                                    style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
+                                                    (change)="getInstitucionByTipId()">
+                                                    <option value="0">Selecciona el tipo de institucion</option>
+                                                    <option *ngFor="let tipo of listaTipoInstitucion" [value]="tipo.tipId">
+                                                        {{tipo.tipNombre}}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">INSTITUCION:</label>
+                                                <select id="institucion" name="institucion" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.insId.instId">
+                                                    <option value="0">Selecciona tu institución</option>
+                                                    <option *ngFor="let inst of listaInstituciones" [value]="inst.instId">
+                                                        {{inst.instNombre}}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">PROCESO - ZONA:</label>
+                                                <select id="procesos" name="procesos" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.procId.procId" (change)="getSubprocesosByProcesoId()">
+                                                    <option value="0">Selecciona el proceso</option>
+                                                    <option *ngFor="let proceso of listaProcesos" [value]="proceso.procId">
+                                                        {{ proceso.procNombre }}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <!-- <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
+                                                <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
+                                                    [(ngModel)]="subproceso.subId">
+                                                    <option value="0">Selecciona el subproceso</option>
+                                                    <option *ngFor="let subproceso of listaSubprocesos"
+                                                        [value]="subproceso.subId">
+                                                        {{subproceso.subNombre }}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div> -->
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">FUNCIÓN:</label>
+                                                <select id="funcion" name="funcion" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.funId.funId">
+                                                    <option value="0">Selecciona la función edl usuario</option>
+                                                    <option *ngFor="let funcion of listFunciones" [value]="funcion.funId">
+                                                        {{funcion.funNombre }}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+        
+        
+                                    </section>
+                                </div>
+                                <div class="contentForm">
+                                    <div style="width: 100%; padding-bottom: 15px;">
+        
+                                        <h2 style="text-align: center; font-weight: bolder;">Datos de Usuario</h2>
+                                    </div>
+                                    <section class="layout">
+        
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">NOMBRE DE USUARIO: *</label>
+                                                <input placeholder="Ingresar un Nombre de Usuario" type="text" class="input"
+                                                    name="usuNombreUsuario" (keydown)="validarLetrasNum($event)"
+                                                    [(ngModel)]="usuario.usuNombreUsuario">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+        
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">CORREO ELECTRONICO: *</label>
+                                                <input placeholder="Ingresar un Correo Electronico" type="text" class="input"
+                                                    name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+        
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">CONTRASEÑA: *</label>
+                                                <input placeholder="Ingresar una contraseña" type="password" class="input2"
+                                                    name="usuContrasena" [(ngModel)]="usuario.usuContrasena">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+        
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">CONFIRMAR CONTRASEÑA: *</label>
+                                                <input placeholder="Repita la contraseña" type="password" class="input2"
+                                                    name="confirmarPass" [(ngModel)]="confirmarPass">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">DESIGNAR ROL:</label>
+                                                <select id="roles" name="roles" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.rolId.rolId">
+                                                    <option value="0">Seleccione una Ciudad</option>
+                                                    <option *ngFor="let rol of listRoles" [value]="rol.rolId">
+                                                        {{ rol.rolNombre }}
+                                                    </option>
+        
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+        
+        
+                                    </section>
+                                </div>
+        
+                                <div class="contentForm">
+                                    <div style="width: 100%; padding-bottom: 15px;">
+        
+                                        <h2 style="text-align: center; font-weight: bolder;">Designacion de Rol</h2>
+                                    </div>
+        
+                                    <div style="width: 100%; margin-top: 30px;">
+                                        <table class="table-fill">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-left">Rol</th>
+                                                    <th class="text-left">Descripcion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="table-hover">
+                                                <tr *ngFor="let rol of listRoles">
+                                                    <td class="text-left">{{rol.rolNombre}}</td>
+                                                    <td class="text-left">{{rol.rolDescripcion}}</td>
+                                                </tr>
+        
+                                            </tbody>
+                                        </table>
+                                        <div style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
+                                            <button class="learn-more" style="margin-bottom: 40px; width: 50%;"
+                                                (click)="editeMode? editar() : registrar()">
+                                                <span class="circle" aria-hidden="true">
+                                                    <span class="icon arrow"></span>
+                                                </span>
+                                                <span class="button-text">
+                                                    {{editeMode? 'Editar Usuario' : 'Registrar Nuevo Usuario'}}
+                                                </span>
+                                            </button>
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div style="height: 20px;"></div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <app-footer></app-footer>
+        
+        </body>
     </div>
-    <app-footer></app-footer>
+</div>
 
-</body>

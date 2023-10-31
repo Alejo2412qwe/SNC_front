@@ -11,6 +11,14 @@ html * {
     width: 150px;
 }
 
+.containerside {
+    display: grid;
+    grid-template-columns: 4% 96%;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
 .navbar-custom-bg {
     background-color: #007bff;
     /* Cambia esto al color que desees */

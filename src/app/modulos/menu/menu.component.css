@@ -2,6 +2,15 @@ html * {
     -webkit-font-smoothing: antialiased;
 }
 
+.containerside {
+    display: grid;
+    grid-template-columns: 4% 96%;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+
 .dropdown-toggle.nav-link {
     width: 150px;
   }
