@@ -26,6 +26,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { RolService } from 'src/app/services/rol.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -52,6 +53,7 @@ export class RegistroComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
+    private sessionStorage: SessionStorageService
   ) { }
 
   //OBJETOS
@@ -66,6 +68,8 @@ export class RegistroComponent implements OnInit {
   procesoSelected: Procesos = new Procesos();
   tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
   funcion: Funciones = new Funciones();
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //VARIABLES
   confirmarPass: string = '';
