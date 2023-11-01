@@ -27,6 +27,7 @@ import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listam
 import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    FileUploadModule
   ],
   providers: [
     {
@@ -69,4 +71,4 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

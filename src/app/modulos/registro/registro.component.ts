@@ -9,6 +9,7 @@ import {
   validarNumeros,
   validarLetrasNum,
 } from 'src/app/common/validaciones';
+import { UploadEvent } from 'src/app/interfaz/UploadEvent';
 import { Institucion } from 'src/app/modelo/Institucion';
 import { Ciudad } from 'src/app/modelo/ciudad';
 import { Funciones } from 'src/app/modelo/funciones';
@@ -31,6 +32,7 @@ import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { base64ToFile } from '../../common/base64';
 
 @Component({
   selector: 'app-registro',
@@ -53,7 +55,7 @@ export class RegistroComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
-    private sessionStorage: SessionStorageService
+    private sessionStorage: SessionStorageService,
   ) { }
 
   //OBJETOS
@@ -90,6 +92,9 @@ export class RegistroComponent implements OnInit {
   listaSubprocesos: Subprocesos[] = [];
   listaInstituciones: Institucion[] = [];
   listaTipoInstitucion: TipoInstitucion[] = [];
+  uploadedFiles: File[] = [];
+  // imagenSeleccionada: File | null = null;
+
 
   ngOnInit(): void {
     this.cargarRoles();
@@ -98,6 +103,50 @@ export class RegistroComponent implements OnInit {
     this.validateMode();
     this.cargarTipoInstitucion();
     this.cargarFunciones();
+  }
+
+  uploadFile(event: UploadEvent) {
+    console.log("Upload event triggered");
+    if (event.files && event.files.length > 0) {
+      const file = event.files[0];
+      this.uploadedFiles = event.files; // Almacena los archivos seleccionados
+
+      const reader = new FileReader();
+
+      // Configuramos una función de devolución de llamada para cuando la lectura del archivo esté completa
+      reader.onload = (e: any) => {
+        // e.target.result contiene la representación Base64 del archivo
+        const base64String = e.target.result;
+
+        // Almacena el resultado en this.usuario.foto
+        this.usuario.titulo = base64String;
+
+      };
+
+      // Leemos el archivo como una URL de datos (Base64)
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onUpload(event: UploadEvent) {
+    console.log("Upload event triggered");
+    if (event.files && event.files.length > 0) {
+      const file = event.files[0];
+
+      const reader = new FileReader();
+
+      // Configuramos una función de devolución de llamada para cuando la lectura del archivo esté completa
+      reader.onload = (e: any) => {
+        // e.target.result contiene la representación Base64 del archivo
+        const base64String = e.target.result;
+
+        // Almacena el resultado en this.usuario.foto
+        this.usuario.foto = base64String;
+      };
+
+      // Leemos el archivo como una URL de datos (Base64)
+      reader.readAsDataURL(file);
+    }
   }
 
   validateMode() {
@@ -115,11 +164,12 @@ export class RegistroComponent implements OnInit {
   loadEdit(idUser: number) {
     this.usuarioService.searchUsersId(idUser).subscribe((response) => {
       this.usuario = response;
-      console.log(response)
       if (response.usuPerId.ciuId?.proId) {
         this.selectProvincia = response.usuPerId.ciuId?.proId;
         this.cargarCiudades();
       }
+      this.uploadedFiles.push(base64ToFile(response.foto, response.usuNombreUsuario))
+      // console.log(this.uploadFile)
       this.tipInstitucionSelected.tipId = response.insId.tipId.tipId;
       this.getSubprocesosByProcesoId();
       this.getInstitucionByTipId();
@@ -365,6 +415,19 @@ export class RegistroComponent implements OnInit {
       this.toastr.error(
         'Nombre es un campo obligatorio',
         'Ingrese los nombres del usuario',
+        {
+          timeOut: this.timeToastr,
+        }
+      );
+
+      return false;
+    }
+
+    //FOTO
+    if (!this.usuario.foto) {
+      this.toastr.error(
+        'Ingerse una foto',
+        '',
         {
           timeOut: this.timeToastr,
         }

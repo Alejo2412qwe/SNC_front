@@ -59,11 +59,33 @@
 
                                         <h2 style="text-align: center; font-weight: bolder;">Datos personales</h2>
                                     </div>
+                                    <div class="fileConainer">
+                                        <div class="input-container">
+                                            <label for="name" class="name">FOTO *:</label>
+                                            <p-fileUpload name="demo[]" class="custom-file-upload"
+                                                url="https://www.primefaces.org/cdn/api/upload.php"
+                                                (onSelect)="onUpload($event)" [multiple]="false" accept="image/*"
+                                                [maxFileSize]="1000000">
+                                                <ng-template pTemplate="content">
+                                                    <ul *ngIf="uploadedFiles.length">
+                                                        <li *ngFor="let file of uploadedFiles">
+                                                            <img [src]="usuario.foto" alt="Imagen" *ngIf="usuario.foto"
+                                                                style="height: 80px;" />
+
+                                                            {{ file.name }} - {{
+                                                            file.size }} bytes
+                                                        </li>
+                                                    </ul>
+                                                </ng-template>
+                                            </p-fileUpload>
+                                        </div>
+                                    </div>
                                     <section class="layout">
+
 
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">CÉDULA:</label>
+                                                <label for="name" class="name">CÉDULA: *</label>
                                                 <input placeholder="Ingresa el CI del Usuario" type="text" class="input"
                                                     name="perCedula" (keydown)="validarNumeros($event)"
                                                     [(ngModel)]="persona.perCedula">
@@ -72,7 +94,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">NOMBRES:</label>
+                                                <label for="name" class="name">NOMBRES: *</label>
                                                 <input placeholder="Ingresa el Nombre del Usuario" type="text"
                                                     class="input" name="perNombre" (keydown)="validarLetras($event)"
                                                     [(ngModel)]="persona.perNombre">
@@ -81,7 +103,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">APELLIDOS:</label>
+                                                <label for="name" class="name">APELLIDOS: *</label>
                                                 <input placeholder="Ingresa el Apellido del Usuario" type="text"
                                                     class="input2" name="perApellido" (keydown)="validarLetras($event)"
                                                     [(ngModel)]="persona.perApellido">
@@ -89,7 +111,7 @@
                                             </div>
                                         </div>
                                         <div class="input-container">
-                                            <label for="name" class="name">FECHA DE NACIMIENTO:</label>
+                                            <label for="name" class="name">FECHA DE NACIMIENTO: *</label>
                                             <input class="input" type="date" name="perFechaNacimiento"
                                                 placeholder="Fecha de nacimiento" name="perFechaNacimiento"
                                                 [(ngModel)]="persona.perFechaNacimiento">
@@ -97,7 +119,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">PROVINCIA:</label>
+                                                <label for="name" class="name">PROVINCIA: *</label>
                                                 <select id="provincias" name="provincias" class="input2"
                                                     style="color: #777;" (change)="cargarCiudades()"
                                                     [(ngModel)]="selectProvincia.proId">
@@ -113,7 +135,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">CIUDAD:</label>
+                                                <label for="name" class="name">CIUDAD: *</label>
                                                 <select id="ciudades" name="ciudades" class="input2"
                                                     style="color: #777;" [(ngModel)]="persona.ciuId.ciuId">
                                                     <option value="0">Seleccione una Ciudad</option>
@@ -127,7 +149,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">TELÉFONO:</label>
+                                                <label for="name" class="name">TELÉFONO: *</label>
                                                 <input placeholder="Ingresa el número de teléfono" type="text"
                                                     class="input" name="perTelefono" (keydown)="validarNumeros($event)"
                                                     [(ngModel)]="persona.perTelefono">
@@ -136,8 +158,8 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">DIRECCIÓN:</label>
-                                                <input placeholder="Ingresa la direccion del domicilio" type="text"
+                                                <label for="name" class="name">DIRECCIÓN: *</label>
+                                                <input placeholder="Ingresa la dirección del domicilio" type="text"
                                                     class="input" (keydown)="validarLetrasNum($event)"
                                                     name="perDireccion" [(ngModel)]="persona.perDireccion">
                                                 <div class="underline"></div>
@@ -146,18 +168,18 @@
                                     </section>
                                 </div>
                                 <div class="contentForm">
-                                    <div style="width: 100%; ">
+                                    <div style="width: 100%; padding-bottom: 15px;">
 
                                         <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
                                     </div>
                                     <section class="layout">
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">TIPO DE INSTITUCIÓN:</label>
+                                                <label for="name" class="name">TIPO DE INSTITUCIÓN: *</label>
                                                 <select id="tipInstitucion" name="tipInstitucion" class="input2"
                                                     style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
                                                     (change)="getInstitucionByTipId()">
-                                                    <option value="0">Selecciona el tipo de institucion</option>
+                                                    <option value="0">Selecciona el tipo de institución</option>
                                                     <option *ngFor="let tipo of listaTipoInstitucion"
                                                         [value]="tipo.tipId">
                                                         {{tipo.tipNombre}}
@@ -168,7 +190,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">INSTITUCIÓN:</label>
+                                                <label for="name" class="name">INSTITUCIÓN: *</label>
                                                 <select id="institucion" name="institucion" class="input2"
                                                     style="color: #777;" [(ngModel)]="usuario.insId.instId">
                                                     <option value="0">Selecciona tu institución</option>
@@ -182,7 +204,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">PROCESO - ZONA:</label>
+                                                <label for="name" class="name">PROCESO - ZONA: *</label>
                                                 <select id="procesos" name="procesos" class="input2"
                                                     style="color: #777;" [(ngModel)]="usuario.procId.procId"
                                                     (change)="getSubprocesosByProcesoId()">
@@ -211,10 +233,10 @@
                                         </div> -->
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">FUNCIÓN:</label>
+                                                <label for="name" class="name">FUNCIÓN: *</label>
                                                 <select id="funcion" name="funcion" class="input2" style="color: #777;"
                                                     [(ngModel)]="usuario.funId.funId">
-                                                    <option value="0">Selecciona la función edl usuario</option>
+                                                    <option value="0">Selecciona la función del usuario</option>
                                                     <option *ngFor="let funcion of listFunciones"
                                                         [value]="funcion.funId">
                                                         {{funcion.funNombre }}
@@ -248,7 +270,7 @@
                                         <div>
                                             <div class="input-container">
                                                 <label for="name" class="name">CORREO ELECTRÓNICO: *</label>
-                                                <input placeholder="Ingresar un Correo Electronico" type="text"
+                                                <input placeholder="Ingresar un Correo Electrónico" type="text"
                                                     class="input" name="usuCorreo" [(ngModel)]="usuario.usuCorreo">
                                                 <div class="underline"></div>
                                             </div>
@@ -274,7 +296,7 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name">DESIGNAR ROL:</label>
+                                                <label for="name" class="name">DESIGNAR ROL: *</label>
                                                 <select id="roles" name="roles" class="input2" style="color: #777;"
                                                     [(ngModel)]="usuario.rolId.rolId">
                                                     <option value="0">Seleccione una Ciudad</option>
@@ -289,6 +311,23 @@
 
 
                                     </section>
+                                    <div class="fileConainer">
+                                        <div class="input-container">
+                                            <label for="name" class="name">TITULO (ejemplo de subida de
+                                                archivos):</label>
+                                            <p-fileUpload name="demo[]" class="custom-file-upload"
+                                                url="https://www.primefaces.org/cdn/api/upload.php"
+                                                (onSelect)="uploadFile($event)" [multiple]="false"
+                                                accept="application/pdf" [maxFileSize]="1000000">
+                                                <ng-template pTemplate="content">
+                                                    <ul *ngIf="uploadedFiles.length">
+                                                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{
+                                                            file.size }} bytes</li>
+                                                    </ul>
+                                                </ng-template>
+                                            </p-fileUpload>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="contentForm">
