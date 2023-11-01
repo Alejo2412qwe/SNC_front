@@ -51,6 +51,9 @@ h6 {
     box-shadow: none !important;
     padding-top: 25px;
     color: #fff;
+    width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .navbar .navbar-brand {
@@ -151,7 +154,7 @@ a .material-icons {
 .navbar-translate {
     width: 100%;
     padding-bottom: 35px;
-    padding-left: 10%;
+    padding-left: 6%;
 }
 
 .profile-page .profile {
@@ -687,5 +690,4 @@ body {
     grid-row-gap: 20px;
     justify-items: stretch;
     align-items: stretch;
-    width: 100%;
 }

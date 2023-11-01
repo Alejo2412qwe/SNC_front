@@ -11,6 +11,11 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { HorariosComponent } from './modulos/horarios/horarios.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
+import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
+import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
+import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +31,11 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
   {path: 'Horarios', component: HorariosComponent} ,
+  { path: 'listamotivo', component: ListamotivopermisoComponent },
+  { path: 'listatipopermiso', component: ListatipopermisosComponent },
+  { path: 'listatipoformulario', component: ListatipoformularioComponent },
+  { path: 'listavalor', component: ListavalorhoraComponent },
+  { path: 'listaFun', component: ListaFuncionesComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

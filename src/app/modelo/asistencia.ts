@@ -1,6 +1,6 @@
 import { EstadoAsistencia } from './estadoasistencia';
 import { Subprocesos } from './subprocesos';
-import { Usuario } from './usuario.component';
+import { Usuario } from './usuario';
 
 export class Asistencia {
   asisId?: number;

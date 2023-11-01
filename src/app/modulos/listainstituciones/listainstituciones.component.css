@@ -7,6 +7,14 @@ html * {
     font-family: "Roboto Slab", "Times New Roman", serif;
 }
 
+.containerside {
+    display: grid;
+    grid-template-columns: 4% 96%;
+    justify-items: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
 .dropdown-toggle.nav-link {
     width: 150px;
 }

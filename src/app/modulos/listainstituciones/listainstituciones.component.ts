@@ -5,6 +5,9 @@ import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { InstitucionService } from 'src/app/services/institucion.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import Swal from 'sweetalert2';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { validarCadena } from 'src/app/common/validaciones';
+import { showErrorAlCrear } from 'src/app/common/validaciones';
 
 @Component({
   selector: 'app-listainstituciones',
@@ -13,10 +16,16 @@ import Swal from 'sweetalert2';
 })
 export class ListainstitucionesComponent implements OnInit {
   constructor(
+    //services
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private sessionStorage: SessionStorageService
   ) {}
+
+  //usuario de la sesion actual
+  username = this.sessionStorage.getItem('username');
+  rol = this.sessionStorage.getItem('rol');
 
   //OBJETOS
   institucion: Institucion = new Institucion();
@@ -79,10 +88,17 @@ export class ListainstitucionesComponent implements OnInit {
         this.newInstDireccion = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        this.institucion.tipId.tipId = tipId;
-        this.institucion.instNombre = this.newInstitucion;
-        this.institucion.instDireccion = this.newInstDireccion;
-        this.saveInstitucion();
+        if (
+          validarCadena(this.newInstitucion) &&
+          validarCadena(this.newInstDireccion)
+        ) {
+          this.institucion.tipId.tipId = tipId;
+          this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instDireccion = this.newInstDireccion;
+          this.saveInstitucion();
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -101,10 +117,17 @@ export class ListainstitucionesComponent implements OnInit {
         this.newInstDireccion = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        this.institucion.instNombre = this.newInstitucion;
-        this.institucion.instDireccion = this.newInstDireccion;
-        this.updateInstitucion(id);
-        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        if (
+          validarCadena(this.newInstitucion) &&
+          validarCadena(this.newInstDireccion)
+        ) {
+          this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instDireccion = this.newInstDireccion;
+          this.updateInstitucion(id);
+          this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -192,9 +215,13 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.tipInstitucion.tipNombre = this.newTipoinstitucion;
-        this.saveTipoInstitucion();
-        this.loadTipoInstitucionByEstado(1);
+        if (validarCadena(this.newTipoinstitucion)) {
+          this.tipInstitucion.tipNombre = this.newTipoinstitucion;
+          this.saveTipoInstitucion();
+          this.loadTipoInstitucionByEstado(1);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
@@ -210,10 +237,14 @@ export class ListainstitucionesComponent implements OnInit {
         this.newTipoinstitucion = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        this.tipInstitucion.tipNombre = this.newTipoinstitucion;
-        this.updateTipoInstitucion(id);
-        this.loadTipoInstitucionByEstado(1);
-        this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        if (validarCadena(this.newTipoinstitucion)) {
+          this.tipInstitucion.tipNombre = this.newTipoinstitucion;
+          this.updateTipoInstitucion(id);
+          this.loadTipoInstitucionByEstado(1);
+          this.loadInstitucionesByTipId(1, this.institucion.instEstado);
+        } else {
+          showErrorAlCrear();
+        }
       },
     });
   }
