@@ -37,6 +37,7 @@ export class ListainstitucionesComponent implements OnInit {
   newCalle1: string = '';
   newCalle2: string = '';
   newInstDireccion: string = '';
+  newReferencia: string = '';
   newTipoinstitucion: string = '';
 
   //LISTAS
@@ -79,7 +80,7 @@ export class ListainstitucionesComponent implements OnInit {
   openCrearInstitucion(tipId: number) {
     Swal.fire({
       title: 'Crear Nueva Institución',
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución"><input id="swal-input2" class="swal2-input" placeholder="Institución"><input id="swal-input3" class="swal2-input" placeholder="Calle Principal"><input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria">',
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución"><input id="swal-input2" class="swal2-input" placeholder="Institución"><input id="swal-input3" class="swal2-input" placeholder="Calle Principal"><input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria"><input id="swal-input5" class="swal2-input" placeholder="Referencia">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
@@ -96,15 +97,20 @@ export class ListainstitucionesComponent implements OnInit {
         this.newCalle2 = (
           document.getElementById('swal-input4') as HTMLInputElement
         ).value;
+        this.newReferencia = (
+          document.getElementById('swal-input5') as HTMLInputElement
+        ).value;
         this.newInstDireccion = this.newCalle1 + ' Con ' + this.newCalle2;
         if (
           validarCadena(this.newInstitucion) &&
           validarCadena(this.newInstDireccion) &&
-          validarCadena(this.newCodigo)
+          validarCadena(this.newCodigo) &&
+          validarCadena(this.newReferencia)
         ) {
           this.institucion.tipId.tipId = tipId;
           this.institucion.instCodigo = this.newCodigo;
           this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instReferencia = this.newReferencia;
           this.institucion.instDireccion = this.newInstDireccion;
           this.saveInstitucion();
         } else {
@@ -117,7 +123,7 @@ export class ListainstitucionesComponent implements OnInit {
   openUpdateInstitucion(nombre: string, id: number) {
     Swal.fire({
       title: 'Editar ' + nombre,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución"><input id="swal-input2" class="swal2-input" placeholder="Institución"><input id="swal-input3" class="swal2-input" placeholder="Calle Principal"><input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria">',
+      html: '<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución"><input id="swal-input2" class="swal2-input" placeholder="Institución"><input id="swal-input3" class="swal2-input" placeholder="Calle Principal"><input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria"><input id="swal-input5" class="swal2-input" placeholder="Referencia">',
       showCancelButton: true,
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
@@ -134,14 +140,19 @@ export class ListainstitucionesComponent implements OnInit {
         this.newCalle2 = (
           document.getElementById('swal-input4') as HTMLInputElement
         ).value;
+        this.newReferencia = (
+          document.getElementById('swal-input5') as HTMLInputElement
+        ).value;
         this.newInstDireccion = this.newCalle1 + ' Con ' + this.newCalle2;
         if (
           validarCadena(this.newInstitucion) &&
           validarCadena(this.newInstDireccion) &&
-          validarCadena(this.newCodigo)
+          validarCadena(this.newCodigo) &&
+          validarCadena(this.newReferencia)
         ) {
           this.institucion.instCodigo = this.newCodigo;
           this.institucion.instNombre = this.newInstitucion;
+          this.institucion.instReferencia = this.newReferencia;
           this.institucion.instDireccion = this.newInstDireccion;
           this.updateInstitucion(id);
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);

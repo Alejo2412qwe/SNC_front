@@ -261,6 +261,7 @@
                                                     <th class="tipo" scope="col">CÓDIGO DE LA INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">DIRECCIÓN</th>
+                                                    <th class="tipo" scope="col">REFERENCIA</th>
                                                     <th class="tipo" scope="col">TIPO AL QUE PERTENECE</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
@@ -273,6 +274,7 @@
                                                     <td>{{inst.instCodigo}}</td>
                                                     <td>{{inst.instNombre}}</td>
                                                     <td>{{inst.instDireccion}}</td>
+                                                    <td>{{inst.instReferencia}}</td>
                                                     <td>{{inst.tipId.tipNombre}}</td>
                                                     <td><button role="button" class="button-name"
                                                             (click)="openUpdateInstitucion(inst.instNombre,inst.instId)">Editar</button>
