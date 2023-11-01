@@ -3,6 +3,8 @@ import { Vacaciones } from 'src/app/modelo/vacaciones';
 import { Comision } from 'src/app/modelo/comision';
 import { VacacionesService } from 'src/app/services/vacaciones.service';
 import { ComisionService } from 'src/app/services/comision.service';
+import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reportevaciones',
@@ -18,13 +20,17 @@ export class VacacionesComponent implements OnInit {
   paginasVac: number[] = []; 
   paginaActualCom: number = 0; // Define la propiedad paginaActual y establece un valor inicial
   paginasCom: number[] = [];
+  estList: number = 1
 
   fechaBusquedaVac: string = ''; // Agregar la propiedad fechaBusqueda
   fechaBusquedaCom: string = ''; 
 
-  constructor(private vacacioneService: VacacionesService, private comisionService: ComisionService) {}
+  constructor(private vacacioneService: VacacionesService, private comisionService: ComisionService, private toastr: ToastrService, private sessionStorage: SessionStorageService) {
+    this.estList = 1;
+  }
 
   ngOnInit(): void {
+    this.setActive()
     this.obtenerVacaciones();
     this.obtenerComision();
   }
@@ -36,6 +42,9 @@ export class VacacionesComponent implements OnInit {
     });
   }
 
+  setActive() {
+    this.estList = 1; // Cambia el valor de estList a 1
+  }
 
   eliminarVacaciones(vacaciones: Vacaciones) {
     if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
@@ -43,6 +52,28 @@ export class VacacionesComponent implements OnInit {
         this.obtenerVacaciones(); // Vuelve a cargar la lista de registros después de eliminar uno
       });
     }
+  }
+
+  loadVac(est: number) {
+    this.vacacioneService.allVacData(est).subscribe((response) => {
+      this.vacaciones = response; // Asigna los datos al array provincias
+    });
+  }
+
+  updateEstVac(id: number, est: number) {
+    this.vacacioneService.updateEst(id, est).subscribe({
+      next: () => {
+        console.log('eliminado')
+        this.loadVac(1)
+      },
+      error: (error) => {
+        // Manejar errores
+      },
+      complete: () => {
+        // Manejar completado
+      }
+    });
+
   }
 
   obtenerVacaciones() {
