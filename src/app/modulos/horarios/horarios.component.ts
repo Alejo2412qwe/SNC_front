@@ -162,7 +162,7 @@ agregarHorario() {
 
   openUpdateProceso(nombre: string, id: number) {
     Swal.fire({
-      title: 'Editar ' + nombre,
+      title: 'Editar Horario',
       html: `<div>
       <div class="input-container">
           <label for="name" class="name">Número de Horas:</label>
