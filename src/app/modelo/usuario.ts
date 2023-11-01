@@ -44,3 +44,4 @@ export class Usuario {
     this.funId = new Funciones();
   }
 }
+

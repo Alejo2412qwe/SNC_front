@@ -4,12 +4,93 @@
 </div>
 
 <div style="width: 100%; margin-bottom: 40px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TABLAS Y REPORTES</title>
+</head>
 
-    <h4>NOMBRE: <label for="">DANIEL ANDRADE</label></h4>
-    <h4>CEDULA: <label for="">0106434665</label></h4>
-    <h4>FECHA DE INGRESO: <label for="">FECHA ACTUAL </label></h4>
+<body>
 
-</div>
+    <h1 style="font-size: 20px;">TABLA DE REPORTE VACACIONALES</h1>
+    <h1 style="font-size: 20px;">POR COMISION</h1>
+    <div style="width: 100%; margin-bottom: 40px;">
+
+        <h4>NOMBRE: <label for="">DANIEL ANDRADE</label></h4>
+        <h4>CEDULA: <label for="">0106434665</label></h4>
+        <h4>FECHA DE INGRESO: <label for="">FECHA ACTUAL </label></h4>
+
+    </div>
+    <table class="container">
+        <thead>
+            <tr>
+                <th>
+                    <h1>DETALLE</h1>
+                </th>
+                <th>
+                    <h1>FECHA DE INICIO</h1>
+                </th>
+                <th>
+                    <h1>DIAS</h1>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vacacion of vacaciones">
+                <td>{{ vacacion.vacDetalle }}</td>
+                <td>{{ vacacion.vacFecha }}</td>
+                <td>{{ vacacion.vacDiasComision }}</td>
+              </tr>
+        </tbody>
+    </table>
+    <h1 style="font-size: 20px;">POR ASISTENCIA</h1>
+    <div style="width: 100%; margin-bottom: 40px;">
+
+        <h4>NOMBRE: <label for="">DANIEL ANDRADE</label></h4>
+        <h4>CEDULA: <label for="">0106434665</label></h4>
+        <h4>FECHA DE INGRESO: <label for="">FECHA ACTUAL </label></h4>
+        <h4>CODIGO: <label for="">0000</label></h4>
+        <h4>DIAS GANADOS: <label for="">0.00</label></h4>
+        <h4>DIAS USADOS: <label for="">1.74</label></h4>
+        <h4>CEDULA: <label for="">0106434665</label></h4>
+        <h4>TOTAL DE DIAS DISPONIBLES: <label for="">0106434665</label></h4>
+        <h4>DIAS CADUCADOS: <label for="">0.00</label></h4>
+
+    </div>
+    <table class="container">
+        <thead>
+            <tr>
+                <th>
+                    <h1>DETALLE</h1>
+                </th>
+                <th>
+                    <h1>PER. ANTERIOR</h1>
+                </th>
+                <th>
+                    <h1>PER. ACTUAL</h1>
+                </th>
+                <th>
+                    <h1>FECHA</h1>
+                </th>
+                <th>
+                    <h1>DIAS</h1>
+                </th>
+                <th>
+                    <h1>HORAS</h1>
+                </th>
+                <th>
+                    <h1>MINUTOS</h1>
+                </th>
+                <th>
+                    <h1>TOTAL EN DIAS</h1>
+                </th>
+                <th>
+                    <h1>DIAS GANADOS</h1>
+                </th>
+                <th>
+                    <h1>SALDO A LA FECHA</h1>
+                </th>
+            </tr>
 
 <div style="width: 100%; margin-top: 50px;">
     <div class="table-responsive">

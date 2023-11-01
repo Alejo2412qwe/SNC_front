@@ -8,7 +8,7 @@ import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
-import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
+import { VacacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatip
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,7 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
     PermisosComponent,
     GestionComponent,
     HorariosComponent,
-    ReportevacionesComponent,
+    VacacionesComponent,
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent,

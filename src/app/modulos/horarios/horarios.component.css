@@ -42,7 +42,6 @@ h6 {
 }
 
 
-
 .navbar {
     border: 0;
     border-radius: 3px;
@@ -335,7 +334,6 @@ img.rounded {
 
 
 
-
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -357,7 +355,6 @@ img.rounded {
     transition: transform .3s cubic-bezier(.4, 0, .2, 1), opacity .2s cubic-bezier(.4, 0, .2, 1);
 }
 
-
 .dropdown-menu .dropdown-item:focus,
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu a:active,
@@ -376,7 +373,6 @@ img.rounded {
     will-change: transform;
     transition: transform .15s linear;
 }
-
 
 .dropdown-menu .dropdown-item,
 .dropdown-menu li>a {
