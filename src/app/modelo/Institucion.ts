@@ -5,6 +5,7 @@ export class Institucion {
   instNombre: string;
   instDireccion: string;
   instEstado: number;
+  instCodigo: string;
   tipId: TipoInstitucion;
 
   constructor(
@@ -12,11 +13,13 @@ export class Institucion {
     instNombre?: string,
     instDireccion?: string,
     instEstado?: number,
+    instCodigo?: string,
     tipId?: TipoInstitucion
   ) {
     (this.instId = instId || 0),
       (this.instNombre = instNombre || ''),
       (this.instDireccion = instDireccion || ''),
+      (this.instCodigo = instCodigo || ''),
       (this.instEstado = instEstado || 0),
       (this.tipId = tipId || new TipoInstitucion());
   }

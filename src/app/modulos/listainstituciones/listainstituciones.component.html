@@ -258,6 +258,7 @@
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
                                                     <th class="tipo" scope="col">ID DE LA INSTITUCIÓN</th>
+                                                    <th class="tipo" scope="col">CÓDIGO DE LA INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">DIRECCIÓN</th>
                                                     <th class="tipo" scope="col">TIPO AL QUE PERTENECE</th>
@@ -269,6 +270,7 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let inst of listaInstituciones">
                                                     <td>{{inst.instId}}</td>
+                                                    <td>{{inst.instCodigo}}</td>
                                                     <td>{{inst.instNombre}}</td>
                                                     <td>{{inst.instDireccion}}</td>
                                                     <td>{{inst.tipId.tipNombre}}</td>
