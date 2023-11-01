@@ -182,11 +182,4 @@ export class VacacionesComponent implements OnInit {
     );
   }
 
-  cambiarPaginaVac(pagina: number) {
-    this.paginaActualVac = pagina;
-  }
-
-  cambiarPaginaCom(pagina: number) {
-    this.paginaActualCom = pagina;
-  }
 }

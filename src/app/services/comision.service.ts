@@ -12,12 +12,16 @@ import { Injectable } from '@angular/core';
   
     constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
   
-    private url: string = `${entorno.urlPublica}/Comision`
+    private url: string = `${entorno.urlPrivada}/Comision`
     private token = this.sessionStorage.getItem('token');
   
   
     getComision() {
-      return this.http.get<Comision[]>(this.url + '/read');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+      });
+
+      return this.http.get<Comision[]>(this.url + '/read', { headers });
     }
   
     agregarComision(comision: Comision): Observable<Comision> {

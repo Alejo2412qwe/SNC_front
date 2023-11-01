@@ -12,12 +12,17 @@ import { Injectable } from '@angular/core';
   
     constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
   
-    private url: string = `${entorno.urlPublica}/Vacaciones`
+    private url: string = `${entorno.urlPrivada}/Vacaciones`
     private token = this.sessionStorage.getItem('token');
   
   
     getVacaciones() {
-      return this.http.get<Vacaciones[]>(this.url + '/read');
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+      });
+
+      return this.http.get<Vacaciones[]>(this.url + '/read', { headers });
     }
   
     agregarVacaciones(vacaciones: Vacaciones): Observable<Vacaciones> {
