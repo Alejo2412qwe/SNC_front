@@ -2,7 +2,7 @@
     <section class="container">
 
         <div style="margin-top: 20px; margin-bottom: 50px">
-            <h1 style="text-align: center; font-weight: bolder;">Direccion de Talento Humano</h1>
+            <h1 style="text-align: center; font-weight: bolder;">Dirección de Talento Humano</h1>
             <h2 style="text-align: center; font-weight: bolder;">Formulario de Licencias y Permisos</h2>
 
         </div>
@@ -43,10 +43,11 @@
     <div>
         <div class="input-container">
             <label for="name" class="name">REGIMEN:</label>
-            <select id="frutas" name="frutas" class="input2" style="color: #777;">
-                <option value="manzana">Selecciona el Regimen</option>
-                <option value="banana">Codigo de Trabajo</option>
-                <option value="uva">LOSEP</option>
+            <select id="regimen" name="regimen" class="input2" style="color: #777;" [(ngModel)]="regimen.regId">
+                <option value="0">Selecciona el Regimen</option>
+                <option *ngFor="let reg of listaregiemen" [value]="regimen.regId">
+                    {{reg.regNombre}}
+                </option>
             </select>
             <div class="underline"></div>
         </div>
@@ -56,14 +57,14 @@
 
     <div>
         <div class="input-container">
-            <label for="name" class="name">NOMBRES Y APELLIDOS:</label>
-            <input placeholder="Enter your name" type="text" class="input">
+            <label for="name" class="name">{{dataUsuario.usuPerId.perNombre}}</label>
+            <input placeholder="Enter your name" type="text" class="input" id="nombres">
             <div class="underline"></div>
         </div>
     </div>
     <div>
         <div class="input-container">
-            <label for="name" class="name">CEDULA DE IDENTIFICACION:</label>
+            <label for="name" class="name">CEDULA DE IDENTIFICACIÓN:</label>
             <input placeholder="Enter your name" type="text" class="input">
             <div class="underline"></div>
         </div>
@@ -322,12 +323,12 @@
 </div>
 <section style="margin-top: 40px; display: flex;
 justify-content: center; /* Centrar horizontalmente */
-align-items: center;" >
+align-items: center;">
 
-<button class="learn-more" style="margin-bottom: 40px; width: 50%;">
-    <span class="circle" aria-hidden="true">
-        <span class="icon arrow"></span>
-    </span>
-    <span class="button-text">Continuar con la Solicitud</span>
-</button>
+    <button class="learn-more" style="margin-bottom: 40px; width: 50%;">
+        <span class="circle" aria-hidden="true">
+            <span class="icon arrow"></span>
+        </span>
+        <span class="button-text">Continuar con la Solicitud</span>
+    </button>
 </section>
