@@ -14,7 +14,7 @@ export class UsuarioService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) { }
 
   private url: string = `${entorno.urlPrivada}/usuario`;
   private urlPublica: string = `${entorno.urlPublica}`;
@@ -41,6 +41,20 @@ export class UsuarioService {
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.get<Usuario[]>(
       `${this.url}/searchUsersData?search=${search}&est=${est}`,
+      { headers }
+    );
+  }
+
+
+  searchUsersCI(search: string, est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Usuario[]>(
+      `${this.url}/searchUsersCI?search=${search}&est=${est}`,
       { headers }
     );
   }
