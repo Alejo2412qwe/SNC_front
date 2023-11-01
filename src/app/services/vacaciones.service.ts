@@ -11,8 +11,8 @@ import { Injectable } from '@angular/core';
   export class VacacionesService {
   
     constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
-  
-    private url: string = `${entorno.urlPublica}/Vacaciones`
+    
+    private url: string = `${entorno.urlPrivada}/vacaciones`
     private token = this.sessionStorage.getItem('token');
   
   
@@ -54,17 +54,16 @@ import { Injectable } from '@angular/core';
       return this.http.delete(`${this.url}/delete/${id}`);
     }
   
-    buscarVacaciones(fecha: string): Observable<Vacaciones[]> {
-      // Construir el encabezado de autorización con el token JWT
+    searchVacacionesData(search: string, est: number) {
+
+      // Construir el encabezado de autorización
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+        'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
       });
-    
-      // Puedes ajustar los parámetros según tu API
-      const params = new HttpParams().set('fecha', fecha);
-    
+  
       // Realiza la solicitud HTTP con el encabezado de autorización
-      return this.http.get<Vacaciones[]>(`${this.url}/buscarVacaciones`, { headers, params });
+      return this.http.get<Vacaciones[]>(`${this.url}/searchUsersData?search=${search}&est=${est}`, { headers });
+  
     }
   
     updateEst(id: number, est: number): Observable<void> {

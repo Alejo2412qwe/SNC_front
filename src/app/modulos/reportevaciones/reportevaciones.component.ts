@@ -20,7 +20,10 @@ export class VacacionesComponent implements OnInit {
   paginasVac: number[] = []; 
   paginaActualCom: number = 0; // Define la propiedad paginaActual y establece un valor inicial
   paginasCom: number[] = [];
-  estList: number = 1
+  estList: number = 1;
+  vacacion = this.sessionStorage.getItem('vacacion');
+  periodo = this.sessionStorage.getItem('periodo');
+  searchString: string = '';
 
   fechaBusquedaVac: string = ''; // Agregar la propiedad fechaBusqueda
   fechaBusquedaCom: string = ''; 
@@ -76,6 +79,12 @@ export class VacacionesComponent implements OnInit {
 
   }
 
+  searchVac(search: string, est: number) {
+    this.vacacioneService.searchVacacionesData(search, est).subscribe((response) => {
+      this.vacaciones = response; // Asigna los datos al array provincias
+    });
+  }
+
   obtenerVacaciones() {
     this.vacacioneService.getVacaciones().subscribe((response: Vacaciones[]) => {
       this.vacaciones = response; // Asigna la respuesta a la propiedad registros
@@ -86,24 +95,7 @@ export class VacacionesComponent implements OnInit {
     this.paginaActualVac = 0;
   });
   }
-
-  buscarVacacionesPorFecha() {
-    if (this.fechaBusquedaVac) {
-      this.vacacioneService.buscarVacaciones(this.fechaBusquedaVac).subscribe((response: Vacaciones[]) => {
-        this.vacaciones = response;
-      },
-      (error: any) => {
-        // Aquí manejas los errores, si ocurren
-        console.error('Ocurrió un error: ', error);
-      },
-      () => {
-        // Esta función se llama cuando la operación se completa (opcional)
-        console.log('La operación se ha completado');
-      }
-    );
-    }
-  }
-
+  
   editarVacaciones(vacaciones: Vacaciones) {
     // Clona el registro para no modificar el original directamente
     const vacacionEditada = { ...vacaciones };
@@ -182,6 +174,7 @@ export class VacacionesComponent implements OnInit {
     );
   }
 
+  
   cambiarPaginaVac(pagina: number) {
     this.paginaActualVac = pagina;
   }
