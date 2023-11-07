@@ -37,7 +37,7 @@ export class AprobarpermisosComponent implements OnInit {
     Swal.fire({
       title: 'Bienvenido a la aprobación de permisos',
       html:
-        'Recuerde revisar que la información sea la adecuada al igual que el documento proporcionado por el emisor del permiso ',
+        'Recuerde revisar que la información de los permisos sea la adecuada.',
       icon: 'info',
       confirmButtonText: 'Aceptar',
     });

@@ -142,10 +142,11 @@
                                                     <th class="tipo" scope="col">FIN DEL PERMISO</th>
                                                     <th class="tipo" scope="col">HORAS DE INICIO</th>
                                                     <th class="tipo" scope="col">HORAS FIN</th>
+                                                    <th class="tipo" scope="col">OBSERVACIÓN</th>
                                                     <th class="tipo" scope="col">EMISOR DEL PERMISO</th>
                                                     <th class="tipo" scope="col">CÉDULA DEL EMISOR</th>
                                                     <th class="tipo" scope="col">APROBAR</th>
-                                                    <th class="tipo" scope="col">DENEGAR</th>
+                                                    <th class="tipo" scope="col">RECHAZAR</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
@@ -158,6 +159,7 @@
                                                     <td class="tdTbl">{{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
                                                     <td class="tdTbl">{{per.permHorasInicio | date:'HH:mm'}}</td>
                                                     <td class="tdTbl">{{per.permHorasFin | date:'HH:mm'}}</td>
+                                                    <td class="tdTbl">{{per.permObservacion}}</td>
                                                     <td class="tdTbl">{{per.usuId.usuPerId.perNombre}}
                                                         {{per.usuId.usuPerId.perApellido}}</td>
                                                     <td class="tdTbl">{{per.usuId.usuPerId.perCedula}}</td>
