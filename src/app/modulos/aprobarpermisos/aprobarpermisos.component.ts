@@ -29,17 +29,27 @@ export class AprobarpermisosComponent implements OnInit {
   getAllPermisos() {
     this.showInfo();
     this.permisoService.getAllPermisos().subscribe((data) => {
-      this.listaPermisos = data
-    })
+      this.listaPermisos = data;
+    });
   }
 
   showInfo() {
     Swal.fire({
       title: 'Bienvenido a la aprobación de permisos',
       html:
-        'Recuerde tener en cuenta revisar la información que sea adecuada al igual que el documento proporcionado por el emisor del permiso ',
+        'Recuerde revisar que la información sea la adecuada al igual que el documento proporcionado por el emisor del permiso ',
       icon: 'info',
       confirmButtonText: 'Aceptar',
+    });
+  }
+
+  updateEstadoPermisos(id: number, est: string) {
+    this.permisoService.updateEst(id, est).subscribe((data) => {
+      if (est === 'A') {
+        this.toastr.success('EL PERMISO HA SIDO APROBADO');
+      } else if (est === 'R') {
+        this.toastr.warning('EL PERMISO HA SIDO RECHAZADO');
+      }
     });
   }
 }

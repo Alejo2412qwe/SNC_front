@@ -41,18 +41,4 @@ export class ListamispermisosComponent implements OnInit {
       this.listapermisos = data
     })
   }
-
-  showInfo() {
-    Swal.fire({
-      title: 'Información De Los Estados',
-      html:
-        '<ul style="list-style-type: none; padding: 0; margin: 0;">' +
-        '  <li id="li1">E: En Espera</li>' +
-        '  <li id="li2">A: Aprobado</li>' +
-        '  <li id="li3" style="margin-left: 2px;">D: Denegado</li>' +
-        '</ul>',
-      icon: 'info',
-      confirmButtonText: 'Aceptar',
-    });
-  }
 }
