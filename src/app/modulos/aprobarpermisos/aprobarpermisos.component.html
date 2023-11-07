@@ -181,11 +181,11 @@
                                                     <td class="tdTbl">{{per.permId}}</td>
                                                     <td class="tdTbl">{{per.tiPeId.tiPeNombre}}</td>
                                                     <td class="tdTbl">{{per.motId.motNombre}}</td>
-                                                    <td class="tdTbl">{{per.permFechaEmision}}</td>
-                                                    <td class="tdTbl">{{per.permFechaInicio}}</td>
-                                                    <td class="tdTbl">{{per.permFechaFin}}</td>
-                                                    <td class="tdTbl">{{per.permHorasInicio}}</td>
-                                                    <td class="tdTbl">{{per.permHorasFin}}</td>
+                                                    <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl">{{per.permFechaInicio | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl">{{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl">{{per.permHorasInicio | date:'HH:mm'}}</td>
+                                                    <td class="tdTbl">{{per.permHorasFin | date:'HH:mm'}}</td>
                                                     <td class="tdTbl">{{per.usuId.usuPerId.perNombre}}
                                                         {{per.usuId.usuPerId.perApellido}}</td>
                                                     <td class="tdTbl">{{per.usuId.usuPerId.perCedula}}</td>
