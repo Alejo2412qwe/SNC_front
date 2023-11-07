@@ -29,6 +29,7 @@ import { ListatipoformularioComponent } from './modulos/listatipoformulario/list
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
+import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { ListamispermisosComponent } from './modulos/listamispermisos/listamispe
     ListatipoformularioComponent,
     ListavalorhoraComponent,
     ListamispermisosComponent,
+    AprobarpermisosComponent,
   ],
   imports: [
     BrowserModule,

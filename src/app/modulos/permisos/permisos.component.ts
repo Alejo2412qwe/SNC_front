@@ -27,7 +27,6 @@ export class PermisosComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
     private regimenService: RegimenService,
-    private usuarioService: UsuarioService,
     private provinciaService: ProvinciaService,
     private motivoService: MotivoPermisoService,
     private tipopermisoService: TipoPermisoService,
@@ -95,4 +94,17 @@ export class PermisosComponent implements OnInit {
     })
   }
 
+
+  savePermiso() {
+    this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
+    this.permisoService.savePermiso(this.permiso).subscribe((data) => {
+      Swal.fire({
+        title: '¡Registro Exitoso!',
+        text: 'Generado Correctamente',
+        icon: 'success',
+        confirmButtonText: 'Confirmar',
+        showCancelButton: false, // No mostrar el botón de cancelar
+      });
+    });
+  }
 }

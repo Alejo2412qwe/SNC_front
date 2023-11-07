@@ -14,7 +14,7 @@ export class PermisoService {
         private sessionStorage: SessionStorageService
     ) { }
 
-    private url: string = `${entorno.urlPrivada}/tipopermiso`;
+    private url: string = `${entorno.urlPrivada}/permisos`;
 
     savePermiso(Permisos: Permisos): Observable<Permisos> {
         // Construir el encabezado de autorización con el token JWT
@@ -26,4 +26,25 @@ export class PermisoService {
             headers,
         });
     }
+
+    getPermisosByUsuId(id: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Permisos[]>(
+            `${this.url}/getPermisosByUsuId?id=${id}`,
+            { headers }
+        );
+    }
+
+    getAllPermisos() {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+    
+        return this.http.get<Permisos[]>(`${this.url}/read`, { headers });
+      }
 }

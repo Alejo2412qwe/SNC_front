@@ -6,6 +6,7 @@ import { Usuario } from './usuario';
 
 export class Permisos {
   permId: number;
+  permFechaEmision: Date;
   permObservacion: string;
   permFechaInicio: Date;
   permFechaFin: Date;
@@ -21,6 +22,7 @@ export class Permisos {
   constructor(
     permId?: number,
     permObservacion?: string,
+    permFechaEmision?: Date,
     permFechaInicio?: Date,
     permFechaFin?: Date,
     permHorasInicio?: Date,
@@ -32,12 +34,13 @@ export class Permisos {
     motId?: MotivoPermiso,
     regId?: Regimen
   ) {
+    this.permFechaEmision = permFechaEmision || new Date();
     this.permId = permId || 0;
     this.permObservacion = permObservacion || '';
     this.permFechaInicio = permFechaInicio || new Date();
-    this.permFechaFin = permFechaFin || new Date(); 
-    this.permHorasInicio = permHorasInicio || new Date(); 
-    this.permHorasFin = permHorasFin || new Date(); 
+    this.permFechaFin = permFechaFin || new Date();
+    this.permHorasInicio = permHorasInicio || new Date();
+    this.permHorasFin = permHorasFin || new Date();
     this.permEstado = permEstado || 0;
     this.tiPeId = tiPeId || new TipoPermiso();
     this.usuId = usuId || new Usuario();
