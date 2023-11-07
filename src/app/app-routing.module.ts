@@ -16,6 +16,7 @@ import { ListatipoformularioComponent } from './modulos/listatipoformulario/list
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
+import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'listaFun', component: ListaFuncionesComponent },
   { path: 'listamispermisos', component: ListamispermisosComponent },
   { path: 'aprobarpermisos', component: AprobarpermisosComponent },
+  { path: 'listaarchivos', component: ListaarchivosComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

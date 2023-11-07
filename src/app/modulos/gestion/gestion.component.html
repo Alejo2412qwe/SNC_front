@@ -43,7 +43,7 @@
                 <div class="profile-content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6 ml-auto mr-auto">
+                            <div class="col-md-6 ml-auto mr-auto" style="width: 100%;">
                                 <div class="profile">
                                     <div class="name">
                                         <h1 class="title">Bienvenido al Sistema de Gestión de Senescyt {{username}}</h1>
@@ -77,6 +77,12 @@
                                                 VACACIONES
                                             </button>
                                         </li>
+                                        <li class="nav-item">
+                                            <button id="arcButton" class="nav-link" onclick="showComponent('arc')">
+                                                <i class="material-icons">dataset</i>
+                                                LISTA DE ARCHIVOS
+                                            </button>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -88,8 +94,8 @@
                             <div id="favoriteComponent" class="component fade-in" style="display: none;">
                                 <app-registro></app-registro>
                             </div>
-                            <div id="datasetComponent" class="component fade-in" style="display: none;">
-                                <!-- Contenido de REPORTE GENERAL -->
+                            <div id="arcComponent" class="component fade-in" style="display: none;">
+                                <app-listaarchivos></app-listaarchivos>
                             </div>
                             <div id="vacacionComponent" class="component fade-in" style="display: none;">
                                 <app-reportevaciones></app-reportevaciones>
