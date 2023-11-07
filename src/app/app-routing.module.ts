@@ -17,9 +17,10 @@ import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funcione
 import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
-import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
-import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
+import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component'; 
+import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component'; 
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
+import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
 
 
 
@@ -37,11 +38,8 @@ const routes: Routes = [
   { path: 'repvacaciones', component: VacacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
-<<<<<<< HEAD
   {path: 'Horarios', component: HorariosComponent} ,
   { path: 'listamotivo', component: ListamotivopermisoComponent },
-=======
->>>>>>> origin/Bryan
   { path: 'listatipopermiso', component: ListatipopermisosComponent },
   { path: 'listatipoformulario', component: ListatipoformularioComponent },
   { path: 'listavalor', component: ListavalorhoraComponent },
