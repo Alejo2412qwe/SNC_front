@@ -685,7 +685,7 @@ body {
 
 .container2 {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 90% 10%;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: stretch;

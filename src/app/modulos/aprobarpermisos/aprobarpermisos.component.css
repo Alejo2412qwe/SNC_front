@@ -653,7 +653,7 @@ body {
     width: 100%;
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 44% 20% 13% 14% 9%;
+    grid-template-columns: 50% 25% 25%;
     grid-template-rows: 2fr;
     grid-column-gap: 3px;
     grid-row-gap: 20px;
@@ -766,7 +766,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 130px;
+    width: 80%;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -816,7 +816,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 105px;
+    width: 80%;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -961,7 +961,7 @@ td::-webkit-scrollbar-track {
 .button-name2 {
     align-items: center;
     appearance: none;
-    background-color: #b04343;
+    background-color: #CD5D7D;
     border-radius: 4px;
     border-width: 0;
     box-sizing: border-box;
@@ -989,16 +989,60 @@ td::-webkit-scrollbar-track {
 }
 
 .button-name2:focus {
-    box-shadow: #8d0707 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-shadow: #CD5D7D 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
 .button-name2:hover {
-    box-shadow: rgba(141, 13, 13, 0.814)0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-shadow: #CD5D7D, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
     transform: translateY(-2px);
 }
 
 .button-name2:active {
-    box-shadow: #99120d 0 3px 7px inset;
+    box-shadow: #CD5D7D 0 3px 7px inset;
+    transform: translateY(2px);
+}
+
+.button-name3 {
+    align-items: center;
+    appearance: none;
+    background-color: #98DDCA;
+    border-radius: 4px;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+}
+
+.button-name3:focus {
+    box-shadow: #98DDCA 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-name3:hover {
+    box-shadow: #98DDCA, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-name3:active {
+    box-shadow: #98DDCA 0 3px 7px inset;
     transform: translateY(2px);
 }
 
