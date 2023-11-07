@@ -48,16 +48,6 @@
                                                 </svg>
                                             </button></div>
                                     </div>
-                                    <div class="avatar">
-                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
-                                            class="img-raised rounded-circle img-fluid">
-                                    </div>
-
-                                    <div class="name">
-                                        <h3 class="title">Usuario: {{username}}</h3>
-                                        <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                        <h6>Rol: {{rol}}</h6>
-                                    </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
                                     <div>
@@ -258,8 +248,10 @@
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
                                                     <th class="tipo" scope="col">ID DE LA INSTITUCIÓN</th>
+                                                    <th class="tipo" scope="col">CÓDIGO DE LA INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">DIRECCIÓN</th>
+                                                    <th class="tipo" scope="col">REFERENCIA</th>
                                                     <th class="tipo" scope="col">TIPO AL QUE PERTENECE</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
@@ -269,8 +261,10 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let inst of listaInstituciones">
                                                     <td>{{inst.instId}}</td>
+                                                    <td>{{inst.instCodigo}}</td>
                                                     <td>{{inst.instNombre}}</td>
                                                     <td>{{inst.instDireccion}}</td>
+                                                    <td>{{inst.instReferencia}}</td>
                                                     <td>{{inst.tipId.tipNombre}}</td>
                                                     <td><button role="button" class="button-name"
                                                             (click)="openUpdateInstitucion(inst.instNombre,inst.instId)">Editar</button>

@@ -458,15 +458,15 @@ body {
 
 @keyframes gradient {
   0% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 
   50% {
-      background-position: 100% 50%;
+    background-position: 100% 50%;
   }
 
   100% {
-      background-position: 0% 50%;
+    background-position: 0% 50%;
   }
 }
 
@@ -548,18 +548,18 @@ body {
 
 @media (max-width:991px) {
   .site-footer [class^=col-] {
-      margin-bottom: 30px
+    margin-bottom: 30px
   }
 }
 
 @media (max-width:767px) {
   .site-footer {
-      padding-bottom: 0
+    padding-bottom: 0
   }
 
   .site-footer .copyright-text,
   .site-footer .social-icons {
-      text-align: center
+    text-align: center
   }
 }
 
@@ -630,9 +630,9 @@ body {
 
 @media (max-width:767px) {
   .social-icons li.title {
-      display: block;
-      margin-right: 0;
-      font-weight: 600
+    display: block;
+    margin-right: 0;
+    font-weight: 600
   }
 }
 
@@ -917,7 +917,7 @@ td::-webkit-scrollbar-track {
   width: 90%;
   height: 100%;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-right: auto;
@@ -1313,13 +1313,13 @@ label {
   position: relative;
   font-weight: 1000;
   font-size: 17px;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms;
   overflow: hidden;
- }
- 
- .flot::before {
+}
+
+.flot::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1329,15 +1329,37 @@ label {
   border-radius: 15px;
   background-color: #212121;
   z-index: -1;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms
- }
- 
- .flot:hover {
+}
+
+.flot:hover {
   color: #e8e8e8;
- }
- 
- .flot:hover::before {
+}
+
+.flot:hover::before {
   width: 100%;
- }
+}
+
+
+
+/* fileUpload */
+
+.fileConainer {
+  gap: 8px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* .custom-file-upload {
+  background-color: #f60505;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.custom-file-upload .p-button {
+  background-color: #007bff;
+  color: #fff;
+} */

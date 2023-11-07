@@ -11,8 +11,7 @@ html * {
     /* Cambia esto al color que desees */
 }
 
-.col-md-6 {
-
+.col-md-4.ml-auto.mr-auto {
     max-width: 100%;
 }
 

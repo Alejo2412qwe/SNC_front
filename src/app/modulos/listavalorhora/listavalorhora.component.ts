@@ -20,7 +20,7 @@ export class ListavalorhoraComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
     private valorhoraService: ValorHoraService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadValorByEstado(1);
@@ -73,9 +73,7 @@ export class ListavalorhoraComponent implements OnInit {
     Swal.fire({
       title: 'Información Importante',
       text:
-        'AL usted ' +
-        this.username +
-        ' haber creado el valor, solo podrá modificarlo debido a que es un valor único',
+        'AL haber creado el valor, solo podrá modificarlo debido a que es un valor único.',
       icon: 'info',
       confirmButtonText: 'Aceptar',
     });

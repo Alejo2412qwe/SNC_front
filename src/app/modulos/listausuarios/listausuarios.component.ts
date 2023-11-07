@@ -7,6 +7,10 @@ import { Usuario } from 'src/app/modelo/usuario';
 import { PersonaService } from 'src/app/services/persona.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
+import { userImg } from '../../../assets/img/user';
+import { decodeBase64Download } from '../../common/base64';
+import { decodeBase64PDF } from '../../common/base64';
 
 @Component({
   selector: 'app-listausuarios',
@@ -32,7 +36,7 @@ export class ListausuariosComponent implements OnInit {
   searchString: string = '';
   listUsers: Usuario[] = [];
   estList: number = 1; // Inicialmente establecido en 1 para "Activo"
-
+  userImg = userImg.userImg
   updateSelection(value: number) {
     this.estList = value;
   }
@@ -57,20 +61,45 @@ export class ListausuariosComponent implements OnInit {
   }
 
   updateEstUser(id: number, est: number) {
-    this.usuarioService.updateEst(id, est).subscribe({
-      next: () => {
-        console.log('eliminado')
-        this.loadUsers(1)
-      },
-      error: (error) => {
-        // Manejar errores
-      },
-      complete: () => {
-        // Manejar completado
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuarioService.updateEst(id, est).subscribe({
+          next: () => {
+            this.loadUsers(1)
+          },
+          error: (error) => {
+            // Manejar errores
+          },
+          complete: () => {
+            // Manejar completado
+          }
+        });
+        Swal.fire('Eliminado', 'El elemento ha sido eliminado', 'success');
       }
     });
 
+
+
   }
+
+  downloadImage(base64Data: string, name: string) {
+    decodeBase64Download(base64Data, name, this.toastr)
+  }
+
+
+  downloadFile(base64Data: string, name: string) {
+    decodeBase64PDF(base64Data, name, this.toastr)
+  }
+
+
+
 }
 
 

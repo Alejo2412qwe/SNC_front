@@ -4,7 +4,6 @@ import { Persona } from "./persona";
 import { Procesos } from "./procesos";
 import { Rol } from "./rol";
 
-
 export class Usuario {
   usuId: number;
   usuNombreUsuario: string;
@@ -17,6 +16,9 @@ export class Usuario {
   insId: Institucion;
   procId: Procesos;
   funId: Funciones;
+  foto: string; // Campo para la imagen
+  titulo: string;
+
 
   constructor(
     usuId?: number,
@@ -30,6 +32,8 @@ export class Usuario {
     insId?: Institucion,
     procId?: Procesos,
     funId?: Funciones,
+    foto?: string, // Agregar el campo foto al constructor
+    titulo?: string
   ) {
     this.usuId = usuId || 0;
     this.usuNombreUsuario = usuNombreUsuario || '';
@@ -39,9 +43,11 @@ export class Usuario {
     this.usuPerId = usuPerId || new Persona();
     this.rolId = rolId || new Rol();
     this.usuCorreo = usuCorreo || '';
-    this.insId = new Institucion();
-    this.procId = new Procesos();
-    this.funId = new Funciones();
+    this.insId = insId || new Institucion();
+    this.procId = procId || new Procesos();
+    this.funId = funId || new Funciones();
+    this.foto = foto || ''; // Asignar el valor pasado o null si no se proporciona
+    this.titulo = titulo || '';
   }
 }
 

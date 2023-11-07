@@ -18,18 +18,19 @@
     </div>
 
     <div>
+
         <body class="profile-page">
 
             <app-header></app-header>
-        
-        
-                <div class="d-flex flex-column justify-content-center w-100 h-50">
-        
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <h1 style="text-align: center;     margin-bottom: 170px;
+
+
+            <div class="d-flex flex-column justify-content-center w-100 h-50">
+
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h1 style="text-align: center;     margin-bottom: 170px;
                         width: 100%; font-size: 80px; color: white;">TABLA DE REGISTRO DE USUARIOS</h1>
-                    </div>
                 </div>
+            </div>
             <div class="main main-raised">
                 <div class="profile-content">
                     <div class="container">
@@ -47,17 +48,6 @@
                                                         data-name="Path 10" id="Path_10"></path>
                                                 </svg>
                                             </button></div>
-                                    </div>
-                                    <div class="avatar">
-                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
-                                            class="img-raised rounded-circle img-fluid">
-                                    </div>
-        
-                                    <div class="name">
-                                        <h3 class="title">{{username}}</h3>
-                                        <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                        <h6>{{rol}}</h6>
-        
                                     </div>
                                 </div>
                                 <div class="containerbus">
@@ -77,14 +67,17 @@
                                                             <path
                                                                 d="M23.7953 23.9182L19.0585 19.1814M19.0585 19.1814C19.8188 18.4211 20.4219 17.5185 20.8333 16.5251C21.2448 15.5318 21.4566 14.4671 21.4566 13.3919C21.4566 12.3167 21.2448 11.252 20.8333 10.2587C20.4219 9.2653 19.8188 8.36271 19.0585 7.60242C18.2982 6.84214 17.3956 6.23905 16.4022 5.82759C15.4089 5.41612 14.3442 5.20435 13.269 5.20435C12.1938 5.20435 11.1291 5.41612 10.1358 5.82759C9.1424 6.23905 8.23981 6.84214 7.47953 7.60242C5.94407 9.13789 5.08145 11.2204 5.08145 13.3919C5.08145 15.5634 5.94407 17.6459 7.47953 19.1814C9.01499 20.7168 11.0975 21.5794 13.269 21.5794C15.4405 21.5794 17.523 20.7168 19.0585 19.1814Z"
                                                                 stroke="white" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" shape-rendering="crispEdges"></path>
+                                                                stroke-linejoin="round" shape-rendering="crispEdges">
+                                                            </path>
                                                         </g>
                                                     </g>
                                                     <defs>
-                                                        <filter id="filter0_d_2_17" x="-0.418549" y="3.70435" width="29.7139"
-                                                            height="29.7139" filterUnits="userSpaceOnUse"
+                                                        <filter id="filter0_d_2_17" x="-0.418549" y="3.70435"
+                                                            width="29.7139" height="29.7139"
+                                                            filterUnits="userSpaceOnUse"
                                                             color-interpolation-filters="sRGB">
-                                                            <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                                                            <feFlood flood-opacity="0" result="BackgroundImageFix">
+                                                            </feFlood>
                                                             <feColorMatrix in="SourceAlpha" type="matrix"
                                                                 values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                                                                 result="hardAlpha">
@@ -139,7 +132,7 @@
                                             </label>
                                         </div>
                                     </div>
-        
+
                                     <div style="display: flex;
                                     justify-content: center;
                                     align-items: center;
@@ -158,8 +151,8 @@
                                     justify-content: center;
                                     align-items: center;
                                     height: 100%;"> <button class="Btn2">Generar
-                                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48" width="80px"
-                                                height="48px">
+                                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
+                                                width="80px" height="48px">
                                                 <path fill="#4CAF50"
                                                     d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z" />
                                                 <path fill="#FFF"
@@ -193,6 +186,7 @@
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
                                                     <th class="tipo" scope="col">ID USUARIO</th>
+                                                    <th class="tipo" scope="col">FOTO</th>
                                                     <th class="tipo" scope="col">CEDULA</th>
                                                     <th class="tipo" scope="col">NOMBRES</th>
                                                     <th class="tipo" scope="col">APELLIDOS</th>
@@ -206,6 +200,7 @@
                                                     <th class="tipo" scope="col">PROCESO</th>
                                                     <th class="tipo" scope="col">FUNCIÓN</th>
                                                     <th class="tipo" scope="col">FECHA DE REGISTRO</th>
+                                                    <th class="tipo" scope="col">TITULO</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
@@ -213,12 +208,35 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let user of listUsers">
                                                     <td class="tdTbl">{{user.usuId}}</td>
+                                                    <td class="tdTbl" style="width: 70px">
+                                                        <section class="imgSection">
+                                                            <div class="fotoUser">
+                                                                <img [src]="user.foto || userImg" alt="Foto"
+                                                                    style="width: 65px" />
+                                                            </div>
+                                                            <div class="btnFotoUser">
+                                                                <button class="BtnDown" title="Descargar"
+                                                                    (click)="downloadImage(user.foto || userImg, (user.usuPerId.perApellido+' '+user.usuPerId.perNombre ))">
+                                                                    <svg class="svgIcon" viewBox="0 0 384 512"
+                                                                        height="1em" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                                                                        </path>
+                                                                    </svg>
+                                                                    <span class="icon2"></span>
+                                                                </button>
+                                                            </div>
+                                                        </section>
+
+                                                    </td>
+
                                                     <td class="tdTbl">{{user.usuPerId.perCedula}}</td>
                                                     <td class="tdTbl">{{user.usuPerId.perNombre}}</td>
                                                     <td class="tdTbl">{{user.usuPerId.perApellido}}</td>
                                                     <td class="tdTbl">{{user.usuCorreo}}</td>
                                                     <td class="tdTbl">{{user.usuNombreUsuario}}</td>
-                                                    <td class="tdTbl">{{calcularEdad(user.usuPerId.perFechaNacimiento)}} años
+                                                    <td class="tdTbl">{{calcularEdad(user.usuPerId.perFechaNacimiento)}}
+                                                        años
                                                     </td>
                                                     <td class="tdTbl">{{user.usuPerId.ciuId.ciuNombre}} -
                                                         {{user.usuPerId.ciuId.proId?.proNombre}}</td>
@@ -227,8 +245,23 @@
                                                     <td class="tdTbl">{{user.insId.instNombre}}</td>
                                                     <td class="tdTbl">{{user.procId.procNombre}}</td>
                                                     <td class="tdTbl">{{user.funId.funNombre}}</td>
-                                                    <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}</td>
-        
+                                                    <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}
+                                                    </td>
+                                                    <td class="tdTbl">
+                                                        <ng-container *ngIf="user.titulo; else noInfo">
+                                                            <button role="button" class="button-name2"
+                                                                (click)="downloadFile(user.titulo,'Titulo_'+user.usuPerId.perApellido+' '+user.usuPerId.perNombre)">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="0.875em"
+                                                                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                                                    <path
+                                                                        d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V304H176c-35.3 0-64 28.7-64 64V512H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM176 352h32c30.9 0 56 25.1 56 56s-25.1 56-56 56H192v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V448 368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24H192v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H304c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H320v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V432 368z" />
+                                                                </svg>
+                                                            </button>
+                                                        </ng-container>
+                                                        <ng-template #noInfo>
+                                                            Sin info
+                                                        </ng-template>
+                                                    </td>
                                                     <td class="tdTbl"><button role="button" class="button-name2"
                                                             [routerLink]="['/editar-usuario', user.usuId]">
                                                             <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
@@ -249,24 +282,23 @@
                                                             </svg>
                                                         </button>
                                                     </td>
-        
+
                                                 </tr>
-        
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                         <div style="height: 20px;"></div>
                     </div>
                 </div>
             </div>
-        
+
             <app-footer></app-footer>
-        
+
         </body>
     </div>
 </div>
-

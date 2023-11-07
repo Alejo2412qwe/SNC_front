@@ -8,6 +8,18 @@
     <div class="area"></div>
     <nav class="main-menu">
         <ul>
+            <li class="has-subnav">
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Usuario: {{username}}
+                </span>
+            </li>
+            <li class="has-subnav">
+                <i></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Rol: {{rol}}
+                </span>
+            </li>
             <li>
                 <a href="/gestion">
                     <i class="fa fa-home fa-2x"></i>
@@ -15,11 +27,10 @@
                         Home
                     </span>
                 </a>
-
             </li>
             <!-- REGISTRO DE PERSONAS Y LISTADO -->
             <li class="has-subnav">
-                <i class="fa fa-user fa-2x"></i>
+                <i class="fa fa-pencil fa-2x"></i>
                 <span class="nav-text" style="font-weight: bolder;">
                     PERSONAL
                 </span>
@@ -61,9 +72,16 @@
                 </span>
             </li>
             <li class="has-subnav" style="height: 30px;">
-                <a href="/listamotivo">
+                <a href="/listamispermisos">
                     <span class="nav-text" style="padding-left: 60px;">
-                        Motivo del Permiso
+                        Mis Permisos
+                    </span>
+                </a>
+            </li>
+            <li class="has-subnav" style="height: 30px;">
+                <a href="/aprobarpermisos">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Aprobación De Permisos
                     </span>
                 </a>
             </li>
