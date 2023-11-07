@@ -12,7 +12,7 @@ import { Injectable } from '@angular/core';
   
     constructor(private http: HttpClient, private sessionStorage: SessionStorageService) { }
   
-    private url: string = `${entorno.urlPrivada}/Vacaciones`
+    private url: string = `${entorno.urlPrivada}/vacaciones`
     
     private token = this.sessionStorage.getItem('token');
   
