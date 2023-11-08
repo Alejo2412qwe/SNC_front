@@ -275,7 +275,7 @@ agregarHorario() {
 
 loadHorariosByEstado(est: number) {
   this.horarioService.getHorariosByEstado(est).subscribe((response) => {
-    this.horarios = response; // Asigna los datos al array provincias
+    this.horarios = response; 
   });
 }
 

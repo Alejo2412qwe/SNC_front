@@ -37,7 +37,21 @@ import { Injectable } from '@angular/core';
       return this.http.post<Vacaciones>(`${this.url}/create`, vacaciones, { headers });
   
     }
+
+    //verifica el estado de vacaciones
+    getVacacionesByEstado(est: number) {
+      // Construir el encabezado de autorización
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.token}`, // Agrega el token JWT aquí
+      });
   
+      // Realiza la solicitud HTTP con el encabezado de autorización
+      return this.http.get<Vacaciones[]>(
+        `${this.url}/getVacacionesByEstado?est=${est}`,
+        { headers }
+      );
+    }
+
     actualizarVacaciones(id: number, vacaciones: Vacaciones): Observable<Vacaciones> {
   
       // Construir el encabezado de autorización con el token JWT
