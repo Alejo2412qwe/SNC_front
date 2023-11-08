@@ -685,9 +685,22 @@ body {
 
 .container2 {
     display: grid;
-    grid-template-columns: 90% 10%;
+    grid-template-columns: 95% 5%;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: stretch;
     align-items: stretch;
+}
+
+@media only screen and (max-width:1285px) {
+
+    .container2 {
+        display: grid;
+        grid-template-columns: 85% 15%;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+        justify-items: stretch;
+        align-items: stretch;
+    }
+
 }
