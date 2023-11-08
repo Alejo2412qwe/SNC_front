@@ -13,6 +13,7 @@ export class Permisos {
   permEstado: string;
   permHorasInicio: Date;
   permHorasFin: Date;
+  permDocumento:string
   tiPeId: TipoPermiso;
   usuId: Usuario;
   tiFoId: TipoFormulario;
@@ -28,6 +29,7 @@ export class Permisos {
     permHorasInicio?: Date,
     permHorasFin?: Date,
     permEstado?: string,
+    permDocumento?:string,
     tiPeId?: TipoPermiso,
     usuId?: Usuario,
     tiFoId?: TipoFormulario,
@@ -42,6 +44,7 @@ export class Permisos {
     this.permHorasInicio = permHorasInicio || new Date();
     this.permHorasFin = permHorasFin || new Date();
     this.permEstado = permEstado || '';
+    this.permDocumento = permDocumento || '';
     this.tiPeId = tiPeId || new TipoPermiso();
     this.usuId = usuId || new Usuario();
     this.tiFoId = tiFoId || new TipoFormulario();

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { decodeBase64PDF } from 'src/app/common/base64';
 import { Permisos } from 'src/app/modelo/permisos';
 import { PermisoService } from 'src/app/services/permiso.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
@@ -51,5 +52,9 @@ export class AprobarpermisosComponent implements OnInit {
         this.toastr.warning('EL PERMISO HA SIDO RECHAZADO');
       }
     });
+  }
+
+  downloadFile(base64Data: string, name: string) {
+    decodeBase64PDF(base64Data, name, this.toastr)
   }
 }
