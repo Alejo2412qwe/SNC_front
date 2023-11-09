@@ -80,11 +80,37 @@ export class PermisosComponent implements OnInit {
   }
 
 
+  calcularDiferenciaDias() {
+    const fechaInicio = new Date(this.permiso.permFechaInicio);
+    const fechaFin = new Date(this.permiso.permFechaFin);
+    const diferenciaDias = Math.ceil((fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24));
+    return diferenciaDias;
+  }
+
+  calcularDiferenciaHoras() {
+    const horaInicio = new Date('1970-01-01 ' + this.permiso.permHorasInicio);
+    const horaFin = new Date('1970-01-01 ' + this.permiso.permHorasFin);
+
+    // Calculamos la diferencia en milisegundos
+    const diferenciaMilisegundos = horaFin.getTime() - horaInicio.getTime();
+
+    // Convertimos la diferencia a horas
+    const diferenciaHoras = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60));
+
+    return diferenciaHoras;
+  }
+
+  validarFecha() {
+    const fechaActual = new Date().toISOString().split('T')[0];
+    return fechaActual;
+  }
+
+
   savePermiso() {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
       Swal.fire({
-        title: 'Permiso N°'+data.permId + ' Generado de manera exitosa!',
+        title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
         text: 'Recuerde descargar su archivo desde sus permisos',
         icon: 'success',
         confirmButtonText: 'Confirmar',
