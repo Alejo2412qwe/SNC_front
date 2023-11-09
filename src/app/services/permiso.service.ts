@@ -48,7 +48,7 @@ export class PermisoService {
         return this.http.get<Permisos[]>(`${this.url}/read`, { headers });
     }
 
-    updateEst(id: number, est: string): Observable<void> {
+    updateEst(id: number, est: number): Observable<void> {
         // Construir el encabezado de autorización con el token JWT
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,

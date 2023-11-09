@@ -44,11 +44,13 @@ export class AprobarpermisosComponent implements OnInit {
     });
   }
 
-  updateEstadoPermisos(id: number, est: string) {
+  updateEstadoPermisos(id: number, est: number) {
     this.permisoService.updateEst(id, est).subscribe((data) => {
-      if (est === 'A') {
-        this.toastr.success('EL PERMISO HA SIDO APROBADO');
-      } else if (est === 'R') {
+      if (est === 1) {
+        this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE GENERAL');
+      } else if (est === 2) {
+        this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE DE UNIDAD');
+      } else if (est === 4) {
         this.toastr.warning('EL PERMISO HA SIDO RECHAZADO');
       }
     });

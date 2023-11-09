@@ -135,14 +135,17 @@
                                                     <td>{{per.motId.motNombre}}</td>
                                                     <td>
                                                         <ng-container
-                                                            *ngIf="per.permEstado === 'E'; else approvedOrRejected">
+                                                            *ngIf="per.permEstado === 3; else approvedOrRejected">
                                                             En Espera
                                                         </ng-container>
                                                         <ng-template #approvedOrRejected>
-                                                            <ng-container *ngIf="per.permEstado === 'A'">
-                                                                Aprobado
+                                                            <ng-container *ngIf="per.permEstado === 1">
+                                                                Aprobado Por Jefe General
                                                             </ng-container>
-                                                            <ng-container *ngIf="per.permEstado === 'R'">
+                                                            <ng-container *ngIf="per.permEstado === 2">
+                                                                Aprobado Por Jefe de Unidad
+                                                            </ng-container>
+                                                            <ng-container *ngIf="per.permEstado === 4">
                                                                 Rechazado
                                                             </ng-container>
                                                         </ng-template>

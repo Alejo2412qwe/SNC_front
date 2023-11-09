@@ -21,21 +21,23 @@ export class SidebarComponent implements OnInit {
 
 
   mostrarOpciones() {
-    const elementos = ['personal', 'verper', 'valor', 'otrasfun',
+    const elementosAdmin = ['personal', 'verper', 'valor', 'otrasfun',
       'ingresarasistencia', 'aprobarpermisos', 'tipopermiso', 'tipoformulario', 'procesos',
       'ingresarpro', 'Instituciones', 'ingresarinst', 'funciones', 'ingresarfun'];
 
-    const rolesPermitidos = ['Administrador'];
+    const rolAdmin = ['Administrador'];
+    const rolJefeUnidad = ['Jefe de Unidad'];
 
-    const mostrarElemento = rolesPermitidos.includes(this.rol);
+    const mostrarElementoAdmin = rolAdmin.includes(this.rol);
+    const mostrarElementoJefeUnidad = rolJefeUnidad.includes(this.rol);
 
-    for (const elementoId of elementos) {
+    for (const elementoId of elementosAdmin) {
       const elemento = document.getElementById(elementoId);
-
       if (elemento) {
-        elemento.style.display = mostrarElemento ? 'block' : 'none';
+        elemento.style.display = mostrarElementoAdmin || (mostrarElementoJefeUnidad && elementoId === 'aprobarpermisos') ? 'block' : 'none';
       }
     }
   }
 
 }
+
