@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MotivoPermiso } from 'src/app/modelo/MotivoPermiso';
 import { Permisos } from 'src/app/modelo/permisos';
 import { Provincia } from 'src/app/modelo/provincia';
@@ -114,7 +115,13 @@ export class PermisosComponent implements OnInit {
         text: 'Recuerde descargar su archivo desde sus permisos',
         icon: 'success',
         confirmButtonText: 'Confirmar',
-        showCancelButton: false, // No mostrar el botón de cancelar
+        showCancelButton: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTimeout(() => {
+            location.reload();
+          }, 400);
+        }
       });
     });
   }
