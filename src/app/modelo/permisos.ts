@@ -18,7 +18,6 @@ export class Permisos {
   usuId: Usuario;
   tiFoId: TipoFormulario;
   motId: MotivoPermiso;
-  regId: Regimen;
 
   constructor(
     permId?: number,
@@ -34,7 +33,6 @@ export class Permisos {
     usuId?: Usuario,
     tiFoId?: TipoFormulario,
     motId?: MotivoPermiso,
-    regId?: Regimen
   ) {
     this.permFechaEmision = permFechaEmision || new Date();
     this.permId = permId || 0;
@@ -49,6 +47,5 @@ export class Permisos {
     this.usuId = usuId || new Usuario();
     this.tiFoId = tiFoId || new TipoFormulario();
     this.motId = motId || new MotivoPermiso();
-    this.regId = regId || new Regimen();
   }
 }

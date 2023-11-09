@@ -14,6 +14,8 @@
 
 <section class="layout2">
     <div>
+    </div>
+    <div>
         <div class="input-container">
             <label for="name" class="name">FECHA DE EMISIÓN DEL FORMULARIO: *</label>
             <input style="    padding: 10px;
@@ -25,20 +27,6 @@
             width: 100%;
             outline: none;" placeholder="Enter your name" type="date" class="input"
                 [(ngModel)]="permiso.permFechaEmision">
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">REGIMEN: *</label>
-            <select id="regimen" name="regimen" class="input2" style="color: #777;" [(ngModel)]="permiso.regId.regId">
-                <option value="0">Selecciona el Regimen</option>
-                <option *ngFor="let reg of listaregiemen" [value]="reg.regId">
-                    {{reg.regNombre}}
-                </option>
-            </select>
             <div class="underline"></div>
         </div>
     </div>
