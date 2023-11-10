@@ -46,7 +46,7 @@ export class AprobarpermisosComponent implements OnInit {
 
   updateEstadoPermisos(id: number, est: number) {
     Swal.fire({
-      title: `Está a punto de aprobar la solicitud N°`+id+`, ¿desea continuar?`,
+      title: `Está a punto de aprobar/denegar la solicitud N°`+id+`, ¿desea continuar?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
