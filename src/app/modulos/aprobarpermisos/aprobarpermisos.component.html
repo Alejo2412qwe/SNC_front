@@ -103,7 +103,7 @@
                                     justify-content: center;
                                     align-items: center;
                                     height: 100%;">
-                                        <button class="Btn3" routerLink="/registro">Refrescar
+                                        <button class="Btn3" (click)="getAllPermisos()">Refrescar
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -138,11 +138,16 @@
                                                     <th class="tipo" scope="col">TIPO DE PERMISO</th>
                                                     <th class="tipo" scope="col">MOTIVO DEL PERMISO</th>
                                                     <th class="tipo" scope="col">FECHA DE EMISIÓN</th>
-                                                    <th class="tipo" scope="col">INICIO DEL PERMISO</th>
-                                                    <th class="tipo" scope="col">FIN DEL PERMISO</th>
-                                                    <th class="tipo" scope="col">HORAS DE INICIO</th>
-                                                    <th class="tipo" scope="col">HORAS FIN</th>
-                                                    <th class="tipo" scope="col">OBSERVACIÓN</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">INICIO
+                                                        DEL PERMISO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">FIN
+                                                        DEL PERMISO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">HORAS
+                                                        DE INICIO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">HORAS
+                                                        FIN</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">
+                                                        OBSERVACIÓN</th>
                                                     <th class="tipo" scope="col">
                                                         <ng-container *ngIf="rol === 'Administrador'; else noHeader">
                                                             ESTADO DEL PERMISO
@@ -153,7 +158,9 @@
                                                             </ng-container>
                                                         </ng-template>
                                                     </th>
-                                                    <th class="tipo" scope="col">CÉDULA</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">CÉDULA
+                                                        DEL SOLICITANTE
+                                                    </th>
                                                     <th class="tipo" scope="col">SOLICITUD DEL PERMISO</th>
                                                     <th class="tipo" scope="col">APROBAR</th>
                                                     <th class="tipo" scope="col">RECHAZAR</th>
@@ -165,11 +172,16 @@
                                                     <td class="tdTbl">{{per.tiPeId.tiPeNombre}}</td>
                                                     <td class="tdTbl">{{per.motId.motNombre}}</td>
                                                     <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permFechaInicio | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permHorasInicio | date:'HH:mm'}}</td>
-                                                    <td class="tdTbl">{{per.permHorasFin | date:'HH:mm'}}</td>
-                                                    <td class="tdTbl">{{per.permObservacion}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permFechaInicio | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permHorasInicio | date:'HH:mm'}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permHorasFin | date:'HH:mm'}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permObservacion}}</td>
                                                     <td class="tdTbl">
                                                         <ng-container
                                                             *ngIf="rol === 'Administrador' && per.permEstado === 3; else approvedOrRejected">
@@ -192,7 +204,8 @@
                                                             </ng-container>
                                                         </ng-template>
                                                     </td>
-                                                    <td class="tdTbl">{{per.usuId.usuPerId.perCedula}}</td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.usuId.usuPerId.perCedula}}</td>
                                                     <td class="tdTbl">
                                                         <ng-container *ngIf="rol === 'Jefe de Unidad'; else noInfo">
                                                             <button role="button" class="button-name2"

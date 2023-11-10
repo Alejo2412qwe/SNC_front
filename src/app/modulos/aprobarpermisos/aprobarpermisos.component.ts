@@ -18,6 +18,7 @@ export class AprobarpermisosComponent implements OnInit {
     private permisoService: PermisoService,
   ) { }
   ngOnInit(): void {
+    this.showInfo();
     this.getAllPermisos();
   }
 
@@ -28,7 +29,6 @@ export class AprobarpermisosComponent implements OnInit {
   listaPermisos: Permisos[] = [];
 
   getAllPermisos() {
-    this.showInfo();
     this.permisoService.getAllPermisos().subscribe((data) => {
       this.listaPermisos = data;
     });
@@ -45,15 +45,37 @@ export class AprobarpermisosComponent implements OnInit {
   }
 
   updateEstadoPermisos(id: number, est: number) {
-    this.permisoService.updateEst(id, est).subscribe((data) => {
-      if (est === 1) {
-        this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE GENERAL');
-      } else if (est === 2) {
-        this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE DE UNIDAD');
-      } else if (est === 4) {
-        this.toastr.warning('EL PERMISO HA SIDO RECHAZADO');
+    Swal.fire({
+      title: `Está a punto de aprobar la solicitud N°`+id+`, ¿desea continuar?`,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      },
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.permisoService.updateEst(id, est).subscribe((data) => {
+          setTimeout(() => {
+            location.reload();
+          }, 400);
+          if (est === 1) {
+            this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE GENERAL');
+          } else if (est === 2) {
+            this.toastr.success('EL PERMISO HA SIDO APROBADO POR JEFE DE UNIDAD');
+          } else if (est === 4) {
+            this.toastr.warning('EL PERMISO HA SIDO RECHAZADO');
+          }
+        });
+      } else if (res.isDenied) {
+        this.toastr.warning('Acción Cancelada');
       }
-    });
+    })
+
   }
 
   downloadFile(base64Data: string, name: string) {
