@@ -34,6 +34,14 @@ export class AprobarpermisosComponent implements OnInit {
     });
   }
 
+  getFormattedTime(time: string): string {
+    const hour = parseInt(time.slice(0, 2), 10);
+    const amPm = hour >= 12 ? 'PM' : 'AM';
+    const formattedHour = hour % 12 || 12; // Convert to 12-hour format
+
+    return `${formattedHour} ${amPm}`;
+  }
+
   showInfo() {
     Swal.fire({
       title: 'Bienvenido a la aprobación de permisos',
@@ -46,7 +54,7 @@ export class AprobarpermisosComponent implements OnInit {
 
   updateEstadoPermisos(id: number, est: number) {
     Swal.fire({
-      title: `Está a punto de aprobar/denegar la solicitud N°`+id+`, ¿desea continuar?`,
+      title: `Está a punto de aprobar/denegar la solicitud N°` + id + `, ¿desea continuar?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',

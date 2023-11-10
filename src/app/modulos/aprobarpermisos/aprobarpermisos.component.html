@@ -177,9 +177,9 @@
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{per.permHorasInicio | date:'HH:mm'}}</td>
+                                                        {{ getFormattedTime(per.permHorasInicio) }}</td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{per.permHorasFin | date:'HH:mm'}}</td>
+                                                        {{getFormattedTime(per.permHorasFin)}}</td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.permObservacion}}</td>
                                                     <td class="tdTbl">
