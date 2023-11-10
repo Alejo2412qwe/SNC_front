@@ -8,8 +8,8 @@ export class Permisos {
   permId: number;
   permFechaEmision: Date;
   permObservacion: string;
-  permFechaInicio: Date;
-  permFechaFin: Date;
+  permFechaInicio: string;
+  permFechaFin: string;
   permEstado: number;
   permHorasInicio: string;
   permHorasFin: string;
@@ -23,8 +23,8 @@ export class Permisos {
     permId?: number,
     permObservacion?: string,
     permFechaEmision?: Date,
-    permFechaInicio?: Date,
-    permFechaFin?: Date,
+    permFechaInicio?: string,
+    permFechaFin?: string,
     permHorasInicio?: string,
     permHorasFin?: string,
     permEstado?: number,
@@ -37,8 +37,8 @@ export class Permisos {
     this.permFechaEmision = permFechaEmision || new Date();
     this.permId = permId || 0;
     this.permObservacion = permObservacion || '';
-    this.permFechaInicio = permFechaInicio || new Date();
-    this.permFechaFin = permFechaFin || new Date();
+    this.permFechaInicio = permFechaInicio || '';
+    this.permFechaFin = permFechaFin || '';
     this.permHorasInicio = permHorasInicio || '';
     this.permHorasFin = permHorasFin || '';
     this.permEstado = permEstado || 0;

@@ -171,15 +171,25 @@
                                                     <td class="tdTbl">{{per.permId}}</td>
                                                     <td class="tdTbl">{{per.tiPeId.tiPeNombre}}</td>
                                                     <td class="tdTbl">{{per.motId.motNombre}}</td>
-                                                    <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}</td>
+                                                    <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}
+                                                    </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{per.permFechaInicio | date:'dd-MM-yyyy'}}</td>
+                                                        {{ per.permFechaInicio ? (per.permFechaInicio
+                                                        |date:'dd-MM-yyyy') :
+                                                        'N/A' }}
+                                                    </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
+                                                        {{ per.permFechaFin ? (per.permFechaFin | date:'dd-MM-yyyy') :
+                                                        'N/A' }}
+                                                    </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{ getFormattedTime(per.permHorasInicio) }}</td>
+                                                        {{ per.permHorasInicio ? getFormattedTime(per.permHorasInicio)
+                                                        :'N/A' }}
+                                                    </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
-                                                        {{getFormattedTime(per.permHorasFin)}}</td>
+                                                        {{ per.permHorasFin ? getFormattedTime(per.permHorasFin) :
+                                                        'N/A'}}
+                                                    </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.permObservacion}}</td>
                                                     <td class="tdTbl">
