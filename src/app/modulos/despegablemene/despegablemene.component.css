@@ -39,8 +39,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
 	color: #fff7e7;
-	background-color: #ffffff;
-	color: #4773ae;
+	background-color: transparent;
 
 }
 
@@ -91,13 +90,19 @@ ol {
 }
 
 .nav li ul {
-	display: none;
+	display: block;
 	position: absolute;
 	min-width: 140px;
+	max-height: 0;
+	/* Inicialmente, oculta la lista */
+	overflow: hidden;
+	transition: max-height 1s ease;
+	/* Agrega una transición suave */
 }
 
-.nav li:hover>ul {
-	display: block;
+.nav li:hover ul {
+	max-height: 140px;
+	/* Ajusta la altura máxima según sea necesario */
 }
 
 .nav li ul li {

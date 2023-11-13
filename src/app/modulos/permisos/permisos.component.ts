@@ -99,8 +99,8 @@ export class PermisosComponent implements OnInit {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
       Swal.fire({
-        title: '¡Registro Exitoso!',
-        text: 'Generado Correctamente',
+        title: 'Permiso N°'+data.permId + ' Generado de manera exitosa!',
+        text: 'Recuerde descargar su archivo desde sus permisos',
         icon: 'success',
         confirmButtonText: 'Confirmar',
         showCancelButton: false, // No mostrar el botón de cancelar

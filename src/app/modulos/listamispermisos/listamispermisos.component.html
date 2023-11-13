@@ -120,13 +120,17 @@
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
+                                                    <th class="tipo" scope="col">NUM. DEL PERMISO</th>
                                                     <th class="tipo" scope="col">TIPO DE PERMISO</th>
                                                     <th class="tipo" scope="col">MOTIVO DEL PERMISO</th>
                                                     <th class="tipo" scope="col">ESTADO DEL PERMISO</th>
+                                                    <th class="tipo" scope="col">DESCARGAR PERMISO</th>
+                                                    <th class="tipo" scope="col">SUBIR PERMISO FIRMADO</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
                                                 <tr key=key *ngFor="let per of listapermisos">
+                                                    <td>{{per.permId}}</td>
                                                     <td>{{per.tiPeId.tiPeNombre}}</td>
                                                     <td>{{per.motId.motNombre}}</td>
                                                     <td>
@@ -142,6 +146,30 @@
                                                                 Rechazado
                                                             </ng-container>
                                                         </ng-template>
+                                                    </td>
+                                                    <td>
+                                                        <button role="button" class="button-name">
+                                                            <i class="fa fa-download fa-2x"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <div class="fileConainer">
+                                                            <div class="input-container">
+                                                                <p-fileUpload name="demo[]" class="custom-file-upload"
+                                                                    url="https://www.primefaces.org/cdn/api/upload.php"
+                                                                    (onSelect)="uploadFile(per.permId,$event)"
+                                                                    [multiple]="false" accept="application/pdf"
+                                                                    [maxFileSize]="1000000">
+                                                                    <ng-template pTemplate="content">
+                                                                        <ul *ngIf="uploadedFiles.length">
+                                                                            <li *ngFor="let file of uploadedFiles">{{
+                                                                                file.name }} - {{
+                                                                                file.size }} bytes</li>
+                                                                        </ul>
+                                                                    </ng-template>
+                                                                </p-fileUpload>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
