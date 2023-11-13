@@ -5,36 +5,49 @@ import { Usuario } from './usuario';
 export class Asistencia {
   asisId?: number;
   asisNombre?: string;
-  asisVerificacion?: string;
-  asisEstado?: boolean;
-  asisLector?: number;
-  asisFecha?: string;
-  asisHoraMarcado?: string;
-  subId?: Subprocesos;
-  usuId?: Usuario;
-  estadoAsistencia?: EstadoAsistencia;
+  asisDpto?: string;
+  asisNoLector?: number;
+  asisFechaHora?: Date | string | null;
+  asisEstado?: string;
+  asisLocacionId?: number;
+  asisIdNumero?: number;
+  asisCodTrabajo?: number;
+  asisVerificaCod?: string;
+  asisNoTarjeta?: number;
+  asisNombreArchivo: string;
+  asisFechaArchivo: Date;
+  usuId: Usuario;
+
 
   constructor(
     asisId?: number,
     asisNombre?: string,
-    asisVerificacion?: string,
-    asisEstado?: boolean,
-    asisLector?: number,
-    asisFecha?: string,
-    asisHoraMarcado?: string,
-    subId?: Subprocesos,
+    asisDpto?: string,
+    asisNoLector?: number,
+    asisFechaHora?: Date | string | null,
+    asisEstado?: string,
+    asisLocacionId?: number,
+    asisIdNumero?: number,
+    asisCodTrabajo?: number,
+    asisVerificaCod?: string,
+    asisNoTarjeta?: number,
+    asisNombreArchivo?: '',
+    asisFechaArchivo?: Date,
     usuId?: Usuario,
-    estadoAsistencia?: EstadoAsistencia
   ) {
     (this.asisId = asisId || 0),
       (this.asisNombre = asisNombre || ''),
-      (this.asisVerificacion = asisVerificacion || '');
-    (this.asisEstado = asisEstado || false),
-      (this.asisLector = asisLector || 0),
-      (this.asisFecha = asisFecha = ''),
-      (this.asisHoraMarcado = asisHoraMarcado || ''),
-      (this.subId = subId || new Subprocesos()),
-      (this.usuId = usuId || new Usuario()),
-      (this.estadoAsistencia = estadoAsistencia || new EstadoAsistencia());
+      (this.asisDpto = asisDpto || '');
+    (this.asisNoLector = asisNoLector || 0),
+      (this.asisFechaHora = asisFechaHora || new Date()),
+      (this.asisEstado = asisEstado = ''),
+      (this.asisLocacionId = asisLocacionId || 0),
+      (this.asisIdNumero = asisIdNumero || 0),
+      (this.asisCodTrabajo = asisCodTrabajo || 0),
+      (this.asisVerificaCod = asisVerificaCod || '');
+    (this.asisNoTarjeta = asisNoTarjeta || 0);
+    (this.asisNombreArchivo = asisNombreArchivo || '');
+    (this.asisFechaArchivo = asisFechaArchivo || new Date());
+    (this.usuId = usuId || new Usuario);
   }
 }
