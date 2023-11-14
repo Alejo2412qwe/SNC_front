@@ -11,12 +11,10 @@
 </head>
 
 <div class="containerside">
-
     <div style="border-radius: 15px;">
 
         <app-sidebar></app-sidebar>
     </div>
-
     <div>
 
         <body class="profile-page">
@@ -24,12 +22,11 @@
             <app-header></app-header>
 
 
-
-            <div class="d-flex flex-column justify-content-center w-100 h-100">
+            <div class="d-flex flex-column justify-content-center w-100 h-50">
 
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h1 style="text-align: center;     margin-bottom: 170px;
-                width: 100%; font-size: 72px; color: white;">TABLA DE PERIODOS</h1>
+                    width: 100%; font-size: 72px; color: white;">TABLA DE PERIODOS</h1>
                 </div>
             </div>
             <div class="main main-raised">
@@ -109,7 +106,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="Btn3">Crear Periodos
+                                        <button class="Btn3" (click)="openCrearPeriodos()">Crear Periodos
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -151,19 +148,23 @@
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
-                                                    <th class="tipo" scope="col">ID FUNCION</th>
-                                                    <th class="tipo" scope="col">NOMBRE</th>
+                                                    <th class="tipo" scope="col">ID PERIODO</th>
+                                                    <th class="tipo" scope="col">PERIODO ACTUAL</th>
+                                                    <th class="tipo" scope="col">PERIODO ANTERIOR</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
-                                                <tr key=key>
-                                                    <td>atributo 1</td>
-                                                    <td>atributo 2</td>
-                                                    <td><button role="button" class="button-name">Editar</button>
+                                                <tr key=key *ngFor="let pro of listaPeriodos">
+                                                    <td>{{pro.periId}}</td>
+                                                    <td>{{pro.periActual}}</td>
+                                                    <td>{{pro.periAnterior}}</td>
+                                                    <td><button role="button" class="button-name"
+                                                            (click)="openUpdatePeriodos(pro.periAnterior,pro.periActual,pro.periId)">Editar</button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2">Eliminar</button>
+                                                    <td><button role="button" class="button-name2"
+                                                            (click)="updateEstPeriodos(pro.periId,0)">Eliminar</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
