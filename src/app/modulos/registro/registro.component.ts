@@ -33,6 +33,8 @@ import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 import { base64ToFile } from '../../common/base64';
+import { Regimen } from 'src/app/modelo/regimen';
+import { RegimenService } from 'src/app/services/regimen.service';
 
 @Component({
   selector: 'app-registro',
@@ -55,10 +57,12 @@ export class RegistroComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
+    private regimenService: RegimenService,
     private sessionStorage: SessionStorageService,
   ) { }
 
   //OBJETOS
+  regimen: Regimen = new Regimen();
   persona: Persona = new Persona();
   usuario: Usuario = new Usuario();
   selectProvincia: Provincia = new Provincia();
@@ -93,10 +97,12 @@ export class RegistroComponent implements OnInit {
   listaInstituciones: Institucion[] = [];
   listaTipoInstitucion: TipoInstitucion[] = [];
   uploadedFiles: File[] = [];
+  listaregiemen: Regimen[] = [];
   // imagenSeleccionada: File | null = null;
 
 
   ngOnInit(): void {
+    this.cargarRegimen();
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
@@ -207,6 +213,12 @@ export class RegistroComponent implements OnInit {
           this.listaSubprocesos = response;
         });
     }
+  }
+
+  cargarRegimen() {
+    this.regimenService.getAllRegimen().subscribe((data) => {
+      this.listaregiemen = data;
+    });
   }
 
   cargarInstituciones() {

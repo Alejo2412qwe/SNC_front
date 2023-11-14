@@ -12,37 +12,6 @@
     </section>
 </div>
 
-<section class="layout2">
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">FECHA DE EMISIÓN DEL FORMULARIO: *</label>
-            <input style="    padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            background-color: #f1f1f1;
-            color: #333;
-            width: 100%;
-            outline: none;" placeholder="Enter your name" type="date" class="input"
-                [(ngModel)]="permiso.permFechaEmision">
-            <div class="underline"></div>
-        </div>
-    </div>
-    <div>
-    </div>
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">REGIMEN: *</label>
-            <select id="regimen" name="regimen" class="input2" style="color: #777;" [(ngModel)]="permiso.regId.regId">
-                <option value="0">Selecciona el Regimen</option>
-                <option *ngFor="let reg of listaregiemen" [value]="reg.regId">
-                    {{reg.regNombre}}
-                </option>
-            </select>
-            <div class="underline"></div>
-        </div>
-    </div>
-</section>
 <section class="container">
 
     <div>
@@ -82,8 +51,9 @@
 
     </div>
     <div>
-        <h2 style="text-align: center; font-size: 20px; font-weight: bolder;">CASOS DE HORAS</h2>
-
+        <h2 style="text-align: center; font-size: 20px; font-weight: bolder;">EN CASO DE HORAS</h2>
+        <label style="text-align: center; font-size: 14px; color: #556de1;">(Seleccione la hora, los minutos son
+            opcionales)</label>
     </div>
 </section>
 
@@ -106,15 +76,15 @@
 
             <div class="input-container">
                 <label for="name" class="name">DESDE:</label>
-                <input style="    padding: 10px;
-                font-size: 16px;
-                border: none;
-                border-radius: 4px;
-                background-color: #f1f1f1;
-                color: #777;
-                width: 100%;
-                outline: none;" placeholder="Enter your name" type="date" class="input"
-                    [(ngModel)]="permiso.permFechaInicio">
+                <input style="padding: 10px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #f1f1f1;
+                    color: #777;
+                    width: 100%;
+                    outline: none;" placeholder="Enter your name" type="date" class="input"
+                    [(ngModel)]="permiso.permFechaInicio" [min]="validarFecha()">
                 <div class="underline"></div>
             </div>
             <div class="input-container">
@@ -127,7 +97,7 @@
                 color: #777;
                 width: 100%;
                 outline: none;" placeholder="Enter your name" type="date" class="input"
-                    [(ngModel)]="permiso.permFechaFin">
+                    [(ngModel)]="permiso.permFechaFin" [min]="validarFecha()">
                 <div class="underline"></div>
             </div>
         </section>
@@ -140,30 +110,29 @@
 
             <div class="input-container">
                 <label for="name" class="name">DESDE (hh:mm):</label>
-                <input style="    padding: 10px;
-                font-size: 16px;
-                border: none;
-                border-radius: 4px;
-                background-color: #f1f1f1;
-                color: #777;
-                width: 100%;
-                outline: none;" placeholder="Enter your name" type="date" class="input"
-                    [(ngModel)]="permiso.permHorasInicio">
+                <input style="padding: 10px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #f1f1f1;
+                    color: #777;
+                    width: 100%;
+                    outline: none;" type="time" class="input" [(ngModel)]="permiso.permHorasInicio">
                 <div class="underline"></div>
             </div>
             <div class="input-container">
                 <label for="name" class="name">HASTA (hh:mm):</label>
-                <input style="    padding: 10px;
-                font-size: 16px;
-                border: none;
-                border-radius: 4px;
-                background-color: #f1f1f1;
-                color: #777;
-                width: 100%;
-                outline: none;" placeholder="Enter your name" type="date" class="input"
-                    [(ngModel)]="permiso.permHorasFin">
+                <input style="padding: 10px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #f1f1f1;
+                    color: #777;
+                    width: 100%;
+                    outline: none;" type="time" class="input" [(ngModel)]="permiso.permHorasFin">
                 <div class="underline"></div>
             </div>
+
         </section>
 
     </div>
@@ -202,16 +171,16 @@
 
             <div>
                 <div class="input-container">
-                    <label for="name" class="name">DIAS:</label>
-                    <input placeholder="Enter your name" type="number" class="input">
+                    <label for="dias" class="name">DÍAS:</label>
+                    <input placeholder="Días" type="text" class="input" [value]="calcularDiferenciaDias()" readonly>
                     <div class="underline"></div>
                 </div>
 
             </div>
             <div>
                 <div class="input-container">
-                    <label for="name" class="name">HORAS:</label>
-                    <input placeholder="Enter your name" type="number" class="input">
+                    <label for="horas" class="name">HORAS:</label>
+                    <input placeholder="Horas" type="text" class="input" [value]="calcularDiferenciaHoras()" readonly>
                     <div class="underline"></div>
                 </div>
             </div>

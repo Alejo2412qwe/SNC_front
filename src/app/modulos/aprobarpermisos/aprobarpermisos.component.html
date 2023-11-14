@@ -103,7 +103,7 @@
                                     justify-content: center;
                                     align-items: center;
                                     height: 100%;">
-                                        <button class="Btn3" routerLink="/registro">Refrescar
+                                        <button class="Btn3" (click)="getAllPermisos()">Refrescar
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -134,17 +134,33 @@
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
-                                                    <th class="tipo" scope="col">ID DE PERMISO</th>
+                                                    <th class="tipo" scope="col">N° DE PERMISO</th>
                                                     <th class="tipo" scope="col">TIPO DE PERMISO</th>
                                                     <th class="tipo" scope="col">MOTIVO DEL PERMISO</th>
                                                     <th class="tipo" scope="col">FECHA DE EMISIÓN</th>
-                                                    <th class="tipo" scope="col">INICIO DEL PERMISO</th>
-                                                    <th class="tipo" scope="col">FIN DEL PERMISO</th>
-                                                    <th class="tipo" scope="col">HORAS DE INICIO</th>
-                                                    <th class="tipo" scope="col">HORAS FIN</th>
-                                                    <th class="tipo" scope="col">OBSERVACIÓN</th>
-                                                    <th class="tipo" scope="col">EMISOR DEL PERMISO</th>
-                                                    <th class="tipo" scope="col">CÉDULA</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">INICIO
+                                                        DEL PERMISO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">FIN
+                                                        DEL PERMISO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">HORAS
+                                                        DE INICIO</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">HORAS
+                                                        FIN</th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">
+                                                        OBSERVACIÓN</th>
+                                                    <th class="tipo" scope="col">
+                                                        <ng-container *ngIf="rol === 'Administrador'; else noHeader">
+                                                            ESTADO DEL PERMISO
+                                                        </ng-container>
+                                                        <ng-template #noHeader>
+                                                            <ng-container *ngIf="rol === 'Jefe de Unidad'">
+                                                                EMISOR O ESTADO DEL PERMISO
+                                                            </ng-container>
+                                                        </ng-template>
+                                                    </th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">CÉDULA
+                                                        DEL SOLICITANTE
+                                                    </th>
                                                     <th class="tipo" scope="col">SOLICITUD DEL PERMISO</th>
                                                     <th class="tipo" scope="col">APROBAR</th>
                                                     <th class="tipo" scope="col">RECHAZAR</th>
@@ -155,23 +171,58 @@
                                                     <td class="tdTbl">{{per.permId}}</td>
                                                     <td class="tdTbl">{{per.tiPeId.tiPeNombre}}</td>
                                                     <td class="tdTbl">{{per.motId.motNombre}}</td>
-                                                    <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permFechaInicio | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permFechaFin | date:'dd-MM-yyyy'}}</td>
-                                                    <td class="tdTbl">{{per.permHorasInicio | date:'HH:mm'}}</td>
-                                                    <td class="tdTbl">{{per.permHorasFin | date:'HH:mm'}}</td>
-                                                    <td class="tdTbl">{{per.permObservacion}}</td>
-                                                    <td class="tdTbl">{{per.usuId.usuPerId.perNombre}}
-                                                        {{per.usuId.usuPerId.perApellido}}</td>
-                                                    <td class="tdTbl">{{per.usuId.usuPerId.perCedula}}</td>
+                                                    <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{ per.permFechaInicio ? (per.permFechaInicio
+                                                        |date:'dd-MM-yyyy') :
+                                                        'N/A' }}
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{ per.permFechaFin ? (per.permFechaFin | date:'dd-MM-yyyy') :
+                                                        'N/A' }}
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{ per.permHorasInicio ? getFormattedTime(per.permHorasInicio)
+                                                        :'N/A' }}
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{ per.permHorasFin ? getFormattedTime(per.permHorasFin) :
+                                                        'N/A'}}
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.permObservacion}}</td>
                                                     <td class="tdTbl">
-                                                        <ng-container *ngIf="per.permDocumento; else noInfo">
+                                                        <ng-container
+                                                            *ngIf="rol === 'Administrador' && per.permEstado === 3; else approvedOrRejected">
+                                                            En Espera
+                                                        </ng-container>
+                                                        <ng-template #approvedOrRejected>
+                                                            <ng-container *ngIf="per.permEstado === 1">
+                                                                Aprobado Por Jefe General
+                                                            </ng-container>
+                                                            <ng-container *ngIf="per.permEstado === 2">
+                                                                Aprobado Por Jefe de Unidad
+                                                            </ng-container>
+                                                            <ng-container *ngIf="per.permEstado === 4">
+                                                                Rechazado
+                                                            </ng-container>
+                                                            <ng-container
+                                                                *ngIf="rol === 'Jefe de Unidad' && per.permEstado === 3">
+                                                                {{ per.usuId.usuPerId.perNombre }}
+                                                                {{ per.usuId.usuPerId.perApellido }}
+                                                            </ng-container>
+                                                        </ng-template>
+                                                    </td>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.usuId.usuPerId.perCedula}}</td>
+                                                    <td class="tdTbl">
+                                                        <ng-container *ngIf="rol === 'Jefe de Unidad'; else noInfo">
                                                             <button role="button" class="button-name2"
                                                                 (click)="downloadFile(per.permDocumento,'Titulo_'+per.usuId.usuPerId.perCedula)">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" height="0.875em"
-                                                                    viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                                                                    <path
-                                                                        d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V304H176c-35.3 0-64 28.7-64 64V512H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM176 352h32c30.9 0 56 25.1 56 56s-25.1 56-56 56H192v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V448 368c0-8.8 7.2-16 16-16zm32 80c13.3 0 24-10.7 24-24s-10.7-24-24-24H192v48h16zm96-80h32c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H304c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16zm32 128c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H320v96h16zm80-112c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H448v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V432 368z" />
+                                                                    viewBox="0 0 512 512">
+                                                                    <!-- Tu contenido SVG aquí -->
                                                                 </svg>
                                                             </button>
                                                         </ng-container>
@@ -180,8 +231,18 @@
                                                         </ng-template>
                                                     </td>
                                                     <td class="tdTbl">
-                                                        <button role="button" class="button-name3"
-                                                            (click)="updateEstadoPermisos(per.permId,'A')">
+                                                        <button *ngIf="rol === 'Administrador'" role="button"
+                                                            class="button-name3"
+                                                            (click)="updateEstadoPermisos(per.permId, 1)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+                                                                height="1.40em">
+                                                                <path d="M27 55L6 33 9 29 26 41 55 12 59 16z" />
+                                                            </svg>
+                                                        </button>
+
+                                                        <button *ngIf="rol === 'Jefe de Unidad'" role="button"
+                                                            class="button-name3"
+                                                            (click)="updateEstadoPermisos(per.permId, 2)">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
                                                                 height="1.40em">
                                                                 <path d="M27 55L6 33 9 29 26 41 55 12 59 16z" />
@@ -190,7 +251,7 @@
                                                     </td>
                                                     <td class="tdTbl">
                                                         <button role="button" class="button-name2"
-                                                            (click)="updateEstadoPermisos(per.permId,'R')">
+                                                            (click)="updateEstadoPermisos(per.permId,4)">
                                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em"
                                                                 viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                                 <path
