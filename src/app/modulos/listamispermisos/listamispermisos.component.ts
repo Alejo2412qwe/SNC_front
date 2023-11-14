@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { base64PDFpreview } from 'src/app/common/base64';
 import { UploadEvent } from 'src/app/interfaz/UploadEvent';
 import { Permisos } from 'src/app/modelo/permisos';
 import { Regimen } from 'src/app/modelo/regimen';
@@ -44,6 +45,10 @@ export class ListamispermisosComponent implements OnInit {
     })
   }
 
+  previewBase64PDF(base64: string, filename: string) {
+    base64PDFpreview(base64, filename)
+  }
+
   uploadFile(id: number, event: UploadEvent) {
     console.log("Upload event triggered");
     if (event.files && event.files.length > 0) {
@@ -58,7 +63,20 @@ export class ListamispermisosComponent implements OnInit {
         const base64String = e.target.result;
 
         // Almacena el resultado en this.usuario.foto
-        this.permisoService.updatePermiso(id, base64String);
+        // this.permisoService.updatePermiso(id, base64String);
+        this.permisoService.
+          updatePermiso(id, base64String)
+          .subscribe((response) => {
+            Swal.fire({
+              title: '¡Archivo subido con exito!',
+              text: '',
+              icon: 'success',
+              confirmButtonText: 'Confirmar',
+              showCancelButton: false, // No mostrar el botón de cancelar
+            }).then(() => {
+
+            });
+          });
       };
 
       // Leemos el archivo como una URL de datos (Base64)
