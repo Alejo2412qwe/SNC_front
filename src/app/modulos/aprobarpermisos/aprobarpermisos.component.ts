@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { decodeBase64PDF } from 'src/app/common/base64';
+import { base64PDFpreview, decodeBase64PDF } from 'src/app/common/base64';
 import { Permisos } from 'src/app/modelo/permisos';
 import { PermisoService } from 'src/app/services/permiso.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
@@ -27,6 +27,10 @@ export class AprobarpermisosComponent implements OnInit {
   rol = this.sessionStorage.getItem('rol');
 
   listaPermisos: Permisos[] = [];
+
+  previewBase64PDF(base64: string, filename: string) {
+    base64PDFpreview(base64, filename)
+  }
 
   getAllPermisos() {
     this.permisoService.getAllPermisos().subscribe((data) => {

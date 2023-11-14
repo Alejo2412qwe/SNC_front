@@ -156,26 +156,20 @@
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <div class="fileConainer">
-                                                            <div class="input-container">
-                                                                <p-fileUpload name="demo[]" class="custom-file-upload"
-                                                                    url="https://www.primefaces.org/cdn/api/upload.php"
-                                                                    (onUpload)="uploadFile(per.permId,$event)"
-                                                                    [multiple]="false" accept="application/pdf"
-                                                                    [maxFileSize]="1000000">
-                                                                    <ng-template pTemplate="content">
-                                                                        <ul *ngIf="uploadedFiles.length">
-                                                                            <li *ngFor="let file of uploadedFiles">{{
-                                                                                file.name }} - {{
-                                                                                file.size }} bytes</li>
-                                                                        </ul>
-                                                                    </ng-template>
-                                                                </p-fileUpload>
-                                                                <button role="button" class="button-name"
-                                                                    (click)="previewBase64PDF(per.permDocumento, 'Permiso_')">
-                                                                    <i class="fa fa-regular fa-eye fa-2x"></i>
-                                                                </button>
-                                                            </div>
+                                                        <div class="input-container">
+                                                            <p-fileUpload name="demo[]" class="custom-file-upload"
+                                                                url="https://www.primefaces.org/cdn/api/upload.php"
+                                                                (onUpload)="uploadFile(per.permId,$event)"
+                                                                [multiple]="false" accept="application/pdf"
+                                                                [maxFileSize]="1000000">
+                                                                <ng-template pTemplate="content">
+                                                                    <ul *ngIf="uploadedFiles.length">
+                                                                        <li *ngFor="let file of uploadedFiles">{{
+                                                                            file.name }} - {{
+                                                                            file.size }} bytes</li>
+                                                                    </ul>
+                                                                </ng-template>
+                                                            </p-fileUpload>
                                                         </div>
                                                     </td>
                                                 </tr>
