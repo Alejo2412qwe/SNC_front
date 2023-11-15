@@ -30,15 +30,15 @@ export class AprobarpermisosComponent implements OnInit {
 
   getPermisos() {
     if (this.rol === 'Administrador') {
-      this.getAllPermisos();
+      this.getPermisosForAdmin(2);
     } else {
       this.getPermisosByIdJefe(this.sessionStorage.getItem('userId') || 0);
     }
 
   }
 
-  getAllPermisos() {
-    this.permisoService.getAllPermisos().subscribe((data) => {
+  getPermisosForAdmin(est: number) {
+    this.permisoService.getPermisosForAdmin(est).subscribe((data) => {
       this.listaPermisos = data;
     });
   }
