@@ -246,9 +246,11 @@
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
+                                        <div></div>
                                         <div>
                                             <div class="input-container">
-                                                <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE UNIDAD:</label>
+                                                <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
+                                                    UNIDAD:</label>
                                                 <div class="containercheck">
                                                     <div>
                                                         <label class="check">
@@ -259,19 +261,23 @@
                                                         </label>
                                                     </div>
                                                     <div>
-                                                        <label style="padding-top: 5px; padding-left: 10px;" for="mostrarJefe">¿Asignar Jefe
+                                                        <label style="padding-top: 5px; padding-left: 10px;"
+                                                            for="mostrarJefe">¿Asignar Jefe
                                                             De Unidad?</label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="mostrarJefe">
-                                                <div class="input-container">
+                                        </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <div *ngIf="mostrarJefe">
                                                     <label for="name" class="name">JEFE INMEDIATO: </label>
                                                     <select id="jefes" name="jefes" class="input2" style="color: #777;"
                                                         [(ngModel)]="usuario.usuIdJefe">
                                                         <option value="0">Seleccione un jefe de unidad</option>
                                                         <option *ngFor="let jefe of listaJefes" [value]="jefe.usuId">
-                                                            {{ jefe.funId.funNombre+': '+jefe.usuPerId.perNombre + ' ' +
+                                                            {{ jefe.funId.funNombre+': '+jefe.usuPerId.perNombre + '
+                                                            ' +
                                                             jefe.usuPerId.perApellido
                                                             }}
                                                         </option>
@@ -280,7 +286,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </section>
                                 </div>
                                 <div class="contentForm">
