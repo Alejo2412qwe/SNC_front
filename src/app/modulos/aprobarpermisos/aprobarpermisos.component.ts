@@ -19,7 +19,7 @@ export class AprobarpermisosComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.showInfo();
-    this.getAllPermisos();
+    this.getPermisos();
   }
 
 
@@ -28,12 +28,23 @@ export class AprobarpermisosComponent implements OnInit {
 
   listaPermisos: Permisos[] = [];
 
-  previewBase64PDF(base64: string, filename: string) {
-    base64PDFpreview(base64, filename)
+  getPermisos() {
+    if (this.rol === 'Administrador') {
+      this.getAllPermisos();
+    } else {
+      this.getPermisosByIdJefe(this.sessionStorage.getItem('userId') || 0);
+    }
+
   }
 
   getAllPermisos() {
     this.permisoService.getAllPermisos().subscribe((data) => {
+      this.listaPermisos = data;
+    });
+  }
+
+  getPermisosByIdJefe(id: number) {
+    this.permisoService.getPermisosByIdJefe(id).subscribe((data) => {
       this.listaPermisos = data;
     });
   }
@@ -92,5 +103,9 @@ export class AprobarpermisosComponent implements OnInit {
 
   downloadFile(base64Data: string, name: string) {
     decodeBase64PDF(base64Data, name, this.toastr)
+  }
+
+  previewBase64PDF(base64: string, filename: string) {
+    base64PDFpreview(base64, filename)
   }
 }
