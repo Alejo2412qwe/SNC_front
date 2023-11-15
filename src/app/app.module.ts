@@ -19,6 +19,20 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
+import { SidebarComponent } from './modulos/sidebar/sidebar.component';
+import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
+import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
+import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
+import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
+import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
+import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -35,8 +49,19 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent,
-    ListainstitucionesComponent
-
+    ListainstitucionesComponent,
+    HeaderComponent,
+    FooterComponent,
+    ListaFuncionesComponent,
+    ListaperiodosComponent,
+    SidebarComponent,
+    ListamotivopermisoComponent,
+    ListatipopermisosComponent,
+    ListatipoformularioComponent,
+    ListavalorhoraComponent,
+    ListamispermisosComponent,
+    AprobarpermisosComponent,
+    ListaarchivosComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,13 +69,17 @@ import { ListainstitucionesComponent } from './modulos/listainstituciones/listai
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FileUploadModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenExpirationInterceptor,
-    multi: true,
-  },],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenExpirationInterceptor,
+      multi: true,
+    },
+    DatePipe,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

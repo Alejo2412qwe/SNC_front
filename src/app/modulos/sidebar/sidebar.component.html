@@ -1,0 +1,161 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div class="area"></div>
+    <nav class="main-menu">
+        <ul>
+            <li class="has-subnav">
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Usuario: {{username}}
+                </span>
+            </li>
+            <li class="has-subnav">
+                <i></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Rol: {{rol}}
+                </span>
+            </li>
+            <li>
+                <a href="/gestion">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Home
+                    </span>
+                </a>
+            </li>
+            <!-- REGISTRO DE PERSONAS Y LISTADO -->
+            <li id="personal" class="has-subnav">
+                <i class="fa fa-pencil fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    PERSONAL
+                </span>
+            </li>
+            <li id="verper" class="has-subnav" style="height: 30px;">
+                <a href="/listausu">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Personal
+                    </span>
+                </a>
+            </li>
+            <!-- ASISTENCIA -->
+            <li class="has-subnav">
+                <i class="fa fa-calendar fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    ASISTENCIA
+                </span>
+            </li>
+            <li class="has-subnav" style="height: 30px;">
+                <a href="/asistencia">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Asistencia
+                    </span>
+                </a>
+            </li>
+            <li id="ingresarasistencia" class="has-subnav" style="height: 30px;">
+                <a href="/gestion">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ingresar Asistencia
+                    </span>
+                </a>
+            </li>
+            <!-- PERMISOS -->
+            <li class="has-subnav">
+                <i class="fa fa-check fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    PERMISOS
+                </span>
+            </li>
+            <li class="has-subnav" style="height: 30px;">
+                <a href="/listamispermisos">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Mis Permisos
+                    </span>
+                </a>
+            </li>
+            <li id="aprobarpermisos" class="has-subnav" style="height: 30px;">
+                <a href="/aprobarpermisos">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Aprobar Permisos
+                    </span>
+                </a>
+            </li>
+            <li id="tipopermiso" class="has-subnav" style="height: 30px;">
+                <a href="/listatipopermiso">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Tipo de Permiso
+                    </span>
+                </a>
+            </li>
+            <li id="tipoformulario" class="has-subnav" style="height: 30px;">
+                <a href="/listatipoformulario">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Tipo de Formulario
+                    </span>
+                </a>
+            </li>
+            <!-- PROCESOS Y SUB -->
+            <li id="procesos" class="has-subnav">
+                <i class="fa fa-book fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    PROCESOS Y SUBP.
+                </span>
+            </li>
+            <li id="ingresarpro" class="has-subnav" style="height: 30px;">
+                <a href="/listasub-procesos">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Procesos
+                    </span>
+                </a>
+            </li>
+            <!-- INSTITUCIONES -->
+            <li id="Instituciones" class="has-subnav">
+                <i class="fa fa-file fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    INSTITUCIONES
+                </span>
+            </li>
+            <li id="ingresarinst" class="has-subnav" style="height: 30px;">
+                <a href="/listainstituciones">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Instituciones
+                    </span>
+                </a>
+            </li>
+            <!-- FUNCIONES -->
+            <li id="funciones" class="has-subnav">
+                <i class="fa fa-envelope fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    FUNCIONES
+                </span>
+            </li>
+            <li id="ingresarfun" class="has-subnav" style="height: 30px;">
+                <a href="/listaFun">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Funciones
+                    </span>
+                </a>
+            </li>
+            <!-- VALOR POR HORA -->
+            <li id="otrasfun" class="has-subnav">
+                <i class="fa fa-cog fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    OTRAS FUNCIONES
+                </span>
+            </li>
+            <li id="valor" class="has-subnav" style="height: 30px;">
+                <a href="/listavalor">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Valor Por Hora
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</body>
+
+</html>

@@ -13,6 +13,13 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
+import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
+import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
+import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
+import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
+import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 
 
 
@@ -30,6 +37,13 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
   {path: 'Horarios', component: HorariosComponent} ,
+  { path: 'listatipopermiso', component: ListatipopermisosComponent },
+  { path: 'listatipoformulario', component: ListatipoformularioComponent },
+  { path: 'listavalor', component: ListavalorhoraComponent },
+  { path: 'listaFun', component: ListaFuncionesComponent },
+  { path: 'listamispermisos', component: ListamispermisosComponent },
+  { path: 'aprobarpermisos', component: AprobarpermisosComponent },
+  { path: 'listaarchivos', component: ListaarchivosComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

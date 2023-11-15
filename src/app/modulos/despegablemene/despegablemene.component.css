@@ -1,94 +1,115 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
 
 * {
-	padding:0;
-	margin:0;
+	padding: 0;
+	margin: 0;
 }
 
 header {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Z-index para asegurarse de que esté encima de otros elementos */
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+	/* Z-index para asegurarse de que esté encima de otros elementos */
 }
+
 header nav {
-	background-color:transparent;
-	width:100%;
-	max-width:1015px;
-	margin:0px auto;
+	background-color: transparent;
+	width: 100%;
+	max-width: 1015px;
+	margin: 0px auto;
 }
+
 header nav ul {
-	overflow:hidden;
-	}
+	overflow: hidden;
+}
+
 header nav ul li {
-	list-style:none;
-	}
+	list-style: none;
+}
+
 header nav ul li a {
 	font-family: 'Varela Round', sans-serif;
-	text-decoration:none;
-	color:#FFFFFF;
-	padding:20px;
-	display:block;
-		}			
+	text-decoration: none;
+	color: #FFFFFF;
+	padding: 20px;
+	display: block;
+}
+
 header nav ul li a:hover {
-	color:#fff7e7;
-	background-color: #051f3f;
-	
-	}
+	color: #fff7e7;
+	background-color: transparent;
+
+}
+
 #publica {
-	background-color:#051f3f;
-	position:relative;
+	background-color: #ffffff;
+	position: relative;
+	color: #4773ae;
 
 }
+
 #publica2 {
-	background-color:#051f3f;
+	background-color: #ffffff;
+	color: #4773ae;
 
 }
+
 #multimedia {
-	background-color:#149b78;
+	background-color: #149b78;
 
 }
-			ul, ol {
-				list-style:none;
-			}
-		    .nav { 
-			width:100%;
-			max-width:1600px;
-			}
-			
-			.nav > li {
-				float:left;
-			}
-			.nav li a {
-				width:100%;
-				max-width:1600px;
-				font-size:14px;
-				background-color:transparent;
-				color:#fff;
-				text-decoration:none;
-				display:block;
-			}
-			
-			.nav li a:hover {
-				background-color:#149b78;
-			}
-			
-			.nav li ul {
-				display:none;
-				position:absolute;
-				min-width:140px;
-			}
-			
-			.nav li:hover > ul {
-				display:block;
-			}
-			
-			.nav li ul li {
-				position:relative;
-			}
-			
-			.nav li ul li ul {
-				right:-140px;
-				top:0px;
-			}
+
+ul,
+ol {
+	list-style: none;
+}
+
+.nav {
+	width: 100%;
+	max-width: 1600px;
+}
+
+.nav>li {
+	float: left;
+}
+
+.nav li a {
+	width: 100%;
+	max-width: 1600px;
+	font-size: 14px;
+	background-color: transparent;
+	color: #fff;
+	text-decoration: none;
+	display: block;
+}
+
+.nav li a:hover {
+	background-color: #149b78;
+}
+
+.nav li ul {
+	display: block;
+	position: absolute;
+	min-width: 140px;
+	max-height: 0;
+	/* Inicialmente, oculta la lista */
+	overflow: hidden;
+	transition: max-height 1s ease;
+	/* Agrega una transición suave */
+}
+
+.nav li:hover ul {
+	max-height: 140px;
+	/* Ajusta la altura máxima según sea necesario */
+}
+
+.nav li ul li {
+	position: relative;
+}
+
+.nav li ul li ul {
+	right: -140px;
+	top: 0px;
+}

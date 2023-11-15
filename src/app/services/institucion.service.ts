@@ -12,7 +12,7 @@ export class InstitucionService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
-  ) { }
+  ) {}
 
   private url: string = `${entorno.urlPrivada}/institucion`;
 
@@ -33,7 +33,7 @@ export class InstitucionService {
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    console.log(`${this.url}/getInstitucionByTipId/${tipId}`)
+    console.log(`${this.url}/getInstitucionByTipId/${tipId}`);
 
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.get<Institucion[]>(
@@ -48,5 +48,46 @@ export class InstitucionService {
     });
 
     return this.http.get<Institucion[]>(`${this.url}/read`, { headers });
+  }
+
+  getInstitucionesByTipId(tipid: number, instid: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Institucion[]>(
+      `${this.url}/getInstitucionesByTipId?tipid=${tipid}&instid=${instid}`,
+      { headers }
+    );
+  }
+
+  updateInstitucion(
+    Institucion: Institucion,
+    id: number
+  ): Observable<Institucion> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    return this.http.put<Institucion>(`${this.url}/update/${id}`, Institucion, {
+      headers,
+    });
+  }
+
+  updateEst(id: number, est: number): Observable<void> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<void>(
+      `${this.url}/updateEst?id=${id}&est=${est}`,
+      null,
+      { headers }
+    );
   }
 }
