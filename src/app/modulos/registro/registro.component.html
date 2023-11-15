@@ -247,10 +247,23 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <input type="checkbox" id="mostrarJefe" (change)="toggleMostrarJefe()"
-                                                [checked]="mostrarJefe" />
-                                            <label for="mostrarJefe">¿Asignar Jefe De Unidad?</label>
-
+                                            <div class="input-container">
+                                                <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE UNIDAD:</label>
+                                                <div class="containercheck">
+                                                    <div>
+                                                        <label class="check">
+                                                            <input type="checkbox" id="mostrarJefe"
+                                                                (change)="toggleMostrarJefe()"
+                                                                [checked]="mostrarJefe" />
+                                                            <div class="checkmark"></div>
+                                                        </label>
+                                                    </div>
+                                                    <div>
+                                                        <label style="padding-top: 5px; padding-left: 10px;" for="mostrarJefe">¿Asignar Jefe
+                                                            De Unidad?</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div *ngIf="mostrarJefe">
                                                 <div class="input-container">
                                                     <label for="name" class="name">JEFE INMEDIATO: </label>
