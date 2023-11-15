@@ -14,11 +14,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { TokenExpirationInterceptor } from './enviroment/TokenExpirationInterceptor';
-import { HorariosComponent } from './modulos/horarios/horarios.component';
 import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.component';
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { HorariosComponent } from './modulos/horarios/horarios.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
@@ -33,6 +33,7 @@ import { ListamispermisosComponent } from './modulos/listamispermisos/listamispe
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { DatePipe } from '@angular/common';
+
 
 
 @NgModule({

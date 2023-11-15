@@ -31,8 +31,7 @@
 
     </nav>
 
-    <div class="page-header header-filter" data-parallax="true"
-        style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');">
+    <div class="page-header header-filter" data-parallax="true">
 
         <div class="d-flex flex-column justify-content-center w-100 h-100">
 
@@ -52,7 +51,9 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <h2>Gestión de Horarios</h2>
 
+                        
                         <!-- Formulario para agregar un nuevo horario -->
+                        <!--
                         <form (submit)="agregarHorario()">
 
                             <div>
@@ -104,10 +105,26 @@
                                     <div class="underline"></div>
                                 </div>
                             </div>
-                            
-                            <button type="submit" class="btn btn-primary">Agregar Horario</button>
-                        </form>
+                        -->
+                            <div>
+                                <button class="Btn3" (click)="openCrearHorario()">Crear Horarios
+                                    <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                   <!--     </form>-->
 
+                        <!-- Búsqueda por Hora -->
+                        <div class="form-group">
+                            <label for="buscarHora">Buscar por Hora:</label>
+                            <input type="text" id="buscarHora" [(ngModel)]="horaBusqueda">
+                            <button class="btn btn-primary" (click)="buscarPorHora()">Buscar</button>
+                        </div>
 
                         <!-- Lista de horarios -->
 
@@ -134,7 +151,7 @@
                                             <td class="tdTbl">{{horario.horHoraAlmuerzoFin}}</td>
 
                                             <td class="tdTbl"><button role="button" class="button-name2"
-                                                (click)="editarHorario(horario)">
+                                                (click)="openUpdateProceso(horario.horNumHoras,horario.horId)">
                                                     <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
                                                         height="1.25em"
                                                         viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -144,7 +161,7 @@
                                                 </button>
                                             </td>
                                             <td class="tdTbl"><button role="button" class="button-name2"
-                                                    (click)="eliminarHorario(horario)">
+                                                    (click)="updateEstProceso(horario.horId,0)">
                                                     <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
                                                         height="1.25em"
                                                         viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -161,12 +178,6 @@
                             </div>
                         </div>
                         
-                        <!-- Búsqueda por fecha -->
-                        <div class="form-group">
-                            <label for="buscarFecha">Buscar por Hora:</label>
-                            <input type="date" id="buscarFecha" [(ngModel)]="fechaBusqueda">
-                            <button class="btn btn-primary" (click)="buscarPorFecha()">Buscar</button>
-                        </div>
                     </div>
 
                 </div>

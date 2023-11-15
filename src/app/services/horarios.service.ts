@@ -36,7 +36,17 @@ export class HorarioService {
 
   }
 
-  actualizarHorario(id: number, horario: Horarios): Observable<Horarios> {
+
+  // Método para buscar horarios por hora de ingreso
+  buscarporHora(horaIngreso: string): Observable<Horarios[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
+    });
+
+    return this.http.get<Horarios[]>(`${this.url}/searchByHour/${horaIngreso}`, {headers});
+  }
+
+  actualizaHorario(horario: Horarios, id: number): Observable<Horarios> {
 
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({
@@ -58,4 +68,33 @@ export class HorarioService {
     return this.http.delete(`${this.url}/delete/${id}`);
   }
 
+  updateEst(id: number, est: number): Observable<void> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<void>(
+      `${this.url}/updateEst?id=${id}&est=${est}`, 
+      null, 
+      { headers }
+    );
+  }
+
+  getHorariosByEstado(est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.token}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Horarios[]>(
+      `${this.url}/getProcesosByHorarios?est=${est}`,
+      { headers }
+    );
+  }
+
+
 }
+
