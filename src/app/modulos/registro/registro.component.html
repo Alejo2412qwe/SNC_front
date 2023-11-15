@@ -246,36 +246,31 @@
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
-                                        <div class="input-container">
-                                            <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
-                                                UNIDAD:</label>
-                                            <div class="containercheck">
-                                                <div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
+                                                    UNIDAD:</label>
+
+                                                <div class="containercheck">
                                                     <label class="check">
                                                         <input type="checkbox" id="mostrarJefe"
                                                             (change)="toggleMostrarJefe()" [checked]="mostrarJefe" />
                                                         <div class="checkmark"></div>
                                                     </label>
-                                                </div>
-                                                <div>
-                                                    <label style="padding-top: 5px; padding-left: 10px;"
-                                                        for="mostrarJefe">
-                                                        <div *ngIf="mostrarJefe">
-                                                            <select id="jefes" name="jefes" class="input2"
-                                                                style="color: #777;" [(ngModel)]="usuario.usuIdJefe">
-                                                                <option value="0">Seleccione un jefe de unidad
-                                                                </option>
-                                                                <option *ngFor="let jefe of listaJefes"
-                                                                    [value]="jefe.usuId">
-                                                                    {{ jefe.funId.funNombre+': '+
-                                                                    jefe.usuPerId.perNombre
-                                                                    +' '+
-                                                                    jefe.usuPerId.perApellido}}
-                                                                </option>
-                                                            </select>
-                                                            <div class="underline"></div>
-                                                        </div>
-                                                    </label>
+                                                    <div *ngIf="mostrarJefe">
+                                                        <select id="jefes" name="jefes" class="input2"
+                                                            style="color: #777;" [(ngModel)]="usuario.usuIdJefe">
+                                                            <option value="0">Seleccione un jefe de unidad
+                                                            </option>
+                                                            <option *ngFor="let jefe of listaJefes"
+                                                                [value]="jefe.usuId">
+                                                                {{ jefe.funId.funNombre+': '+
+                                                                jefe.usuPerId.perNombre
+                                                                +' '+
+                                                                jefe.usuPerId.perApellido}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
