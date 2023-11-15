@@ -258,7 +258,8 @@
                                                         [(ngModel)]="usuario.usuIdJefe">
                                                         <option value="0">Seleccione un jefe de unidad</option>
                                                         <option *ngFor="let jefe of listaJefes" [value]="jefe.usuId">
-                                                            {{ jefe.usuPerId.perNombre + ' ' + jefe.usuPerId.perApellido
+                                                            {{ jefe.funId.funNombre+': '+jefe.usuPerId.perNombre + ' ' +
+                                                            jefe.usuPerId.perApellido
                                                             }}
                                                         </option>
                                                     </select>
