@@ -234,12 +234,6 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  cargarInstituciones() {
-    this.institucionService.getAllInstituciones().subscribe((data) => {
-      this.listaInstituciones = data;
-    });
-  }
-
   cargarFunciones() {
     this.funcionService.getAllFunciones().subscribe((data) => {
       this.listFunciones = data;

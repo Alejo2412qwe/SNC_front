@@ -21,7 +21,7 @@ export class ListainstitucionesComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private toastr: ToastrService,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) { }
 
   //usuario de la sesion actual
   username = this.sessionStorage.getItem('username');
@@ -45,12 +45,12 @@ export class ListainstitucionesComponent implements OnInit {
   listaTipoInstituciones: TipoInstitucion[] = [];
 
   ngOnInit(): void {
-    this.cargarInstituciones();
+    this.cargarInstitucionesByEstado(1);
     this.loadTipoInstitucionByEstado(1);
   }
 
-  cargarInstituciones() {
-    this.institucionService.getAllInstituciones().subscribe((data) => {
+  cargarInstitucionesByEstado(est: number) {
+    this.institucionService.getInstitucionesByEstado(est).subscribe((data) => {
       this.listaInstituciones = data;
     });
   }
@@ -66,7 +66,7 @@ export class ListainstitucionesComponent implements OnInit {
     this.institucionService
       .saveInstitucion(this.institucion)
       .subscribe((data) => {
-        this.cargarInstituciones();
+        this.cargarInstitucionesByEstado(1);
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.instNombre + ' agregado correctamente',
@@ -180,7 +180,7 @@ export class ListainstitucionesComponent implements OnInit {
 
   updateEstInstitucion(id: number, est: number) {
     Swal.fire({
-      title: `Está a punto de eliminar la institucion, ¿desea continuar?`,
+      title: `Está a punto de eliminar la institución, ¿desea continuar?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -201,7 +201,7 @@ export class ListainstitucionesComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadInstitucionesByTipId(1, 1);
@@ -320,7 +320,7 @@ export class ListainstitucionesComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadTipoInstitucionByEstado(1);

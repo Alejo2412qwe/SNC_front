@@ -12,7 +12,7 @@ export class InstitucionService {
   constructor(
     private http: HttpClient,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) { }
 
   private url: string = `${entorno.urlPrivada}/institucion`;
 
@@ -42,12 +42,17 @@ export class InstitucionService {
     );
   }
 
-  getAllInstituciones() {
+  getInstitucionesByEstado(est: number) {
+    // Construir el encabezado de autorización
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    return this.http.get<Institucion[]>(`${this.url}/read`, { headers });
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Institucion[]>(
+      `${this.url}/getInstitucionesByEstado?est=${est}`,
+      { headers }
+    );
   }
 
   getInstitucionesByTipId(tipid: number, instid: number) {
