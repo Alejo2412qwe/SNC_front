@@ -35,7 +35,9 @@
                         <div class="row">
 
                             <div style="width: 100%; margin-top: 20px; margin-bottom: 50px;">
-                                <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario
+                                <h1 style="text-align: center; font-weight: bolder; ">
+                                    {{mode==='edit-user'?'Formulario de Edició de Usuario':
+                                    mode==='edit-profile'?'Editar Mi Perfil':'Formulario de Registro de Usuario'}}
                                 </h1>
                             </div>
 
@@ -325,7 +327,8 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">DESIGNAR ROL: *</label>
                                                 <select id="roles" name="roles" class="input2" style="color: #777;"
-                                                    [(ngModel)]="usuario.rolId.rolId">
+                                                    [(ngModel)]="usuario.rolId.rolId"
+                                                    [disabled]="mode==='edit-profile'">
                                                     <option value="0">Seleccione una Ciudad</option>
                                                     <option *ngFor="let rol of listRoles" [value]="rol.rolId">
                                                         {{ rol.rolNombre }}

@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'perfil', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'editar-usuario/:id', component: RegistroComponent },
+  { path: 'editar-usuario/:id/:mode', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'listasub-procesos', component: ListaprocesosSubprocesosComponent },
