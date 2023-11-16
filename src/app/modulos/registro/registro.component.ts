@@ -33,6 +33,8 @@ import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
 import { base64ToFile } from '../../common/base64';
+import { Regimen } from 'src/app/modelo/regimen';
+import { RegimenService } from 'src/app/services/regimen.service';
 
 @Component({
   selector: 'app-registro',
@@ -55,10 +57,12 @@ export class RegistroComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
+    private regimenService: RegimenService,
     private sessionStorage: SessionStorageService,
   ) { }
 
   //OBJETOS
+  regimen: Regimen = new Regimen();
   persona: Persona = new Persona();
   usuario: Usuario = new Usuario();
   selectProvincia: Provincia = new Provincia();
@@ -82,6 +86,7 @@ export class RegistroComponent implements OnInit {
   newProceso: string = '';
   id: number = 0;
   editeMode: boolean = false;
+  mostrarJefe: boolean = false;
 
   //LISTAS
   listProvincias: Provincia[] = [];
@@ -93,16 +98,24 @@ export class RegistroComponent implements OnInit {
   listaInstituciones: Institucion[] = [];
   listaTipoInstitucion: TipoInstitucion[] = [];
   uploadedFiles: File[] = [];
+  listaregiemen: Regimen[] = [];
+  listaJefes: Usuario[] = [];
   // imagenSeleccionada: File | null = null;
 
 
   ngOnInit(): void {
+    this.cargarRegimen();
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
     this.validateMode();
     this.cargarTipoInstitucion();
     this.cargarFunciones();
+    this.cargarJefes(5);
+  }
+
+  toggleMostrarJefe() {
+    this.mostrarJefe = !this.mostrarJefe;
   }
 
   uploadFile(event: UploadEvent) {
@@ -209,9 +222,15 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-  cargarInstituciones() {
-    this.institucionService.getAllInstituciones().subscribe((data) => {
-      this.listaInstituciones = data;
+  cargarJefes(id: number) {
+    this.usuarioService.getJefesByRolId(id).subscribe((data) => {
+      this.listaJefes = data;
+    })
+  }
+
+  cargarRegimen() {
+    this.regimenService.getAllRegimen().subscribe((data) => {
+      this.listaregiemen = data;
     });
   }
 
@@ -277,73 +296,48 @@ export class RegistroComponent implements OnInit {
 
   registrar() {
     if (this.validarRegistro()) {
-      this.personaService
-        .cedulaUnica(this.persona.perCedula?.trim() || '')
-        .subscribe((response) => {
-          if (response) {
-            this.usuarioService
-              .usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '')
-              .subscribe((res) => {
-                if (res) {
+      this.personaService.cedulaUnica(this.persona.perCedula?.trim() || '').subscribe((response) => {
+        if (response) {
+          this.usuarioService.usuarioUnico(this.usuario.usuNombreUsuario?.trim() || '').subscribe((res) => {
+            if (res) {
+              const rolEncontrado = this.listRoles.find(rol => rol.rolId.toString() === this.usuario.rolId?.rolId.toString());
 
-                  console.log(this.usuario.rolId?.rolId.toString())
-                  const rolEncontrado = this.listRoles.find(
-                    (rol) =>
-                      rol.rolId, toString() === this.usuario.rolId?.rolId.toString()
-                  );
+              if (rolEncontrado) {
+                this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
 
+                // REGISTRAR PERSONA
+                this.personaService.registrarPersona(this.persona).subscribe((response) => {
+                  this.usuario.usuEstado = 1;
+                  this.usuario.usuPerId = response;
 
-                  if (rolEncontrado) {
-                    this.usuario.rolId.rolNombre = rolEncontrado.rolNombre;
-
-                    //REGISTRAR PERSONA
-                    this.personaService
-                      .registrarPersona(this.persona)
-                      .subscribe((response) => {
-                        this.usuario.usuEstado = 1;
-                        this.usuario.usuPerId = response;
-
-                        console.log(this.usuario)
-
-                        //RESGISTRAR USUARIO
-                        this.usuarioService
-                          .registrarUsuario(this.usuario)
-                          .subscribe((response) => {
-                            Swal.fire({
-                              title: '¡Registro Exitoso!',
-                              text: this.usuario.rolId.rolNombre + ' agregado correctamente',
-                              icon: 'success',
-                              confirmButtonText: 'Confirmar',
-                              showCancelButton: false, // No mostrar el botón de cancelar
-                            }).then(() => {
-                              this.limpiarRegistro();
-                              this.router.navigate(['/listausu']);
-                            });
-                          });
-                      });
-
-                    // return true
-                  }
-                } else {
-                  this.toastr.error(
-                    'El nombre de usuario que ingresaste ya se encuentra registrado',
-                    'Usuario duplicado',
-                    {
-                      timeOut: this.timeToastr,
-                    }
-                  );
-                }
-              });
-          } else {
-            this.toastr.error(
-              'La cédula que ingresaste ya se encuantra registrada',
-              'Cédula duplicada',
-              {
-                timeOut: this.timeToastr,
+                  // REGISTRAR USUARIO
+                  this.usuarioService.registrarUsuario(this.usuario).subscribe((response) => {
+                    console.log(this.usuario.usuIdJefe)
+                    Swal.fire({
+                      title: '¡Registro Exitoso!',
+                      text: this.usuario.rolId.rolNombre + ' agregado correctamente',
+                      icon: 'success',
+                      confirmButtonText: 'Confirmar',
+                      showCancelButton: false, // No mostrar el botón de cancelar
+                    }).then(() => {
+                      this.limpiarRegistro();
+                      this.router.navigate(['/listausu']);
+                    });
+                  });
+                });
               }
-            );
-          }
-        });
+            } else {
+              this.toastr.error('El nombre de usuario que ingresaste ya se encuentra registrado', 'Usuario duplicado', {
+                timeOut: this.timeToastr,
+              });
+            }
+          });
+        } else {
+          this.toastr.error('La cédula que ingresaste ya se encuentra registrada', 'Cédula duplicada', {
+            timeOut: this.timeToastr,
+          });
+        }
+      });
     }
   }
 

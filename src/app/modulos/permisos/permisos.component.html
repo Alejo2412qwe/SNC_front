@@ -163,6 +163,11 @@
                     <div class="underline"></div>
                 </div>
             </section>
+                outline: none;" placeholder="Enter your name" type="date" class="input"
+                    [(ngModel)]="permiso.permFechaFin" [min]="validarFecha()">
+                <div class="underline"></div>
+            </div>
+        </section>
 
         </div>
 
@@ -240,6 +245,19 @@
                             1,36363636363636
                         </label>
                     </div>
+            <div>
+                <div class="input-container">
+                    <label for="dias" class="name">DÍAS:</label>
+                    <input placeholder="Días" type="text" class="input" [value]="calcularDiferenciaDias()" readonly>
+                    <div class="underline"></div>
+                </div>
+
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="horas" class="name">HORAS:</label>
+                    <input placeholder="Horas" type="text" class="input" [value]="calcularDiferenciaHoras()" readonly>
+                    <div class="underline"></div>
                 </div>
                 <div>
 

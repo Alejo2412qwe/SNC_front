@@ -40,15 +40,33 @@ export class PermisoService {
         );
     }
 
-    getAllPermisos() {
+    getPermisosByIdJefe(id: number) {
+        // Construir el encabezado de autorización
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
         });
 
-        return this.http.get<Permisos[]>(`${this.url}/read`, { headers });
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Permisos[]>(
+            `${this.url}/getPermisosByIdJefe?id=${id}`,
+            { headers }
+        );
     }
 
-    updateEst(id: number, est: string): Observable<void> {
+    getPermisosForAdmin(est: number) {
+        // Construir el encabezado de autorización
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+        });
+
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.get<Permisos[]>(
+            `${this.url}/getPermisosForAdmin?est=${est}`,
+            { headers }
+        );
+    }
+
+    updateEst(id: number, est: number): Observable<void> {
         // Construir el encabezado de autorización con el token JWT
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
@@ -61,4 +79,18 @@ export class PermisoService {
             { headers }
         );
     }
+
+    updatePermiso(id: number, p: string): Observable<any> {
+
+        // Construir el encabezado de autorización con el token JWT
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+        console.log(`${this.url}/update?id=${id}`)
+        // Realiza la solicitud HTTP con el encabezado de autorización
+        return this.http.put<any>(`${this.url}/update?id=${id}`, p, {
+            headers,
+        });
+    }
+
 }

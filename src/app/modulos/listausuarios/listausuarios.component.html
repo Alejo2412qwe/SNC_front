@@ -199,6 +199,9 @@
                                                     <th class="tipo" scope="col">INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">PROCESO</th>
                                                     <th class="tipo" scope="col">FUNCIÓN</th>
+                                                    <th class="tipo" scope="col">RÉGIMEN</th>
+                                                    <th class="tipo" scope="col">ROL QUE CUMPLE</th>
+                                                    <th class="tipo" scope="col">ID USADO EN LECTOR</th>
                                                     <th class="tipo" scope="col">FECHA DE REGISTRO</th>
                                                     <th class="tipo" scope="col">TITULO</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
@@ -239,12 +242,15 @@
                                                         años
                                                     </td>
                                                     <td class="tdTbl">{{user.usuPerId.ciuId.ciuNombre}} -
-                                                        {{user.usuPerId.ciuId.proId?.proNombre}}</td>
+                                                        {{user.usuPerId.ciuId.proId.proNombre}}</td>
                                                     <td class="tdTbl">{{user.usuPerId.perTelefono}}</td>
                                                     <td class="tdTbl">{{user.usuPerId.perDireccion}}</td>
                                                     <td class="tdTbl">{{user.insId.instNombre}}</td>
                                                     <td class="tdTbl">{{user.procId.procNombre}}</td>
                                                     <td class="tdTbl">{{user.funId.funNombre}}</td>
+                                                    <td class="tdTbl">{{user.regId.regNombre}}</td>
+                                                    <td class="tdTbl">{{user.rolId.rolNombre}}</td>
+                                                    <td class="tdTbl">{{user.usuIdLector}}</td>
                                                     <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}
                                                     </td>
                                                     <td class="tdTbl">
