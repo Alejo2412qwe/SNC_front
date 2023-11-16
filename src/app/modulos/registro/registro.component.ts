@@ -103,15 +103,18 @@ export class RegistroComponent implements OnInit {
   // imagenSeleccionada: File | null = null;
 
 
+  userId: number = 0
+  mode: string = ''
+
   ngOnInit(): void {
     this.cargarRegimen();
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
-    this.validateMode();
     this.cargarTipoInstitucion();
     this.cargarFunciones();
     this.cargarJefes(5);
+    this.validateMode();
   }
 
   toggleMostrarJefe() {
@@ -164,13 +167,31 @@ export class RegistroComponent implements OnInit {
 
   validateMode() {
     this.activatedRoute.params.subscribe((params) => {
-      const userId = params['id'];
 
-      if (userId !== undefined) {
-        this.editeMode = true;
-        this.loadEdit(userId);
-      } else {
+      this.mode = params['mode'];
+
+      switch (this.mode) {
+
+        case "edit-user":
+          this.userId = params['id'];
+
+          if (this.userId !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.userId);
+          }
+          break;
+        case "edit-profile":
+          this.userId = params['id'];
+
+          if (this.userId !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.userId);
+          }
+          break;
+        default:
+          console.log("Opción no reconocida");
       }
+
     });
   }
 
@@ -312,7 +333,6 @@ export class RegistroComponent implements OnInit {
 
                   // REGISTRAR USUARIO
                   this.usuarioService.registrarUsuario(this.usuario).subscribe((response) => {
-                    console.log(this.usuario.usuIdJefe)
                     Swal.fire({
                       title: '¡Registro Exitoso!',
                       text: this.usuario.rolId.rolNombre + ' agregado correctamente',
@@ -369,7 +389,21 @@ export class RegistroComponent implements OnInit {
                   showCancelButton: false, // No mostrar el botón de cancelar
                 }).then(() => {
                   this.limpiarRegistro();
-                  this.router.navigate(['/listausu']);
+                  switch (this.mode) {
+
+                    case "edit-user":
+                      this.router.navigate(['/listausu']);
+
+                      break;
+                    case "edit-profile":
+
+                      this.router.navigate(['/perfil']);
+
+                      break;
+                    default:
+                      this.router.navigate(['/perfil']);
+                  }
+
                 });
               });
           });
