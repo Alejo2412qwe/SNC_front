@@ -15,7 +15,7 @@ export class PeriodosService {
     private sessionStorage: SessionStorageService
   ) { }
 
-  private url: string = `${entorno.urlPrivada}/Periodos`;
+  private url: string = `${entorno.urlPrivada}/periodo`;
 
   savePeriodos(Periodos: Periodos): Observable<Periodos> {
     // Construir el encabezado de autorización con el token JWT
@@ -41,10 +41,10 @@ export class PeriodosService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
     });
-
+  
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.put<void>(
-      `${this.url}/updateEstPeriodos?id=${id}&est=${est}`,
+      `${this.url}/updateEstPeriodo?id=${id}&est=${est}`,
       null,
       { headers }
     );
@@ -56,11 +56,11 @@ export class PeriodosService {
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    console.log(`${this.url}/getPeriodosByEstado/${est}`);
+    console.log(`${this.url}/getPeriodoByEstado/${est}`);
 
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.get<Periodos[]>(
-      `${this.url}/getPeriodosByEstado?est=${est}`,
+      `${this.url}/getPeriodoByEstado?est=${est}`,
       { headers }
     );
   }
@@ -74,6 +74,10 @@ export class PeriodosService {
     return this.http.put<Periodos>(`${this.url}/update/${id}`, Periodos, {
       headers,
     });
+  }
+
+  obtenerDiasAnticipacion(): Observable<number> {
+    return this.http.get<number>('/diasAnticipacion');
   }
 
 }
