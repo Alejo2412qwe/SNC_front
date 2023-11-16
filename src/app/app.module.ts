@@ -8,7 +8,7 @@ import { AsistenciaComponent } from './modulos/asistencia/asistencia.component';
 import { RegistroComponent } from './modulos/registro/registro.component';
 import { PermisosComponent } from './modulos/permisos/permisos.component';
 import { GestionComponent } from './modulos/gestion/gestion.component';
-import { ReportevacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
+import { VacacionesComponent } from './modulos/reportevaciones/reportevaciones.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +18,7 @@ import { ListausuariosComponent } from './modulos/listausuarios/listausuarios.co
 import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subprocesos/listaprocesos-subprocesos.component';
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
+import { HorariosComponent } from './modulos/horarios/horarios.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
@@ -33,6 +34,7 @@ import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermi
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.co
     RegistroComponent,
     PermisosComponent,
     GestionComponent,
-    ReportevacionesComponent,
+    HorariosComponent,
+    VacacionesComponent,
     ListausuariosComponent,
     ListaprocesosSubprocesosComponent,
     DespegablemeneComponent,

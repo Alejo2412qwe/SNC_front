@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-permisos',
   templateUrl: './permisos.component.html',
-  styleUrls: ['./permisos.component.css'],
+  styleUrls: ['./permisos.component.scss']
 })
 export class PermisosComponent implements OnInit {
   constructor(

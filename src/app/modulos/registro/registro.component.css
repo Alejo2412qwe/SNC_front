@@ -1146,6 +1146,7 @@ div.table-title {
 
 .table-title h3 {
   color: #fafafa;
+
   font-size: 30px;
   font-weight: 400;
   font-style: normal;
@@ -1238,6 +1239,7 @@ td {
   text-align: left;
   vertical-align: middle;
   font-weight: 300;
+
   font-size: 18px;
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
   border-right: 1px solid #C1C3D1;
@@ -1277,6 +1279,27 @@ td.text-right {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 70% 30%;
+
+  /* Dividir en 70% y 30% */
+  gap: 8px;
+}
+
+.containerrol {
+  width: 90%;
+  display: grid;
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 2fr 100px;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  justify-items: stretch;
+  align-items: stretch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  font-weight: bolder;
+
   gap: 8px;
 }
 
