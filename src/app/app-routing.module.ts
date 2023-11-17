@@ -22,7 +22,6 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component'; 
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component'; 
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
-import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
 
 
 
