@@ -103,7 +103,7 @@
                                     justify-content: center;
                                     align-items: center;
                                     height: 100%;">
-                                        <button class="Btn3" (click)="getAllPermisos()">Refrescar
+                                        <button class="Btn3" (click)="getPermisos()">Refrescar
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -161,7 +161,7 @@
                                                     <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">CÉDULA
                                                         DEL SOLICITANTE
                                                     </th>
-                                                    <th class="tipo" scope="col">SOLICITUD DEL PERMISO</th>
+                                                    <th class="tipo" scope="col">PREVISUALIZACIÓN DE LA SOLICITUD</th>
                                                     <th class="tipo" scope="col">APROBAR</th>
                                                     <th class="tipo" scope="col">RECHAZAR</th>
                                                 </tr>
@@ -217,13 +217,11 @@
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.usuId.usuPerId.perCedula}}</td>
                                                     <td class="tdTbl">
-                                                        <ng-container *ngIf="rol === 'Jefe de Unidad'; else noInfo">
-                                                            <button role="button" class="button-name2"
-                                                                (click)="downloadFile(per.permDocumento,'Titulo_'+per.usuId.usuPerId.perCedula)">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" height="0.875em"
-                                                                    viewBox="0 0 512 512">
-                                                                    <!-- Tu contenido SVG aquí -->
-                                                                </svg>
+                                                        <ng-container *ngIf="per.permDocumento; else noInfo">
+                                                            <button role="button" class="button-name"
+                                                                (click)="previewBase64PDF(per.permDocumento, 'SolicitudPermiso_'+
+                                                                per.usuId.usuPerId.perApellido+'_'+per.usuId.usuPerId.perCedula)">
+                                                                <i class="fa fa-regular fa-eye fa-2x"></i>
                                                             </button>
                                                         </ng-container>
                                                         <ng-template #noInfo>

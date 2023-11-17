@@ -32,6 +32,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -78,6 +79,7 @@ import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.co
       useClass: TokenExpirationInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

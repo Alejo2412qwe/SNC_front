@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { decodeBase64PDF } from 'src/app/common/base64';
+import { base64PDFpreview, decodeBase64PDF } from 'src/app/common/base64';
 import { Permisos } from 'src/app/modelo/permisos';
 import { PermisoService } from 'src/app/services/permiso.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
@@ -19,7 +19,7 @@ export class AprobarpermisosComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.showInfo();
-    this.getAllPermisos();
+    this.getPermisos();
   }
 
 
@@ -28,8 +28,23 @@ export class AprobarpermisosComponent implements OnInit {
 
   listaPermisos: Permisos[] = [];
 
-  getAllPermisos() {
-    this.permisoService.getAllPermisos().subscribe((data) => {
+  getPermisos() {
+    if (this.rol === 'Administrador') {
+      this.getPermisosForAdmin(2);
+    } else {
+      this.getPermisosByIdJefe(this.sessionStorage.getItem('userId') || 0);
+    }
+
+  }
+
+  getPermisosForAdmin(est: number) {
+    this.permisoService.getPermisosForAdmin(est).subscribe((data) => {
+      this.listaPermisos = data;
+    });
+  }
+
+  getPermisosByIdJefe(id: number) {
+    this.permisoService.getPermisosByIdJefe(id).subscribe((data) => {
       this.listaPermisos = data;
     });
   }
@@ -88,5 +103,9 @@ export class AprobarpermisosComponent implements OnInit {
 
   downloadFile(base64Data: string, name: string) {
     decodeBase64PDF(base64Data, name, this.toastr)
+  }
+
+  previewBase64PDF(base64: string, filename: string) {
+    base64PDFpreview(base64, filename)
   }
 }

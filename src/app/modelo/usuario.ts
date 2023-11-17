@@ -20,6 +20,8 @@ export class Usuario {
   foto: string; // Campo para la imagen
   titulo: string;
   regId: Regimen;
+  usuIdLector: number;
+  usuIdJefe?: number;
 
 
   constructor(
@@ -36,7 +38,9 @@ export class Usuario {
     funId?: Funciones,
     foto?: string, // Agregar el campo foto al constructor
     titulo?: string,
-    regId?: Regimen
+    regId?: Regimen,
+    usuIdLector?: number,
+    usuIdJefe?: number
   ) {
     this.usuId = usuId || 0;
     this.usuNombreUsuario = usuNombreUsuario || '';
@@ -52,7 +56,8 @@ export class Usuario {
     this.regId = regId || new Regimen();
     this.foto = foto || ''; // Asignar el valor pasado o null si no se proporciona
     this.titulo = titulo || '';
-    
+    this.usuIdLector = usuIdLector || 0;
+    this.usuIdJefe = usuIdJefe || 0;
+
   }
 }
-

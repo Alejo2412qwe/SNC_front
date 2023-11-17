@@ -1,16 +1,52 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+
 import { entorno } from '../enviroment/entorno';
 import { Asistencia } from '../modelo/asistencia';
+import { SessionStorageService } from './session-storage.service'; // Importa SessionStorageService
 
+@Injectable({
+  providedIn: 'root',
+})
 export class AsistenciaService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private sessionStorage: SessionStorageService) { }
 
-  public saveAsistencia(asistencia: Asistencia): Observable<Asistencia> {
-    return this.http.post<Asistencia>(
-      entorno.urlPublica + '/asistencia/create',
-      asistencia
-    );
+  private url: string = `${entorno.urlPrivada}/asistencia`;
+  private urlPublica: string = `${entorno.urlPublica}`;
+
+  // public saveAsistencia(asistencia: Asistencia): Observable<Asistencia> {
+  //   return this.http.post<Asistencia>(
+  //     entorno.urlPublica + '/asistencia/create',
+  //     asistencia
+  //   );
+  // }
+
+
+  saveAll(asistencias: Asistencia[]): Observable<Asistencia[]> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+
+    return this.http.post<Asistencia[]>(`${this.url}/saveList`, asistencias, {
+      headers,
+    });
+
   }
-  
+
+
+  historialArchivos() {
+
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<any[]>(`${this.url}/historialArchivos`, { headers });
+
+  }
+
 }

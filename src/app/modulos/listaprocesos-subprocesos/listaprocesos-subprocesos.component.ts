@@ -20,10 +20,10 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
     private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.cargarSubprocesos();
+    this.cargarSubprocesos(1, 1);
     this.loadProcesosByEstado(this.estadoActivo);
     this.loadSubprocesosByProcEstado(this.estadoActivo, this.estadoActivo);
   }
@@ -45,8 +45,8 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
 
-  cargarSubprocesos() {
-    this.subprocesosService.getAllSubProcesos().subscribe((data) => {
+  cargarSubprocesos(estProc: number, estSub: number) {
+    this.subprocesosService.getSubprocesosByProcEstado(estProc, estSub).subscribe((data) => {
       this.listaSubprocesos = data;
     });
   }
@@ -124,7 +124,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadProcesosByEstado(this.estadoActivo);
@@ -175,7 +175,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
     this.subprocesosService
       .saveSubprocesos(this.subproceso)
       .subscribe((data) => {
-        this.cargarSubprocesos();
+        this.cargarSubprocesos(1, 1);
         Swal.fire({
           title: '¡Registro Exitoso!',
           text: data.subNombre + ' agregado correctamente',
@@ -187,7 +187,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   openCrearSubproceso(procId: number) {
-    this.cargarSubprocesos();
+    this.cargarSubprocesos(1, 1);
     Swal.fire({
       title: 'Crear Nuevo Subproceso',
       html: '<input id="swal-input1" class="swal2-input" placeholder="Subproceso o Departamento" [(ngModel)]="subproceso.subNombre">',
@@ -273,7 +273,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadSubprocesosByProcEstado(1, 1);

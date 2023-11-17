@@ -22,7 +22,13 @@ html * {
 .col-md-6 {
 
     max-width: 100%;
+    flex: 0 0 110%;
+    padding-left: 1px;
+    padding-right: 1px;
+
 }
+
+
 
 .layoutta {
     width: 100%;
@@ -875,6 +881,7 @@ thead tr:nth-child(1) th {
 }
 
 .tipo {
+    font-size: 14px;
     font-weight: bolder;
     border-left: 1px solid #dcdcdc;
     border-right: 1px solid #dcdcdc;

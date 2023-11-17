@@ -252,7 +252,9 @@
                         <div class="row">
 
                             <div style="width: 100%; margin-top: 20px; margin-bottom: 50px;">
-                                <h1 style="text-align: center; font-weight: bolder; ">Formulario de Registro de Usuario
+                                <h1 style="text-align: center; font-weight: bolder; ">
+                                    {{mode==='edit-user'?'Formulario de Edició de Usuario':
+                                    mode==='edit-profile'?'Editar Mi Perfil':'Formulario de Registro de Usuario'}}
                                 </h1>
                             </div>
 
@@ -454,7 +456,7 @@
                                                 <label for="name" class="name">RÉGIMEN: *</label>
                                                 <select id="regimen" name="regimen" class="input2" style="color: #777;"
                                                     [(ngModel)]="usuario.regId.regId">
-                                                    <option value="0">Seleccione un régime</option>
+                                                    <option value="0">Seleccione un régimen</option>
                                                     <option *ngFor="let regimen of listaregiemen"
                                                         [value]="regimen.regId">
                                                         {{regimen.regNombre }}
@@ -463,8 +465,34 @@
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
+                                                    UNIDAD:</label>
 
-
+                                                <div class="containercheck">
+                                                    <label class="check">
+                                                        <input type="checkbox" id="mostrarJefe"
+                                                            (change)="toggleMostrarJefe()" [checked]="mostrarJefe" />
+                                                        <div class="checkmark"></div>
+                                                    </label>
+                                                    <div *ngIf="mostrarJefe">
+                                                        <select id="jefes" name="jefes" class="input2"
+                                                            style="color: #777;" [(ngModel)]="usuario.usuIdJefe">
+                                                            <option value="0">Seleccione un jefe de unidad
+                                                            </option>
+                                                            <option *ngFor="let jefe of listaJefes"
+                                                                [value]="jefe.usuId">
+                                                                {{ jefe.funId.funNombre+': '+
+                                                                jefe.usuPerId.perNombre
+                                                                +' '+
+                                                                jefe.usuPerId.perApellido}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </section>
                                 </div>
                                 <div class="contentForm">
@@ -516,7 +544,8 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">DESIGNAR ROL: *</label>
                                                 <select id="roles" name="roles" class="input2" style="color: #777;"
-                                                    [(ngModel)]="usuario.rolId.rolId">
+                                                    [(ngModel)]="usuario.rolId.rolId"
+                                                    [disabled]="mode==='edit-profile'">
                                                     <option value="0">Seleccione una Ciudad</option>
                                                     <option *ngFor="let rol of listRoles" [value]="rol.rolId">
                                                         {{ rol.rolNombre }}

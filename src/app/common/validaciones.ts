@@ -146,3 +146,36 @@ export function showMasRegistros() {
     text: 'Este es un valor único, por lo que solo puede editarse',
   });
 }
+
+//Transforma un string en formato: 02/10/2023 7:49:50 a un Date
+export function string_Date(fechaStr: string): Date {
+  const partes = fechaStr.split(' ');
+
+  // Divide la fecha y la hora
+  const fechaPartes = partes[0].split('/');
+  const horaPartes = partes[1].split(':');
+
+  const año = parseInt(fechaPartes[2]);
+  const mes = parseInt(fechaPartes[1]) - 1; // Los meses en JavaScript son de 0 a 11
+  const día = parseInt(fechaPartes[0]);
+  const hora = parseInt(horaPartes[0]);
+  const minuto = parseInt(horaPartes[1]);
+  const segundo = parseInt(horaPartes[2]);
+
+  const fecha = new Date(año, mes, día, hora, minuto, segundo);
+  return fecha
+}
+
+// export function json_Object(jsonData: any) {
+//   // Convert the array of arrays to an array of objects
+//   const headers = jsonData[0];
+//   jsonData = jsonData.slice(1).map((row: any) => {
+//     const obj: any = {};
+//     headers.forEach((header: string, index: number) => {
+//       obj[header] = row[index];
+//     });
+//     return obj;
+//   });
+
+//   console.log(jsonData);
+// }
