@@ -28,14 +28,24 @@
     <div>
         <div class="input-container">
             <label for="name" class="name">COORDINACIÓN / GERENCIA / PROYECTO:</label>
-            <input placeholder="Enter your name" type="text" class="input">
+            <select id="motivo" name="motivo" class="input2" style="color: #777;" [(ngModel)]="usuario.insId.instId">
+                <option value="0">Selecciona una opción:</option>
+                <option *ngFor="let inst of listaInstituciones" [value]="inst.instId">
+                    {{inst.instNombre}}
+                </option>
+            </select>
             <div class="underline"></div>
         </div>
     </div>
     <div>
         <div class="input-container">
-            <label for="name" class="name">DIRECCIÓN O UNIDAD:</label>
-            <input placeholder="Enter your name" type="text" class="input">
+            <label for="name" class="name">DIRECCION O UNIDAD:</label>
+            <select id="motivo" name="motivo" class="input2" style="color: #777;" [(ngModel)]="usuario.procId.procId">
+                <option value="0">Selecciona una opción:</option>
+                <option *ngFor="let proc of listaProcesos" [value]="proc.procId">
+                    {{proc.procNombre}}
+                </option>
+            </select>
             <div class="underline"></div>
         </div>
     </div>
