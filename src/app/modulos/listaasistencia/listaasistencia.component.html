@@ -121,29 +121,32 @@
                                 </div>
                                 <div style="width: 100%; margin-top: 50px;">
                                     <div style="height: 50px; font-weight: bolder;">
-                                        <h2 style="text-align: center;">TABLA DE FUNCIONES</h2>
+                                        <h2 style="text-align: center;">REGISTRO DE ASISTENCIA</h2>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
-                                                    <th class="tipo" scope="col">NUMERO</th>
-                                                    <th class="tipo" scope="col">FECHA</th>
+                                                    <th class="tipo" scope="col">NO REGISTRO</th>
+                                                    <th class="tipo" scope="col">ID LECTOR</th>
+                                                    <th class="tipo" scope="col">FECHA | HORA</th>
                                                     <th class="tipo" scope="col">NOMBRE</th>
-                                                    <th class="tipo" scope="col">A</th>
-                                                    <th class="tipo" scope="col">A</th>
-                                                    <th class="tipo" scope="col">A</th>
+                                                    <th class="tipo" scope="col">DEPARTAMENTO</th>
+                                                    <th class="tipo" scope="col">LOCACION</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
+
 
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
-                                                <tr>
-                                                    <td>A</td>
-                                                    <td>A</td>
-                                                    <td>A</td>
-                                                    <td>A</td>
-                                                    <td>A</td>
-                                                    <td>A</td>
+                                                <tr key={key} *ngFor="let asis of registroAsistencia">
+                                                    <td>{{asis.asisId}}</td>
+                                                    <td>{{asis.asisNoLector}}</td>
+                                                    <td>{{asis.asisNombre}}</td>
+                                                    <td>{{asis.asisFechaHora}}</td>
+                                                    <td>{{asis.asisDpto}}</td>
+                                                    <td>{{asis.asisLocacionId}}</td>
+                                                    <td>{{asis.asisEstado}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
