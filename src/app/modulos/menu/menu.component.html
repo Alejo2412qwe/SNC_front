@@ -37,13 +37,10 @@
                             <div class="col-md-6 ml-auto mr-auto">
                                 <div class="profile">
                                     <div class="avatar">
-                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
+                                        <img [src]="usuario.foto" alt="Circle Image"
                                             class="img-raised rounded-circle img-fluid">
                                     </div>
                                     <div class="name">
-                                        <h3 class="title">{{usuario.usuNombreUsuario}}</h3>
-                                        <h6>{{usuario.rolId.rolNombre}}</h6>
-
                                         <button class="edit-button" style="margin-left: auto; margin-right: auto;"
                                             [routerLink]="['/editar-usuario', usuario.usuId,'edit-profile']">
                                             <svg class="edit-svgIcon" viewBox="0 0 512 512">
@@ -75,10 +72,10 @@
                                     margin-bottom: 40px; 
                                     margin-left: auto;
                                     margin-right: auto;
-                                    margin-top: 10px;"
-                                    >
+                                    margin-top: 10px;">
                                         <tr>
-                                            <td  style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="2em"
                                                     viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <style>
                                                         svg {
@@ -91,11 +88,12 @@
                                             <td>{{usuario.usuPerId.perNombre}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="padding-left: 53px; font-weight:bolder ;" >APELLIDO:</td>
+                                            <td style="padding-left: 53px; font-weight:bolder ;">APELLIDO:</td>
                                             <td>{{usuario.usuPerId.perApellido}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="2em"
                                                     viewBox="0 0 576 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <style>
                                                         svg {
@@ -108,7 +106,8 @@
                                             <td>{{usuario.usuPerId.perCedula}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="1.8em"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="1.8em"
                                                     viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <path
                                                         d="M480 48c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48V96H224V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V96H112V24c0-13.3-10.7-24-24-24S64 10.7 64 24V96H48C21.5 96 0 117.5 0 144v96V464c0 26.5 21.5 48 48 48H304h32 96H592c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48H480V48zm96 320v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM240 416H208c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zM128 400c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM560 256c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32zM256 176v32c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM112 160c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32zM256 304c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM112 320H80c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zm304-48v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM400 64c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h32zm16 112v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16z" />
@@ -118,7 +117,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="2.5em" style="margin-right: 25px;"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="2.5em" style="margin-right: 25px;"
                                                     viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <style>
                                                         svg {
@@ -131,7 +131,8 @@
                                             <td>{{usuario.usuPerId.perDireccion}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="2em"
                                                     viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <style>
                                                         svg {
@@ -144,7 +145,8 @@
                                             <td>{{usuario.usuPerId.perTelefono}}</td>
                                         </tr>
                                         <tr>
-                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg" height="2em"
+                                            <td style="font-weight: bolder;"> <svg xmlns="http://www.w3.org/2000/svg"
+                                                    height="2em"
                                                     viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                                     <style>
                                                         svg {
@@ -198,7 +200,7 @@
                                                 <img src="assets/img/encargo.png" alt="a" width="100%">
                                             </div>
                                             <div class="info">
-                                                <span>REGIMEN</span>
+                                                <span>RÉGIMEN</span>
                                                 <p>{{usuario.regId.regNombre}}</p>
                                             </div>
                                         </div>
@@ -209,8 +211,8 @@
                                                 <img src="assets/img/agil.png" alt="a" width="100%">
                                             </div>
                                             <div class="info">
-                                                <span>PROCESO</span>
-                                                <p>{{usuario.regId.regNombre}}</p>
+                                                <span>ZONA - PROCESO</span>
+                                                <p>{{usuario.procId.procNombre}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +254,7 @@
 
                             </div>
 
-                            <section class="layout3">
+                            <section class="layout4">
 
                                 <div>
                                     <div class="card2" style="margin-left: auto; margin-right: auto;">
@@ -271,19 +273,8 @@
                                             <img src="assets/img/departamento.png" alt="a" width="100%">
                                         </div>
                                         <div class="info">
-                                            <span>INSTITUCIÓN</span>
-                                            <p>{{usuario.insId.instNombre}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="card2" style="margin-left: auto; margin-right: auto;">
-                                        <div class="img">
-                                            <img src="assets/img/archivo.png" alt="a" width="100%">
-                                        </div>
-                                        <div class="info">
-                                            <span>ZONA - PROCESO</span>
-                                            <p>{{usuario.procId.procNombre}}</p>
+                                            <span>ROL</span>
+                                            <p>{{usuario.rolId.rolNombre}}</p>
                                         </div>
                                     </div>
                                 </div>
