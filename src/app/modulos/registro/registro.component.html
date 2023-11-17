@@ -71,7 +71,6 @@
                                     </div>
                                     <section class="layout">
 
-
                                         <div>
                                             <div class="input-container">
                                                 <label for="name" class="name">CÉDULA: *</label>
@@ -156,7 +155,7 @@
                                         </div>
                                     </section>
                                 </div>
-                                <div class="contentForm">
+                                <div class="contentForm" *ngIf="rol ==='Administrador'">
                                     <div style="width: 100%; padding-bottom: 15px;">
 
                                         <h2 style="text-align: center; font-weight: bolder;">Datos Institucionales</h2>
