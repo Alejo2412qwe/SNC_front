@@ -184,7 +184,6 @@
                 <div class="input-container">
                     <label for="dias" class="name">DÍAS:</label>
                     <input placeholder="Días" type="text" class="input" [value]="calcularDiferenciaDias()" readonly>
-                    <div class="underline"></div>
                 </div>
 
             </div>
@@ -192,15 +191,16 @@
                 <div class="input-container">
                     <label for="horas" class="name">HORAS:</label>
                     <input placeholder="Horas" type="text" class="input" [value]="calcularDiferenciaHoras()" readonly>
-                    <div class="underline"></div>
                 </div>
             </div>
 
             <div>
                 <div class="input-container">
                     <label style="font-size: 14px; text-align: justify; color: #556de1; font-weight: bolder;" for="name"
-                        class="name"> Valor a descontar (0) el tiempo solicitado se multiplica por 1,36363636363636
+                        class="name"> Valor a descontar por el tiempo solicitado
                     </label>
+                    <input placeholder="valor a descontar" type="text" class="input"
+                        [value]="calcularResultadoMultiplicado()" readonly>
                 </div>
             </div>
             <div>

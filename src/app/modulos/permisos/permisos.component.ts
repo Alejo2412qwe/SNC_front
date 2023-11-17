@@ -80,11 +80,31 @@ export class PermisosComponent implements OnInit {
     })
   }
 
+  calcularResultadoMultiplicado() {
+    const resultadoDiferenciaDias = this.calcularDiferenciaDias();
+    const resultadoMultiplicado = resultadoDiferenciaDias * 1.36363636363636;
+    return resultadoMultiplicado;
+  }
+
 
   calcularDiferenciaDias() {
     const fechaInicio = new Date(this.permiso.permFechaInicio);
     const fechaFin = new Date(this.permiso.permFechaFin);
-    const diferenciaDias = Math.ceil((fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 60 * 60 * 24));
+
+    let diferenciaDias = 0;
+    let currentDate = new Date(fechaInicio); // Inicializa con una copia de la fecha de inicio
+
+    while (currentDate <= fechaFin) {
+      const dayOfWeek = currentDate.getDay();
+
+      // Si el día no es sábado (6) ni domingo (0), incrementa la diferencia
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        diferenciaDias++;
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1); // Avanza al siguiente día
+    }
+
     return diferenciaDias;
   }
 
