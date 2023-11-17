@@ -32,6 +32,7 @@ import { ListamispermisosComponent } from './modulos/listamispermisos/listamispe
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { DatePipe } from '@angular/common';
+import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { DatePipe } from '@angular/common';
     ListamispermisosComponent,
     AprobarpermisosComponent,
     ListaarchivosComponent,
+    ListaasistenciaComponent,
   ],
   imports: [
     BrowserModule,

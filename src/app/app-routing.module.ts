@@ -17,6 +17,7 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
+import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'listamispermisos', component: ListamispermisosComponent },
   { path: 'aprobarpermisos', component: AprobarpermisosComponent },
   { path: 'listaarchivos', component: ListaarchivosComponent },
+  { path: 'listaasistencia', component: ListaasistenciaComponent },
   { path: '**', redirectTo: 'login' },
 ];
 
