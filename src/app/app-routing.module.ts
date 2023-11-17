@@ -18,6 +18,7 @@ import { ListamispermisosComponent } from './modulos/listamispermisos/listamispe
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
+import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'aprobarpermisos', component: AprobarpermisosComponent },
   { path: 'listaarchivos', component: ListaarchivosComponent },
   { path: 'listaasistencia', component: ListaasistenciaComponent },
+  { path: 'listazonales', component: ListazonalesComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

@@ -35,6 +35,8 @@ import Swal from 'sweetalert2';
 import { base64ToFile } from '../../common/base64';
 import { Regimen } from 'src/app/modelo/regimen';
 import { RegimenService } from 'src/app/services/regimen.service';
+import { Zonales } from 'src/app/modelo/zonales';
+import { ZonalService } from 'src/app/services/zonal.service';
 
 @Component({
   selector: 'app-registro',
@@ -58,6 +60,7 @@ export class RegistroComponent implements OnInit {
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
     private regimenService: RegimenService,
+    private zonalesService: ZonalService,
     private sessionStorage: SessionStorageService,
   ) { }
 
@@ -74,6 +77,7 @@ export class RegistroComponent implements OnInit {
   procesoSelected: Procesos = new Procesos();
   tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
   funcion: Funciones = new Funciones();
+  zonal: Zonales = new Zonales();
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
 
@@ -100,6 +104,7 @@ export class RegistroComponent implements OnInit {
   uploadedFiles: File[] = [];
   listaregiemen: Regimen[] = [];
   listaJefes: Usuario[] = [];
+  listaZonales: Zonales[] = [];
   // imagenSeleccionada: File | null = null;
 
 
@@ -115,6 +120,7 @@ export class RegistroComponent implements OnInit {
     this.cargarFunciones();
     this.cargarJefes(5);
     this.validateMode();
+    this.cargarZonales(1);
   }
 
   toggleMostrarJefe() {
@@ -252,6 +258,12 @@ export class RegistroComponent implements OnInit {
   cargarRegimen() {
     this.regimenService.getAllRegimen().subscribe((data) => {
       this.listaregiemen = data;
+    });
+  }
+
+  cargarZonales(est: number) {
+    this.zonalesService.getZonalesByEstado(est).subscribe((data) => {
+      this.listaZonales = data;
     });
   }
 
