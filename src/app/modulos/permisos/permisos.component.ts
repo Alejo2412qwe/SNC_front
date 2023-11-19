@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Institucion } from 'src/app/modelo/Institucion';
 import { MotivoPermiso } from 'src/app/modelo/MotivoPermiso';
 import { Permisos } from 'src/app/modelo/permisos';
+import { Procesos } from 'src/app/modelo/procesos';
 import { Provincia } from 'src/app/modelo/provincia';
+import { Subprocesos } from 'src/app/modelo/subprocesos';
+import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { TipoFormulario } from 'src/app/modelo/tipoformulario';
 import { TipoPermiso } from 'src/app/modelo/tipopermiso';
 import { Usuario } from 'src/app/modelo/usuario';
+import { InstitucionService } from 'src/app/services/institucion.service';
 import { MotivoPermisoService } from 'src/app/services/motivopermiso.service';
 import { PermisoService } from 'src/app/services/permiso.service';
+import { ProcesosService } from 'src/app/services/procesos.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { SubprocesosService } from 'src/app/services/subprocesos.service';
+import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { TipoFormularioService } from 'src/app/services/tipoformulario.service';
 import { TipoPermisoService } from 'src/app/services/tipopermiso.service';
 import Swal from 'sweetalert2';
@@ -26,7 +34,11 @@ export class PermisosComponent implements OnInit {
     private motivoService: MotivoPermisoService,
     private tipopermisoService: TipoPermisoService,
     private permisoService: PermisoService,
-    private tipoformularioService: TipoFormularioService
+    private tipoformularioService: TipoFormularioService,
+    private institucionService: InstitucionService,
+    private tipInstitucionService: tipoInstitucionService,
+    private subprocesosService: SubprocesosService,
+    private procesoService: ProcesosService,
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +46,11 @@ export class PermisosComponent implements OnInit {
     this.cargarMotivos();
     this.cargarTipoPermiso();
     this.cargarTipoFormulario();
+    this.cargarInstitucionesByEstado(1);
+    this.loadTipoInstitucionByEstado(1);
+    this.cargarSubprocesos(1, 1);
+    this.loadProcesosByEstado(1);
+    this.loadSubprocesosByProcEstado(1, 1);
   }
 
   username = this.sessionStorage.getItem('username');
@@ -55,10 +72,51 @@ export class PermisosComponent implements OnInit {
   listamotivos: MotivoPermiso[] = [];
   listatipopermisos: TipoPermiso[] = [];
   listatipoformulario: TipoFormulario[] = [];
+    //LISTAS
+    listaInstituciones: Institucion[] = [];
+    listaTipoInstituciones: TipoInstitucion[] = [];
+      //LISTAS
+  listaProcesos: Procesos[] = [];
+  listaSubprocesos: Subprocesos[] = [];
+  
+
+  cargarSubprocesos(estProc: number, estSub: number) {
+    this.subprocesosService.getSubprocesosByProcEstado(estProc, estSub).subscribe((data) => {
+      this.listaSubprocesos = data;
+    });
+  }
+
+    loadProcesosByEstado(est: number) {
+      this.procesoService.getProcesosByEstado(est).subscribe((response) => {
+        this.listaProcesos = response; // Asigna los datos al array provincias
+      });
+    }
+
+    loadSubprocesosByProcEstado(estproc: number, estsub: number) {
+      this.subprocesosService
+        .getSubprocesosByProcEstado(estproc, estsub)
+        .subscribe((response) => {
+          this.listaSubprocesos = response; // Asigna los datos al array provincias
+        });
+    }
 
   cargarTipoFormulario() {
     this.tipoformularioService.getAllTipoFormulario().subscribe((data) => {
       this.listatipoformulario = data;
+    });
+  }
+
+  loadTipoInstitucionByEstado(est: number) {
+    this.tipInstitucionService
+      .getTipoInstitucionByEstado(est)
+      .subscribe((response) => {
+        this.listaTipoInstituciones = response; // Asigna los datos al array provincias
+      });
+  }
+
+  cargarInstitucionesByEstado(est: number) {
+    this.institucionService.getInstitucionesByEstado(est).subscribe((data) => {
+      this.listaInstituciones = data;
     });
   }
 

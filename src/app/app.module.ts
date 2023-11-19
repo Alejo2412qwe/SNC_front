@@ -34,6 +34,7 @@ import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermi
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { DatePipe } from '@angular/common';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
+import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 
 
 
@@ -65,6 +66,7 @@ import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasisten
     AprobarpermisosComponent,
     ListaarchivosComponent,
     ListaasistenciaComponent,
+    ListazonalesComponent,
   ],
   imports: [
     BrowserModule,

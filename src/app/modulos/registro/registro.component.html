@@ -466,6 +466,20 @@
                                         </div>
                                         <div>
                                             <div class="input-container">
+                                                <label for="name" class="name">ZONAL: *</label>
+                                                <select id="zonal" name="zonal" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.zonId.zonId">
+                                                    <option value="0">Seleccione la zonal</option>
+                                                    <option *ngFor="let zonal of listaZonales" [value]="zonal.zonId">
+                                                        {{zonal.zonNombre }}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+                                        <div></div>
+                                        <div>
+                                            <div class="input-container">
                                                 <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
                                                     UNIDAD:</label>
 
@@ -536,6 +550,16 @@
                                                 <label for="name" class="name">CONFIRMAR CONTRASEÑA: *</label>
                                                 <input placeholder="Repita la contraseña" type="password" class="input2"
                                                     name="confirmarPass" [(ngModel)]="confirmarPass">
+                                                <div class="underline"></div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="idLector" class="idLector">IDENTIFICADOR ÚNICO (ID) A USAR
+                                                    EN EL LECTOR: *</label>
+                                                <input placeholder="Ingrese el id del lector" type="text" class="input2"
+                                                    name="usuIdLector" [(ngModel)]="usuario.usuIdLector">
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
