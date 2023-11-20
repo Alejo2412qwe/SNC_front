@@ -163,33 +163,7 @@ export class HorariosComponent implements OnInit {
         this.nuevoHorario.horHoraAlmuerzoFin = selectHoraAlmuerzoFin.value;
   
         this.agregarHorario();
-        this.loadHorariosByEstado(this.estadoActivo);*/
-        const inputNumHoras = document.querySelector('input[name="horNumHoras"]') as HTMLInputElement;
-        const selectHoraIngreso = document.querySelector('select[name="horHoraIngreso"]') as HTMLSelectElement;
-        const selectHoraSalida = document.querySelector('select[name="horHoraSalida"]') as HTMLSelectElement;
-        const selectHoraAlmuerzoInicio = document.querySelector('select[name="horHoraAlmuerzoInicio"]') as HTMLSelectElement;
-        const selectHoraAlmuerzoFin = document.querySelector('select[name="horHoraAlmuerzoFin"]') as HTMLSelectElement;
-
-        // Realizar las validaciones
-        if (!inputNumHoras.value || inputNumHoras.value.trim() === '' || inputNumHoras.value === '0') {
-          Swal.showValidationMessage('Ingresa un número de horas válido.');
-          return;
-        }
-
-        const validateSelect = (select: HTMLSelectElement, label: string) => {
-          if (select.value === '0:00') {
-            Swal.showValidationMessage(`Selecciona una hora válida para ${label}.`);
-            return false;
-          }
-          return true;
-        };
-
-        if (!validateSelect(selectHoraIngreso, 'Hora de Ingreso') ||
-          !validateSelect(selectHoraSalida, 'Hora de Salida') ||
-          !validateSelect(selectHoraAlmuerzoInicio, 'Hora de Inicio de Almuerzo') ||
-          !validateSelect(selectHoraAlmuerzoFin, 'Hora de Fin de Almuerzo')) {
-          return;
-        }
+        this.loadHorariosByEstado(this.estadoActivo);
 
         // Si todas las validaciones pasan, procede con la lógica de agregar horario
         this.nuevoHorario.horNumHoras = inputNumHoras.value;
