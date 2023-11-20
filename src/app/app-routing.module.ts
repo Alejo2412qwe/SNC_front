@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './modulos/menu/menu.component';
 import { LoginComponent } from './modulos/login/login.component';
@@ -38,7 +38,6 @@ const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
   {path: 'Horarios', component: HorariosComponent} ,
-  { path: 'listamotivo', component: ListamotivopermisoComponent },
   { path: 'listatipopermiso', component: ListatipopermisosComponent },
   { path: 'listatipoformulario', component: ListatipoformularioComponent },
   { path: 'listavalor', component: ListavalorhoraComponent },
