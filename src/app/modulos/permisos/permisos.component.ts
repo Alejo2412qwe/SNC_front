@@ -77,7 +77,7 @@ export class PermisosComponent implements OnInit {
   listamotivos: MotivoPermiso[] = [];
   listatipopermisos: TipoPermiso[] = [];
   listatipoformulario: TipoFormulario[] = [];
- 
+
   //LISTAS
   listaInstituciones: Institucion[] = [];
   listaTipoInstituciones: TipoInstitucion[] = [];
@@ -194,28 +194,44 @@ export class PermisosComponent implements OnInit {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
     this.vacaciones.usuId.usuId = this.permiso.usuId.usuId;
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
-
-      this.fechaPermiso = new Date(this.permiso.permFechaInicio);
-      this.vacaciones.vacFecha = this.fechaPermiso;
-      this.vacaciones.vacDetalle = this.permiso.permObservacion;
-      this.vacaciones.vacDias = this.calcularDiferenciaDias();
-      this.vacaciones.vacHoras = this.calcularDiferenciaHoras();
-      console.log(this.vacaciones.vacDetalle + ' ' + this.vacaciones.vacDias + ' ' + this.vacaciones.vacHoras+' '+this.vacaciones.vacFecha)
-      this.vacacionesService.agregarVacaciones(this.vacaciones).subscribe((response) => {
-      })
-      Swal.fire({
-        title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
-        text: 'Recuerde descargar su archivo desde sus permisos',
-        icon: 'success',
-        confirmButtonText: 'Confirmar',
-        showCancelButton: false,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setTimeout(() => {
-            location.reload();
-          }, 400);
-        }
-      });
+      if (this.permiso.motId.motId == 7 ||
+        this.permiso.motId.motId == 8 ||
+        this.permiso.motId.motId == 10) {
+        this.fechaPermiso = new Date(this.permiso.permFechaInicio);
+        this.vacaciones.vacFecha = this.fechaPermiso;
+        this.vacaciones.vacDetalle = this.permiso.permObservacion;
+        this.vacaciones.vacDias = this.calcularDiferenciaDias();
+        this.vacaciones.vacHoras = this.calcularDiferenciaHoras();
+        this.vacacionesService.agregarVacaciones(this.permiso.usuId.usuId, this.vacaciones).subscribe((response) => {
+        })
+        Swal.fire({
+          title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
+          text: 'Recuerde descargar su archivo desde sus permisos',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setTimeout(() => {
+              location.reload();
+            }, 400);
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
+          text: 'Recuerde descargar su archivo desde sus permisos',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setTimeout(() => {
+              location.reload();
+            }, 400);
+          }
+        });
+      }
     });
   }
 }

@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="Btn3" (click)="loadVacacionesByEstado(1)">Refrescar Tabla
+                        <button class="Btn3" (click)="getVacacionesByUsuId(idUsuario)">Refrescar Tabla
                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -95,7 +95,8 @@
                                 <tr class="text-center" style="background-color: aquamarine;">
                                     <th class="tipo" scope="col">ID</th>
                                     <th class="tipo" scope="col">DETALLE</th>
-                                    <th class="tipo" scope="col">FECHA</th>
+                                    <th class="tipo" scope="col">EMISOR</th>
+                                    <th class="tipo" scope="col">FECHA DE INICO DE VACACiÓN</th>
                                     <th class="tipo" scope="col">DIAS</th>
                                     <th class="tipo" scope="col">HORAS</th>
                                     <th class="tipo" scope="col">MINUTOS</th>
@@ -107,10 +108,12 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center tableBody">
-                                <tr key={key} *ngFor="let vac of vacaciones">
+                                <tr key={key} *ngFor="let vac of listaVacaciones">
                                     <td class="tdTbl">{{vac.vacId}}</td>
                                     <td class="tdTbl">{{vac.vacDetalle}}</td>
-                                    <td class="tdTbl">{{vac.vacFecha}}</td>
+                                    <td class="tdTbl">{{vac.usuId.usuPerId.perNombre+'
+                                        '+vac.usuId.usuPerId.perApellido}}</td>
+                                    <td class="tdTbl">{{vac.vacFecha | date:'dd-MM-yyyy'}}</td>
                                     <td class="tdTbl">{{vac.vacDias}}</td>
                                     <td class="tdTbl">{{vac.vacHoras}}</td>
                                     <td class="tdTbl">{{vac.vacMinutos}}</td>

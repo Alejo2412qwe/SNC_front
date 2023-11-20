@@ -3,17 +3,17 @@ import { Usuario } from "./usuario";
 
 export class Vacaciones {
     vacId: number;
-    vacDetalle?: string;
-    vacDias?: number;
-    vacHoras?: number;
-    vacMinutos?: number;
-    vacSaldo?: number;
-    vacDiasGanados?: number;
-    vacNoGozadas?: number;
-    vacTotalenDias?: number;
-    vacFecha?: Date;
-    vacFechaHoy?: Date;
-    vacEstado?: number;
+    vacDetalle: string;
+    vacDias: number;
+    vacHoras: number;
+    vacMinutos: number;
+    vacSaldo: number;
+    vacDiasGanados: number;
+    vacNoGozadas: number;
+    vacTotalenDias: number;
+    vacFecha: Date;
+    vacFechaHoy: Date;
+    vacEstado: number;
 
     vacDiasAnticipacion?: number;
     vacDiasCaducados?: number;
