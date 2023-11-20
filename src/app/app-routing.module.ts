@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MenuComponent } from './modulos/menu/menu.component';
 import { LoginComponent } from './modulos/login/login.component';
@@ -25,9 +25,6 @@ import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.co
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 
-
-
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'perfil', component: MenuComponent },
@@ -41,8 +38,7 @@ const routes: Routes = [
   { path: 'repvacaciones', component: VacacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
-  {path: 'Horarios', component: HorariosComponent} ,
-  { path: 'listamotivo', component: ListamotivopermisoComponent },
+  { path: 'Horarios', component: HorariosComponent} ,
   { path: 'listatipopermiso', component: ListatipopermisosComponent },
   { path: 'listatipoformulario', component: ListatipoformularioComponent },
   { path: 'listavalor', component: ListavalorhoraComponent },

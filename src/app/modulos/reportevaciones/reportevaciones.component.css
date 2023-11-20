@@ -1087,3 +1087,7 @@ td::-webkit-scrollbar-track {
   display: flex;
   justify-content: flex-end;
 }
+
+.fileUpload {
+  min-width: 200px;
+}
