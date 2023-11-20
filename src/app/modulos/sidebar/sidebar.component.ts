@@ -21,9 +21,8 @@ export class SidebarComponent implements OnInit {
 
 
   mostrarOpciones() {
-    const elementosAdmin = ['personal', 'verper', 'valor', 'otrasfun',
-      'ingresarasistencia', 'aprobarpermisos', 'tipopermiso', 'tipoformulario', 'procesos',
-      'ingresarpro', 'Instituciones', 'ingresarinst', 'funciones', 'ingresarfun', 'zonales', 'verzonales', 'horarios'];
+    const elementosAdmin = ['personal', 'verper', 'valor', 'otrasfun', 'aprobarpermisos', 'tipopermiso', 'tipoformulario', 'procesos',
+      'ingresarpro', 'Instituciones', 'ingresarinst', 'funciones', 'ingresarfun', 'zonales', 'verzonales', 'horarios', 'periodo'];
 
     const rolAdmin = ['Administrador'];
     const rolJefeUnidad = ['Jefe de Unidad'];

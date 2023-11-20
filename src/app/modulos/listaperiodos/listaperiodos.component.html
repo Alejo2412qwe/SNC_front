@@ -141,7 +141,7 @@
                                                     <th class="tipo" scope="col">ID PERIODO</th>
                                                     <th class="tipo" scope="col">PERIODO ANTERIOR</th>
                                                     <th class="tipo" scope="col">PERIODO ACTUAL</th>
-                                                    <th class="tipo" scope="col">Dias Anticipacion</th>
+                                                    <th class="tipo" scope="col">DÍAS DE ANTICIPACIÓN</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
@@ -149,8 +149,8 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key=key *ngFor="let pro of listaPeriodos">
                                                     <td>{{pro.periId}}</td>
-                                                    <td>{{ pro.periAnterior }}</td>
-                                                    <td>{{ pro.periActual }}</td>
+                                                    <td>{{ pro.periAnterior | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{ pro.periActual | date:'dd-MM-yyyy'}}</td>
                                                     <td>{{ pro.diasAnticipacion }}</td>
                                                     <td>
                                                         <button role="button" class="button-name"

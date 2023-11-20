@@ -154,16 +154,6 @@ export class HorariosComponent implements OnInit {
             !validateSelect(selectHoraAlmuerzoFin, 'Hora de Fin de Almuerzo')) {
           return;
         }
-  
-        // Si todas las validaciones pasan, procede con la lógica de agregar horario
-        this.nuevoHorario.horNumHoras = inputNumHoras.value;
-        this.nuevoHorario.horHoraIngreso = selectHoraIngreso.value;
-        this.nuevoHorario.horHoraSalida = selectHoraSalida.value;
-        this.nuevoHorario.horHoraAlmuerzoInicio = selectHoraAlmuerzoInicio.value;
-        this.nuevoHorario.horHoraAlmuerzoFin = selectHoraAlmuerzoFin.value;
-  
-        this.agregarHorario();
-        this.loadHorariosByEstado(this.estadoActivo);
 
         // Si todas las validaciones pasan, procede con la lógica de agregar horario
         this.nuevoHorario.horNumHoras = inputNumHoras.value;
