@@ -47,16 +47,6 @@
                                                 </svg>
                                             </button></div>
                                     </div>
-                                    <div class="avatar">
-                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
-                                            class="img-raised rounded-circle img-fluid">
-                                    </div>
-
-                                    <div class="name">
-                                        <h3 class="title">Usuario: {{username}}</h3>
-                                        <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                        <h6>Rol: {{rol}}</h6>
-                                    </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
                                     <div>
@@ -162,12 +152,12 @@
                                                     <td>{{ pro.periAnterior }}</td>
                                                     <td>{{ pro.periActual }}</td>
                                                     <td>{{ pro.diasAnticipacion }}</td>
-                                                   <td>
-                                           <button role="button" class="button-name"
-                                             (click)="openUpdatePeriodos(pro.periAnterior, pro.periActual, pro.periId)">
-                                             Editar
-                                            </button>
-                                            </td>
+                                                    <td>
+                                                        <button role="button" class="button-name"
+                                                            (click)="openUpdatePeriodos(pro.periAnterior, pro.periActual, pro.periId)">
+                                                            Editar
+                                                        </button>
+                                                    </td>
                                                     <td><button role="button" class="button-name2"
                                                             (click)="updateEstPeriodos(pro.periId,0)">Eliminar</button>
                                                     </td>
