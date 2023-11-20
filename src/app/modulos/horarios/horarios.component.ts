@@ -72,7 +72,6 @@ export class HorariosComponent implements OnInit {
   openCrearHorario() {
     const horasDelDia = Array.from({ length: 24 }, (_, i) => i);
     const minutos = ['00', '15', '30', '45'];
-
     const opcionesCombo = horasDelDia.map(hora =>
       minutos.map(minuto => `<option value="${hora}:${minuto}">${hora}:${minuto}</option>`).join('')
     ).join('');
@@ -128,21 +127,39 @@ export class HorariosComponent implements OnInit {
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        // Obtener los valores de los selectores
-        /*
+
         const inputNumHoras = document.querySelector('input[name="horNumHoras"]') as HTMLInputElement;
-        this.nuevoHorario.horNumHoras = inputNumHoras.value;
-  
         const selectHoraIngreso = document.querySelector('select[name="horHoraIngreso"]') as HTMLSelectElement;
-        this.nuevoHorario.horHoraIngreso = selectHoraIngreso.value;
-  
         const selectHoraSalida = document.querySelector('select[name="horHoraSalida"]') as HTMLSelectElement;
-        this.nuevoHorario.horHoraSalida = selectHoraSalida.value;
-  
         const selectHoraAlmuerzoInicio = document.querySelector('select[name="horHoraAlmuerzoInicio"]') as HTMLSelectElement;
-        this.nuevoHorario.horHoraAlmuerzoInicio = selectHoraAlmuerzoInicio.value;
-  
         const selectHoraAlmuerzoFin = document.querySelector('select[name="horHoraAlmuerzoFin"]') as HTMLSelectElement;
+  
+        // Realizar las validaciones
+        if (!inputNumHoras.value || inputNumHoras.value.trim() === '' || inputNumHoras.value === '0') {
+          Swal.showValidationMessage('Ingresa un número de horas válido.');
+          return;
+        }
+  
+        const validateSelect = (select: HTMLSelectElement, label: string) => {
+          if (select.value === '0:00') {
+            Swal.showValidationMessage(`Selecciona una hora válida para ${label}.`);
+            return false;
+          }
+          return true;
+        };
+  
+        if (!validateSelect(selectHoraIngreso, 'Hora de Ingreso') ||
+            !validateSelect(selectHoraSalida, 'Hora de Salida') ||
+            !validateSelect(selectHoraAlmuerzoInicio, 'Hora de Inicio de Almuerzo') ||
+            !validateSelect(selectHoraAlmuerzoFin, 'Hora de Fin de Almuerzo')) {
+          return;
+        }
+  
+        // Si todas las validaciones pasan, procede con la lógica de agregar horario
+        this.nuevoHorario.horNumHoras = inputNumHoras.value;
+        this.nuevoHorario.horHoraIngreso = selectHoraIngreso.value;
+        this.nuevoHorario.horHoraSalida = selectHoraSalida.value;
+        this.nuevoHorario.horHoraAlmuerzoInicio = selectHoraAlmuerzoInicio.value;
         this.nuevoHorario.horHoraAlmuerzoFin = selectHoraAlmuerzoFin.value;
   
         this.agregarHorario();
@@ -186,6 +203,8 @@ export class HorariosComponent implements OnInit {
       },
     });
   }
+  
+  
 
 
 
@@ -205,7 +224,6 @@ export class HorariosComponent implements OnInit {
   openUpdateProceso(nombre: string, id: number) {
     const horasDelDia = Array.from({ length: 24 }, (_, i) => i);
     const minutos = ['00', '15', '30', '45'];
-
     const opcionesCombo = horasDelDia.map(hora =>
       minutos.map(minuto => `<option value="${hora}:${minuto}">${hora}:${minuto}</option>`).join('')
     ).join('');
@@ -281,7 +299,7 @@ export class HorariosComponent implements OnInit {
           }
           return true;
         };
-
+        
         if (!validateSelect(selectHoraIngreso, 'Hora de Ingreso') ||
           !validateSelect(selectHoraSalida, 'Hora de Salida') ||
           !validateSelect(selectHoraAlmuerzoInicio, 'Hora de Inicio de Almuerzo') ||
@@ -295,7 +313,6 @@ export class HorariosComponent implements OnInit {
         this.nuevoHorario.horHoraSalida = selectHoraSalida.value;
         this.nuevoHorario.horHoraAlmuerzoInicio = selectHoraAlmuerzoInicio.value;
         this.nuevoHorario.horHoraAlmuerzoFin = selectHoraAlmuerzoFin.value;
-
         this.actualizarHorario(id);
         this.loadHorariosByEstado(this.estadoActivo);
       },
@@ -321,6 +338,7 @@ export class HorariosComponent implements OnInit {
       this.horarios = horarios;
     });
   }
+  
 
   loadHorariosByEstado(est: number) {
     this.horarioService.getHorariosByEstado(est).subscribe((response) => {

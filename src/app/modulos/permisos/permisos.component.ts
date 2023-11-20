@@ -77,7 +77,8 @@ export class PermisosComponent implements OnInit {
   listamotivos: MotivoPermiso[] = [];
   listatipopermisos: TipoPermiso[] = [];
   listatipoformulario: TipoFormulario[] = [];
-
+ 
+  //LISTAS
   listaInstituciones: Institucion[] = [];
   listaTipoInstituciones: TipoInstitucion[] = [];
   listaProcesos: Procesos[] = [];
