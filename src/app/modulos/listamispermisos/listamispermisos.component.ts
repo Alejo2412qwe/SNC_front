@@ -22,11 +22,12 @@ export class ListamispermisosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPermisosByUsuId(this.sessionStorage.getItem('userId') || 0);
+    this.getPermisosByUsuId(this.idUsuario);
   }
 
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
+  idUsuario: number = this.sessionStorage.getItem('userId') || 0;
 
   //OBJETOS
   permisos: Permisos = new Permisos();
