@@ -67,20 +67,20 @@ export class PermisosComponent implements OnInit {
   tipoformulario: TipoFormulario = new TipoFormulario();
   motivopermiso: MotivoPermiso = new MotivoPermiso();
   vacaciones: Vacaciones = new Vacaciones();
+  fechaPermiso = new Date();
 
   cedula: string = '';
 
-
+  //LISTAS
   listausuario: Usuario[] = [];
   listProvincias: Provincia[] = [];
   listamotivos: MotivoPermiso[] = [];
   listatipopermisos: TipoPermiso[] = [];
   listatipoformulario: TipoFormulario[] = [];
-  
+ 
   //LISTAS
   listaInstituciones: Institucion[] = [];
   listaTipoInstituciones: TipoInstitucion[] = [];
-  //LISTAS
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
 
@@ -194,10 +194,13 @@ export class PermisosComponent implements OnInit {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
     this.vacaciones.usuId.usuId = this.permiso.usuId.usuId;
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
+
+      this.fechaPermiso = new Date(this.permiso.permFechaInicio);
+      this.vacaciones.vacFecha = this.fechaPermiso;
       this.vacaciones.vacDetalle = this.permiso.permObservacion;
       this.vacaciones.vacDias = this.calcularDiferenciaDias();
       this.vacaciones.vacHoras = this.calcularDiferenciaHoras();
-      console.log(this.vacaciones.vacDetalle + ' ' + this.vacaciones.vacDias + ' ' + this.vacaciones.vacHoras)
+      console.log(this.vacaciones.vacDetalle + ' ' + this.vacaciones.vacDias + ' ' + this.vacaciones.vacHoras+' '+this.vacaciones.vacFecha)
       this.vacacionesService.agregarVacaciones(this.vacaciones).subscribe((response) => {
       })
       Swal.fire({
