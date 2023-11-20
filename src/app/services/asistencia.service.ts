@@ -16,13 +16,15 @@ export class AsistenciaService {
   private url: string = `${entorno.urlPrivada}/asistencia`;
   private urlPublica: string = `${entorno.urlPublica}`;
 
-  // public saveAsistencia(asistencia: Asistencia): Observable<Asistencia> {
-  //   return this.http.post<Asistencia>(
-  //     entorno.urlPublica + '/asistencia/create',
-  //     asistencia
-  //   );
-  // }
+  getAllAsistencia() {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+    // alert("GESTION= " + this.sessionStorage.getItem('token'))
 
+    return this.http.get<Asistencia[]>(`${this.url}/read`, { headers });
+
+  }
 
   saveAll(asistencias: Asistencia[]): Observable<Asistencia[]> {
     const headers = new HttpHeaders({

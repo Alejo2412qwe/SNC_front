@@ -35,6 +35,8 @@ import Swal from 'sweetalert2';
 import { base64ToFile } from '../../common/base64';
 import { Regimen } from 'src/app/modelo/regimen';
 import { RegimenService } from 'src/app/services/regimen.service';
+import { Zonales } from 'src/app/modelo/zonales';
+import { ZonalService } from 'src/app/services/zonal.service';
 
 @Component({
   selector: 'app-registro',
@@ -58,6 +60,7 @@ export class RegistroComponent implements OnInit {
     private funcionService: FuncionesService,
     private activatedRoute: ActivatedRoute,
     private regimenService: RegimenService,
+    private zonalesService: ZonalService,
     private sessionStorage: SessionStorageService,
   ) { }
 
@@ -74,6 +77,7 @@ export class RegistroComponent implements OnInit {
   procesoSelected: Procesos = new Procesos();
   tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
   funcion: Funciones = new Funciones();
+  zonal: Zonales = new Zonales();
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
 
@@ -100,18 +104,23 @@ export class RegistroComponent implements OnInit {
   uploadedFiles: File[] = [];
   listaregiemen: Regimen[] = [];
   listaJefes: Usuario[] = [];
+  listaZonales: Zonales[] = [];
   // imagenSeleccionada: File | null = null;
 
+
+  userId: number = 0
+  mode: string = ''
 
   ngOnInit(): void {
     this.cargarRegimen();
     this.cargarRoles();
     this.cargarProvincias();
     this.cargarProcesos();
-    this.validateMode();
     this.cargarTipoInstitucion();
     this.cargarFunciones();
     this.cargarJefes(5);
+    this.validateMode();
+    this.cargarZonales(1);
   }
 
   toggleMostrarJefe() {
@@ -164,13 +173,31 @@ export class RegistroComponent implements OnInit {
 
   validateMode() {
     this.activatedRoute.params.subscribe((params) => {
-      const userId = params['id'];
 
-      if (userId !== undefined) {
-        this.editeMode = true;
-        this.loadEdit(userId);
-      } else {
+      this.mode = params['mode'];
+
+      switch (this.mode) {
+
+        case "edit-user":
+          this.userId = params['id'];
+
+          if (this.userId !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.userId);
+          }
+          break;
+        case "edit-profile":
+          this.userId = params['id'];
+
+          if (this.userId !== undefined) {
+            this.editeMode = true;
+            this.loadEdit(this.userId);
+          }
+          break;
+        default:
+          console.log("Opción no reconocida");
       }
+
     });
   }
 
@@ -234,9 +261,9 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  cargarInstituciones() {
-    this.institucionService.getAllInstituciones().subscribe((data) => {
-      this.listaInstituciones = data;
+  cargarZonales(est: number) {
+    this.zonalesService.getZonalesByEstado(est).subscribe((data) => {
+      this.listaZonales = data;
     });
   }
 
@@ -318,7 +345,6 @@ export class RegistroComponent implements OnInit {
 
                   // REGISTRAR USUARIO
                   this.usuarioService.registrarUsuario(this.usuario).subscribe((response) => {
-                    console.log(this.usuario.usuIdJefe)
                     Swal.fire({
                       title: '¡Registro Exitoso!',
                       text: this.usuario.rolId.rolNombre + ' agregado correctamente',
@@ -375,7 +401,21 @@ export class RegistroComponent implements OnInit {
                   showCancelButton: false, // No mostrar el botón de cancelar
                 }).then(() => {
                   this.limpiarRegistro();
-                  this.router.navigate(['/listausu']);
+                  switch (this.mode) {
+
+                    case "edit-user":
+                      this.router.navigate(['/listausu']);
+
+                      break;
+                    case "edit-profile":
+
+                      this.router.navigate(['/perfil']);
+
+                      break;
+                    default:
+                      this.router.navigate(['/perfil']);
+                  }
+
                 });
               });
           });

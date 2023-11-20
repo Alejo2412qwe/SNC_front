@@ -20,9 +20,8 @@ import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component'; 
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component'; 
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
-import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
-
-
+import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
+import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 
 
 const routes: Routes = [
@@ -30,7 +29,7 @@ const routes: Routes = [
   { path: 'perfil', component: MenuComponent },
   { path: 'asistencia', component: AsistenciaComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'editar-usuario/:id', component: RegistroComponent },
+  { path: 'editar-usuario/:id/:mode', component: RegistroComponent },
   { path: 'gestion', component: GestionComponent },
   { path: 'listausu', component: ListausuariosComponent },
   { path: 'listasub-procesos', component: ListaprocesosSubprocesosComponent },
@@ -47,6 +46,8 @@ const routes: Routes = [
   { path: 'listamispermisos', component: ListamispermisosComponent },
   { path: 'aprobarpermisos', component: AprobarpermisosComponent },
   { path: 'listaarchivos', component: ListaarchivosComponent },
+  { path: 'listaasistencia', component: ListaasistenciaComponent },
+  { path: 'listazonales', component: ListazonalesComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

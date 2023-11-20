@@ -4,6 +4,7 @@ import { Persona } from "./persona";
 import { Procesos } from "./procesos";
 import { Regimen } from "./regimen";
 import { Rol } from "./rol";
+import { Zonales } from "./zonales";
 
 export class Usuario {
   usuId: number;
@@ -20,6 +21,7 @@ export class Usuario {
   foto: string; // Campo para la imagen
   titulo: string;
   regId: Regimen;
+  zonId: Zonales;
   usuIdLector: number;
   usuIdJefe?: number;
 
@@ -39,6 +41,7 @@ export class Usuario {
     foto?: string, // Agregar el campo foto al constructor
     titulo?: string,
     regId?: Regimen,
+    zonId?: Zonales,
     usuIdLector?: number,
     usuIdJefe?: number
   ) {
@@ -54,6 +57,7 @@ export class Usuario {
     this.procId = procId || new Procesos();
     this.funId = funId || new Funciones();
     this.regId = regId || new Regimen();
+    this.zonId = zonId || new Zonales();
     this.foto = foto || ''; // Asignar el valor pasado o null si no se proporciona
     this.titulo = titulo || '';
     this.usuIdLector = usuIdLector || 0;

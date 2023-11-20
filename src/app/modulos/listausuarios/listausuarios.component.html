@@ -200,6 +200,7 @@
                                                     <th class="tipo" scope="col">PROCESO</th>
                                                     <th class="tipo" scope="col">FUNCIÓN</th>
                                                     <th class="tipo" scope="col">RÉGIMEN</th>
+                                                    <th class="tipo" scope="col">ZONAL A LA QUE PERTENECE</th>
                                                     <th class="tipo" scope="col">ROL QUE CUMPLE</th>
                                                     <th class="tipo" scope="col">ID USADO EN LECTOR</th>
                                                     <th class="tipo" scope="col">FECHA DE REGISTRO</th>
@@ -249,6 +250,7 @@
                                                     <td class="tdTbl">{{user.procId.procNombre}}</td>
                                                     <td class="tdTbl">{{user.funId.funNombre}}</td>
                                                     <td class="tdTbl">{{user.regId.regNombre}}</td>
+                                                    <td class="tdTbl">{{user.zonId.zonNombre}}</td>
                                                     <td class="tdTbl">{{user.rolId.rolNombre}}</td>
                                                     <td class="tdTbl">{{user.usuIdLector}}</td>
                                                     <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}
@@ -269,7 +271,7 @@
                                                         </ng-template>
                                                     </td>
                                                     <td class="tdTbl"><button role="button" class="button-name2"
-                                                            [routerLink]="['/editar-usuario', user.usuId]">
+                                                            [routerLink]="['/editar-usuario', user.usuId,'edit-user']">
                                                             <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
                                                                 height="1.25em"
                                                                 viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->

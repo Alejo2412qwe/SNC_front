@@ -63,43 +63,19 @@
         </div>
     </section>
     <section class="container">
-
-        <div>
-            <div class="input-container">
-                <label for="name" class="name">NOMBRES Y APELLIDOS:</label>
-                <input placeholder="Escriba sus nombres y apellidos" type="text" class="input">
-                <div class="underline"></div>
-            </div>
-        </div>
-        <div>
-            <div class="input-container">
-                <label for="name" class="name">CEDULA DE IDENTIFICACION:</label>
-                <input placeholder="Ingrese su CI" type="text" class="input">
-                <div class="underline"></div>
-            </div>
-        </div>
-    </section>
-
-    <div style="width: 100%; margin-top: 40px; ">
-        <h2 style="text-align: center; font-size: 20px; font-weight: bolder;">DATOS DEL SERVIDOR/EMPLEADO</h2>
+    <div>
     </div>
+    <div>
+    </div>
+</section>
 
-    <section class="container2">
-        <div>
-            <div class="input-container">
-                <label for="name" class="name">COORDINACIÓN / GERENCIA / PROYECTO:</label>
-                <input placeholder="Escriba si pertenece a" type="text" class="input">
-                <div class="underline"></div>
-            </div>
-        </div>
-        <div>
-            <div class="input-container">
-                <label for="name" class="name">DIRECCION O UNIDAD:</label>
-                <input placeholder="Ingrese su direccion o unidad" type="text" class="input">
-                <div class="underline"></div>
-            </div>
-        </div>
-    </section>
+<div style="width: 100%;">
+    <h2 style="text-align: center; font-size: 20px; font-weight: bolder;">DATOS DEL SERVIDOR/EMPLEADO</h2>
+</div>
+
+<section class="container4">
+    <div>
+        <h2 style="text-align: center; font-size: 20px; font-weight: bolder;">MOTIVO</h2>
 
     <section class="container4" style="margin-top: 40px;">
         <div>
@@ -224,30 +200,36 @@
                         <div class="underline"></div>
                     </div>
 
-                </div>
-                <div>
-                    <div class="input-container">
-                        <label for="name" class="name">HORAS:</label>
-                        <input placeholder="Escriba la cantidad" type="number" class="input">
-                        <div class="underline"></div>
-                    </div>
+            <div>
+                <div class="input-container">
+                    <label for="dias" class="name">DÍAS:</label>
+                    <input placeholder="Días" type="text" class="input" [value]="calcularDiferenciaDias()" readonly>
                 </div>
 
-                <div>
-                    <div class="input-container">
-                        <label style="font-size: 14px; text-align: justify; color: #556de1; font-weight: bolder;"
-                            for="name" class="name"> Valor a descontar (0) el tiempo solicitado se multiplica por
-                            1,36363636363636
-                        </label>
-                    </div>
+            </div>
+            <div>
+                <div class="input-container">
+                    <label for="horas" class="name">HORAS:</label>
+                    <input placeholder="Horas" type="text" class="input" [value]="calcularDiferenciaHoras()" readonly>
+
                 </div>
                 <div>
+
 
                     <div class="input-container">
                         <label for="name" class="name">ESCOGA EL MOTIVO:</label>
                         <input placeholder="Describa el motivo" type="text" class="input">
                         <div class="underline"></div>
                     </div>
+
+            <div>
+                <div class="input-container">
+                    <label style="font-size: 14px; text-align: justify; color: #556de1; font-weight: bolder;" for="name"
+                        class="name"> Valor a descontar por el tiempo solicitado
+                    </label>
+                    <input placeholder="valor a descontar" type="text" class="input"
+                        [value]="calcularResultadoMultiplicado()" readonly>
+
                 </div>
             </section>
         </div>
