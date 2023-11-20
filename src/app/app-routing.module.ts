@@ -14,6 +14,8 @@ import { ListaprocesosSubprocesosComponent } from './modulos/listaprocesos-subpr
 import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene.component';
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
+import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
+import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
 import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
@@ -22,7 +24,6 @@ import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermi
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
-
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -37,7 +38,7 @@ const routes: Routes = [
   { path: 'repvacaciones', component: VacacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
-  {path: 'Horarios', component: HorariosComponent} ,
+  { path: 'Horarios', component: HorariosComponent} ,
   { path: 'listatipopermiso', component: ListatipopermisosComponent },
   { path: 'listatipoformulario', component: ListatipoformularioComponent },
   { path: 'listavalor', component: ListavalorhoraComponent },
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'listamispermisos', component: ListamispermisosComponent },
   { path: 'aprobarpermisos', component: AprobarpermisosComponent },
   { path: 'listaarchivos', component: ListaarchivosComponent },
+  { path: 'listaPeri', component: ListaperiodosComponent },
   { path: 'listaasistencia', component: ListaasistenciaComponent },
   { path: 'listazonales', component: ListazonalesComponent },
   { path: '**', redirectTo: 'login' },
