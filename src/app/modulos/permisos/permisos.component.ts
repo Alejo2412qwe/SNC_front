@@ -10,6 +10,7 @@ import { TipoInstitucion } from 'src/app/modelo/tipoInstitucion';
 import { TipoFormulario } from 'src/app/modelo/tipoformulario';
 import { TipoPermiso } from 'src/app/modelo/tipopermiso';
 import { Usuario } from 'src/app/modelo/usuario';
+import { Vacaciones } from 'src/app/modelo/vacaciones';
 import { InstitucionService } from 'src/app/services/institucion.service';
 import { MotivoPermisoService } from 'src/app/services/motivopermiso.service';
 import { PermisoService } from 'src/app/services/permiso.service';
@@ -20,12 +21,13 @@ import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import { tipoInstitucionService } from 'src/app/services/tipoInstitucion.service';
 import { TipoFormularioService } from 'src/app/services/tipoformulario.service';
 import { TipoPermisoService } from 'src/app/services/tipopermiso.service';
+import { VacacionesService } from 'src/app/services/vacaciones.service';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-permisos',
   templateUrl: './permisos.component.html',
-  styleUrls: ['./permisos.component.css'],
+  styleUrls: ['./permisos.component.scss']
 })
 export class PermisosComponent implements OnInit {
   constructor(
@@ -39,6 +41,7 @@ export class PermisosComponent implements OnInit {
     private tipInstitucionService: tipoInstitucionService,
     private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
+    private vacacionesService: VacacionesService
   ) { }
 
   ngOnInit(): void {
@@ -63,22 +66,24 @@ export class PermisosComponent implements OnInit {
   tipopermiso: TipoPermiso = new TipoPermiso();
   tipoformulario: TipoFormulario = new TipoFormulario();
   motivopermiso: MotivoPermiso = new MotivoPermiso();
+  vacaciones: Vacaciones = new Vacaciones();
+  fechaPermiso = new Date();
 
   cedula: string = '';
 
-
+  //LISTAS
   listausuario: Usuario[] = [];
   listProvincias: Provincia[] = [];
   listamotivos: MotivoPermiso[] = [];
   listatipopermisos: TipoPermiso[] = [];
   listatipoformulario: TipoFormulario[] = [];
-    //LISTAS
-    listaInstituciones: Institucion[] = [];
-    listaTipoInstituciones: TipoInstitucion[] = [];
-      //LISTAS
+
+  //LISTAS
+  listaInstituciones: Institucion[] = [];
+  listaTipoInstituciones: TipoInstitucion[] = [];
   listaProcesos: Procesos[] = [];
   listaSubprocesos: Subprocesos[] = [];
-  
+
 
   cargarSubprocesos(estProc: number, estSub: number) {
     this.subprocesosService.getSubprocesosByProcEstado(estProc, estSub).subscribe((data) => {
@@ -86,19 +91,19 @@ export class PermisosComponent implements OnInit {
     });
   }
 
-    loadProcesosByEstado(est: number) {
-      this.procesoService.getProcesosByEstado(est).subscribe((response) => {
-        this.listaProcesos = response; // Asigna los datos al array provincias
-      });
-    }
+  loadProcesosByEstado(est: number) {
+    this.procesoService.getProcesosByEstado(est).subscribe((response) => {
+      this.listaProcesos = response; // Asigna los datos al array provincias
+    });
+  }
 
-    loadSubprocesosByProcEstado(estproc: number, estsub: number) {
-      this.subprocesosService
-        .getSubprocesosByProcEstado(estproc, estsub)
-        .subscribe((response) => {
-          this.listaSubprocesos = response; // Asigna los datos al array provincias
-        });
-    }
+  loadSubprocesosByProcEstado(estproc: number, estsub: number) {
+    this.subprocesosService
+      .getSubprocesosByProcEstado(estproc, estsub)
+      .subscribe((response) => {
+        this.listaSubprocesos = response; // Asigna los datos al array provincias
+      });
+  }
 
   cargarTipoFormulario() {
     this.tipoformularioService.getAllTipoFormulario().subscribe((data) => {
@@ -187,20 +192,46 @@ export class PermisosComponent implements OnInit {
 
   savePermiso() {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
+    this.vacaciones.usuId.usuId = this.permiso.usuId.usuId;
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
-      Swal.fire({
-        title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
-        text: 'Recuerde descargar su archivo desde sus permisos',
-        icon: 'success',
-        confirmButtonText: 'Confirmar',
-        showCancelButton: false,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setTimeout(() => {
-            location.reload();
-          }, 400);
-        }
-      });
+      if (this.permiso.motId.motId == 7 ||
+        this.permiso.motId.motId == 8 ||
+        this.permiso.motId.motId == 10) {
+        this.fechaPermiso = new Date(this.permiso.permFechaInicio);
+        this.vacaciones.vacFecha = this.fechaPermiso;
+        this.vacaciones.vacDetalle = this.permiso.permObservacion;
+        this.vacaciones.vacDias = this.calcularDiferenciaDias();
+        this.vacaciones.vacHoras = this.calcularDiferenciaHoras();
+        this.vacacionesService.agregarVacaciones(this.permiso.usuId.usuId, this.vacaciones).subscribe((response) => {
+        })
+        Swal.fire({
+          title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
+          text: 'Recuerde descargar su archivo desde sus permisos',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setTimeout(() => {
+              location.reload();
+            }, 400);
+          }
+        });
+      } else {
+        Swal.fire({
+          title: 'Permiso N°' + data.permId + ' Generado de manera exitosa!',
+          text: 'Recuerde descargar su archivo desde sus permisos',
+          icon: 'success',
+          confirmButtonText: 'Confirmar',
+          showCancelButton: false,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setTimeout(() => {
+              location.reload();
+            }, 400);
+          }
+        });
+      }
     });
   }
 }

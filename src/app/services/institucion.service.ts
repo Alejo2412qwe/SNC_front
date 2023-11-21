@@ -68,6 +68,30 @@ export class InstitucionService {
     );
   }
 
+  getInstitucionById(id: number): Observable<Institucion> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<Institucion>(`${this.url}/getInstitucionById?id=${id}`, {
+      headers,
+    });
+  }
+
+  searchInstitucion(search: string, est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Institucion[]>(
+      `${this.url}/searchInstitucion?search=${search}&est=${est}`,
+      { headers }
+    );
+  }
+
   updateInstitucion(
     Institucion: Institucion,
     id: number

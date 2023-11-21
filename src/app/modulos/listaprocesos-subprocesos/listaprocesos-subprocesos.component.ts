@@ -24,8 +24,8 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarSubprocesos(1, 1);
-    this.loadProcesosByEstado(this.estadoActivo);
-    this.loadSubprocesosByProcEstado(this.estadoActivo, this.estadoActivo);
+    this.loadProcesosByEstado(1);
+    this.loadSubprocesosByProcEstado(1, 1);
   }
 
   username = this.sessionStorage.getItem('username');
@@ -39,7 +39,8 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   //VARIABLES
   newProceso: string = '';
   newSubproceso: string = '';
-  estadoActivo: number = 1;
+  searchString: string = '';
+  searchString2: string = '';
 
   //LISTAS
   listaProcesos: Procesos[] = [];
@@ -50,10 +51,23 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       this.listaSubprocesos = data;
     });
   }
+
+  searchProcesos(search: string, est: number) {
+    this.procesoService.searchProcesos(search, est).subscribe((data) => {
+      this.listaProcesos = data
+    })
+  }
+
+  searchSubprocesos(search: string, est: number) {
+    this.subprocesosService.searchSubprocesos(search, est).subscribe((data) => {
+      this.listaSubprocesos = data
+    })
+  }
+
   /*inicio del proceso*/
   saveProceso() {
     this.procesoService.saveProcesos(this.proceso).subscribe((data) => {
-      this.loadProcesosByEstado(this.estadoActivo);
+      this.loadProcesosByEstado(1);
       Swal.fire({
         title: '¡Registro Exitoso!',
         text: data.procNombre + ' agregado correctamente',
@@ -78,7 +92,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         if (validarCadena(this.newProceso)) {
           this.proceso.procNombre = this.newProceso;
           this.saveProceso();
-          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadProcesosByEstado(1);
         } else {
           showErrorAlCrear();
         }
@@ -88,7 +102,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
 
   updateProceso(id: number) {
     this.procesoService.updateProcesos(this.proceso, id).subscribe((data) => {
-      this.loadProcesosByEstado(this.estadoActivo);
+      this.loadProcesosByEstado(1);
       this.loadSubprocesosByProcEstado(1, 1);
       Swal.fire({
         title: 'Edición Exitosa!',
@@ -117,7 +131,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       if (result.isConfirmed) {
         this.procesoService.updateEst(id, est).subscribe({
           next: () => {
-            this.loadProcesosByEstado(this.estadoActivo);
+            this.loadProcesosByEstado(1);
             this.loadSubprocesosByProcEstado(1, 1);
             this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
           },
@@ -127,9 +141,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
           complete: () => { },
         });
       } else if (result.isDenied) {
-        this.loadProcesosByEstado(this.estadoActivo);
+        this.loadProcesosByEstado(1);
         this.loadSubprocesosByProcEstado(
-          this.estadoActivo,
+          1,
           this.subproceso.subEstado
         );
         this.toastr.warning('Acción Cancelada');
@@ -151,9 +165,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         if (validarCadena(this.newProceso)) {
           this.proceso.procNombre = this.newProceso;
           this.updateProceso(id);
-          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadProcesosByEstado(1);
           this.loadSubprocesosByProcEstado(
-            this.estadoActivo,
+            1,
             this.subproceso.subEstado
           );
         } else {
@@ -223,9 +237,9 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         if (validarCadena(this.newSubproceso)) {
           this.subproceso.subNombre = this.newSubproceso;
           this.updateSubproceso(id);
-          this.loadProcesosByEstado(this.estadoActivo);
+          this.loadProcesosByEstado(1);
           this.loadSubprocesosByProcEstado(
-            this.estadoActivo,
+            1,
             this.subproceso.subEstado
           );
         } else {

@@ -33,6 +33,19 @@ export class tipoInstitucionService {
     );
   }
 
+  searchTipoInstitucion(search: string, est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<TipoInstitucion[]>(
+      `${this.url}/searchTipoInstitucion?search=${search}&est=${est}`,
+      { headers }
+    );
+  }
+
   getAllTipoInstituciones() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí

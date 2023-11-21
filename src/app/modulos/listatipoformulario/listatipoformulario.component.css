@@ -658,7 +658,7 @@ body {
 .containertabla {
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 23.3% 23.3% 23.3% 30%;
+    grid-template-columns: 30.3% 30.3% 30.3%;
     grid-template-rows: 2fr;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
@@ -864,6 +864,59 @@ body {
 }
 
 
+
+
+.Btn4 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    height: 50px;
+    border: none;
+    padding: 0px 20px;
+    background-color: #556de1;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: rgba(70, 151, 208, 0.5) 0 10px 20px;
+    transition-duration: .3s;
+    margin-top: 7px;
+}
+
+.svg {
+    width: 13px;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    fill: white;
+    transition-duration: .3s;
+}
+
+.Btn4:hover {
+    color: transparent;
+    background-color: #556de1;
+    box-shadow: rgba(28, 95, 27, 0.5) 0 10px 20px;
+}
+
+.Btn4:hover svg {
+    right: 47%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    transition-duration: .3s;
+}
+
+.Btn4:active {
+    transform: translate(3px, 3px);
+    transition-duration: .3s;
+    box-shadow: 2px 2px 0px rgba(26, 90, 173, 0.781);
+}
+
+
+
+
 /* TABLA RESPONSIVE */
 
 .table-responsive {
@@ -1012,7 +1065,7 @@ td::-webkit-scrollbar-track {
     .containertabla {
         margin-top: 50px;
         display: inline;
-        grid-template-columns: 23.3% 23.3% 23.3% 30%;
+        grid-template-columns: 30.3% 30.3% 30.3%;
         grid-template-rows: 2fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;

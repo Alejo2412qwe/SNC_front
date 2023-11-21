@@ -654,7 +654,7 @@ body {
     width: 100%;
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 50% 25% 20%;
+    grid-template-columns: 50% 50%;
     grid-template-rows: 2fr;
     grid-column-gap: 3px;
     grid-row-gap: 20px;
@@ -767,7 +767,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 130px;
+    width: 90%;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -817,7 +817,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 105px;
+    width: 90%;
     height: 50px;
     border: none;
     padding: 0px 20px;
@@ -1008,7 +1008,7 @@ td::-webkit-scrollbar-track {
     .containertabla {
         margin-top: 50px;
         display: inline;
-        grid-template-columns: 40% 15% 15% 15% 15%;
+        grid-template-columns: 50% 50%;
         grid-template-rows: 2fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;

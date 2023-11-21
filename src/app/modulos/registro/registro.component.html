@@ -260,7 +260,19 @@
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
-                                        <div></div>
+                                        <div>
+                                            <div class="input-container">
+                                                <label for="name" class="name">HORARIO DE TRABAJO: *</label>
+                                                <select id="horario" name="horario" class="input2" style="color: #777;"
+                                                    [(ngModel)]="usuario.horId.horId">
+                                                    <option value="0">Seleccione el horario</option>
+                                                    <option *ngFor="let horario of listaHorarios" [value]="horario.horId">
+                                                        Entrada: {{horario.horHoraIngresoDia}} - Salida: {{horario.horHoraSalidaTarde}}
+                                                    </option>
+                                                </select>
+                                                <div class="underline"></div>
+                                            </div> 
+                                        </div>
                                         <div>
                                             <div class="input-container">
                                                 <label for="name" class="name" style="padding-bottom: 10px;">JEFE DE
@@ -364,6 +376,7 @@
 
 
                                     </section>
+                                    <!--
                                     <div class="fileConainer">
                                         <div class="input-container">
                                             <label for="name" class="name">TITULO (ejemplo de subida de
@@ -380,7 +393,7 @@
                                                 </ng-template>
                                             </p-fileUpload>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
 
                                 <div class="contentForm">

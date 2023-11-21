@@ -26,6 +26,11 @@ export class ListavalorhoraComponent implements OnInit {
     this.loadValorByEstado(1);
   }
 
+  paraBoton() {
+    this.showInfo();
+    this.loadValorByEstado(1);
+  }
+
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
 
@@ -73,7 +78,7 @@ export class ListavalorhoraComponent implements OnInit {
     Swal.fire({
       title: 'Información Importante',
       text:
-        'AL haber creado el valor, solo podrá modificarlo debido a que es un valor único.',
+        'Al haber creado el valor, solo podrá modificarlo debido a que es un valor único.',
       icon: 'info',
       confirmButtonText: 'Aceptar',
     });

@@ -39,13 +39,15 @@ export class ListainstitucionesComponent implements OnInit {
   newInstDireccion: string = '';
   newReferencia: string = '';
   newTipoinstitucion: string = '';
+  searchString: string = '';
+  searchString2: string = '';
 
   //LISTAS
   listaInstituciones: Institucion[] = [];
   listaTipoInstituciones: TipoInstitucion[] = [];
 
   ngOnInit(): void {
-    this.cargarInstitucionesByEstado(1);
+    this.loadInstitucionesByTipId(1, 1);
     this.loadTipoInstitucionByEstado(1);
   }
 
@@ -120,46 +122,60 @@ export class ListainstitucionesComponent implements OnInit {
     });
   }
 
+  searchInstitucion(search: string, est: number) {
+    this.institucionService.searchInstitucion(search, est).subscribe((data) => {
+      this.listaInstituciones = data
+    })
+  }
+
+  searchTipoInstitucion(search: string, est: number) {
+    this.tipInstitucionService.searchTipoInstitucion(search, est).subscribe((data) => {
+      this.listaTipoInstituciones = data
+    })
+  }
+
   openUpdateInstitucion(nombre: string, id: number) {
-    Swal.fire({
-      title: 'Editar ' + nombre,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución"><input id="swal-input2" class="swal2-input" placeholder="Institución"><input id="swal-input3" class="swal2-input" placeholder="Calle Principal"><input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria"><input id="swal-input5" class="swal2-input" placeholder="Referencia">',
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newCodigo = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        this.newInstitucion = (
-          document.getElementById('swal-input2') as HTMLInputElement
-        ).value;
-        this.newCalle1 = (
-          document.getElementById('swal-input3') as HTMLInputElement
-        ).value;
-        this.newCalle2 = (
-          document.getElementById('swal-input4') as HTMLInputElement
-        ).value;
-        this.newReferencia = (
-          document.getElementById('swal-input5') as HTMLInputElement
-        ).value;
-        this.newInstDireccion = this.newCalle1 + ' Con ' + this.newCalle2;
-        if (
-          validarCadena(this.newInstitucion) &&
-          validarCadena(this.newInstDireccion) &&
-          validarCadena(this.newCodigo) &&
-          validarCadena(this.newReferencia)
-        ) {
-          this.institucion.instCodigo = this.newCodigo;
-          this.institucion.instNombre = this.newInstitucion;
-          this.institucion.instReferencia = this.newReferencia;
-          this.institucion.instDireccion = this.newInstDireccion;
-          this.updateInstitucion(id);
+    this.institucionService.getInstitucionById(id).subscribe((institucion: Institucion) => {
+      const htmlContent = `<input id="swal-input1" class="swal2-input" placeholder="Código de la Institución" value="${institucion.instCodigo}">
+        <input id="swal-input2" class="swal2-input" placeholder="Institución" value="${institucion.instNombre}">
+        <input id="swal-input3" class="swal2-input" placeholder="Calle Principal" value="${institucion.instDireccion}">
+        <input id="swal-input4" class="swal2-input" placeholder="Calle Secundaria">
+        <input id="swal-input5" class="swal2-input" placeholder="Referencia" value="${institucion.instReferencia}">`;
+      Swal.fire({
+        title: 'Editar ' + nombre,
+        html: htmlContent,
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+          this.newCodigo = (document.getElementById('swal-input1') as HTMLInputElement).value.trim();
+          this.newInstitucion = (document.getElementById('swal-input2') as HTMLInputElement).value.trim();
+          this.newCalle1 = (document.getElementById('swal-input3') as HTMLInputElement).value.trim();
+          this.newCalle2 = (document.getElementById('swal-input4') as HTMLInputElement).value.trim();
+          this.newReferencia = (document.getElementById('swal-input5') as HTMLInputElement).value.trim();
+          this.newInstDireccion = this.newCalle1 + ' Con ' + this.newCalle2;
+          if (
+            validarCadena(this.newInstitucion) &&
+            validarCadena(this.newInstDireccion) &&
+            validarCadena(this.newCodigo) &&
+            validarCadena(this.newReferencia)
+          ) {
+            this.institucion.instCodigo = this.newCodigo;
+            this.institucion.instNombre = this.newInstitucion;
+            this.institucion.instReferencia = this.newReferencia;
+            this.institucion.instDireccion = this.newInstDireccion;
+            this.updateInstitucion(id);
+            return true;
+          } else {
+            showErrorAlCrear();
+            return false;
+          }
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
           this.loadInstitucionesByTipId(1, this.institucion.instEstado);
-        } else {
-          showErrorAlCrear();
         }
-      },
+      });
     });
   }
 
