@@ -51,26 +51,32 @@ export class HorariosComponent implements OnInit {
 
   obtenerHorasAlmuerzo(horHoraSalidaDia: string, horHoraIngresoTarde: string): number {
     const parseHora = (hora: string): number => {
-      const [horas, minutos] = hora.split(':').map(Number);
-      return horas * 60 + minutos;
+      const [horas] = hora.split(':').map(Number);
+      return horas;
     };
 
     const horaSalidaDia = parseHora(horHoraSalidaDia);
     const horaIngresoTarde = parseHora(horHoraIngresoTarde);
 
-    return horaIngresoTarde - horaSalidaDia;
+    const diferenciaHoras = horaIngresoTarde - horaSalidaDia;
+
+    return diferenciaHoras;
   }
 
   calcularDiferenciaDeHoras(horHoraIngresoDia: string, horHoraSalidaDia: string, horHoraIngresoTarde: string, horHoraSalidaTarde: string): number {
     const parseHora = (hora: string): number => {
-      const [horas, minutos] = hora.split(':').map(Number);
-      return horas * 60 + minutos;
+      const [horas] = hora.split(':').map(Number);
+      return horas;
     };
 
     const horaIngresoDia = parseHora(horHoraIngresoDia);
     const horaSalidaDia = parseHora(horHoraSalidaDia);
     const horaIngresoTarde = parseHora(horHoraIngresoTarde);
-    const horaSalidaTarde = parseHora(horHoraSalidaTarde);
+    let horaSalidaTarde = parseHora(horHoraSalidaTarde);
+
+    if (horaSalidaTarde < horaIngresoTarde) {
+      horaSalidaTarde += 24;
+    }
 
     const diferenciaDia = horaSalidaDia - horaIngresoDia;
     const diferenciaTarde = horaSalidaTarde - horaIngresoTarde;
@@ -80,76 +86,75 @@ export class HorariosComponent implements OnInit {
   }
 
   openCrearHorario() {
-    const horasDelDia = Array.from({ length: 24 }, (_, i) => i);
-    const minutos = ['00', '15', '30', '45'];
-    const opcionesCombo = horasDelDia.map(hora =>
-      minutos.map(minuto => `<option value="${hora}:${minuto}">${hora}:${minuto}</option>`).join('')
-    ).join('');
 
     Swal.fire({
       title: 'Crear Nuevo Horario',
       html: `
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
-            <select class="input" name="horHoraIngresoDia" [(ngModel)]="nuevoHorario.horHoraIngreso">
-              ${opcionesCombo}
-            </select>
-        </div>
-    </div>
-    
-    <div>
-        <div class="input-container">
-            <label for="name" class="name">Hora de Salida En La Mañana:</label>
-            <select class="input" name="horHoraSalidaDia" [(ngModel)]="nuevoHorario.horHoraSalida">
-              ${opcionesCombo}
-            </select>
-        </div>
-    </div>
-    <div>
-    <div class="input-container">
-        <label for="name" class="name">Hora de Ingreso En La Tarde En La Tarde:</label>
-        <select class="input" name="horHoraIngresoTarde" [(ngModel)]="nuevoHorario.horHoraSalida">
-          ${opcionesCombo}
-        </select>
-    </div>
-</div>
+      <div class="input-container">
+      <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
+      <input style="padding: 10px;
+          font-size: 16px;
+          border: none;
+          border-radius: 4px;
+          background-color: #f1f1f1;
+          color: #777;
+          width: 100%;
+          outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngreso"
+          [(ngModel)]="nuevoHorario.horHoraIngreso">
+      <div class="underline"></div>
+  </div>
 
-<div>
+  <div class="input-container">
+  <label for="name" class="name">Hora de Salida En El Dia:</label>
+  <input style="padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #777;
+      width: 100%;
+      outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaDia"
+      [(ngModel)]="nuevoHorario.horHoraSalidaDia">
+  <div class="underline"></div>
+</div>   
+    
 <div class="input-container">
-    <label for="name" class="name">Hora de Salida En La Tarde:</label>
-    <select class="input" name="horHoraSalidaTarde" [(ngModel)]="nuevoHorario.horHoraSalida">
-      ${opcionesCombo}
-    </select>
-</div>
-</div>
+<label for="name" class="name">Hora de Ingreso En La Tarde:</label>
+<input style="padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #777;
+    width: 100%;
+    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngresoTarde"
+    [(ngModel)]="nuevoHorario.horHoraIngresoTarde">
+<div class="underline"></div>
+</div>  
+
+<div class="input-container">
+<label for="name" class="name">Hora de Salida En La Tarde:</label>
+<input style="padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #777;
+    width: 100%;
+    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaTarde"
+    [(ngModel)]="nuevoHorario.horHoraSalidaTarde">
+<div class="underline"></div>
+</div> 
 `,
       showCancelButton: true,
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
 
-        const selectHoraIngresoDia = document.querySelector('select[name="horHoraIngresoDia"]') as HTMLSelectElement;
-        const selectHoraSalidaDia = document.querySelector('select[name="horHoraSalidaDia"]') as HTMLSelectElement;
-        const selectHoraIngresoTarde = document.querySelector('select[name="horHoraIngresoTarde"]') as HTMLSelectElement;
-        const selectHoraSalidaTarde = document.querySelector('select[name="horHoraSalidaTarde"]') as HTMLSelectElement;
-
-        const validateSelect = (select: HTMLSelectElement, label: string) => {
-          if (select.value === '0:00') {
-            Swal.showValidationMessage(`Selecciona una hora válida para ${label}.`);
-            return false;
-          }
-          return true;
-        };
-
-        if (!validateSelect(selectHoraIngresoDia, 'Hora de Ingreso En El Dia') ||
-          !validateSelect(selectHoraSalidaDia, 'Hora de Salida En El Dia') ||
-          !validateSelect(selectHoraIngresoTarde, 'Hora de Salida En La Tarde') ||
-          !validateSelect(selectHoraSalidaTarde, 'Hora de Salida En La Tarde')
-
-        ) {
-          return;
-        }
+        const selectHoraIngresoDia = document.getElementById('horHoraIngreso') as HTMLInputElement;
+        const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLInputElement;
+        const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
+        const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
         // Si todas las validaciones pasan, procede con la lógica de agregar horario
         this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
@@ -184,75 +189,75 @@ export class HorariosComponent implements OnInit {
   }
 
   openUpdateProceso(id: number) {
-    const horasDelDia = Array.from({ length: 24 }, (_, i) => i);
-    const minutos = ['00', '15', '30', '45'];
-    const opcionesCombo = horasDelDia.map(hora =>
-      minutos.map(minuto => `<option value="${hora}:${minuto}">${hora}:${minuto}</option>`).join('')
-    ).join('');
 
     Swal.fire({
       title: 'Editar Horario',
       html: `
-      <div>
       <div class="input-container">
-          <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
-          <select class="input" id="horHoraIngresoDia">
-            ${opcionesCombo}
-          </select>
-      </div>
+      <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
+      <input style="padding: 10px;
+          font-size: 16px;
+          border: none;
+          border-radius: 4px;
+          background-color: #f1f1f1;
+          color: #777;
+          width: 100%;
+          outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngreso"
+          [(ngModel)]="nuevoHorario.horHoraIngreso">
+      <div class="underline"></div>
   </div>
-  
-  <div>
-      <div class="input-container">
-          <label for="name" class="name">Hora de Salida En La Mañana:</label>
-          <select class="input" id="horHoraSalidaDia">
-            ${opcionesCombo}
-          </select>
-      </div>
-  </div>
-  <div>
-  <div class="input-container">
-      <label for="name" class="name">Hora de Ingreso En La Tarde En La Tarde:</label>
-      <select class="input" id="horHoraIngresoTarde">
-        ${opcionesCombo}
-      </select>
-  </div>
-</div>
 
-<div>
+  <div class="input-container">
+  <label for="name" class="name">Hora de Salida En El Dia:</label>
+  <input style="padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #777;
+      width: 100%;
+      outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaDia"
+      [(ngModel)]="nuevoHorario.horHoraSalidaDia">
+  <div class="underline"></div>
+</div>   
+    
 <div class="input-container">
-  <label for="name" class="name">Hora de Salida En La Tarde:</label>
-  <select class="input" id="horHoraSalidaTarde">
-    ${opcionesCombo}
-  </select>
-</div>
-</div>
+<label for="name" class="name">Hora de Ingreso En La Tarde:</label>
+<input style="padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #777;
+    width: 100%;
+    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngresoTarde"
+    [(ngModel)]="nuevoHorario.horHoraIngresoTarde">
+<div class="underline"></div>
+</div>  
+
+<div class="input-container">
+<label for="name" class="name">Hora de Salida En La Tarde:</label>
+<input style="padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+    color: #777;
+    width: 100%;
+    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaTarde"
+    [(ngModel)]="nuevoHorario.horHoraSalidaTarde">
+<div class="underline"></div>
+</div> 
   `,
       showCancelButton: true,
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        const selectHoraIngresoDia = document.getElementById('horHoraIngresoDia') as HTMLSelectElement;
-        const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLSelectElement;
-        const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLSelectElement;
-        const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLSelectElement;
 
-        const validateSelect = (select: HTMLSelectElement, label: string) => {
-          if (select.value === '0:00') {
-            Swal.showValidationMessage(`Selecciona una hora válida para ${label}.`);
-            return false;
-          }
-          return true;
-        };
-
-        if (!validateSelect(selectHoraIngresoDia, 'Hora de Ingreso En El Dia') ||
-          !validateSelect(selectHoraSalidaDia, 'Hora de Salida En El Dia') ||
-          !validateSelect(selectHoraIngresoTarde, 'Hora de Salida En La Tarde') ||
-          !validateSelect(selectHoraSalidaTarde, 'Hora de Salida En La Tarde')
-
-        ) {
-          return;
-        }
+        const selectHoraIngresoDia = document.getElementById('horHoraIngreso') as HTMLInputElement;
+        const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLInputElement;
+        const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
+        const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
         // Si todas las validaciones pasan, procede con la lógica de agregar horario
         this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
