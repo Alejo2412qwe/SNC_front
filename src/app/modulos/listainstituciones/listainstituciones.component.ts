@@ -39,6 +39,8 @@ export class ListainstitucionesComponent implements OnInit {
   newInstDireccion: string = '';
   newReferencia: string = '';
   newTipoinstitucion: string = '';
+  searchString: string = '';
+  searchString2: string = '';
 
   //LISTAS
   listaInstituciones: Institucion[] = [];
@@ -118,6 +120,18 @@ export class ListainstitucionesComponent implements OnInit {
         }
       },
     });
+  }
+
+  searchInstitucion(search: string, est: number) {
+    this.institucionService.searchInstitucion(search, est).subscribe((data) => {
+      this.listaInstituciones = data
+    })
+  }
+
+  searchTipoInstitucion(search: string, est: number) {
+    this.tipInstitucionService.searchTipoInstitucion(search, est).subscribe((data) => {
+      this.listaTipoInstituciones = data
+    })
   }
 
   openUpdateInstitucion(nombre: string, id: number) {

@@ -34,6 +34,7 @@ export class ListazonalesComponent implements OnInit {
   //VARIABLES
   newZonal: string = '';
   newCodigo: string = '';
+  searchString: string = '';
 
   //LISTAS
   listaZonales: Zonales[] = [];
@@ -55,6 +56,10 @@ export class ListazonalesComponent implements OnInit {
         showCancelButton: false, // No mostrar el botón de cancelar
       });
     });
+  }
+
+  searchZonales(search: string, est: number) {
+    this.zonalesService.searchZonales(search, est).subscribe((data) => { this.listaZonales = data })
   }
 
   openCrearZonal() {

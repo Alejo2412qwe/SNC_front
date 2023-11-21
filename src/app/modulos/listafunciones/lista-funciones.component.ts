@@ -17,7 +17,7 @@ export class ListaFuncionesComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private funcionesService: FuncionesService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
@@ -29,6 +29,7 @@ export class ListaFuncionesComponent implements OnInit {
   //VARIABLES
   newFunciones: string = '';
   estadoActivo: number = 1;
+  searchString: string = '';
 
   //LISTAS
   listaFunciones: Funciones[] = [];
@@ -61,6 +62,12 @@ export class ListaFuncionesComponent implements OnInit {
     this.funcionesService.getFuncionesByEstado(est).subscribe((response) => {
       this.listaFunciones = response; // Asigna los datos al array Funciones
     });
+  }
+
+  searchFunciones(search: string, est: number) {
+    this.funcionesService.searchFunciones(search, est).subscribe((data) => {
+      this.listaFunciones = data
+    })
   }
 
   openCrearFuncion() {
@@ -122,7 +129,7 @@ export class ListaFuncionesComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadFuncionesByEstado(this.estadoActivo);
