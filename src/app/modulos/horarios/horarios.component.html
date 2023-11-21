@@ -142,20 +142,18 @@
                                                     <th class="tipo" scope="col">Hora de Ingreso En La Mañana</th>
                                                     <th class="tipo" scope="col">Hora de Salida En La Mañana</th>
                                                     <th class="tipo" scope="col">Horas Para Almuerzo</th>
-                                                    <th class="tipo" scope="col">Hora de Ingreso En La Tarde
-                                                    </th>
-                                                    <th class="tipo" scope="col">Hora de Salida En La Tarde
-                                                    </th>
+                                                    <th class="tipo" scope="col">Hora de Ingreso En La Tarde</th>
+                                                    <th class="tipo" scope="col">Hora de Salida En La Tarde</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let horario of horarios">
-                                                    <td class="tdTbl">{{horario.horNumHoras}}</td>
+                                                    <td class="tdTbl">{{horario.horNumHoras+'h'}}</td>
                                                     <td class="tdTbl">{{horario.horHoraIngresoDia}}</td>
                                                     <td class="tdTbl">{{horario.horHoraSalidaDia}}</td>
-                                                    <td class="tdTbl">{{horario.horHorasParaAlmuerzo}}</td>
+                                                    <td class="tdTbl">{{horario.horHorasParaAlmuerzo+'h'}}</td>
                                                     <td class="tdTbl">{{horario.horHoraIngresoTarde}}</td>
                                                     <td class="tdTbl">{{horario.horHoraSalidaTarde}}</td>
 
@@ -191,9 +189,7 @@
                     </div>
                 </div>
             </div>
-
-            <app-footer></app-footer>
-
+            
         </body>
     </div>
 </div>

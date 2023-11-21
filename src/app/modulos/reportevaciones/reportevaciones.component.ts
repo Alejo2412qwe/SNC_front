@@ -91,7 +91,7 @@ export class VacacionesComponent implements OnInit {
   editarVacaciones(vacaciones: Vacaciones) {
     // Clona el registro para no modificar el original directamente
     const vacacionEditada = { ...vacaciones };
-
+  
     // enviar una solicitud al servidor para actualizar el registro en la base de datos.
     this.vacacioneService.actualizarVacaciones(vacaciones.vacId, vacacionEditada).subscribe(
       () => {

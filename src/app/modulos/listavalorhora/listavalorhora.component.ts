@@ -26,6 +26,11 @@ export class ListavalorhoraComponent implements OnInit {
     this.loadValorByEstado(1);
   }
 
+  paraBoton() {
+    this.showInfo();
+    this.loadValorByEstado(1);
+  }
+
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
 
