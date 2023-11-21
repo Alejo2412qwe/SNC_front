@@ -13,8 +13,11 @@ export class GestionComponent implements OnInit {
     private el: ElementRef,
     private AllScripts: AllScriptsService,
     private sessionStorage: SessionStorageService
-  ) {}
+  ) {
+
+    AllScripts.Cargar(["reportes"]);
+  }
   username = this.sessionStorage.getItem('username');
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

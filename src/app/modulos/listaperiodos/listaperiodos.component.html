@@ -11,12 +11,10 @@
 </head>
 
 <div class="containerside">
-
     <div style="border-radius: 15px;">
 
         <app-sidebar></app-sidebar>
     </div>
-
     <div>
 
         <body class="profile-page">
@@ -24,12 +22,11 @@
             <app-header></app-header>
 
 
-
-            <div class="d-flex flex-column justify-content-center w-100 h-100">
+            <div class="d-flex flex-column justify-content-center w-100 h-50">
 
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h1 style="text-align: center;     margin-bottom: 170px;
-                width: 100%; font-size: 72px; color: white;">TABLA DE PERIODOS</h1>
+                    width: 100%; font-size: 72px; color: white;">TABLA DE PERIODOS</h1>
                 </div>
             </div>
             <div class="main main-raised">
@@ -50,66 +47,17 @@
                                                 </svg>
                                             </button></div>
                                     </div>
-                                    <div class="avatar">
-                                        <img src="assets/img/usuario.jpg" alt="Circle Image"
-                                            class="img-raised rounded-circle img-fluid">
-                                    </div>
-
-                                    <div class="name">
-                                        <h3 class="title">Usuario: {{username}}</h3>
-                                        <!-- AQUI IRIA UNA VERIFICACION DE QUE SIEMPRE SEA ROL DE ADMINITRADOR QUIEN ENTRE -->
-                                        <h6>Rol: {{rol}}</h6>
-                                    </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
                                     <div>
                                         <div class="searchBox">
-                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre">
-                                            <button class="searchButton" onclick="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29"
-                                                    viewBox="0 0 29 29" fill="none">
-                                                    <g clip-path="url(#clip0_2_17)">
-                                                        <g filter="url(#filter0_d_2_17)">
-                                                            <path
-                                                                d="M23.7953 23.9182L19.0585 19.1814M19.0585 19.1814C19.8188 18.4211 20.4219 17.5185 20.8333 16.5251C21.2448 15.5318 21.4566 14.4671 21.4566 13.3919C21.4566 12.3167 21.2448 11.252 20.8333 10.2587C20.4219 9.2653 19.8188 8.36271 19.0585 7.60242C18.2982 6.84214 17.3956 6.23905 16.4022 5.82759C15.4089 5.41612 14.3442 5.20435 13.269 5.20435C12.1938 5.20435 11.1291 5.41612 10.1358 5.82759C9.1424 6.23905 8.23981 6.84214 7.47953 7.60242C5.94407 9.13789 5.08145 11.2204 5.08145 13.3919C5.08145 15.5634 5.94407 17.6459 7.47953 19.1814C9.01499 20.7168 11.0975 21.5794 13.269 21.5794C15.4405 21.5794 17.523 20.7168 19.0585 19.1814Z"
-                                                                stroke="white" stroke-width="3" stroke-linecap="round"
-                                                                stroke-linejoin="round" shape-rendering="crispEdges">
-                                                            </path>
-                                                        </g>
-                                                    </g>
-                                                    <defs>
-                                                        <filter id="filter0_d_2_17" x="-0.418549" y="3.70435"
-                                                            width="29.7139" height="29.7139"
-                                                            filterUnits="userSpaceOnUse"
-                                                            color-interpolation-filters="sRGB">
-                                                            <feFlood flood-opacity="0" result="BackgroundImageFix">
-                                                            </feFlood>
-                                                            <feColorMatrix in="SourceAlpha" type="matrix"
-                                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                                                result="hardAlpha">
-                                                            </feColorMatrix>
-                                                            <feOffset dy="4"></feOffset>
-                                                            <feGaussianBlur stdDeviation="2"></feGaussianBlur>
-                                                            <feComposite in2="hardAlpha" operator="out"></feComposite>
-                                                            <feColorMatrix type="matrix"
-                                                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0">
-                                                            </feColorMatrix>
-                                                            <feBlend mode="normal" in2="BackgroundImageFix"
-                                                                result="effect1_dropShadow_2_17"></feBlend>
-                                                            <feBlend mode="normal" in="SourceGraphic"
-                                                                in2="effect1_dropShadow_2_17" result="shape"></feBlend>
-                                                        </filter>
-                                                        <clipPath id="clip0_2_17">
-                                                            <rect width="28.0702" height="28.0702" fill="white"
-                                                                transform="translate(0.403503 0.526367)"></rect>
-                                                        </clipPath>
-                                                    </defs>
-                                                </svg>
-                                            </button>
+                                            <input class="searchInput" type="text" name=""
+                                                placeholder="Por Fecha o Entre Fechas" [(ngModel)]="searchString"
+                                                (input)="searchPeriodos(searchString, 1)">
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="Btn3">Crear Periodos
+                                        <button class="Btn3" (click)="openCrearPeriodos()">Crear Periodos
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -120,7 +68,7 @@
                                         </button>
                                     </div>
                                     <div>
-                                        <button class="Btn3" routerLink="/registro">Refrescar Tabla
+                                        <button class="Btn3" (click)="loadPeriodosByEstado(1)">Refrescar Tabla
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -151,19 +99,28 @@
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
-                                                    <th class="tipo" scope="col">ID FUNCION</th>
-                                                    <th class="tipo" scope="col">NOMBRE</th>
+                                                    <th class="tipo" scope="col">ID PERIODO</th>
+                                                    <th class="tipo" scope="col">PERIODO ANTERIOR</th>
+                                                    <th class="tipo" scope="col">PERIODO ACTUAL</th>
+                                                    <th class="tipo" scope="col">DÍAS DE ANTICIPACIÓN</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
-                                                <tr key=key>
-                                                    <td>atributo 1</td>
-                                                    <td>atributo 2</td>
-                                                    <td><button role="button" class="button-name">Editar</button>
+                                                <tr key=key *ngFor="let pro of listaPeriodos">
+                                                    <td>{{pro.periId}}</td>
+                                                    <td>{{ pro.periAnterior | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{ pro.periActual | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{ pro.diasAnticipacion }}</td>
+                                                    <td>
+                                                        <button role="button" class="button-name"
+                                                            (click)="openUpdatePeriodos(pro.periAnterior, pro.periActual, pro.periId)">
+                                                            Editar
+                                                        </button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2">Eliminar</button>
+                                                    <td><button role="button" class="button-name2"
+                                                            (click)="updateEstPeriodos(pro.periId,0)">Eliminar</button>
                                                     </td>
                                                 </tr>
                                             </tbody>

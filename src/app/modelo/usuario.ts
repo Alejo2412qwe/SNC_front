@@ -1,4 +1,4 @@
-import { Institucion } from "./Institucion";
+  import { Institucion } from "./Institucion";
 import { Funciones } from "./funciones";
 import { Persona } from "./persona";
 import { Procesos } from "./procesos";
@@ -65,3 +65,4 @@ export class Usuario {
 
   }
 }
+

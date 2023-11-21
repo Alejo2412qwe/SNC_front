@@ -73,7 +73,7 @@ export class ListavalorhoraComponent implements OnInit {
     Swal.fire({
       title: 'Información Importante',
       text:
-        'AL haber creado el valor, solo podrá modificarlo debido a que es un valor único.',
+        'Al haber creado el valor, solo podrá modificarlo debido a que es un valor único.',
       icon: 'info',
       confirmButtonText: 'Aceptar',
     });
