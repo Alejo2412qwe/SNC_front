@@ -68,6 +68,17 @@ export class InstitucionService {
     );
   }
 
+  getInstitucionById(id: number): Observable<Institucion> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<Institucion>(`${this.url}/getInstitucionById?id=${id}`, {
+      headers,
+    });
+  }
+
   updateInstitucion(
     Institucion: Institucion,
     id: number
