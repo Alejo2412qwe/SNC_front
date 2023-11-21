@@ -16,7 +16,7 @@ export class ListatipopermisosComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
     private tipopermisoService: TipoPermisoService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.cargarTipoMotivos();
@@ -33,11 +33,18 @@ export class ListatipopermisosComponent implements OnInit {
   TipoPermiso: TipoPermiso = new TipoPermiso();
   newTipoPermiso: string = '';
   newDescripcion: string = '';
+  searchString: string = '';
 
   cargarTipoMotivos() {
     this.tipopermisoService.getAllTiposPermiso().subscribe((data) => {
       this.listaTipoPermisos = data;
     });
+  }
+
+  searchTipopermiso(search: string, est: number) {
+    this.tipopermisoService.searchTipopermiso(search, est).subscribe((data) => {
+      this.listaTipoPermisos = data
+    })
   }
 
   loadTipoPermisoByEstado(est: number) {
@@ -159,7 +166,7 @@ export class ListatipopermisosComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadTipoPermisoByEstado(1);
