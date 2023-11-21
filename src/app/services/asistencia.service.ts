@@ -36,6 +36,17 @@ export class AsistenciaService {
 
   }
 
+  miAsistencia(usuId: number, fechaMin: string, fechaMax: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
+    });
+
+    console.log(`${this.url}/miAsistencia?usuId=${usuId}&fechaMin=${fechaMin}&fechaMax=${fechaMax}`)
+
+    return this.http.get<any[]>(`${this.url}/miAsistencia?usuId=${usuId}&fechaMin=${fechaMin}&fechaMax=${fechaMax}`, { headers });
+
+  }
+
   saveAll(asistencias: Asistencia[]): Observable<Asistencia[]> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí

@@ -19,11 +19,13 @@ import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listam
 import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
-import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component'; 
-import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component'; 
+import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
+import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
+
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
+import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -38,7 +40,7 @@ const routes: Routes = [
   { path: 'repvacaciones', component: VacacionesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'des', component: DespegablemeneComponent },
-  { path: 'Horarios', component: HorariosComponent} ,
+  { path: 'Horarios', component: HorariosComponent },
   { path: 'listatipopermiso', component: ListatipopermisosComponent },
   { path: 'listatipoformulario', component: ListatipoformularioComponent },
   { path: 'listavalor', component: ListavalorhoraComponent },
@@ -48,6 +50,7 @@ const routes: Routes = [
   { path: 'listaarchivos', component: ListaarchivosComponent },
   { path: 'listaPeri', component: ListaperiodosComponent },
   { path: 'listaasistencia', component: ListaasistenciaComponent },
+  { path: 'miasistencia', component: MiAsistenciaComponent },
   { path: 'listazonales', component: ListazonalesComponent },
   { path: '**', redirectTo: 'login' },
 ];
