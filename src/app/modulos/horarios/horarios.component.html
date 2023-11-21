@@ -138,11 +138,14 @@
                                         <table class="table table-hover" id="job-table">
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: rgb(78, 130, 189);">
-                                                    <th class="tipo" scope="col">Número de Horas</th>
-                                                    <th class="tipo" scope="col">Hora de Ingreso</th>
-                                                    <th class="tipo" scope="col">Hora de Salida</th>
-                                                    <th class="tipo" scope="col">Hora de Inicio de Almuerzo</th>
-                                                    <th class="tipo" scope="col">Hora de Fin de Almuerzo</th>
+                                                    <th class="tipo" scope="col">Número de Horas De Trabajo</th>
+                                                    <th class="tipo" scope="col">Hora de Ingreso En La Mañana</th>
+                                                    <th class="tipo" scope="col">Hora de Salida En La Mañana</th>
+                                                    <th class="tipo" scope="col">Horas Para Almuerzo</th>
+                                                    <th class="tipo" scope="col">Hora de Ingreso En La Tarde
+                                                    </th>
+                                                    <th class="tipo" scope="col">Hora de Salida En La Tarde
+                                                    </th>
                                                     <th class="tipo" scope="col">EDITAR</th>
                                                     <th class="tipo" scope="col">ELIMINAR</th>
                                                 </tr>
@@ -150,13 +153,14 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let horario of horarios">
                                                     <td class="tdTbl">{{horario.horNumHoras}}</td>
-                                                    <td class="tdTbl">{{horario.horHoraIngreso}}</td>
-                                                    <td class="tdTbl">{{horario.horHoraSalida}}</td>
-                                                    <td class="tdTbl">{{horario.horHoraAlmuerzoInicio}}</td>
-                                                    <td class="tdTbl">{{horario.horHoraAlmuerzoFin}}</td>
+                                                    <td class="tdTbl">{{horario.horHoraIngresoDia}}</td>
+                                                    <td class="tdTbl">{{horario.horHoraSalidaDia}}</td>
+                                                    <td class="tdTbl">{{horario.horHorasParaAlmuerzo}}</td>
+                                                    <td class="tdTbl">{{horario.horHoraIngresoTarde}}</td>
+                                                    <td class="tdTbl">{{horario.horHoraSalidaTarde}}</td>
 
                                                     <td class="tdTbl"><button role="button" class="button-name2"
-                                                            (click)="openUpdateProceso(horario.horNumHoras,horario.horId)">
+                                                            (click)="openUpdateProceso(horario.horId)">
                                                             <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
                                                                 height="1.25em" viewBox="0 0 512 512">
                                                                 <path
