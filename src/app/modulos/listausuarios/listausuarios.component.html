@@ -201,6 +201,7 @@
                                                     <th class="tipo" scope="col">FUNCIÓN</th>
                                                     <th class="tipo" scope="col">RÉGIMEN</th>
                                                     <th class="tipo" scope="col">ZONAL A LA QUE PERTENECE</th>
+                                                    <th class="tipo" scope="col">HORARIO ASIGNADO</th>
                                                     <th class="tipo" scope="col">ROL QUE CUMPLE</th>
                                                     <th class="tipo" scope="col">ID USADO EN LECTOR</th>
                                                     <th class="tipo" scope="col">FECHA DE REGISTRO</th>
@@ -253,6 +254,9 @@
                                                     <td class="tdTbl">{{user.funId.funNombre}}</td>
                                                     <td class="tdTbl">{{user.regId.regNombre}}</td>
                                                     <td class="tdTbl">{{user.zonId.zonNombre}}</td>
+                                                    <td class="tdTbl">{{'Entrada: '+user.horId.horHoraIngresoDia
+                                                        +' - '
+                                                        +'Salida: '+user.horId.horHoraSalidaTarde}}</td>
                                                     <td class="tdTbl">{{user.rolId.rolNombre}}</td>
                                                     <td class="tdTbl">{{user.usuIdLector}}</td>
                                                     <td class="tdTbl">{{ user.usuFechaRegistro | date:'dd-MM-yyyy' }}
