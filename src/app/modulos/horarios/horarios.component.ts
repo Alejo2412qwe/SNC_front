@@ -49,6 +49,18 @@ export class HorariosComponent implements OnInit {
     });
   }
 
+  obtenerHorasAlmuerzo(horHoraSalidaDia: string, horHoraIngresoTarde: string): number {
+    const parseHora = (hora: string): number => {
+      const [horas, minutos] = hora.split(':').map(Number);
+      return horas * 60 + minutos;
+    };
+
+    const horaSalidaDia = parseHora(horHoraSalidaDia);
+    const horaIngresoTarde = parseHora(horHoraIngresoTarde);
+
+    return horaIngresoTarde - horaSalidaDia;
+  }
+
   calcularDiferenciaDeHoras(horHoraIngresoDia: string, horHoraSalidaDia: string, horHoraIngresoTarde: string, horHoraSalidaTarde: string): number {
     const parseHora = (hora: string): number => {
       const [horas, minutos] = hora.split(':').map(Number);
@@ -144,7 +156,9 @@ export class HorariosComponent implements OnInit {
         this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
         this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
         this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+          this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+        this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
 
         this.agregarHorario();
         this.loadHorariosByEstado(1);
@@ -240,12 +254,14 @@ export class HorariosComponent implements OnInit {
           return;
         }
 
-        // Si todas las validaciones pasan, procede con la lógica de actualizar horario
+        // Si todas las validaciones pasan, procede con la lógica de agregar horario
         this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
         this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
         this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
         this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+          this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+        this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
 
         this.actualizarHorario(id);
         this.loadHorariosByEstado(1);
