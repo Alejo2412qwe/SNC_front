@@ -162,9 +162,9 @@ export class HorariosComponent implements OnInit {
         this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
         this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
         this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
-          this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+        this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
         this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
-
+        
         this.agregarHorario();
         this.loadHorariosByEstado(1);
       },
