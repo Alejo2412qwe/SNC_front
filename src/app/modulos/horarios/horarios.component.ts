@@ -196,7 +196,7 @@ export class HorariosComponent implements OnInit {
       <div>
       <div class="input-container">
           <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
-          <select class="input" name="horHoraIngresoDia" [(ngModel)]="nuevoHorario.horHoraIngreso">
+          <select class="input" id="horHoraIngresoDia">
             ${opcionesCombo}
           </select>
       </div>
@@ -205,7 +205,7 @@ export class HorariosComponent implements OnInit {
   <div>
       <div class="input-container">
           <label for="name" class="name">Hora de Salida En La Mañana:</label>
-          <select class="input" name="horHoraSalidaDia" [(ngModel)]="nuevoHorario.horHoraSalida">
+          <select class="input" id="horHoraSalidaDia">
             ${opcionesCombo}
           </select>
       </div>
@@ -213,7 +213,7 @@ export class HorariosComponent implements OnInit {
   <div>
   <div class="input-container">
       <label for="name" class="name">Hora de Ingreso En La Tarde En La Tarde:</label>
-      <select class="input" name="horHoraIngresoTarde" [(ngModel)]="nuevoHorario.horHoraSalida">
+      <select class="input" id="horHoraIngresoTarde">
         ${opcionesCombo}
       </select>
   </div>
@@ -222,7 +222,7 @@ export class HorariosComponent implements OnInit {
 <div>
 <div class="input-container">
   <label for="name" class="name">Hora de Salida En La Tarde:</label>
-  <select class="input" name="horHoraSalidaTarde" [(ngModel)]="nuevoHorario.horHoraSalida">
+  <select class="input" id="horHoraSalidaTarde">
     ${opcionesCombo}
   </select>
 </div>
@@ -232,10 +232,10 @@ export class HorariosComponent implements OnInit {
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        const selectHoraIngresoDia = document.querySelector('select[name="horHoraIngresoDia"]') as HTMLSelectElement;
-        const selectHoraSalidaDia = document.querySelector('select[name="horHoraSalidaDia"]') as HTMLSelectElement;
-        const selectHoraIngresoTarde = document.querySelector('select[name="horHoraIngresoTarde"]') as HTMLSelectElement;
-        const selectHoraSalidaTarde = document.querySelector('select[name="horHoraSalidaTarde"]') as HTMLSelectElement;
+        const selectHoraIngresoDia = document.getElementById('horHoraIngresoDia') as HTMLSelectElement;
+        const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLSelectElement;
+        const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLSelectElement;
+        const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLSelectElement;
 
         const validateSelect = (select: HTMLSelectElement, label: string) => {
           if (select.value === '0:00') {
