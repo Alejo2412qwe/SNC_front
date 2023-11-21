@@ -89,8 +89,4 @@ export class PeriodosService {
     });
   }
 
-  obtenerDiasAnticipacion(): Observable<number> {
-    return this.http.get<number>('/diasAnticipacion');
-  }
-
 }
