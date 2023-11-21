@@ -54,8 +54,9 @@
                                     <div>
                                         <div class="searchBox">
                                             <input class="searchInput" type="text" name=""
-                                                placeholder="Buscar por cedula, nombre, apellido, telefono"
-                                                title="Buscar por cedula, nombre, apellido, telefono">
+                                                placeholder="Buscar por cédula"
+                                                title="Buscar por cedula, nombre, apellido, telefono"
+                                                [(ngModel)]="searchString" (input)="searchPermisos(searchString, 1)">
                                         </div>
                                     </div>
                                     <div style="display: flex;
@@ -94,6 +95,7 @@
                                             <thead className="theadTab">
                                                 <tr class="text-center" style="background-color: aquamarine;">
                                                     <th class="tipo" scope="col">N° DE PERMISO</th>
+                                                    <th class="tipo" scope="col">CÉDULA DEL EMISOR</th>
                                                     <th class="tipo" scope="col">TIPO DE PERMISO</th>
                                                     <th class="tipo" scope="col">MOTIVO DEL PERMISO</th>
                                                     <th class="tipo" scope="col">FECHA DE EMISIÓN</th>
@@ -128,6 +130,7 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key={key} *ngFor="let per of listaPermisos">
                                                     <td class="tdTbl">{{per.permId}}</td>
+                                                    <td class="tdTbl">{{per.usuId.usuPerId.perCedula}}</td>
                                                     <td class="tdTbl">{{per.tiPeId.tiPeNombre}}</td>
                                                     <td class="tdTbl">{{per.motId.motNombre}}</td>
                                                     <td class="tdTbl">{{per.permFechaEmision | date:'dd-MM-yyyy'}}

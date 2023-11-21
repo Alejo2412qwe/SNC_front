@@ -27,6 +27,7 @@ export class AprobarpermisosComponent implements OnInit {
   rol = this.sessionStorage.getItem('rol');
 
   listaPermisos: Permisos[] = [];
+  searchString: string = '';
 
   getPermisos() {
     if (this.rol === 'Administrador') {
@@ -34,7 +35,12 @@ export class AprobarpermisosComponent implements OnInit {
     } else {
       this.getPermisosByIdJefe(this.sessionStorage.getItem('userId') || 0);
     }
+  }
 
+  searchPermisos(search: string, est: number) {
+    this.permisoService.searchPermisos(search, est).subscribe((data) => {
+      this.listaPermisos = data
+    })
   }
 
   getPermisosForAdmin(est: number) {
