@@ -51,7 +51,9 @@
                                 <div class="containertabla" style="width: 100%;">
                                     <div>
                                         <div class="searchBox">
-                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre">
+                                            <input class="searchInput" type="text" name="search"
+                                                placeholder="Por Nombre" [(ngModel)]="search"
+                                                (input)="filtroAsistencia()">
                                             <button class="searchButton" onclick="">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29"
                                                     viewBox="0 0 29 29" fill="none">
@@ -96,7 +98,19 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <button class="Btn3" routerLink="/registro">Refrescar
+                                        <input class="input" type="date" name="perFechaNacimiento"
+                                            placeholder="FechaMin" name="fechaMin" [(ngModel)]="fechaMin"
+                                            (change)="filtroAsistencia()">
+                                        <div class="underline"></div>
+                                    </div>
+                                    <div>
+                                        <input class="input" type="date" name="perFechaNacimiento"
+                                            placeholder="FechaMax" name="fechaMax" [(ngModel)]="fechaMax"
+                                            (change)="filtroAsistencia()">
+                                        <div class="underline"></div>
+                                    </div>
+                                    <div>
+                                        <button class="Btn3" (click)="limpiarFiltro()">Limpiar Filtro
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -129,8 +143,11 @@
                                                 <tr class="text-center" style="background-color: aquamarine;">
                                                     <th class="tipo" scope="col">NO REGISTRO</th>
                                                     <th class="tipo" scope="col">ID LECTOR</th>
-                                                    <th class="tipo" scope="col">FECHA | HORA</th>
+                                                    <th class="tipo" scope="col">CÉDULA</th>
                                                     <th class="tipo" scope="col">NOMBRE</th>
+                                                    <th class="tipo" scope="col">APELLIDOS</th>
+                                                    <th class="tipo" scope="col">FECHA | HORA</th>
+                                                    <!-- <th class="tipo" scope="col">NOMBRE</th> -->
                                                     <th class="tipo" scope="col">DEPARTAMENTO</th>
                                                     <th class="tipo" scope="col">LOCACIÓN</th>
                                                     <th class="tipo" scope="col">ESTADO</th>
@@ -139,15 +156,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
-                                                <tr key={key} *ngFor="let asis of registroAsistencia">
-                                                    <td>{{asis.asisId}}</td>
-                                                    <td>{{asis.asisNoLector}}</td>
-                                                    <td>{{asis.asisNombre}}</td>
-                                                    <td>{{asis.asisFechaHora}}</td>
-                                                    <td>{{asis.asisDpto}}</td>
-                                                    <td>{{asis.asisLocacionId}}</td>
-                                                    <td>{{asis.asisEstado}}</td>
-                                                </tr>   
+                                                <tr key={key} *ngFor="let asis of listAsistencia">
+                                                    <td>{{asis.asisId?.asisId}}</td>
+                                                    <td>{{asis.asisId?.asisNoLector}}</td>
+                                                    <td>{{asis.userId?.usuPerId?.perCedula}}</td>
+                                                    <td>{{asis.userId?.usuPerId?.perNombre}}</td>
+                                                    <td>{{asis.userId?.usuPerId?.perApellido}}</td>
+                                                    <td>{{asis.asisId?.asisFechaHora}}</td>
+                                                    <!-- <td>{{asis.asisId?.asisNombre}}</td> -->
+                                                    <td>{{asis.asisId?.asisDpto}}</td>
+                                                    <td>{{asis.asisId?.asisLocacionId}}</td>
+                                                    <td>{{asis.asisId?.asisEstado}}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
