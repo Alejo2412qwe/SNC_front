@@ -28,6 +28,19 @@ export class PeriodosService {
     });
   }
 
+  searchPeriodos(search: string, est: number) {
+    // Construir el encabezado de autorización
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.get<Periodos[]>(
+      `${this.url}/searchPeriodos?search=${search}&est=${est}`,
+      { headers }
+    );
+  }
+
   getAllPeriodos() {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
@@ -41,7 +54,7 @@ export class PeriodosService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
     });
-  
+
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.put<void>(
       `${this.url}/updateEstPeriodo?id=${id}&est=${est}`,
@@ -50,7 +63,7 @@ export class PeriodosService {
     );
   }
 
-  getPeriodosByEstado(est: number) { 
+  getPeriodosByEstado(est: number) {
     // Construir el encabezado de autorización
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí

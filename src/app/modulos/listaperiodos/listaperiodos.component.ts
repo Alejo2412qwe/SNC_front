@@ -18,21 +18,22 @@ export class ListaperiodosComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private periodosService: PeriodosService,
     private toastr: ToastrService,
-    
-  ) {}
+
+  ) { }
 
   username = this.sessionStorage.getItem('username');
   rol = this.sessionStorage.getItem('rol');
 
   //OBJETOS
-   periodos: Periodos = new Periodos();
+  periodos: Periodos = new Periodos();
   periodosSelected: any;
   currentDate: Date = new Date(); //Va actuaizando la fecha dia con dia
   //VARIABLES
   newPeriodos: string = '';
   newPeriodos2: string = '';
   estadoActivo: number = 1;
-  diasAnticipacion: number=0;
+  diasAnticipacion: number = 0;
+  searchString: string = '';
 
   //LISTAS
   listaPeriodos: Periodos[] = [];
@@ -40,15 +41,24 @@ export class ListaperiodosComponent implements OnInit {
   ngOnInit(): void {
     this.cargarPeriodos();
     this.loadPeriodosByEstado(this.estadoActivo);
+    this.obtenerDiasAnticipacion();
+  }
+
+  obtenerDiasAnticipacion() {
     this.periodosService.obtenerDiasAnticipacion().subscribe(
       (diasAnticipacion) => {
-        // Actualiza el modelo de periodo con los días de anticipación
         this.periodos.diasAnticipacion = diasAnticipacion;
       },
       (error) => {
         console.error('Error al obtener días de anticipación', error);
       }
     );
+  }
+
+  searchPeriodos(search: string, est: number) {
+    this.periodosService.searchPeriodos(search, est).subscribe((response) => {
+      this.listaPeriodos = response;
+    });
   }
 
   cargarPeriodos() {
@@ -96,7 +106,7 @@ export class ListaperiodosComponent implements OnInit {
         this.newPeriodos2 = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        
+
         if (this.validarFecha(this.newPeriodos) && this.validarFecha(this.newPeriodos2)) {
           this.periodos.periActual = new Date(this.newPeriodos); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
@@ -108,13 +118,13 @@ export class ListaperiodosComponent implements OnInit {
       },
     });
   }
-  
+
   validarFecha(dateString: string): boolean {
     // Asegúrate de que dateString tenga el formato correcto
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(dateString);
   }
-  
+
   updatePeriodos(id: number) {
     this.periodosService
       .updatePeriodos(this.periodos, id)
@@ -153,7 +163,7 @@ export class ListaperiodosComponent implements OnInit {
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadPeriodosByEstado(this.estadoActivo);
@@ -166,7 +176,7 @@ export class ListaperiodosComponent implements OnInit {
     Swal.fire({
       title: 'Editar ' + periActual + 'Editar ' + periAnterior,
       html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
-      
+
       showCancelButton: true,
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
@@ -174,7 +184,7 @@ export class ListaperiodosComponent implements OnInit {
         this.newPeriodos = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
-        if (this.validarFecha(this.newPeriodos) && this.validarFecha(this.newPeriodos2)  ) {
+        if (this.validarFecha(this.newPeriodos) && this.validarFecha(this.newPeriodos2)) {
           this.periodos.periActual = new Date(this.newPeriodos); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
           this.updatePeriodos(id);
