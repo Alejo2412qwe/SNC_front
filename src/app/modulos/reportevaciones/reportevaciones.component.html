@@ -130,14 +130,14 @@
                                     <td class="tdTbl">{{vac.vacTotalenDias}}</td>
                                     <td class="tdTbl">{{vac.vacDiasGanados}}</td>
                                     <td class="tdTbl">{{vac.vacNoGozadas}}</td>
-                                    <td class="tdTbl">{{vac.vacSaldo}}</td>
-
+                                    <td class="tdTbl" [style.color]="vac.vacSaldo < 0 ? 'red' : ''">
+                                        {{vac.vacSaldo}}
+                                    </td>
 
                                     <td><button role="button" class="button-name"
                                             (click)="editarVacaciones(vac)">Editar</button>
                                     </td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
