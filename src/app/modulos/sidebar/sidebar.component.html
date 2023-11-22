@@ -49,16 +49,17 @@
                     ASISTENCIA
                 </span>
             </li>
-            <li class="has-subnav" style="height: 30px;">
+            <li class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
                 <a href="/listaasistencia">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Asistencia
                     </span>
                 </a>
             </li>
-            <!-- AQUI SOLO CAMBIA LA RUTA BRYAN -->
+
             <li class="has-subnav" style="height: 30px;">
-                <a href="/listaasistencia">
+                <a href="/miasistencia">
+
                     <span class="nav-text" style="padding-left: 60px;">
                         Mi Asistencia
                     </span>
