@@ -121,6 +121,20 @@ export class UsuarioService {
     );
   }
 
+  updateSaldo(id: number, saldo: number): Observable<void> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    // Realiza la solicitud HTTP con el encabezado de autorización
+    return this.http.put<void>(
+      `${this.url}/updateSaldo?id=${id}&saldo=${saldo}`,
+      null,
+      { headers }
+    );
+  }
+
   logIn(login: LoginRequest): Observable<AuthResponse> {
     // Construir el encabezado de autorización con el token JWT
     const headers = new HttpHeaders({

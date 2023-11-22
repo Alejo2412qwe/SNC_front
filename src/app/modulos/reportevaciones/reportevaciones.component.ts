@@ -3,6 +3,9 @@ import { Vacaciones } from 'src/app/modelo/vacaciones';
 import { Comision } from 'src/app/modelo/comision';
 import { VacacionesService } from 'src/app/services/vacaciones.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import Swal from 'sweetalert2';
+import { tap } from 'rxjs';
 
 
 @Component({
@@ -29,7 +32,8 @@ export class VacacionesComponent implements OnInit {
   fechaBusquedaCom: string = '';
 
   constructor(private vacacioneService: VacacionesService,
-    private sessionStorage: SessionStorageService) {
+    private sessionStorage: SessionStorageService,
+    private usuarioService: UsuarioService) {
 
   }
 
@@ -37,6 +41,7 @@ export class VacacionesComponent implements OnInit {
   rol = this.sessionStorage.getItem('rol');
 
   ngOnInit(): void {
+    this.sumarDiasSegunRegimen(this.idUsuario);
     this.getFilterVacaciones();
   }
 
@@ -58,6 +63,74 @@ export class VacacionesComponent implements OnInit {
     this.vacacioneService.getVacaciones().subscribe((data) => {
       this.listaVacaciones = data
     })
+  }
+
+  sumarDiasSegunRegimen(id: number) {
+    this.usuarioService.searchUsersId(id).pipe(
+      tap((data) => {
+        let saldo: number = 0;
+        const mesesDesdeRegistro = this.calcularMesesDesdeRegistro(data.usuFechaRegistro);
+
+        if (data.regId.regId === 1) {
+          saldo += 2.5 * mesesDesdeRegistro;
+        } else if (data.regId.regId === 2) {
+          if (mesesDesdeRegistro < 60) {
+            saldo += 1.25 * mesesDesdeRegistro;
+          } else {
+            saldo += this.sumarDiasAntiguedad(mesesDesdeRegistro - 60);
+          }
+        }
+
+        // Actualiza el saldo
+        this.usuarioService.updateSaldo(id, saldo).subscribe(() => {
+          console.log(saldo)
+        });
+      })
+    ).subscribe();
+  }
+
+  private calcularMesesDesdeRegistro(fechaRegistro: Date | string): number {
+    // Intenta crear una instancia de Date desde la cadena si no es una instancia ya
+    const fechaRegistroObj = fechaRegistro instanceof Date ? fechaRegistro : new Date(fechaRegistro);
+
+    // Verifica si la fecha es válida
+    if (isNaN(fechaRegistroObj.getTime())) {
+      console.error('Fecha de registro no válida');
+      return 0; // O algún valor por defecto
+    }
+
+    const hoy = new Date();
+    const diferenciaEnMeses = (hoy.getFullYear() - fechaRegistroObj.getFullYear()) * 12 +
+      hoy.getMonth() - fechaRegistroObj.getMonth();
+
+    return diferenciaEnMeses;
+  }
+
+  private sumarDiasAntiguedad(mesesAntiguedad: number): number {
+    // Definir la tabla de sumatoria según la antigüedad
+    const tablaSumatoria = [1.33, 1.416, 1.5, 1.583, 1.6, 1.75, 1.83, 1.9, 2, 2.083];
+
+    // Sumar días según la antigüedad
+    let saldo = 0;
+    for (let i = 0; i < mesesAntiguedad && i < tablaSumatoria.length; i++) {
+      saldo += tablaSumatoria[i];
+    }
+
+    return saldo;
+  }
+
+
+  showSaldoVacaciones(id: number) {
+    this.usuarioService.searchUsersId(id).subscribe((data) => {
+      const saldoFormateado = data.usuSaldoVacacional.toFixed(2);
+
+      Swal.fire({
+        title: 'Saldo Vacacional',
+        html: `Estimado usuario, su saldo es de <b>${saldoFormateado}</b>`,
+        icon: 'info',
+        confirmButtonText: 'Aceptar',
+      });
+    });
   }
 
   loadVac(est: number) {
@@ -91,7 +164,7 @@ export class VacacionesComponent implements OnInit {
   editarVacaciones(vacaciones: Vacaciones) {
     // Clona el registro para no modificar el original directamente
     const vacacionEditada = { ...vacaciones };
-  
+
     // enviar una solicitud al servidor para actualizar el registro en la base de datos.
     this.vacacioneService.actualizarVacaciones(vacaciones.vacId, vacacionEditada).subscribe(
       () => {
