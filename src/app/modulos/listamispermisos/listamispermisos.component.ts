@@ -6,6 +6,7 @@ import { Permisos } from 'src/app/modelo/permisos';
 import { Regimen } from 'src/app/modelo/regimen';
 import { PermisoService } from 'src/app/services/permiso.service';
 import { RegimenService } from 'src/app/services/regimen.service';
+import { ReportService } from 'src/app/services/report.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import Swal from 'sweetalert2';
 
@@ -19,6 +20,7 @@ export class ListamispermisosComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
     private permisoService: PermisoService,
+    private reporteService: ReportService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,14 @@ export class ListamispermisosComponent implements OnInit {
   getPermisosByUsuId(id: number) {
     this.permisoService.getPermisosByUsuId(id).subscribe((data) => {
       this.listapermisos = data
+    })
+  }
+  
+  downloadPermiso(id: number) {
+    this.reporteService.getReportePermiso(id).subscribe((data) => {
+      const url = URL.createObjectURL(data);
+      window.open(url, '_blank');
+      console.log('descarga')
     })
   }
 
