@@ -1,5 +1,6 @@
   import { Institucion } from "./Institucion";
 import { Funciones } from "./funciones";
+import { Horarios } from "./horario";
 import { Persona } from "./persona";
 import { Procesos } from "./procesos";
 import { Regimen } from "./regimen";
@@ -22,6 +23,7 @@ export class Usuario {
   titulo: string;
   regId: Regimen;
   zonId: Zonales;
+  horId:Horarios;
   usuIdLector: number;
   usuIdJefe?: number;
 
@@ -42,6 +44,7 @@ export class Usuario {
     titulo?: string,
     regId?: Regimen,
     zonId?: Zonales,
+    horId?:Horarios,
     usuIdLector?: number,
     usuIdJefe?: number
   ) {
@@ -58,6 +61,7 @@ export class Usuario {
     this.funId = funId || new Funciones();
     this.regId = regId || new Regimen();
     this.zonId = zonId || new Zonales();
+    this.horId = horId || new Horarios();
     this.foto = foto || ''; // Asignar el valor pasado o null si no se proporciona
     this.titulo = titulo || '';
     this.usuIdLector = usuIdLector || 0;

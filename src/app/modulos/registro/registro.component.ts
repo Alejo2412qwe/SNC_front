@@ -37,6 +37,8 @@ import { Regimen } from 'src/app/modelo/regimen';
 import { RegimenService } from 'src/app/services/regimen.service';
 import { Zonales } from 'src/app/modelo/zonales';
 import { ZonalService } from 'src/app/services/zonal.service';
+import { Horarios } from 'src/app/modelo/horario';
+import { HorarioService } from 'src/app/services/horarios.service';
 
 @Component({
   selector: 'app-registro',
@@ -61,6 +63,7 @@ export class RegistroComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private regimenService: RegimenService,
     private zonalesService: ZonalService,
+    private horarioService: HorarioService,
     private sessionStorage: SessionStorageService,
   ) { }
 
@@ -105,6 +108,7 @@ export class RegistroComponent implements OnInit {
   listaregiemen: Regimen[] = [];
   listaJefes: Usuario[] = [];
   listaZonales: Zonales[] = [];
+  listaHorarios: Horarios[] = [];
   // imagenSeleccionada: File | null = null;
 
 
@@ -121,6 +125,7 @@ export class RegistroComponent implements OnInit {
     this.cargarJefes(5);
     this.validateMode();
     this.cargarZonales(1);
+    this.cargarHorarios();
   }
 
   toggleMostrarJefe() {
@@ -253,6 +258,12 @@ export class RegistroComponent implements OnInit {
     this.usuarioService.getJefesByRolId(id).subscribe((data) => {
       this.listaJefes = data;
     })
+  }
+
+  cargarHorarios() {
+    this.horarioService.getHorarios().subscribe((data) => {
+      this.listaHorarios = data;
+    });
   }
 
   cargarRegimen() {

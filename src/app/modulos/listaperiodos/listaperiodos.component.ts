@@ -31,7 +31,6 @@ export class ListaperiodosComponent implements OnInit {
   //VARIABLES
   newPeriodos: string = '';
   newPeriodos2: string = '';
-  estadoActivo: number = 1;
   diasAnticipacion: number = 0;
   searchString: string = '';
 
@@ -40,19 +39,13 @@ export class ListaperiodosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarPeriodos();
-    this.loadPeriodosByEstado(this.estadoActivo);
-    this.obtenerDiasAnticipacion();
+    this.loadPeriodosByEstado(1);
   }
 
-  obtenerDiasAnticipacion() {
-    this.periodosService.obtenerDiasAnticipacion().subscribe(
-      (diasAnticipacion) => {
-        this.periodos.diasAnticipacion = diasAnticipacion;
-      },
-      (error) => {
-        console.error('Error al obtener días de anticipación', error);
-      }
-    );
+  calcularAnticipacionDias(fechaActual: Date, fechaAnterior: Date): number {
+    const diff = Math.abs(fechaAnterior.getTime() - fechaActual.getTime());
+    const diffDays = Math.ceil(diff / (1000 * 3600 * 24));
+    return diffDays;
   }
 
   searchPeriodos(search: string, est: number) {
@@ -69,7 +62,7 @@ export class ListaperiodosComponent implements OnInit {
 
   saveProceso() {
     this.periodosService.savePeriodos(this.periodos).subscribe((data) => {
-      this.loadPeriodosByEstado(this.estadoActivo);
+      this.loadPeriodosByEstado(1);
       Swal.fire({
         title: '¡Registro Exitoso!',
         text: data.periActual + ' agregado correctamente<br>' + data.periAnterior + ' agregado correctamente',
@@ -90,9 +83,6 @@ export class ListaperiodosComponent implements OnInit {
     Swal.fire({
       title: 'Crear Nuevo Periodo',
       html: `
-      <label for="swal-input1">Período Actual:</label>
-      <input id="swal-input1" class="swal2-input" placeholder="Período Actual" 
-      [(ngModel)]="newPeriodos" type="text" value="${this.currentDate.toISOString().split('T')[0]}" readonly>
       <label for="swal-input2">Período Anterior:</label>
       <input id="swal-input2" class="swal2-input" placeholder="Período Anterior" [(ngModel)]="newPeriodos2" type="date" >
       `,
@@ -100,18 +90,16 @@ export class ListaperiodosComponent implements OnInit {
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        this.newPeriodos = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
         this.newPeriodos2 = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
 
-        if (this.validarFecha(this.newPeriodos) && this.validarFecha(this.newPeriodos2)) {
-          this.periodos.periActual = new Date(this.newPeriodos); // Convierte la cadena a Date
+        if (this.validarFecha(this.newPeriodos2)) {
+          this.periodos.periActual = new Date(this.currentDate.toISOString().split('T')[0]); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
+          this.periodos.diasAnticipacion = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
           this.saveProceso();
-          this.loadPeriodosByEstado(this.estadoActivo);
+          this.loadPeriodosByEstado(1);
         } else {
           showErrorAlCrear();
         }
@@ -129,7 +117,7 @@ export class ListaperiodosComponent implements OnInit {
     this.periodosService
       .updatePeriodos(this.periodos, id)
       .subscribe((data) => {
-        this.loadPeriodosByEstado(this.estadoActivo);
+        this.loadPeriodosByEstado(1);
         Swal.fire({
           title: 'Edición Exitosa!',
           text: data.periActual + ' agregado correctamente<br>' + data.periAnterior + ' agregado correctamente',
@@ -157,7 +145,7 @@ export class ListaperiodosComponent implements OnInit {
       if (result.isConfirmed) {
         this.periodosService.updateEst(id, est).subscribe({
           next: () => {
-            this.loadPeriodosByEstado(this.estadoActivo);
+            this.loadPeriodosByEstado(1);
             this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
           },
           error: (error) => {
@@ -166,8 +154,7 @@ export class ListaperiodosComponent implements OnInit {
           complete: () => { },
         });
       } else if (result.isDenied) {
-        this.loadPeriodosByEstado(this.estadoActivo);
-        this.estadoActivo;
+        this.loadPeriodosByEstado(1);
         this.toastr.warning('Acción Cancelada');
       }
     });
@@ -188,7 +175,7 @@ export class ListaperiodosComponent implements OnInit {
           this.periodos.periActual = new Date(this.newPeriodos); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
           this.updatePeriodos(id);
-          this.loadPeriodosByEstado(this.estadoActivo);
+          this.loadPeriodosByEstado(1);
         } else {
           showErrorAlCrear();
         }
