@@ -15,7 +15,7 @@ export class ExcelService {
   async dowloadExcel(params: IExcelReportParams): Promise<void> {
     this.workbook = new Workbook();
 
-    this.workbook.creator = 'DigiDev';
+    this.workbook.creator = 'Senescyt';
 
     // add a worksheet
     const worksheet = this.workbook.addWorksheet(params.reportName,
