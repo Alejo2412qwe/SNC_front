@@ -80,7 +80,9 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <div> <button class="Btn2">Generar Excel
+                                    <div> <button class="Btn2"
+                                            (click)="generateAndDownloadExcelTipoInstitucion(listaTipoInstituciones)">Generar
+                                            Excel
                                             <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
                                                 width="80px" height="48px">
                                                 <path fill="#4CAF50"
@@ -140,7 +142,9 @@
                                                     (input)="searchInstitucion(searchString, 1)">
                                             </div>
                                         </div>
-                                        <div> <button class="Btn2">Generar Excel
+                                        <div> <button class="Btn2"
+                                                (click)="generateAndDownloadExcelInstitucion(listaInstituciones)">Generar
+                                                Excel
                                                 <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
                                                     width="80px" height="48px">
                                                     <path fill="#4CAF50"
@@ -195,7 +199,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </body>
     </div>
 </div>

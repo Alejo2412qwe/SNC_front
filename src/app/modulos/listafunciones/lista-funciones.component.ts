@@ -6,6 +6,8 @@ import { SessionStorageService } from 'src/app/services/session-storage.service'
 import Swal from 'sweetalert2';
 import { validarCadena } from 'src/app/common/validaciones';
 import { showErrorAlCrear } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-lista-funciones',
@@ -16,7 +18,8 @@ export class ListaFuncionesComponent implements OnInit {
   constructor(
     private sessionStorage: SessionStorageService,
     private funcionesService: FuncionesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private excelService: ExcelService,
   ) { }
 
   username = this.sessionStorage.getItem('username');
@@ -30,6 +33,7 @@ export class ListaFuncionesComponent implements OnInit {
   newFunciones: string = '';
   estadoActivo: number = 1;
   searchString: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   //LISTAS
   listaFunciones: Funciones[] = [];
@@ -42,6 +46,7 @@ export class ListaFuncionesComponent implements OnInit {
   cargarFunciones() {
     this.funcionesService.getAllFunciones().subscribe((data) => {
       this.listaFunciones = data;
+      this.loadExcelReportData(data);
     });
   }
 
@@ -67,12 +72,13 @@ export class ListaFuncionesComponent implements OnInit {
   searchFunciones(search: string, est: number) {
     this.funcionesService.searchFunciones(search, est).subscribe((data) => {
       this.listaFunciones = data
+      this.loadExcelReportData(data);
     })
   }
 
   openCrearFuncion() {
     Swal.fire({
-      title: 'Crear Nueva Funcion',
+      title: 'Crear Nueva Función',
       html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
       showCancelButton: true,
       confirmButtonText: 'Crear',
@@ -91,6 +97,7 @@ export class ListaFuncionesComponent implements OnInit {
       },
     });
   }
+
   updateFuncion(id: number) {
     this.funcionesService
       .updateFunciones(this.funciones, id)
@@ -138,6 +145,7 @@ export class ListaFuncionesComponent implements OnInit {
       }
     });
   }
+
   openUpdateFuncion(nombre: string, id: number) {
     Swal.fire({
       title: 'Editar ' + nombre,
@@ -158,5 +166,51 @@ export class ListaFuncionesComponent implements OnInit {
         }
       },
     });
+  }
+
+  loadExcelReportData(data: Funciones[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Funciones";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" }
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.funId,
+      nombre: item.funNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
   }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { showErrorAlCrear, validarCadena } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { Zonales } from 'src/app/modelo/zonales';
+import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { ZonalService } from 'src/app/services/zonal.service';
 import Swal from 'sweetalert2';
@@ -16,7 +18,8 @@ export class ListazonalesComponent implements OnInit {
   constructor(
     private sessionStorage: SessionStorageService,
     private zonalesService: ZonalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private excelService: ExcelService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class ListazonalesComponent implements OnInit {
   newZonal: string = '';
   newCodigo: string = '';
   searchString: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   //LISTAS
   listaZonales: Zonales[] = [];
@@ -42,6 +46,7 @@ export class ListazonalesComponent implements OnInit {
   loadZonalesByEstado(est: number) {
     this.zonalesService.getZonalesByEstado(est).subscribe((data) => {
       this.listaZonales = data;
+      this.loadExcelReportData(data)
     });
   }
 
@@ -59,7 +64,10 @@ export class ListazonalesComponent implements OnInit {
   }
 
   searchZonales(search: string, est: number) {
-    this.zonalesService.searchZonales(search, est).subscribe((data) => { this.listaZonales = data })
+    this.zonalesService.searchZonales(search, est).subscribe((data) => { 
+      this.listaZonales = data
+      this.loadExcelReportData(data)
+    })
   }
 
   openCrearZonal() {
@@ -159,6 +167,54 @@ export class ListazonalesComponent implements OnInit {
         }
       },
     });
+  }
+  loadExcelReportData(data: Zonales[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Zonales";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "CÓDIGO" },
+      { header: "NOMBRE" }
+
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.zonId,
+      codigo: item.zonCodigo,
+      nombre: item.zonNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
   }
 
 }

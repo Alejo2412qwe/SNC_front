@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { showErrorAlCrear, validarCadena } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { TipoPermiso } from 'src/app/modelo/tipopermiso';
+import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { TipoPermisoService } from 'src/app/services/tipopermiso.service';
 import Swal from 'sweetalert2';
@@ -15,11 +17,12 @@ export class ListatipopermisosComponent implements OnInit {
   constructor(
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
-    private tipopermisoService: TipoPermisoService
+    private tipopermisoService: TipoPermisoService,
+    private excelService: ExcelService
   ) { }
 
   ngOnInit(): void {
-    this.cargarTipoMotivos();
+    this.cargarTipoPermisos();
     this.loadTipoPermisoByEstado(1);
   }
 
@@ -34,16 +37,19 @@ export class ListatipopermisosComponent implements OnInit {
   newTipoPermiso: string = '';
   newDescripcion: string = '';
   searchString: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
-  cargarTipoMotivos() {
+  cargarTipoPermisos() {
     this.tipopermisoService.getAllTiposPermiso().subscribe((data) => {
       this.listaTipoPermisos = data;
+      this.loadExcelReportData(data);
     });
   }
 
   searchTipopermiso(search: string, est: number) {
     this.tipopermisoService.searchTipopermiso(search, est).subscribe((data) => {
       this.listaTipoPermisos = data
+      this.loadExcelReportData(data);
     })
   }
 
@@ -173,5 +179,54 @@ export class ListatipopermisosComponent implements OnInit {
         this.toastr.warning('Acción Cancelada');
       }
     });
+  }
+
+  loadExcelReportData(data: TipoPermiso[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Tipo De Formularios";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" },
+      { header: "DESCRIPCIÓN" }
+
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.tiPeId,
+      nombre: item.tiPeNombre,
+      desc: item.tiPeDescripcion
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
   }
 }
