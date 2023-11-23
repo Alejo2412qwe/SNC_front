@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { IListAsistencia } from 'src/app/interfaz/IListAsistencia';
 import { Asistencia } from 'src/app/modelo/asistencia';
 import { AsistenciaService } from 'src/app/services/asistencia.service';
+import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
@@ -18,6 +20,7 @@ export class MiAsistenciaComponent implements OnInit {
     //SERVICES
     private sessionStorage: SessionStorageService,
     private asistenciaService: AsistenciaService,
+    private excelService: ExcelService,
   ) { }
 
   registroAsistencia: Asistencia[] = []
@@ -25,6 +28,7 @@ export class MiAsistenciaComponent implements OnInit {
   search: string = '';
   fechaMin: string = '';
   fechaMax: string = this.fechaMaxSearch(new Date());
+  excelReportData: IExcelReportParams | null = null;
 
   ngOnInit(): void {
     this.filtroAsistencia()
@@ -48,7 +52,7 @@ export class MiAsistenciaComponent implements OnInit {
   filtroAsistencia() {
     this.asistenciaService.miAsistencia(Number(this.sessionStorage.getItem('userId')), this.fechaMin, `${this.fechaMax} 23:59:59`).subscribe((response) => {
       this.listAsistencia = response; // Asigna los datos al array provincias
-      console.log(response)
+      this.loadExcelReportData(response)
     });
   }
 
@@ -61,4 +65,63 @@ export class MiAsistenciaComponent implements OnInit {
     return (`${anio}-${mes}-${dia}`)
   }
 
+  loadExcelReportData(data: IListAsistencia[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Mi Asistencia";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "ID LECTOR" },
+      { header: "CÉDULA" },
+      { header: "NOMBRE" },
+      { header: "APELLIDOS" },
+      { header: "FECHA | HORA" },
+      { header: "DEPARTAMENTO" },
+      { header: "LOCACIÓN" },
+      { header: "ESTADO" },
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.asisId?.asisId,
+      idLector: item.asisId?.asisNoLector,
+      perCedula: item.userId?.usuPerId?.perCedula,
+      perNombre: item.userId?.usuPerId?.perNombre,
+      perApellido: item.userId?.usuPerId?.perApellido,
+      asisFechaHora: item.asisId?.asisFechaHora,
+      asisDpto: item.asisId?.asisDpto,
+      asisLocacionId: item.asisId?.asisLocacionId,
+      asisEstado: item.asisId?.asisEstado,
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
+  }
 }
