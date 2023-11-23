@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sessionStorage.clear()
-    // alert(this.sessionStorage.getItem('token'))
+    this.sessionStorage.clear();
   }
 
   loginRequest: LoginRequest = new LoginRequest();
@@ -37,28 +36,23 @@ export class LoginComponent implements OnInit {
     try {
       const decodedToken: any = jwt_decode(token);
       if (decodedToken) {
-
-        const rol = decodedToken['rol']; // Accede a la reclamación "rol"
+        const rol = decodedToken['rol'];
         this.sessionStorage.setItem('rol', rol[0].authority);
-        // console.log("rol= " + this.sessionStorage.getItem('rol'))
 
-        const username = decodedToken['sub']; // Accede a la reclamación "sub"
+        const username = decodedToken['sub'];
         this.sessionStorage.setItem('username', username);
-        // console.log("username= " + this.sessionStorage.getItem('username'))
 
-        const userId = decodedToken['id']; // Accede a la reclamación "sub"
+        const userId = decodedToken['id'];
         this.sessionStorage.setItem('userId', userId);
-        // console.log("username= " + this.sessionStorage.getItem('username'))
 
+        const tiempoRestante = decodedToken['exp'] - Math.floor(Date.now() / 1000);
+        this.sessionStorage.setItem('tiempoRestante', tiempoRestante.toString());
 
-        return
       } else {
         console.error("Token inválido o no contiene información de rol.");
-        return
       }
     } catch (error) {
       console.error("Error al decodificar el token:", error);
-      return
     }
   }
 
