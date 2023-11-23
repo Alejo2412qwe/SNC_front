@@ -3,6 +3,7 @@ import { AllScriptsService } from '../scripts/all-scripts.service';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-despegablemene',
@@ -21,7 +22,7 @@ export class DespegablemeneComponent implements OnInit {
 
   username = this.sessionStorage.getItem('username');
   tiempoRestante: number = 30 * 60; // 30 minutos en segundos
-  tiempoFormateado: string = '30:00'; // Inicializar con el tiempo inicial
+  tiempoFormateado: string = '00:00'; // Inicializar con el tiempo inicial
 
   cerrarSesion(): void {
     localStorage.removeItem('userData');
@@ -56,7 +57,12 @@ export class DespegablemeneComponent implements OnInit {
 
         // Mostrar mensaje cuando falten 2 minutos
         if (tiempoRestante === 120) {
-          this.toastr.show('LE QUEDAN 2 MINUTOS DE SESIÓN, RECOMENDAMOS VOLVER A INICIARLA')
+          Swal.fire({
+            title: 'La sesión caducará en 2 minutos',
+            icon: 'warning',
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       } else {
         clearInterval(contadorInterval);
