@@ -106,32 +106,37 @@ export class ListatipopermisosComponent implements OnInit {
   }
 
   openUpdateTipoPermiso(nombre: string, id: number) {
-    Swal.fire({
-      title: 'Editar ' + nombre,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Ingrese el tipo de permiso" [(ngModel)]="TipoPermiso.tiPeNombre"> <input id="swal-input2" class="swal2-input" placeholder="Descripción" [(ngModel)]="TipoPermiso.tiPeDescripcion">',
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newTipoPermiso = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        this.newDescripcion = (
-          document.getElementById('swal-input2') as HTMLInputElement
-        ).value;
-        if (
-          validarCadena(this.newTipoPermiso) &&
-          validarCadena(this.newDescripcion)
-        ) {
-          this.TipoPermiso.tiPeDescripcion = this.newDescripcion;
-          this.TipoPermiso.tiPeNombre = this.newTipoPermiso;
-          this.updateTipoPermiso(id);
-          this.loadTipoPermisoByEstado(1);
-        } else {
-          showErrorAlCrear();
-        }
-      },
-    });
+    this.tipopermisoService.getTipoPermsioById(id).subscribe((data) => {
+      Swal.fire({
+        title: 'Editar ' + nombre,
+        html: `
+        <input id="swal-input1" class="swal2-input" placeholder="Ingrese el tipo de permiso" [(ngModel)]="TipoPermiso.tiPeNombre" value="${data.tiPeNombre}"> 
+        <input id="swal-input2" class="swal2-input" placeholder="Descripción" [(ngModel)]="TipoPermiso.tiPeDescripcion" value="${data.tiPeDescripcion}">
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+          this.newTipoPermiso = (
+            document.getElementById('swal-input1') as HTMLInputElement
+          ).value;
+          this.newDescripcion = (
+            document.getElementById('swal-input2') as HTMLInputElement
+          ).value;
+          if (
+            validarCadena(this.newTipoPermiso) &&
+            validarCadena(this.newDescripcion)
+          ) {
+            this.TipoPermiso.tiPeDescripcion = this.newDescripcion;
+            this.TipoPermiso.tiPeNombre = this.newTipoPermiso;
+            this.updateTipoPermiso(id);
+            this.loadTipoPermisoByEstado(1);
+          } else {
+            showErrorAlCrear();
+          }
+        },
+      });
+    })
   }
 
   updateTipoPermiso(id: number) {

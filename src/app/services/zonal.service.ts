@@ -80,4 +80,15 @@ export class ZonalService {
         );
     }
 
+    getZonalById(id: number): Observable<Zonales> {
+        // Construir el encabezado de autorización con el token JWT
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+        });
+
+        return this.http.get<Zonales>(`${this.url}/getZonalById?id=${id}`, {
+            headers,
+        });
+    }
+
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { SessionStorageService } from './session-storage.service'; // Importa SessionStorageService
-import { Horarios } from '../modelo/horario'; 
+import { Horarios } from '../modelo/horario';
 import { entorno } from '../enviroment/entorno';
 import { Observable } from 'rxjs';
 
@@ -21,7 +21,7 @@ export class HorarioService {
       'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
     });
 
-    return this.http.get<Horarios[]>(this.url + '/read',{headers});
+    return this.http.get<Horarios[]>(this.url + '/read', { headers });
   }
 
   agregarHorario(horario: Horarios): Observable<Horarios> {
@@ -43,7 +43,7 @@ export class HorarioService {
       'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
     });
 
-    return this.http.get<Horarios[]>(`${this.url}/searchByHour/${horaIngreso}`, {headers});
+    return this.http.get<Horarios[]>(`${this.url}/searchByHour/${horaIngreso}`, { headers });
   }
 
   actualizaHorario(horario: Horarios, id: number): Observable<Horarios> {
@@ -55,7 +55,7 @@ export class HorarioService {
 
     // Realiza la solicitud HTTP con el encabezado de autorización
 
-    return this.http.put<Horarios>(`${this.url}/update/${id}`, horario, {headers});
+    return this.http.put<Horarios>(`${this.url}/update/${id}`, horario, { headers });
 
   }
 
@@ -76,8 +76,8 @@ export class HorarioService {
 
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.put<void>(
-      `${this.url}/updateEst?id=${id}&est=${est}`, 
-      null, 
+      `${this.url}/updateEst?id=${id}&est=${est}`,
+      null,
       { headers }
     );
   }
@@ -93,6 +93,18 @@ export class HorarioService {
       `${this.url}/getProcesosByHorarios?est=${est}`,
       { headers }
     );
+  }
+
+
+  getHorarioById(id: number): Observable<Horarios> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<Horarios>(`${this.url}/getHorarioById?id=${id}`, {
+      headers,
+    });
   }
 
 

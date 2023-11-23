@@ -64,7 +64,7 @@ export class ListazonalesComponent implements OnInit {
   }
 
   searchZonales(search: string, est: number) {
-    this.zonalesService.searchZonales(search, est).subscribe((data) => { 
+    this.zonalesService.searchZonales(search, est).subscribe((data) => {
       this.listaZonales = data
       this.loadExcelReportData(data)
     })
@@ -143,30 +143,35 @@ export class ListazonalesComponent implements OnInit {
     });
   }
 
-  openUpdateZonal(nombre: string, id: number) {
-    Swal.fire({
-      title: 'Editar ' + nombre,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre"><input id="swal-input2" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre">',
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newZonal = (
-          document.getElementById('swal-input2') as HTMLInputElement
-        ).value;
-        this.newCodigo = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        if (validarCadena(this.newZonal) && validarCadena(this.newCodigo)) {
-          this.zonal.zonNombre = this.newZonal;
-          this.zonal.zonCodigo = this.newCodigo;
-          this.updateZonal(id);
-          this.loadZonalesByEstado(1);
-        } else {
-          showErrorAlCrear();
-        }
-      },
-    });
+  openUpdateZonal(codigo: string, id: number) {
+    this.zonalesService.getZonalById(id).subscribe((data) => {
+      Swal.fire({
+        title: 'Editar ' + codigo,
+        html: `
+        <input id="swal-input1" class="swal2-input" placeholder="Código De La Zonal" [(ngModel)]="zonal.zonNombre" value="${data.zonCodigo}">
+        <input id="swal-input2" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre" value="${data.zonNombre}">
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+          this.newZonal = (
+            document.getElementById('swal-input2') as HTMLInputElement
+          ).value;
+          this.newCodigo = (
+            document.getElementById('swal-input1') as HTMLInputElement
+          ).value;
+          if (validarCadena(this.newZonal) && validarCadena(this.newCodigo)) {
+            this.zonal.zonNombre = this.newZonal;
+            this.zonal.zonCodigo = this.newCodigo;
+            this.updateZonal(id);
+            this.loadZonalesByEstado(1);
+          } else {
+            showErrorAlCrear();
+          }
+        },
+      });
+    })
   }
   loadExcelReportData(data: Zonales[]) {
 
