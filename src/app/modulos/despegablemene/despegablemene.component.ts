@@ -17,13 +17,37 @@ export class DespegablemeneComponent implements OnInit {
     private router: Router,
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   username = this.sessionStorage.getItem('username');
+  tiempoRestante: number = 30 * 60; // 30 minutos en segundos
+  tiempoFormateado: string = '30:00'; // Inicializar con el tiempo inicial
 
   cerrarSesion(): void {
     localStorage.removeItem('userData');
     this.toastr.info('Se ha cerrado la sesión');
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.actualizarContador();
+  }
+
+  private actualizarContador() {
+    const contadorInterval = setInterval(() => {
+      const minutos = Math.floor(this.tiempoRestante / 60);
+      const segundos = this.tiempoRestante % 60;
+
+      const minutosStr = minutos < 10 ? '0' + minutos : minutos;
+      const segundosStr = segundos < 10 ? '0' + segundos : segundos;
+
+      this.tiempoFormateado = `${minutosStr}:${segundosStr}`;
+
+      if (this.tiempoRestante > 0) {
+        this.tiempoRestante--;
+      } else {
+        alert('Tiempo agotado');
+        clearInterval(contadorInterval);
+      }
+    }, 1000);
+  }
+
 }
