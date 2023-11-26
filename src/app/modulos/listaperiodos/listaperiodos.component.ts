@@ -101,14 +101,13 @@ export class ListaperiodosComponent implements OnInit {
           this.saveProceso();
           this.loadPeriodosByEstado(1);
         } else {
-          showErrorAlCrear();
+          Swal.showValidationMessage('No se puede crear el periodo.');
         }
       },
     });
   }
 
   validarFecha(dateString: string): boolean {
-    // Asegúrate de que dateString tenga el formato correcto
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     return regex.test(dateString);
   }
@@ -159,11 +158,20 @@ export class ListaperiodosComponent implements OnInit {
       }
     });
   }
-  openUpdatePeriodos(periActual: Date, periAnterior: Date, id: number) {
-    Swal.fire({
-      title: 'Editar ' + periActual + 'Editar ' + periAnterior,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Proceso o Zona" [(ngModel)]="proceso.procNombre">',
+  openUpdatePeriodos(periAnterior: Date, id: number) {
+    const vistaPer = new Date(periAnterior);
+    const dia = vistaPer.getDate();
+    const mes = vistaPer.getMonth() + 1;
+    const anio = vistaPer.getFullYear();
 
+    const fechaFormateada = `${dia < 10 ? '0' : ''}${dia}/${mes < 10 ? '0' : ''}${mes}/${anio}`;
+
+    Swal.fire({
+      title: 'Editar ' + fechaFormateada,
+      html: `
+      <label for="swal-input2">Período Anterior:</label>
+      <input id="swal-input2" class="swal2-input" placeholder="Período Anterior" [(ngModel)]="newPeriodos2" type="date">
+      `,
       showCancelButton: true,
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
