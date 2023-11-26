@@ -659,7 +659,7 @@ body {
     width: 100%;
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 50% 25% 25%;
+    grid-template-columns: 70% 30%;
     grid-template-rows: 2fr;
     grid-column-gap: 3px;
     grid-row-gap: 20px;
@@ -1058,7 +1058,7 @@ td::-webkit-scrollbar-track {
     .containertabla {
         margin-top: 50px;
         display: inline;
-        grid-template-columns: 40% 15% 15% 15% 15%;
+        grid-template-columns: 70% 30%;
         grid-template-rows: 2fr;
         grid-column-gap: 20px;
         grid-row-gap: 20px;

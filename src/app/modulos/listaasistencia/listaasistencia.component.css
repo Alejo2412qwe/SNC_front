@@ -658,7 +658,7 @@ body {
 .containertabla {
     margin-top: 50px;
     display: grid;
-    grid-template-columns: 40% 25% 25%;
+    grid-template-columns: 20% 17.5% 17.5% 17.5% 17.5%;
     grid-template-rows: 2fr;
     grid-column-gap: 20px;
     grid-row-gap: 20px;

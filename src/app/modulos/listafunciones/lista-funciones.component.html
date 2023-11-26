@@ -49,8 +49,15 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
+                                
+                                    <div>
+                                        <div class="searchBox">
+                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre"
+                                                [(ngModel)]="searchString" (input)="searchFunciones(searchString, 1)">
+                                        </div>
+                                    </div>
                                     <div
-                                        style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                        style="display: flex;    justify-content: center;  padding-bottom: 10px;   align-items: center;     height: 100%;">
                                         <div class="radio-inputs">
                                             <label class="radio">
                                                 <input type="radio" name="radio" value=1
@@ -62,12 +69,6 @@
                                                     (change)="loadFuncionesByEstado(0)">
                                                 <span class="name">Inactivo</span>
                                             </label>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="searchBox">
-                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre"
-                                                [(ngModel)]="searchString" (input)="searchFunciones(searchString, 1)">
                                         </div>
                                     </div>
                                     <div>
