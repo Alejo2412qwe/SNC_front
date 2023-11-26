@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { showErrorAlCrear, validarCadena } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { TipoFormulario } from 'src/app/modelo/tipoformulario';
+import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { TipoFormularioService } from 'src/app/services/tipoformulario.service';
 import Swal from 'sweetalert2';
@@ -15,8 +17,9 @@ export class ListatipoformularioComponent implements OnInit {
   constructor(
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService,
-    private tipformularioService: TipoFormularioService
-  ) {}
+    private tipformularioService: TipoFormularioService,
+    private excelService: ExcelService
+  ) { }
   ngOnInit(): void {
     this.cargarTipoForm();
     this.loadTipoFormByEstado(1);
@@ -31,6 +34,7 @@ export class ListatipoformularioComponent implements OnInit {
   //variables
   TipoFormulario: TipoFormulario = new TipoFormulario();
   newTipoFormulario: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   cargarTipoForm() {
     this.tipformularioService.getAllTipoFormulario().subscribe((data) => {
@@ -43,6 +47,7 @@ export class ListatipoformularioComponent implements OnInit {
       .getTipoFormularioByEstado(est)
       .subscribe((response) => {
         this.listatipoformulario = response; // Asigna los datos al array Funciones
+        this.loadExcelReportData(response)
       });
   }
 
@@ -123,8 +128,14 @@ export class ListatipoformularioComponent implements OnInit {
   }
 
   updateEstTipoForm(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Se deshabilitará el tipo de formulario, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el tipo de formulario, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -140,17 +151,68 @@ export class ListatipoformularioComponent implements OnInit {
         this.tipformularioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadTipoFormByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
+
           },
           error: (error) => {
             // Manejar errores
           },
-          complete: () => {},
+          complete: () => { },
         });
       } else if (result.isDenied) {
         this.loadTipoFormByEstado(1);
         this.toastr.warning('Acción Cancelada');
       }
     });
+  }
+
+  loadExcelReportData(data: TipoFormulario[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Tipo De Formularios";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" }
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.tiFoId,
+      codigo: item.tiFoNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
   }
 }

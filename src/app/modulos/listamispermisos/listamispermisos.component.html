@@ -54,7 +54,7 @@
                                         <button class="Btn3" (click)="getPermisosByUsuId(idUsuario)">Refrescar Tabla
                                         </button>
                                     </div>
-                                    <div> <button class="Btn2">Generar
+                                    <div> <button class="Btn2" (click)="downloadExcel()">Generar
                                             <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
                                                 width="80px" height="48px">
                                                 <path fill="#4CAF50"
@@ -110,7 +110,7 @@
                                                         </ng-template>
                                                     </td>
                                                     <td>
-                                                        <button role="button" class="button-name">
+                                                        <button role="button" class="button-name" (click)="crearPDF(per.permId)">
                                                             <i class="fa fa-download fa-2x"></i>
                                                         </button>
                                                     </td>

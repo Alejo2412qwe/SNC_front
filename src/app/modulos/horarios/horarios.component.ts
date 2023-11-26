@@ -156,17 +156,23 @@ export class HorariosComponent implements OnInit {
         const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
         const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
-        // Si todas las validaciones pasan, procede con la lógica de agregar horario
-        this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
-        this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
-        this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
-        this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
-        this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
-        this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
-        
-        this.agregarHorario();
-        this.loadHorariosByEstado(1);
+        if (!selectHoraIngresoDia.value || !selectHoraSalidaDia.value || !selectHoraIngresoTarde.value || !selectHoraSalidaTarde.value) {
+
+          Swal.showValidationMessage('Por favor, llene todos los campos.');
+
+        } else {
+
+          this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
+          this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
+          this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
+          this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
+          this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+            this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+          this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+
+          this.agregarHorario();
+          this.loadHorariosByEstado(1);
+        }
       },
     });
   }
@@ -190,25 +196,40 @@ export class HorariosComponent implements OnInit {
 
   openUpdateProceso(id: number) {
 
-    Swal.fire({
-      title: 'Editar Horario',
-      html: `
-      <div class="input-container">
-      <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
-      <input style="padding: 10px;
-          font-size: 16px;
-          border: none;
-          border-radius: 4px;
-          background-color: #f1f1f1;
-          color: #777;
-          width: 100%;
-          outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngreso"
-          [(ngModel)]="nuevoHorario.horHoraIngreso">
-      <div class="underline"></div>
-  </div>
-
+    this.horarioService.getHorarioById(id).subscribe((data) => {
+      Swal.fire({
+        title: 'Editar Horario',
+        html: `
+        <div class="input-container">
+        <label for="name" class="name">Hora de Ingreso En La Mañana:</label>
+        <input style="padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            color: #777;
+            width: 100%;
+            outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngreso"
+            [(ngModel)]="nuevoHorario.horHoraIngreso" value="${data.horHoraIngresoDia}">
+        <div class="underline"></div>
+    </div>
+  
+    <div class="input-container">
+    <label for="name" class="name">Hora de Salida En El Dia:</label>
+    <input style="padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f1f1f1;
+        color: #777;
+        width: 100%;
+        outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaDia"
+        [(ngModel)]="nuevoHorario.horHoraSalidaDia" value="${data.horHoraSalidaDia}">
+    <div class="underline"></div>
+  </div>   
+      
   <div class="input-container">
-  <label for="name" class="name">Hora de Salida En El Dia:</label>
+  <label for="name" class="name">Hora de Ingreso En La Tarde:</label>
   <input style="padding: 10px;
       font-size: 16px;
       border: none;
@@ -216,68 +237,58 @@ export class HorariosComponent implements OnInit {
       background-color: #f1f1f1;
       color: #777;
       width: 100%;
-      outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaDia"
-      [(ngModel)]="nuevoHorario.horHoraSalidaDia">
+      outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngresoTarde"
+      [(ngModel)]="nuevoHorario.horHoraIngresoTarde" value="${data.horHoraIngresoTarde}">
   <div class="underline"></div>
-</div>   
-    
-<div class="input-container">
-<label for="name" class="name">Hora de Ingreso En La Tarde:</label>
-<input style="padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    color: #777;
-    width: 100%;
-    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraIngresoTarde"
-    [(ngModel)]="nuevoHorario.horHoraIngresoTarde">
-<div class="underline"></div>
-</div>  
+  </div>  
+  
+  <div class="input-container">
+  <label for="name" class="name">Hora de Salida En La Tarde:</label>
+  <input style="padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #777;
+      width: 100%;
+      outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaTarde"
+      [(ngModel)]="nuevoHorario.horHoraSalidaTarde" value="${data.horHoraSalidaTarde}">
+  <div class="underline"></div>
+  </div> 
+    `,
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
 
-<div class="input-container">
-<label for="name" class="name">Hora de Salida En La Tarde:</label>
-<input style="padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f1f1f1;
-    color: #777;
-    width: 100%;
-    outline: none;" placeholder="Enter your name" type="time" class="input" id="horHoraSalidaTarde"
-    [(ngModel)]="nuevoHorario.horHoraSalidaTarde">
-<div class="underline"></div>
-</div> 
-  `,
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
+          const selectHoraIngresoDia = document.getElementById('horHoraIngreso') as HTMLInputElement;
+          const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLInputElement;
+          const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
+          const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
-        const selectHoraIngresoDia = document.getElementById('horHoraIngreso') as HTMLInputElement;
-        const selectHoraSalidaDia = document.getElementById('horHoraSalidaDia') as HTMLInputElement;
-        const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
-        const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
+          if (!selectHoraIngresoDia.value || !selectHoraSalidaDia.value || !selectHoraIngresoTarde.value || !selectHoraSalidaTarde.value) {
 
-        // Si todas las validaciones pasan, procede con la lógica de agregar horario
-        this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
-        this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
-        this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
-        this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
-          this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
-        this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+            Swal.showValidationMessage('Por favor, llene todos los campos.');
 
-        this.actualizarHorario(id);
-        this.loadHorariosByEstado(1);
-      },
-    });
-  }
+          } else {
 
-  obtenerHorarios() {
-    this.horarioService.getHorarios().subscribe((response: Horarios[]) => {
-      this.horarios = response;
-    });
+            // Si todas las validaciones pasan, procede con la lógica de agregar horario
+            this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
+            this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
+            this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
+            this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
+            this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+              this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+            this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+
+            this.actualizarHorario(id);
+            this.loadHorariosByEstado(1);
+          }
+        },
+      });
+
+    })
+
   }
 
   buscarPorHora() {
@@ -302,8 +313,14 @@ export class HorariosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el horario, se deshabilitará y no podra ser recuperado, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el horario, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -319,7 +336,11 @@ export class HorariosComponent implements OnInit {
         this.horarioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadHorariosByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

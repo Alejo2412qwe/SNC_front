@@ -261,7 +261,7 @@ export class RegistroComponent implements OnInit {
   }
 
   cargarHorarios() {
-    this.horarioService.getHorarios().subscribe((data) => {
+    this.horarioService.getHorariosByEstado(1).subscribe((data) => {
       this.listaHorarios = data;
     });
   }
@@ -354,6 +354,7 @@ export class RegistroComponent implements OnInit {
                   this.usuario.usuEstado = 1;
                   this.usuario.usuPerId = response;
 
+                  this.usuario.usuSaldoVacacional = 0;
                   // REGISTRAR USUARIO
                   this.usuarioService.registrarUsuario(this.usuario).subscribe((response) => {
                     Swal.fire({

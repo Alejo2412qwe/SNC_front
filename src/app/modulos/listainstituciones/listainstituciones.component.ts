@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { validarCadena } from 'src/app/common/validaciones';
 import { showErrorAlCrear } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-listainstituciones',
@@ -20,7 +22,8 @@ export class ListainstitucionesComponent implements OnInit {
     private institucionService: InstitucionService,
     private tipInstitucionService: tipoInstitucionService,
     private toastr: ToastrService,
-    private sessionStorage: SessionStorageService
+    private sessionStorage: SessionStorageService,
+    private excelService: ExcelService
   ) { }
 
   //usuario de la sesion actual
@@ -41,6 +44,7 @@ export class ListainstitucionesComponent implements OnInit {
   newTipoinstitucion: string = '';
   searchString: string = '';
   searchString2: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   //LISTAS
   listaInstituciones: Institucion[] = [];
@@ -125,12 +129,14 @@ export class ListainstitucionesComponent implements OnInit {
   searchInstitucion(search: string, est: number) {
     this.institucionService.searchInstitucion(search, est).subscribe((data) => {
       this.listaInstituciones = data
+      this.loadExcelReportDataInstitucion(data)
     })
   }
 
   searchTipoInstitucion(search: string, est: number) {
     this.tipInstitucionService.searchTipoInstitucion(search, est).subscribe((data) => {
       this.listaTipoInstituciones = data
+      this.loadExcelReportDataTipoInstitucion(data)
     })
   }
 
@@ -195,8 +201,14 @@ export class ListainstitucionesComponent implements OnInit {
   }
 
   updateEstInstitucion(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Está a punto de eliminar la institución, ¿desea continuar?`,
+      title: `Se ` + mensaje + ` la institución, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -212,7 +224,11 @@ export class ListainstitucionesComponent implements OnInit {
         this.institucionService.updateEst(id, est).subscribe({
           next: () => {
             this.loadInstitucionesByTipId(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -231,6 +247,7 @@ export class ListainstitucionesComponent implements OnInit {
       .getInstitucionesByTipId(tipid, instid)
       .subscribe((response) => {
         this.listaInstituciones = response; // Asigna los datos al array provincias
+        this.loadExcelReportDataInstitucion(response)
       });
   }
   /*fin de Institucion*/
@@ -313,8 +330,14 @@ export class ListainstitucionesComponent implements OnInit {
   }
 
   updateEstTipoInstitucion(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el proceso también deshabilitará los institutos pertenecientes, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el tipo de institución, ¿Està seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -331,7 +354,11 @@ export class ListainstitucionesComponent implements OnInit {
           next: () => {
             this.loadTipoInstitucionByEstado(1);
             this.loadInstitucionesByTipId(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -351,7 +378,112 @@ export class ListainstitucionesComponent implements OnInit {
       .getTipoInstitucionByEstado(est)
       .subscribe((response) => {
         this.listaTipoInstituciones = response; // Asigna los datos al array provincias
+        this.loadExcelReportDataTipoInstitucion(response)
       });
   }
   /*fin de Tipo de Institucion*/
+
+  loadExcelReportDataTipoInstitucion(data: TipoInstitucion[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Tipo De Instituciones";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" },
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.tipId,
+      nombre: item.tipNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  loadExcelReportDataInstitucion(data: Institucion[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Instituciones";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "CÓDIGO" },
+      { header: "NOMBRE" },
+      { header: "DIRECCIÓN" },
+      { header: "REFERENCIA" },
+      { header: "PERTENECE A" }
+
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.instId,
+      codigo: item.instCodigo,
+      nombre: item.instNombre,
+      direccion: item.instDireccion,
+      referencia: item.instReferencia,
+      pertenece: item.tipId.tipNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
+  }
+
+  generateAndDownloadExcelTipoInstitucion(data: TipoInstitucion[]): void {
+    this.loadExcelReportDataTipoInstitucion(data);
+    this.downloadExcel();
+  }
+
+  generateAndDownloadExcelInstitucion(data: Institucion[]): void {
+    this.loadExcelReportDataInstitucion(data);
+    this.downloadExcel();
+  }
 }

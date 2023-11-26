@@ -266,12 +266,14 @@
                                                 <select id="horario" name="horario" class="input2" style="color: #777;"
                                                     [(ngModel)]="usuario.horId.horId">
                                                     <option value="0">Seleccione el horario</option>
-                                                    <option *ngFor="let horario of listaHorarios" [value]="horario.horId">
-                                                        Entrada: {{horario.horHoraIngresoDia}} - Salida: {{horario.horHoraSalidaTarde}}
+                                                    <option *ngFor="let horario of listaHorarios"
+                                                        [value]="horario.horId">
+                                                        Entrada: {{horario.horHoraIngresoDia}} - Salida:
+                                                        {{horario.horHoraSalidaTarde}}
                                                     </option>
                                                 </select>
                                                 <div class="underline"></div>
-                                            </div> 
+                                            </div>
                                         </div>
                                         <div>
                                             <div class="input-container">
@@ -397,27 +399,8 @@
                                 </div>
 
                                 <div class="contentForm">
-                                    <div style="width: 100%; padding-bottom: 15px;">
-
-                                        <h2 style="text-align: center; font-weight: bolder;">Designación de Rol</h2>
-                                    </div>
 
                                     <div style="width: 100%; margin-top: 30px;">
-                                        <table class="table-fill">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-left">Rol</th>
-                                                    <th class="text-left">Descripción</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="table-hover">
-                                                <tr *ngFor="let rol of listRoles">
-                                                    <td class="text-left">{{rol.rolNombre}}</td>
-                                                    <td class="text-left">{{rol.rolDescripcion}}</td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
                                         <div
                                             style="width: 100%; align-content: center; text-align: center; margin-top: 20px;">
                                             <button class="learn-more" style="margin-bottom: 40px; width: 50%;"

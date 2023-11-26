@@ -35,6 +35,7 @@ import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.co
 import { DatePipe } from '@angular/common';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
+import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 
 
 
@@ -67,6 +68,7 @@ import { ListazonalesComponent } from './modulos/listazonales/listazonales.compo
     ListaarchivosComponent,
     ListaasistenciaComponent,
     ListazonalesComponent,
+    MiAsistenciaComponent
   ],
   imports: [
     BrowserModule,

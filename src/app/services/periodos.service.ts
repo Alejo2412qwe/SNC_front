@@ -69,8 +69,6 @@ export class PeriodosService {
       Authorization: `Bearer ${this.sessionStorage.getItem('token')}`, // Agrega el token JWT aquí
     });
 
-    console.log(`${this.url}/getPeriodoByEstado/${est}`);
-
     // Realiza la solicitud HTTP con el encabezado de autorización
     return this.http.get<Periodos[]>(
       `${this.url}/getPeriodoByEstado?est=${est}`,

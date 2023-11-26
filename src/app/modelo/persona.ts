@@ -2,11 +2,11 @@ import { Ciudad } from "./ciudad";
 
 export class Persona {
   perId: number;
-  perCedula?: string;
-  perNombre?: string;
-  perApellido?: string;
-  perDireccion?: string;
-  perTelefono?: string;
+  perCedula: string;
+  perNombre: string;
+  perApellido: string;
+  perDireccion: string;
+  perTelefono: string;
   perFechaNacimiento: Date;
   ciuId: Ciudad;
 

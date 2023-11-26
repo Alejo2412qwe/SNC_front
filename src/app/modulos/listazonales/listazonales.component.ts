@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { showErrorAlCrear, validarCadena } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { Zonales } from 'src/app/modelo/zonales';
+import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { ZonalService } from 'src/app/services/zonal.service';
 import Swal from 'sweetalert2';
@@ -16,7 +18,8 @@ export class ListazonalesComponent implements OnInit {
   constructor(
     private sessionStorage: SessionStorageService,
     private zonalesService: ZonalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private excelService: ExcelService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class ListazonalesComponent implements OnInit {
   newZonal: string = '';
   newCodigo: string = '';
   searchString: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   //LISTAS
   listaZonales: Zonales[] = [];
@@ -42,6 +46,7 @@ export class ListazonalesComponent implements OnInit {
   loadZonalesByEstado(est: number) {
     this.zonalesService.getZonalesByEstado(est).subscribe((data) => {
       this.listaZonales = data;
+      this.loadExcelReportData(data)
     });
   }
 
@@ -59,7 +64,10 @@ export class ListazonalesComponent implements OnInit {
   }
 
   searchZonales(search: string, est: number) {
-    this.zonalesService.searchZonales(search, est).subscribe((data) => { this.listaZonales = data })
+    this.zonalesService.searchZonales(search, est).subscribe((data) => {
+      this.listaZonales = data
+      this.loadExcelReportData(data)
+    })
   }
 
   openCrearZonal() {
@@ -104,8 +112,14 @@ export class ListazonalesComponent implements OnInit {
   }
 
   updateEstZonal(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Va a eliminar la zonal, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` la zonal, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -121,7 +135,11 @@ export class ListazonalesComponent implements OnInit {
         this.zonalesService.updateEst(id, est).subscribe({
           next: () => {
             this.loadZonalesByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -135,30 +153,83 @@ export class ListazonalesComponent implements OnInit {
     });
   }
 
-  openUpdateZonal(nombre: string, id: number) {
-    Swal.fire({
-      title: 'Editar ' + nombre,
-      html: '<input id="swal-input1" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre"><input id="swal-input2" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre">',
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        this.newZonal = (
-          document.getElementById('swal-input2') as HTMLInputElement
-        ).value;
-        this.newCodigo = (
-          document.getElementById('swal-input1') as HTMLInputElement
-        ).value;
-        if (validarCadena(this.newZonal) && validarCadena(this.newCodigo)) {
-          this.zonal.zonNombre = this.newZonal;
-          this.zonal.zonCodigo = this.newCodigo;
-          this.updateZonal(id);
-          this.loadZonalesByEstado(1);
-        } else {
-          showErrorAlCrear();
-        }
-      },
-    });
+  openUpdateZonal(codigo: string, id: number) {
+    this.zonalesService.getZonalById(id).subscribe((data) => {
+      Swal.fire({
+        title: 'Editar ' + codigo,
+        html: `
+        <input id="swal-input1" class="swal2-input" placeholder="Código De La Zonal" [(ngModel)]="zonal.zonNombre" value="${data.zonCodigo}">
+        <input id="swal-input2" class="swal2-input" placeholder="Nombre De La Zonal" [(ngModel)]="zonal.zonNombre" value="${data.zonNombre}">
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Editar',
+        cancelButtonText: 'Cancelar',
+        preConfirm: () => {
+          this.newZonal = (
+            document.getElementById('swal-input2') as HTMLInputElement
+          ).value;
+          this.newCodigo = (
+            document.getElementById('swal-input1') as HTMLInputElement
+          ).value;
+          if (validarCadena(this.newZonal) && validarCadena(this.newCodigo)) {
+            this.zonal.zonNombre = this.newZonal;
+            this.zonal.zonCodigo = this.newCodigo;
+            this.updateZonal(id);
+            this.loadZonalesByEstado(1);
+          } else {
+            showErrorAlCrear();
+          }
+        },
+      });
+    })
+  }
+  loadExcelReportData(data: Zonales[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Zonales";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "CÓDIGO" },
+      { header: "NOMBRE" }
+
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.zonId,
+      codigo: item.zonCodigo,
+      nombre: item.zonNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
   }
 
 }

@@ -8,6 +8,8 @@ import { SubprocesosService } from 'src/app/services/subprocesos.service';
 import Swal from 'sweetalert2';
 import { validarCadena } from 'src/app/common/validaciones';
 import { showErrorAlCrear } from 'src/app/common/validaciones';
+import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
+import { ExcelService } from 'src/app/services/excel.service';
 
 @Component({
   selector: 'app-listaprocesos-subprocesos',
@@ -19,7 +21,8 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
     private sessionStorage: SessionStorageService,
     private subprocesosService: SubprocesosService,
     private procesoService: ProcesosService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private excelService: ExcelService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +44,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   newSubproceso: string = '';
   searchString: string = '';
   searchString2: string = '';
+  excelReportData: IExcelReportParams | null = null;
 
   //LISTAS
   listaProcesos: Procesos[] = [];
@@ -49,18 +53,21 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   cargarSubprocesos(estProc: number, estSub: number) {
     this.subprocesosService.getSubprocesosByProcEstado(estProc, estSub).subscribe((data) => {
       this.listaSubprocesos = data;
+      this.loadExcelReportDataSubprocesos(data)
     });
   }
 
   searchProcesos(search: string, est: number) {
     this.procesoService.searchProcesos(search, est).subscribe((data) => {
       this.listaProcesos = data
+      this.loadExcelReportDataProcesos(data)
     })
   }
 
   searchSubprocesos(search: string, est: number) {
     this.subprocesosService.searchSubprocesos(search, est).subscribe((data) => {
       this.listaSubprocesos = data
+      this.loadExcelReportDataSubprocesos(data)
     })
   }
 
@@ -115,8 +122,14 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el proceso también deshabilitará los subprocesos pertenecientes, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el proceso, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -133,7 +146,11 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
           next: () => {
             this.loadProcesosByEstado(1);
             this.loadSubprocesosByProcEstado(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -180,6 +197,7 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   loadProcesosByEstado(est: number) {
     this.procesoService.getProcesosByEstado(est).subscribe((response) => {
       this.listaProcesos = response; // Asigna los datos al array provincias
+      this.loadExcelReportDataProcesos(response)
     });
   }
   /*fin del proceso*/
@@ -265,8 +283,14 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   updateEstSubproceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Está a punto de eliminar el subproceso, ¿desea continuar?`,
+      title: `Se ` + mensaje + ` el subproceso, ¿desea continuar?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -282,7 +306,11 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.subprocesosService.updateEst(id, est).subscribe({
           next: () => {
             this.loadSubprocesosByProcEstado(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -304,4 +332,101 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
       });
   }
   /*fin del proceso*/
+
+  loadExcelReportDataProcesos(data: Procesos[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Procesos";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" },
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.procId,
+      codigo: item.procNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  loadExcelReportDataSubprocesos(data: Subprocesos[]) {
+
+    //NOMBRE DEL REPORTE
+    const reportName = "Subprocesos";
+
+    //TAMAÑO DEL LOGO
+    const logo = "G1:L1";
+
+    //ENCABEZADOS
+    const headerItems: IHeaderItem[] = [
+      { header: "№ REGISTRO" },
+      { header: "NOMBRE" },
+      { header: "PERTENECE A" }
+
+
+    ];
+
+    //DATOS DEL REPORTE
+    const rowData = data.map((item) => ({
+      noRegistro: item.subId,
+      codigo: item.subNombre,
+      nombre: item.procId.procNombre
+
+    }));
+
+
+    if (this.excelReportData) {
+      this.excelReportData.logo = logo;
+      this.excelReportData.rowData = rowData;
+      this.excelReportData.headerItems = headerItems;
+      this.excelReportData.reportName = reportName;
+    } else {
+      this.excelReportData = {
+        logo,
+        rowData,
+        headerItems,
+        reportName,
+      };
+    }
+
+  }
+
+  downloadExcel(): void {
+    console.log(this.excelReportData)
+    if (this.excelReportData) {
+      this.excelService.dowloadExcel(this.excelReportData);
+    }
+  }
+
+  generateAndDownloadExcelProcesos(data: Procesos[]): void {
+    this.loadExcelReportDataProcesos(data);
+    this.downloadExcel();
+  }
+
+  generateAndDownloadExcelSubprocesos(data: Subprocesos[]): void {
+    this.loadExcelReportDataSubprocesos(data);
+    this.downloadExcel();
+  }
 }

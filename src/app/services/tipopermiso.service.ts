@@ -88,4 +88,15 @@ export class TipoPermisoService {
       { headers }
     );
   }
+
+  getTipoPermsioById(id: number): Observable<TipoPermiso> {
+    // Construir el encabezado de autorización con el token JWT
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
+    });
+
+    return this.http.get<TipoPermiso>(`${this.url}/getTipoPermsioById?id=${id}`, {
+      headers,
+    });
+  }
 }

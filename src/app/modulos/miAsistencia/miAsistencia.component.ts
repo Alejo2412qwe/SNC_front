@@ -9,19 +9,18 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
 @Component({
-  selector: 'app-listaasistencia',
-  templateUrl: './listaasistencia.component.html',
-  styleUrls: ['./listaasistencia.component.css']
+  selector: 'app-miAsistencia',
+  templateUrl: './miAsistencia.component.html',
+  styleUrls: ['./miAsistencia.component.css']
 })
-export class ListaasistenciaComponent implements OnInit {
-  constructor(
-    private toastr: ToastrService,
+export class MiAsistenciaComponent implements OnInit {
+
+  constructor(private toastr: ToastrService,
     private router: Router,
     //SERVICES
     private sessionStorage: SessionStorageService,
     private asistenciaService: AsistenciaService,
     private excelService: ExcelService,
-
   ) { }
 
   registroAsistencia: Asistencia[] = []
@@ -51,7 +50,7 @@ export class ListaasistenciaComponent implements OnInit {
   }
 
   filtroAsistencia() {
-    this.asistenciaService.asistenciaSearch(this.fechaMin, `${this.fechaMax} 23:59:59`, this.search).subscribe((response) => {
+    this.asistenciaService.miAsistencia(Number(this.sessionStorage.getItem('userId')), this.fechaMin, `${this.fechaMax} 23:59:59`).subscribe((response) => {
       this.listAsistencia = response; // Asigna los datos al array provincias
       this.loadExcelReportData(response)
     });
@@ -65,8 +64,6 @@ export class ListaasistenciaComponent implements OnInit {
 
     return (`${anio}-${mes}-${dia}`)
   }
-
-
 
   loadExcelReportData(data: IListAsistencia[]) {
 

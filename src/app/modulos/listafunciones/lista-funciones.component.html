@@ -49,10 +49,25 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
+                                    <div
+                                        style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                        <div class="radio-inputs">
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=1
+                                                    (change)="loadFuncionesByEstado(1)">
+                                                <span class="name">Activo</span>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=0
+                                                    (change)="loadFuncionesByEstado(0)">
+                                                <span class="name">Inactivo</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div>
                                         <div class="searchBox">
-                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre" [(ngModel)]="searchString"
-                                            (input)="searchFunciones(searchString, 1)">
+                                            <input class="searchInput" type="text" name="" placeholder="Por Nombre"
+                                                [(ngModel)]="searchString" (input)="searchFunciones(searchString, 1)">
                                         </div>
                                     </div>
                                     <div>
@@ -66,18 +81,7 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <div>
-                                        <button class="Btn3" (click)="loadFuncionesByEstado(1)">Refrescar Tabla
-                                            <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
-                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div> <button class="Btn2">Generar Excel
+                                    <div> <button class="Btn2" (click)="downloadExcel()">Generar Excel
                                             <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
                                                 width="80px" height="48px">
                                                 <path fill="#4CAF50"
@@ -98,7 +102,7 @@
                                                     <th class="tipo" scope="col">ID FUNCIÓN</th>
                                                     <th class="tipo" scope="col">NOMBRE</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
@@ -108,8 +112,13 @@
                                                     <td><button role="button" class="button-name"
                                                             (click)="openUpdateFuncion(pro.funNombre,pro.funId)">Editar</button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2"
+                                                    <td class="tdTbl">
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="pro.funEstado ===1"
                                                             (click)="updateEstFuncion(pro.funId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="pro.funEstado ===0"
+                                                            (click)="updateEstFuncion(pro.funId,1)">Activar</button>
                                                     </td>
                                                 </tr>
                                             </tbody>

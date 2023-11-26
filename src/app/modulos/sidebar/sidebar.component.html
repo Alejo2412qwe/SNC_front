@@ -49,16 +49,17 @@
                     ASISTENCIA
                 </span>
             </li>
-            <li class="has-subnav" style="height: 30px;">
+            <li class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
                 <a href="/listaasistencia">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Asistencia
                     </span>
                 </a>
             </li>
-            <!-- AQUI SOLO CAMBIA LA RUTA BRYAN -->
+
             <li class="has-subnav" style="height: 30px;">
-                <a href="/listaasistencia">
+                <a href="/miasistencia">
+
                     <span class="nav-text" style="padding-left: 60px;">
                         Mi Asistencia
                     </span>
@@ -156,6 +157,21 @@
                 </a>
             </li>
 
+            <!--horario-->
+            <li id="horarios" class="has-subnav">
+                <i class="fa fa-clock-o fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Horarios
+                </span>
+            </li>
+
+            <li id="verhorarios" class="has-subnav" style="height: 30px;">
+                <a href="/Horarios">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Horarios
+                    </span>
+                </a>
+            </li>
             <!-- VALOR POR HORA -->
             <li id="otrasfun" class="has-subnav">
                 <i class="fa fa-cog fa-2x"></i>
@@ -167,13 +183,6 @@
                 <a href="/listavalor">
                     <span class="nav-text" style="padding-left: 60px;">
                         Valor Por Hora
-                    </span>
-                </a>
-            </li>
-            <li id="horarios" class="has-subnav" style="height: 30px;">
-                <a href="/Horarios">
-                    <span class="nav-text" style="padding-left: 60px;">
-                        Horarios
                     </span>
                 </a>
             </li>
