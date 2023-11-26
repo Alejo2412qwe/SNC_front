@@ -291,12 +291,6 @@ export class HorariosComponent implements OnInit {
 
   }
 
-  obtenerHorarios() {
-    this.horarioService.getHorarios().subscribe((response: Horarios[]) => {
-      this.horarios = response;
-    });
-  }
-
   buscarPorHora() {
     const valorInput = this.horaBusqueda;
 
@@ -319,8 +313,14 @@ export class HorariosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el horario, se deshabilitará y no podra ser recuperado, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el horario, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -336,7 +336,11 @@ export class HorariosComponent implements OnInit {
         this.horarioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadHorariosByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

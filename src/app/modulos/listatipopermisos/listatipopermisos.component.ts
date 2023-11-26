@@ -155,8 +155,14 @@ export class ListatipopermisosComponent implements OnInit {
   }
 
   updateEstTipoPermiso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Se deshabilitará el tipo de permiso, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el tipo de permiso, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -172,7 +178,11 @@ export class ListatipopermisosComponent implements OnInit {
         this.tipopermisoService.updateEst(id, est).subscribe({
           next: () => {
             this.loadTipoPermisoByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

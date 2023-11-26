@@ -50,6 +50,23 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
+                                    <div
+                                        style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                        <div class="radio-inputs">
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=1
+                                                    (change)="loadTipoInstitucionByEstado(1)"
+                                                    (click)="loadInstitucionesByTipId(1,1)">
+                                                <span class="name">Activo</span>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=0
+                                                    (change)="loadTipoInstitucionByEstado(0)"
+                                                    (click)="loadInstitucionesByTipId(0,1)">
+                                                <span class="name">Inactivo</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div>
                                         <div class="searchBox">
                                             <input class="searchInput" type="text" name="" placeholder="Por Tipo"
@@ -60,17 +77,6 @@
                                     <div>
                                         <button class="Btn3" (click)="openCrearTipoInstitucion()">Crear Tipo de
                                             Institución
-                                            <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
-                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button class="Btn3" (click)="loadInstitucionesByTipId(1,1)">Refrescar Tabla
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -107,7 +113,7 @@
                                                     <th class="tipo" scope="col">TIPO DE INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">INSTITUCIÓN</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
@@ -120,8 +126,13 @@
                                                     <td><button role="button" class="button-name"
                                                             (click)="openUpdateTipoInstitucion(tipInst.tipNombre,tipInst.tipId)">Editar</button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2"
+                                                    <td>
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="tipInst.tipEstado === 1"
                                                             (click)="updateEstTipoInstitucion(tipInst.tipId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="tipInst.tipEstado === 0"
+                                                            (click)="updateEstTipoInstitucion(tipInst.tipId,1)">Activar</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -133,6 +144,21 @@
 
                                     <div class="containertabla"
                                         style="width: 100%; margin-top: 10px; margin-bottom: 20px;">
+                                        <div
+                                            style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                            <div class="radio-inputs">
+                                                <label class="radio">
+                                                    <input type="radio" name="radio" value=1
+                                                        (change)="cargarInstitucionesByEstado(1)">
+                                                    <span class="name">Activo</span>
+                                                </label>
+                                                <label class="radio">
+                                                    <input type="radio" name="radio" value=0
+                                                        (change)="cargarInstitucionesByEstado(0)">
+                                                    <span class="name">Inactivo</span>
+                                                </label>
+                                            </div>
+                                        </div>
                                         <div>
                                             <div class="searchBox">
                                                 <input class="searchInput" type="text" name=""
@@ -168,7 +194,7 @@
                                                     <th class="tipo" scope="col">REFERENCIA</th>
                                                     <th class="tipo" scope="col">TIPO AL QUE PERTENECE</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
 
                                                 </tr>
                                             </thead>
@@ -180,11 +206,17 @@
                                                     <td>{{inst.instDireccion}}</td>
                                                     <td>{{inst.instReferencia}}</td>
                                                     <td>{{inst.tipId.tipNombre}}</td>
-                                                    <td><button role="button" class="button-name"
+                                                    <td>
+                                                        <button role="button" class="button-name"
                                                             (click)="openUpdateInstitucion(inst.instNombre,inst.instId)">Editar</button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2"
+                                                    <td>
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="inst.instEstado ===1 "
                                                             (click)="updateEstInstitucion(inst.instId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="inst.instEstado ===0 "
+                                                            (click)="updateEstInstitucion(inst.instId,1)">Activar</button>
                                                     </td>
 
                                                 </tr>

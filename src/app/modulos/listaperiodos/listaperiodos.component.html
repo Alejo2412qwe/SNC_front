@@ -49,6 +49,21 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
+                                    <div
+                                        style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
+                                        <div class="radio-inputs">
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=1
+                                                    (change)="loadPeriodosByEstado(1)">
+                                                <span class="name">Activo</span>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=0
+                                                    (change)="loadPeriodosByEstado(0)">
+                                                <span class="name">Inactivo</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div>
                                         <div class="searchBox">
                                             <input class="searchInput" type="text" name=""
@@ -58,17 +73,6 @@
                                     </div>
                                     <div>
                                         <button class="Btn3" (click)="openCrearPeriodos()">Crear Periodos
-                                            <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
-                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <button class="Btn3" (click)="loadPeriodosByEstado(1)">Refrescar Tabla
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -102,7 +106,7 @@
                                                     <th class="tipo" scope="col">PERIODO ACTUAL</th>
                                                     <th class="tipo" scope="col">DÍAS DE ANTICIPACIÓN</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
@@ -117,8 +121,13 @@
                                                             Editar
                                                         </button>
                                                     </td>
-                                                    <td><button role="button" class="button-name2"
+                                                    <td>
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="pro.periEstado ===1"
                                                             (click)="updateEstPeriodos(pro.periId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="pro.periEstado ===0"
+                                                            (click)="updateEstPeriodos(pro.periId,1)">Activar</button>
                                                     </td>
                                                 </tr>
                                             </tbody>

@@ -261,7 +261,7 @@ export class RegistroComponent implements OnInit {
   }
 
   cargarHorarios() {
-    this.horarioService.getHorarios().subscribe((data) => {
+    this.horarioService.getHorariosByEstado(1).subscribe((data) => {
       this.listaHorarios = data;
     });
   }

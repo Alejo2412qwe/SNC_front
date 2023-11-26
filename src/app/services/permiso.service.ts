@@ -112,7 +112,7 @@ export class PermisoService {
         const headers = new HttpHeaders({
             Authorization: `Bearer ${this.sessionStorage.getItem('token')}`,
         });
-        console.log(`${this.url}/update?id=${id}`)
+        
         // Realiza la solicitud HTTP con el encabezado de autorización
         return this.http.put<any>(`${this.url}/update?id=${id}`, p, {
             headers,
