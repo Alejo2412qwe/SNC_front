@@ -97,13 +97,14 @@
                           <!-- <th class="tipo" scope="col">NOMBRE</th> -->
                           <th class="tipo" scope="col">DEPARTAMENTO</th>
                           <th class="tipo" scope="col">LOCACIÓN</th>
+                          <th class="tipo" scope="col">TIPO</th>
                           <th class="tipo" scope="col">ESTADO</th>
-
-
                         </tr>
                       </thead>
                       <tbody class="text-center tableBody">
-                        <tr key={key} *ngFor="let asis of listAsistencia">
+                        <tr key={key} *ngFor="let asis of listAsistencia"
+                          [ngStyle]="getCellStyle(asis.asisId?.asisEstadoStr)">
+
                           <td>{{asis.asisId?.asisId}}</td>
                           <td>{{asis.asisId?.asisNoLector}}</td>
                           <td>{{asis.userId?.usuPerId?.perCedula}}</td>
@@ -114,6 +115,7 @@
                           <td>{{asis.asisId?.asisDpto}}</td>
                           <td>{{asis.asisId?.asisLocacionId}}</td>
                           <td>{{asis.asisId?.asisEstado}}</td>
+                          <td>{{asis.asisId?.asisEstadoStr}}</td>
                         </tr>
                       </tbody>
                     </table>
