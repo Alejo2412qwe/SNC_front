@@ -17,6 +17,7 @@ export class Asistencia {
   asisNombreArchivo: string;
   asisFechaArchivo: Date;
   usuId: Usuario;
+  asisEstadoStr: string;
 
 
   constructor(
@@ -34,6 +35,7 @@ export class Asistencia {
     asisNombreArchivo?: '',
     asisFechaArchivo?: Date,
     usuId?: Usuario,
+    asisEstadoStr?: string,
   ) {
     (this.asisId = asisId || 0),
       (this.asisNombre = asisNombre || ''),
@@ -49,5 +51,6 @@ export class Asistencia {
     (this.asisNombreArchivo = asisNombreArchivo || '');
     (this.asisFechaArchivo = asisFechaArchivo || new Date());
     (this.usuId = usuId || new Usuario);
+    (this.asisEstadoStr = asisEstadoStr || '')
   }
 }

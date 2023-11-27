@@ -97,19 +97,19 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <input class="input" type="date" name="perFechaNacimiento"
+                                        <input style="margin-top: 10px;" class="input" type="date" name="perFechaNacimiento"
                                             placeholder="FechaMin" name="fechaMin" [(ngModel)]="fechaMin"
                                             (change)="filtroAsistencia()">
                                         <div class="underline"></div>
                                     </div>
                                     <div>
-                                        <input class="input" type="date" name="perFechaNacimiento"
+                                        <input style="margin-top: 10px;" class="input" type="date" name="perFechaNacimiento"
                                             placeholder="FechaMax" name="fechaMax" [(ngModel)]="fechaMax"
                                             (change)="filtroAsistencia()">
                                         <div class="underline"></div>
                                     </div>
                                     <div>
-                                        <button class="Btn3" (click)="limpiarFiltro()">Limpiar Filtro
+                                        <button class="Btn3" (click)="limpiarFiltro()">Limpiar
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -149,13 +149,16 @@
                                                     <!-- <th class="tipo" scope="col">NOMBRE</th> -->
                                                     <th class="tipo" scope="col">DEPARTAMENTO</th>
                                                     <th class="tipo" scope="col">LOCACIÓN</th>
+                                                    <th class="tipo" scope="col">TIPO</th>
                                                     <th class="tipo" scope="col">ESTADO</th>
 
 
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
-                                                <tr key={key} *ngFor="let asis of listAsistencia">
+                                                <tr key={key} *ngFor="let asis of listAsistencia"
+                                                    [ngStyle]="getCellStyle(asis.asisId?.asisEstadoStr)">
+
                                                     <td>{{asis.asisId?.asisId}}</td>
                                                     <td>{{asis.asisId?.asisNoLector}}</td>
                                                     <td>{{asis.userId?.usuPerId?.perCedula}}</td>
@@ -166,6 +169,8 @@
                                                     <td>{{asis.asisId?.asisDpto}}</td>
                                                     <td>{{asis.asisId?.asisLocacionId}}</td>
                                                     <td>{{asis.asisId?.asisEstado}}</td>
+                                                    <td>{{asis.asisId?.asisEstadoStr}}</td>
+
                                                 </tr>
                                             </tbody>
                                         </table>

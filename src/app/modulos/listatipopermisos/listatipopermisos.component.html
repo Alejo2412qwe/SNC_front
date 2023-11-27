@@ -49,22 +49,6 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
-
-                                    <div
-                                        style="display: flex;    justify-content: center;     align-items: center;     height: 100%;">
-                                        <div class="radio-inputs">
-                                            <label class="radio">
-                                                <input type="radio" name="radio" value=1
-                                                    (change)="loadTipoPermisoByEstado(1)">
-                                                <span class="name">Activo</span>
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="radio" value=0
-                                                    (change)="loadTipoPermisoByEstado(0)">
-                                                <span class="name">Inactivo</span>
-                                            </label>
-                                        </div>
-                                    </div>
                                     <div>
                                         <div class="searchBox">
                                             <input class="searchInput" type="text" name="" placeholder="Por Nombre"
@@ -72,8 +56,23 @@
                                                 title="Por Nombre">
                                         </div>
                                     </div>
+                                    <div
+                                    style="display: flex;    justify-content: center; padding-bottom: 10px;    align-items: center;     height: 100%;">
+                                    <div class="radio-inputs">
+                                        <label class="radio">
+                                            <input type="radio" name="radio" value=1
+                                                (change)="loadTipoPermisoByEstado(1)">
+                                            <span class="name">Activo</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="radio" value=0
+                                                (change)="loadTipoPermisoByEstado(0)">
+                                            <span class="name">Inactivo</span>
+                                        </label>
+                                    </div>
+                                </div>
                                     <div>
-                                        <button class="Btn3" (click)="openCrearTipoPermiso()">Crear Tipo de Permiso
+                                        <button class="Btn3" (click)="openCrearTipoPermiso()">Crear tipo
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
