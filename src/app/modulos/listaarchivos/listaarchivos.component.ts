@@ -102,7 +102,8 @@ export class ListaarchivosComponent implements OnInit {
         asisNoTarjeta: objFile['No.tarjeta'],
         asisNombreArchivo: this.fileName,
         asisFechaArchivo: new Date(),
-        usuId: this.user
+        usuId: this.user,
+        asisEstadoStr: ''
       };
     });
   }

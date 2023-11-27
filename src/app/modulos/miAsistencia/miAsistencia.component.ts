@@ -124,4 +124,24 @@ export class MiAsistenciaComponent implements OnInit {
       this.excelService.dowloadExcel(this.excelReportData);
     }
   }
+
+
+  getCellStyle(asisEstadoStr: string | undefined): { [key: string]: string } {
+    if (asisEstadoStr === 'Ingreso Atrasado') {
+      return { 'background-color': '#ff4b41' };
+    } else
+
+      if (asisEstadoStr === 'Ingreso Puntual' || asisEstadoStr === 'Ingreso Anticipado'
+        || asisEstadoStr === 'Salida Puntual' || asisEstadoStr === 'Salida Retrasada') {
+        return { 'background-color': '#1e88e3', 'color': 'black' };
+      } else
+
+        if (asisEstadoStr === 'Salida Temprana') {
+          return { 'background-color': '#f9ea3a' };
+        } else {
+
+          return {};  // Estilo predeterminado si no coincide con ninguna condición
+        }
+  }
+
 }
