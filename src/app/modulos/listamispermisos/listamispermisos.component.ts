@@ -186,8 +186,8 @@ export class ListamispermisosComponent implements OnInit {
       const doc = new jsPDF();
       doc.setFont('tahoma');
       doc.setFontSize(14);
-      const imageUrl = 'assets/img/1.png';
-      doc.addImage(imageUrl, 'JPEG', 0, -9, 210, 37);// x, y, width, height
+      const imageUrl = 'assets/img/cabecera.png';
+      doc.addImage(imageUrl, 'JPEG', 0, 0, 210, 20);// x, y, width, height
       doc.rect(0, 20, 210, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.text('FORMULARIO DE LICENCIAS Y PERMISOS', 55, 26);
 
@@ -462,8 +462,11 @@ export class ListamispermisosComponent implements OnInit {
 
       doc.text(textoDividido3, marco3.x, posY3);
 
+      const imageUrl2 = 'assets/img/pie.png';
+      doc.addImage(imageUrl2, 'JPEG', 52, 278, 100, 15);// x, y, width, height
+
       doc.save('permiso_' + data.usuId.usuPerId.perCedula + '_' + data.usuId.usuPerId.perApellido + '.pdf');
-      
+
     })
   }
 
