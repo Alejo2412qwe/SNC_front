@@ -18,6 +18,24 @@ export class GestionComponent implements OnInit {
     AllScripts.Cargar(["reportes"]);
   }
   username = this.sessionStorage.getItem('username');
+  rol: string = this.sessionStorage.getItem('rol') || '';
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.mostrarSubidaArchivo();
+  }
+
+  mostrarSubidaArchivo() {
+    const elementosAdmin = ['archivos'];
+
+    const rolAdmin = ['Administrador'];
+
+    const mostrarElementoAdmin = rolAdmin.includes(this.rol);
+
+    for (const elementoId of elementosAdmin) {
+      const elemento = document.getElementById(elementoId);
+      if (elemento) {
+        elemento.style.display = mostrarElementoAdmin ? 'block' : 'none';
+      }
+    }
+  }
 }
