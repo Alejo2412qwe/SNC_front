@@ -2,17 +2,11 @@
     <nav class="menu" style="padding: 1.3000rem 0;">
         <ul class="nav">
 
-            <li style="font-weight: bolder; font-size: 16px;" >
+            <li style="font-weight: bolder; font-size: 16px;">
                 <a class="contador">Tiempo restante: <span id="contador">{{ tiempoFormateado }}</span></a>
 
             </li>
-            <li>
-                <a class="titulo"> Perfil</a>
-                <ul>
-                    <li><a id="publica" routerLink="/perfil"> Mi Perfil</a></li>
-                    <li><a id="publica2" routerLink="/login" (click)="salir()"> Cerrar Sesión</a></li>
-                </ul>
-            </li>
+            <li><a id="titulo" routerLink="/login" (click)="salir()"> Cerrar Sesión</a></li>
         </ul>
     </nav>
 </header>
