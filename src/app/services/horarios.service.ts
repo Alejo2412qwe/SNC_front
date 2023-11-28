@@ -15,15 +15,6 @@ export class HorarioService {
   private url: string = `${entorno.urlPrivada}/horarios`
   private token = this.sessionStorage.getItem('token');
 
-
-  getHorarios() {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}` // Agrega el token JWT aquí
-    });
-
-    return this.http.get<Horarios[]>(this.url + '/read', { headers });
-  }
-
   agregarHorario(horario: Horarios): Observable<Horarios> {
 
     // Construir el encabezado de autorización con el token JWT

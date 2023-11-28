@@ -12,6 +12,10 @@ export class SidebarComponent implements OnInit {
     private sessionStorage: SessionStorageService
   ) { }
 
+  cerrarSesion(): void {
+    localStorage.removeItem('userData');
+  }
+
   ngOnInit(): void {
     this.mostrarOpciones();
   }

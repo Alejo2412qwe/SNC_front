@@ -114,8 +114,14 @@ export class ListaFuncionesComponent implements OnInit {
   }
 
   updateEstFuncion(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el proceso también deshabilitará los subprocesos pertenecientes, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` la función, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -131,7 +137,11 @@ export class ListaFuncionesComponent implements OnInit {
         this.funcionesService.updateEst(id, est).subscribe({
           next: () => {
             this.loadFuncionesByEstado(this.estadoActivo);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

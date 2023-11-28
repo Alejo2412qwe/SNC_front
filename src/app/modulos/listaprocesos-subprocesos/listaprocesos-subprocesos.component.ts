@@ -122,8 +122,14 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el proceso también deshabilitará los subprocesos pertenecientes, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el proceso, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -140,7 +146,11 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
           next: () => {
             this.loadProcesosByEstado(1);
             this.loadSubprocesosByProcEstado(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -273,8 +283,14 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   }
 
   updateEstSubproceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Está a punto de eliminar el subproceso, ¿desea continuar?`,
+      title: `Se ` + mensaje + ` el subproceso, ¿desea continuar?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -290,7 +306,11 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
         this.subprocesosService.updateEst(id, est).subscribe({
           next: () => {
             this.loadSubprocesosByProcEstado(1, 1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

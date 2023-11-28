@@ -128,8 +128,14 @@ export class ListatipoformularioComponent implements OnInit {
   }
 
   updateEstTipoForm(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Se deshabilitará el tipo de formulario, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el tipo de formulario, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -145,7 +151,12 @@ export class ListatipoformularioComponent implements OnInit {
         this.tipformularioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadTipoFormByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
+
           },
           error: (error) => {
             // Manejar errores

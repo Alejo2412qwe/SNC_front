@@ -98,6 +98,21 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <div
+                                    style="display: flex; padding-bottom: 10px;   justify-content: center;     align-items: center;     height: 100%;">
+                                    <div class="radio-inputs">
+                                        <label class="radio">
+                                            <input type="radio" name="radio" value=1
+                                                (change)="loadHorariosByEstado(1)">
+                                            <span class="name">Activo</span>
+                                        </label>
+                                        <label class="radio">
+                                            <input type="radio" name="radio" value=0
+                                                (change)="loadHorariosByEstado(0)">
+                                            <span class="name">Inactivo</span>
+                                        </label>
+                                    </div>
+                                </div>
                                     <div>
                                         <button class="Btn3" (click)="openCrearHorario()">Crear Horario
                                             <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
@@ -109,18 +124,7 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <div>
-                                        <button class="Btn3" (click)="loadHorariosByEstado(1)">Refrescar Tabla
-                                            <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
-                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <div> <button class="Btn2">Generar Excel
+                                    <div> <button class="Btn2">Generar
                                             <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
                                                 width="80px" height="48px">
                                                 <path fill="#4CAF50"
@@ -145,7 +149,7 @@
                                                     <th class="tipo" scope="col">Hora de Ingreso En La Tarde</th>
                                                     <th class="tipo" scope="col">Hora de Salida En La Tarde</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                    <th class="tipo" scope="col">ESTADO</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
@@ -166,14 +170,13 @@
                                                             </svg>
                                                         </button>
                                                     </td>
-                                                    <td class="tdTbl"><button role="button" class="button-name2"
-                                                            (click)="updateEstProceso(horario.horId,0)">
-                                                            <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
-                                                                height="1.25em" viewBox="0 0 448 512">
-                                                                <path
-                                                                    d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0H284.2c12.1 0 23.2 6.8 28.6 17.7L320 32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 96 0 81.7 0 64S14.3 32 32 32h96l7.2-14.3zM32 128H416V448c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V128zm96 64c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16V432c0 8.8 7.2 16 16 16s16-7.2 16-16V208c0-8.8-7.2-16-16-16z" />
-                                                            </svg>
-                                                        </button>
+                                                    <td class="tdTbl">
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="horario.horEstado ===1"
+                                                            (click)="updateEstProceso(horario.horId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="horario.horEstado ===0"
+                                                            (click)="updateEstProceso(horario.horId,1)">Activar</button>
                                                     </td>
 
                                                 </tr>
@@ -189,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </body>
     </div>
 </div>

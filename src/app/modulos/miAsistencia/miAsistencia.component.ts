@@ -128,16 +128,16 @@ export class MiAsistenciaComponent implements OnInit {
 
   getCellStyle(asisEstadoStr: string | undefined): { [key: string]: string } {
     if (asisEstadoStr === 'Ingreso Atrasado') {
-      return { 'background-color': '#ff4b41' };
+      return { 'background-color': '#F7A4A4' };
     } else
 
       if (asisEstadoStr === 'Ingreso Puntual' || asisEstadoStr === 'Ingreso Anticipado'
         || asisEstadoStr === 'Salida Puntual' || asisEstadoStr === 'Salida Retrasada') {
-        return { 'background-color': '#1e88e3', 'color': 'black' };
+        return { 'background-color': '#B6E2A1', 'color': 'black' };
       } else
 
         if (asisEstadoStr === 'Salida Temprana') {
-          return { 'background-color': '#f9ea3a' };
+          return { 'background-color': '#FFFBC1' };
         } else {
 
           return {};  // Estilo predeterminado si no coincide con ninguna condición

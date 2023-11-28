@@ -52,8 +52,8 @@ h6 {
     padding-top: 25px;
     color: #fff;
     width: 90%;
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .navbar .navbar-brand {
@@ -685,7 +685,7 @@ body {
 
 .container2 {
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 69% 45%;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: stretch;
@@ -696,7 +696,7 @@ body {
 
     .container2 {
         display: grid;
-        grid-template-columns: 85% 15%;
+        grid-template-columns: 69% 45%;
         grid-column-gap: 20px;
         grid-row-gap: 20px;
         justify-items: stretch;

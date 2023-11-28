@@ -156,17 +156,23 @@ export class HorariosComponent implements OnInit {
         const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
         const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
-        // Si todas las validaciones pasan, procede con la lógica de agregar horario
-        this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
-        this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
-        this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
-        this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-        this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
-          this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
-        this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+        if (!selectHoraIngresoDia.value || !selectHoraSalidaDia.value || !selectHoraIngresoTarde.value || !selectHoraSalidaTarde.value) {
 
-        this.agregarHorario();
-        this.loadHorariosByEstado(1);
+          Swal.showValidationMessage('Por favor, llene todos los campos.');
+
+        } else {
+
+          this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
+          this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
+          this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
+          this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
+          this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+            this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+          this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+
+          this.agregarHorario();
+          this.loadHorariosByEstado(1);
+        }
       },
     });
   }
@@ -260,28 +266,29 @@ export class HorariosComponent implements OnInit {
           const selectHoraIngresoTarde = document.getElementById('horHoraIngresoTarde') as HTMLInputElement;
           const selectHoraSalidaTarde = document.getElementById('horHoraSalidaTarde') as HTMLInputElement;
 
-          // Si todas las validaciones pasan, procede con la lógica de agregar horario
-          this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
-          this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
-          this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
-          this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
-          this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
-            this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
-          this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+          if (!selectHoraIngresoDia.value || !selectHoraSalidaDia.value || !selectHoraIngresoTarde.value || !selectHoraSalidaTarde.value) {
 
-          this.actualizarHorario(id);
-          this.loadHorariosByEstado(1);
+            Swal.showValidationMessage('Por favor, llene todos los campos.');
+
+          } else {
+
+            // Si todas las validaciones pasan, procede con la lógica de agregar horario
+            this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
+            this.nuevoHorario.horHoraSalidaDia = selectHoraSalidaDia.value;
+            this.nuevoHorario.horHoraIngresoTarde = selectHoraIngresoTarde.value;
+            this.nuevoHorario.horHoraSalidaTarde = selectHoraSalidaTarde.value;
+            this.nuevoHorario.horNumHoras = this.calcularDiferenciaDeHoras(this.nuevoHorario.horHoraIngresoDia, this.nuevoHorario.horHoraSalidaDia,
+              this.nuevoHorario.horHoraIngresoTarde, this.nuevoHorario.horHoraSalidaTarde);
+            this.nuevoHorario.horHorasParaAlmuerzo = this.obtenerHorasAlmuerzo(this.nuevoHorario.horHoraSalidaDia, this.nuevoHorario.horHoraIngresoTarde)
+
+            this.actualizarHorario(id);
+            this.loadHorariosByEstado(1);
+          }
         },
       });
 
     })
 
-  }
-
-  obtenerHorarios() {
-    this.horarioService.getHorarios().subscribe((response: Horarios[]) => {
-      this.horarios = response;
-    });
   }
 
   buscarPorHora() {
@@ -306,8 +313,14 @@ export class HorariosComponent implements OnInit {
   }
 
   updateEstProceso(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminará'
+    } else {
+      mensaje = 'activará'
+    }
     Swal.fire({
-      title: `Al eliminar el horario, se deshabilitará y no podra ser recuperado, ¿Està seguro de ello?`,
+      title: `Se ` + mensaje + ` el horario, ¿Está seguro de ello?`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
@@ -323,7 +336,11 @@ export class HorariosComponent implements OnInit {
         this.horarioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadHorariosByEstado(1);
-            this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores

@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { AllScriptsService } from '../scripts/all-scripts.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,9 +11,6 @@ import Swal from 'sweetalert2';
 })
 export class DespegablemeneComponent implements OnInit {
   constructor(
-    private renderer: Renderer2,
-    private el: ElementRef,
-    private AllScripts: AllScriptsService,
     private router: Router,
     private sessionStorage: SessionStorageService,
     private toastr: ToastrService
@@ -26,12 +22,12 @@ export class DespegablemeneComponent implements OnInit {
 
   cerrarSesion(): void {
     localStorage.removeItem('userData');
-    this.router.navigate(['/login']);
   }
 
   salir(): void {
     this.toastr.info('Se ha cerrado la sesión');
     this.cerrarSesion();
+    this.router.navigate(['/login']);
   }
 
   ngOnInit(): void {
