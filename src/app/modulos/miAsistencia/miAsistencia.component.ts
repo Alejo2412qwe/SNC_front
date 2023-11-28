@@ -133,7 +133,7 @@ export class MiAsistenciaComponent implements OnInit {
 
       if (asisEstadoStr === 'Ingreso Puntual' || asisEstadoStr === 'Ingreso Anticipado'
         || asisEstadoStr === 'Salida Puntual' || asisEstadoStr === 'Salida Retrasada') {
-        return { 'background-color': '#B6E2A1', 'color': 'black' };
+        return { 'background-color': '#B6E2A1' };
       } else
 
         if (asisEstadoStr === 'Salida Temprana') {
