@@ -17,30 +17,11 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mostrarOpciones();
   }
 
   username = this.sessionStorage.getItem('username');
   rol: string = this.sessionStorage.getItem('rol') || '';
 
-
-  mostrarOpciones() {
-    const elementosAdmin = ['personal', 'verper', 'valor', 'otrasfun', 'aprobarpermisos', 'tipopermiso', 'tipoformulario', 'procesos',
-      'ingresarpro', 'Instituciones', 'ingresarinst', 'funciones', 'ingresarfun', 'zonales', 'verzonales', 'horarios', 'verhorarios', 'periodo'];
-
-    const rolAdmin = ['Administrador'];
-    const rolJefeUnidad = ['Jefe de Unidad'];
-
-    const mostrarElementoAdmin = rolAdmin.includes(this.rol);
-    const mostrarElementoJefeUnidad = rolJefeUnidad.includes(this.rol);
-
-    for (const elementoId of elementosAdmin) {
-      const elemento = document.getElementById(elementoId);
-      if (elemento) {
-        elemento.style.display = mostrarElementoAdmin || (mostrarElementoJefeUnidad && elementoId === 'aprobarpermisos') ? 'block' : 'none';
-      }
-    }
-  }
 
 }
 

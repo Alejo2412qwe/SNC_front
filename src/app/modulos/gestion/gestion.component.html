@@ -77,7 +77,7 @@
                                                 VACACIONES
                                             </button>
                                         </li>
-                                        <li class="nav-item" id="archivos">
+                                        <li class="nav-item" *ngIf="rol === 'Administrador'">
                                             <button id="arcButton" class="nav-link" onclick="showComponent('arc')">
                                                 <i class="material-icons">insert_drive_file</i>
                                                 LISTA DE ARCHIVOS

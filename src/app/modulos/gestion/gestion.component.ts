@@ -21,21 +21,6 @@ export class GestionComponent implements OnInit {
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   ngOnInit(): void {
-    this.mostrarSubidaArchivo();
   }
 
-  mostrarSubidaArchivo() {
-    const elementosAdmin = ['archivos'];
-
-    const rolAdmin = ['Administrador'];
-
-    const mostrarElementoAdmin = rolAdmin.includes(this.rol);
-
-    for (const elementoId of elementosAdmin) {
-      const elemento = document.getElementById(elementoId);
-      if (elemento) {
-        elemento.style.display = mostrarElementoAdmin ? 'block' : 'none';
-      }
-    }
-  }
 }
