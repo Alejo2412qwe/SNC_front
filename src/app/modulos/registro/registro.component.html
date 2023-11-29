@@ -165,7 +165,8 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">TIPO DE INSTITUCIÓN: *</label>
                                                 <select id="tipInstitucion" name="tipInstitucion" class="input2"
-                                                    style="color: #777;" [(ngModel)]="tipInstitucionSelected.tipId"
+                                                    [disabled]="mode==='edit-profile'" style="color: #777;"
+                                                    [(ngModel)]="tipInstitucionSelected.tipId"
                                                     (change)="getInstitucionByTipId()">
                                                     <option value="0">Selecciona el tipo de institución</option>
                                                     <option *ngFor="let tipo of listaTipoInstitucion"
@@ -180,7 +181,8 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">INSTITUCIÓN: *</label>
                                                 <select id="institucion" name="institucion" class="input2"
-                                                    style="color: #777;" [(ngModel)]="usuario.insId.instId">
+                                                    [disabled]="mode==='edit-profile'" style="color: #777;"
+                                                    [(ngModel)]="usuario.insId.instId">
                                                     <option value="0">Selecciona tu institución</option>
                                                     <option *ngFor="let inst of listaInstituciones"
                                                         [value]="inst.instId">
@@ -194,7 +196,8 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">PROCESO - ZONA: *</label>
                                                 <select id="procesos" name="procesos" class="input2"
-                                                    style="color: #777;" [(ngModel)]="usuario.procId.procId"
+                                                    [disabled]="mode==='edit-profile'" style="color: #777;"
+                                                    [(ngModel)]="selectProceso.procId"
                                                     (change)="getSubprocesosByProcesoId()">
                                                     <option value="0">Selecciona el proceso</option>
                                                     <option *ngFor="let proceso of listaProcesos"
@@ -205,11 +208,11 @@
                                                 <div class="underline"></div>
                                             </div>
                                         </div>
-                                        <!-- <div>
+                                        <div>
                                             <div class="input-container">
                                                 <label for="name" class="name">SUBPROCESO - DEPARTAMENTO:</label>
-                                                <select id="subprocesos" name="subprocesos" class="input2" style="color: #777;"
-                                                    [(ngModel)]="subproceso.subId">
+                                                <select id="subprocesos" name="subprocesos" class="input2"
+                                                    style="color: #777;" [(ngModel)]="usuario.subId.subId">
                                                     <option value="0">Selecciona el subproceso</option>
                                                     <option *ngFor="let subproceso of listaSubprocesos"
                                                         [value]="subproceso.subId">
@@ -218,11 +221,12 @@
                                                 </select>
                                                 <div class="underline"></div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div>
                                             <div class="input-container">
                                                 <label for="name" class="name">FUNCIÓN: *</label>
                                                 <select id="funcion" name="funcion" class="input2" style="color: #777;"
+                                                    [disabled]="mode==='edit-profile'"
                                                     [(ngModel)]="usuario.funId.funId">
                                                     <option value="0">Selecciona la función del usuario</option>
                                                     <option *ngFor="let funcion of listFunciones"
@@ -237,6 +241,7 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">RÉGIMEN: *</label>
                                                 <select id="regimen" name="regimen" class="input2" style="color: #777;"
+                                                    [disabled]="mode==='edit-profile'"
                                                     [(ngModel)]="usuario.regId.regId">
                                                     <option value="0">Seleccione un régimen</option>
                                                     <option *ngFor="let regimen of listaregiemen"
@@ -251,6 +256,7 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">ZONAL: *</label>
                                                 <select id="zonal" name="zonal" class="input2" style="color: #777;"
+                                                    [disabled]="mode==='edit-profile'"
                                                     [(ngModel)]="usuario.zonId.zonId">
                                                     <option value="0">Seleccione la zonal</option>
                                                     <option *ngFor="let zonal of listaZonales" [value]="zonal.zonId">
@@ -264,6 +270,7 @@
                                             <div class="input-container">
                                                 <label for="name" class="name">HORARIO DE TRABAJO: *</label>
                                                 <select id="horario" name="horario" class="input2" style="color: #777;"
+                                                    [disabled]="mode==='edit-profile'"
                                                     [(ngModel)]="usuario.horId.horId">
                                                     <option value="0">Seleccione el horario</option>
                                                     <option *ngFor="let horario of listaHorarios"
@@ -283,12 +290,14 @@
                                                 <div class="containercheck">
                                                     <label class="check">
                                                         <input type="checkbox" id="mostrarJefe"
+                                                            [disabled]="mode==='edit-profile'"
                                                             (change)="toggleMostrarJefe()" [checked]="mostrarJefe" />
                                                         <div class="checkmark"></div>
                                                     </label>
                                                     <div *ngIf="mostrarJefe">
                                                         <select id="jefes" name="jefes" class="input2"
-                                                            style="color: #777;" [(ngModel)]="usuario.usuIdJefe">
+                                                            [disabled]="mode==='edit-profile'" style="color: #777;"
+                                                            [(ngModel)]="usuario.usuIdJefe">
                                                             <option value="0">Seleccione un jefe de unidad
                                                             </option>
                                                             <option *ngFor="let jefe of listaJefes"

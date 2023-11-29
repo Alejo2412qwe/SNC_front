@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { calcularEdad } from 'src/app/common/validaciones';
+import { Date_String, calcularEdad } from 'src/app/common/validaciones';
 import { Persona } from 'src/app/modelo/persona';
 import { Usuario } from 'src/app/modelo/usuario';
 import { PersonaService } from 'src/app/services/persona.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
-import { userImg } from '../../../assets/img/user';
 import { decodeBase64Download } from '../../common/base64';
 import { decodeBase64PDF } from '../../common/base64';
 import { IExcelReportParams, IHeaderItem } from 'src/app/interfaz/IExcelReportParams';
 import { ExcelService } from 'src/app/services/excel.service';
+import { USER } from 'src/app/common/img64';
 
 @Component({
   selector: 'app-listausuarios',
@@ -42,7 +42,7 @@ export class ListausuariosComponent implements OnInit {
   searchString: string = '';
   listUsers: Usuario[] = [];
   estList: number = 1; // Inicialmente establecido en 1 para "Activo"
-  userImg = userImg.userImg
+  userImg = USER
   excelReportData: IExcelReportParams | null = null;
 
 
@@ -84,7 +84,8 @@ export class ListausuariosComponent implements OnInit {
       if (result.isConfirmed) {
         this.usuarioService.updateEst(id, est).subscribe({
           next: () => {
-            this.loadUsers(1)
+            this.loadUsers(est)
+            this.estList = est;
           },
           error: (error) => {
             // Manejar errores
@@ -124,6 +125,7 @@ export class ListausuariosComponent implements OnInit {
       { header: "DIRECCIÓN" },
       { header: "INSTITUCION" },
       { header: "PROCESO" },
+      { header: "SUBPROCESO" },
       { header: "FUNCION" },
       { header: "REGIÓN" },
       { header: "ZONAL" },
@@ -148,13 +150,14 @@ export class ListausuariosComponent implements OnInit {
       perTelefono: item.usuPerId.perTelefono,
       perDireccion: item.usuPerId.perDireccion,
       instNombre: item.insId.instNombre,
-      procNombre: item.procId.procNombre,
+      procNombre: item.subId.procId.procNombre,
+      subProcNombre: item.subId.subNombre,
       funNombre: item.funId.funNombre,
       regNombre: item.regId.regNombre,
       zonNombre: item.zonId.zonNombre,
       horario: `Entrada: ${item.horId.horHoraIngresoDia || '00:00'} \n- Salida: ${item.horId.horHoraSalidaTarde || '00:00'}`,
       rolNombre: item.rolId.rolNombre,
-      usuFechaRegistro: item.usuFechaRegistro,
+      usuFechaRegistro: Date_String(item.usuFechaRegistro.toString()),
     }));
 
 
