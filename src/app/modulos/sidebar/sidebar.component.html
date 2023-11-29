@@ -7,7 +7,10 @@
 <body>
     <div class="area"></div>
     <nav class="main-menu">
-        <ul>
+        <ul style=" overflow-y: scroll;
+        overflow-x: hidden; /* Esto oculta la barra de desplazamiento horizontal */
+        max-height: 100vh;;"
+        >
             <li class="has-subnav">
                 <i></i>
                 <span class="nav-text" style="font-weight: bolder;">
@@ -198,6 +201,13 @@
                 <a href="/listaPeri">
                     <span class="nav-text" style="padding-left: 60px;">
                         Periodos
+                    </span>
+                </a>
+            </li>
+            <li id="periodo" class="has-subnav" style="height: 30px;">
+                <a href="/aboutus">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Sobre Nosotros
                     </span>
                 </a>
             </li>
