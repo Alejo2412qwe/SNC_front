@@ -193,6 +193,11 @@ export class PermisosComponent implements OnInit {
   savePermiso() {
     this.permiso.usuId.usuId = this.sessionStorage.getItem('userId') || 0;
     this.vacaciones.usuId.usuId = this.permiso.usuId.usuId;
+    if (this.rol === 'Jefe de Unidad') {
+      this.permiso.permEstado = 2;
+    } else {
+      this.permiso.permEstado = 3;
+    }
     this.permisoService.savePermiso(this.permiso).subscribe((data) => {
       if (this.permiso.motId.motId == 7) {
         this.fechaPermiso = new Date(this.permiso.permFechaInicio);
