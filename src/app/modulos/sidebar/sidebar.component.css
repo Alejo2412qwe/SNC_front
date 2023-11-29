@@ -42,7 +42,9 @@ nav.main-menu.expanded {
   -webkit-transform: translateZ(0) scale(1, 1);
   z-index: 1000;
   border-radius: 10px;
-
+  overflow-y: scroll;
+  scrollbar-width: thin; /* Para Firefox */
+  scrollbar-color: transparent transparent; /* Para Firefox */
 }
 
 .main-menu>ul {
@@ -93,6 +95,14 @@ nav.main-menu.expanded {
   text-align: center;
   vertical-align: middle;
   font-size: 18px;
+}
+
+.main-menu::-webkit-scrollbar {
+  width: 5px; /* Establece el ancho de la barra de desplazamiento */
+}
+
+.main-menu::-webkit-scrollbar-thumb {
+  background-color: black; /* Establece el color del pulgar de la barra de desplazamiento */
 }
 
 .main-menu .nav-text {
