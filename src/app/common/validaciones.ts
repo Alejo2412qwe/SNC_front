@@ -166,6 +166,28 @@ export function string_Date(fechaStr: string): Date {
   return fecha
 }
 
+
+export function Date_String(fechaDT: string | null | undefined): string {
+  if (!fechaDT) {
+    return ''; // O cualquier valor predeterminado que desees en caso de fecha nula o indefinida
+  }
+
+  const fecha = new Date(fechaDT);
+
+  const year = fecha.getUTCFullYear();
+  const month = (fecha.getUTCMonth() + 1).toString().padStart(2, '0');
+  const day = fecha.getUTCDate().toString().padStart(2, '0');
+  const hour = fecha.getUTCHours().toString().padStart(2, '0');
+  const minute = fecha.getUTCMinutes().toString().padStart(2, '0');
+  const second = fecha.getUTCSeconds().toString().padStart(2, '0');
+
+  const fechaFormateada = `${year}-${month}-${day}   ${hour}:${minute}:${second}`;
+
+  return fechaFormateada;
+}
+
+
+
 // export function json_Object(jsonData: any) {
 //   // Convert the array of arrays to an array of objects
 //   const headers = jsonData[0];

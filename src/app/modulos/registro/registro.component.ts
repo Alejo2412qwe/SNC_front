@@ -72,12 +72,11 @@ export class RegistroComponent implements OnInit {
   persona: Persona = new Persona();
   usuario: Usuario = new Usuario();
   selectProvincia: Provincia = new Provincia();
+  selectProceso: Procesos = new Procesos();
   selectRol: Rol = new Rol();
-  subproceso: Subprocesos = new Subprocesos();
   proceso: Procesos = new Procesos();
   institucion: Institucion = new Institucion();
   tipInstitucion: TipoInstitucion = new TipoInstitucion();
-  procesoSelected: Procesos = new Procesos();
   tipInstitucionSelected: TipoInstitucion = new TipoInstitucion();
   funcion: Funciones = new Funciones();
   zonal: Zonales = new Zonales();
@@ -123,9 +122,10 @@ export class RegistroComponent implements OnInit {
     this.cargarTipoInstitucion();
     this.cargarFunciones();
     this.cargarJefes(5);
-    this.validateMode();
     this.cargarZonales(1);
     this.cargarHorarios();
+    this.validateMode();
+
   }
 
   toggleMostrarJefe() {
@@ -214,7 +214,7 @@ export class RegistroComponent implements OnInit {
         this.cargarCiudades();
       }
       this.uploadedFiles.push(base64ToFile(response.foto, response.usuNombreUsuario))
-      // console.log(this.uploadFile)
+      this.selectProceso.procId = response.subId.procId.procId
       this.tipInstitucionSelected.tipId = response.insId.tipId.tipId;
       this.getSubprocesosByProcesoId();
       this.getInstitucionByTipId();
@@ -242,10 +242,10 @@ export class RegistroComponent implements OnInit {
     this.listaSubprocesos = [];
 
     if (
-      this.usuario.procId !== undefined &&
-      this.usuario.procId.procId !== undefined
+      this.selectProceso !== undefined &&
+      this.selectProceso.procId !== undefined
     ) {
-      const procId = this.usuario.procId.procId as number;
+      const procId = this.selectProceso.procId as number;
       this.subprocesosService
         .getSubprocesosByProcesoId(procId)
         .subscribe((response) => {
@@ -359,7 +359,7 @@ export class RegistroComponent implements OnInit {
                   this.usuarioService.registrarUsuario(this.usuario).subscribe((response) => {
                     Swal.fire({
                       title: '¡Registro Exitoso!',
-                      text: this.usuario.rolId.rolNombre + ' agregado correctamente',
+                      text: `${this.persona.perNombre} ${this.persona.perApellido} (${this.usuario.rolId.rolNombre}) agregado correctamente`,
                       icon: 'success',
                       confirmButtonText: 'Confirmar',
                       showCancelButton: false, // No mostrar el botón de cancelar
@@ -407,7 +407,7 @@ export class RegistroComponent implements OnInit {
               .subscribe((response) => {
                 Swal.fire({
                   title: '¡Edición Exitosa!',
-                  text: response.rolId + ' agregado correctamente',
+                  text: `${this.persona.perNombre} ${this.persona.perApellido} (${this.usuario.rolId.rolNombre}) actualizado correctamente`,
                   icon: 'success',
                   confirmButtonText: 'Confirmar',
                   showCancelButton: false, // No mostrar el botón de cancelar
@@ -477,15 +477,13 @@ export class RegistroComponent implements OnInit {
 
     //FOTO
     if (!this.usuario.foto) {
-      this.toastr.error(
-        'Ingerse una foto',
+      this.toastr.warning(
+        'No olvide ingresar una foto del usuario',
         '',
         {
           timeOut: this.timeToastr,
         }
       );
-
-      return false;
     }
 
     //APELLIDOS

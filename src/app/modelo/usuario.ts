@@ -5,6 +5,7 @@ import { Persona } from "./persona";
 import { Procesos } from "./procesos";
 import { Regimen } from "./regimen";
 import { Rol } from "./rol";
+import { Subprocesos } from "./subprocesos";
 import { Zonales } from "./zonales";
 
 export class Usuario {
@@ -17,7 +18,7 @@ export class Usuario {
   usuPerId: Persona;
   rolId: Rol;
   insId: Institucion;
-  procId: Procesos;
+  subId: Subprocesos;
   funId: Funciones;
   foto: string; // Campo para la imagen
   titulo: string;
@@ -39,7 +40,7 @@ export class Usuario {
     rolId?: Rol,
     usuCorreo?: string,
     insId?: Institucion,
-    procId?: Procesos,
+    subId?: Subprocesos,
     funId?: Funciones,
     foto?: string, // Agregar el campo foto al constructor
     titulo?: string,
@@ -59,7 +60,7 @@ export class Usuario {
     this.rolId = rolId || new Rol();
     this.usuCorreo = usuCorreo || '';
     this.insId = insId || new Institucion();
-    this.procId = procId || new Procesos();
+    this.subId = subId || new Subprocesos();
     this.funId = funId || new Funciones();
     this.regId = regId || new Regimen();
     this.zonId = zonId || new Zonales();

@@ -653,7 +653,7 @@ td {
     margin-top: 50px;
 }
 
-td{
+td {
     font-size: 16px;
 }
 
@@ -688,68 +688,70 @@ svg {
 }
 
 /* EDIT BUTTON */
-.edit-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgb(20, 20, 20);
+.editBtn {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
     border: none;
-    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    background: #e62222;
+}
+
+.editBtn,
+.editBtn span {
+    transition: 200ms;
+}
+
+
+.editBtn .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+}
+
+.editBtn .icon {
+    position: absolute;
+    /* border-left: 1px solid #c41b1b; */
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-    cursor: pointer;
-    transition-duration: 0.3s;
-    overflow: hidden;
-    position: relative;
-    text-decoration: none !important;
 }
 
-.edit-svgIcon {
-    width: 17px;
-    transition-duration: 0.3s;
+.editBtn .svgEdit {
+    width: 35px;
+    fill: #eee;
 }
 
-.edit-svgIcon path {
-    fill: white;
+.editBtn:hover {
+    background: #ff3636;
 }
 
-.edit-button:hover {
-    width: 120px;
-    border-radius: 50px;
-    transition-duration: 0.3s;
-    background-color: rgb(255, 69, 69);
-    align-items: center;
+.editBtn:hover .text {
+    color: transparent;
 }
 
-.edit-button:hover .edit-svgIcon {
-    width: 20px;
-    transition-duration: 0.3s;
-    transform: translateY(60%);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
+.editBtn:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
 }
 
-.edit-button::before {
-    display: none;
-    content: "Edit";
-    color: white;
-    transition-duration: 0.3s;
-    font-size: 2px;
+.editBtn:focus {
+    outline: none;
 }
 
-.edit-button:hover::before {
-    display: block;
-    padding-right: 10px;
-    font-size: 13px;
-    opacity: 1;
-    transform: translateY(0px);
-    transition-duration: 0.3s;
+.editBtn:active .icon .svgEdit {
+    transform: scale(0.8);
 }
+
+/* =========== */
 
 .card {
     width: 90%;
