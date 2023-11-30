@@ -445,6 +445,29 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('SOLICITA ', 28, 194);
       doc.text('APRUEBA ', 97, 194);
       doc.text('REGISTRA ', 167, 194);
+      doc.setFontSize(14);
+      //ajuste para que este dentro del cuadrado
+      const marco5 = {
+        x: 2,
+        y: 195,
+        width: 70,  // Ajusta según el ancho deseado del marco
+        height: 25  // Ajusta según la altura deseada del marco
+      };
+
+      const texto5 = data.usuId.usuPerId.perApellido + ' ' + data.usuId.usuPerId.perNombre;
+
+      // Dividir el texto para ajustarlo al marco
+      const textoDividido5 = doc.splitTextToSize(texto5, marco5.width);
+
+      // Obtener dimensiones del texto dividido
+      const dimensiones5 = doc.getTextDimensions(textoDividido5);
+
+      // Calcular la posición y para centrar verticalmente el texto en el marco
+      const posY5 = marco5.y + (marco5.height - dimensiones5.h) / 2;
+
+      // Agregar el texto ajustado al marco
+      doc.text(textoDividido5, marco5.x, posY5);
+      doc.setFontSize(10);
       doc.rect(0, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(70, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(140, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
