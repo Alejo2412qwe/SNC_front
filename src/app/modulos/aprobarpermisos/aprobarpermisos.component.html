@@ -94,16 +94,8 @@
                                                         FIN</th>
                                                     <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">
                                                         OBSERVACIÓN</th>
-                                                    <th class="tipo" scope="col">
-                                                        <ng-container *ngIf="rol === 'Administrador'; else noHeader">
-                                                            ESTADO DEL PERMISO
-                                                        </ng-container>
-                                                        <ng-template #noHeader>
-                                                            <ng-container *ngIf="rol === 'Jefe de Unidad'">
-                                                                EMISOR O ESTADO DEL PERMISO
-                                                            </ng-container>
-                                                        </ng-template>
-                                                    </th>
+                                                    <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">
+                                                        EMISOR DEL PERMISO</th>
                                                     <th class="tipo" scope="col" *ngIf="rol === 'Jefe de Unidad'">CÉDULA
                                                         DEL SOLICITANTE
                                                     </th>
@@ -139,27 +131,9 @@
                                                     </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.permObservacion}}</td>
-                                                    <td class="tdTbl">
-                                                        <ng-container
-                                                            *ngIf="rol === 'Administrador' && per.permEstado === 3; else approvedOrRejected">
-                                                            En Espera
-                                                        </ng-container>
-                                                        <ng-template #approvedOrRejected>
-                                                            <ng-container *ngIf="per.permEstado === 1">
-                                                                Aprobado Por Jefe General
-                                                            </ng-container>
-                                                            <ng-container *ngIf="per.permEstado === 2">
-                                                                Aprobado Por Jefe de Unidad
-                                                            </ng-container>
-                                                            <ng-container *ngIf="per.permEstado === 4">
-                                                                Rechazado
-                                                            </ng-container>
-                                                            <ng-container
-                                                                *ngIf="rol === 'Jefe de Unidad' && per.permEstado === 3">
-                                                                {{ per.usuId.usuPerId.perNombre }}
-                                                                {{ per.usuId.usuPerId.perApellido }}
-                                                            </ng-container>
-                                                        </ng-template>
+                                                    <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
+                                                        {{per.usuId.usuPerId.perNombre}}
+                                                        {{per.usuId.usuPerId.perApellido}}
                                                     </td>
                                                     <td class="tdTbl" *ngIf="rol === 'Jefe de Unidad'">
                                                         {{per.usuId.usuPerId.perCedula}}</td>

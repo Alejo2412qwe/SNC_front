@@ -33,7 +33,7 @@ export class ListamispermisosComponent implements OnInit {
   idUsuario: number = this.sessionStorage.getItem('userId') || 0;
 
   //OBJETOS
-  permisos: Permisos = new Permisos();
+  permiso: Permisos = new Permisos();
 
   //VARIABLES
   newFunciones: string = '';
@@ -43,6 +43,46 @@ export class ListamispermisosComponent implements OnInit {
   //LISTAS
   listapermisos: Permisos[] = [];
   uploadedFiles: File[] = [];
+
+  calcularDiferenciaDias(fechaincio: string, fechafin: string) {
+    const fechaInicio = new Date(fechaincio);
+    const fechaFin = new Date(fechafin);
+
+    let diferenciaDias = 0;
+    let currentDate = new Date(fechaInicio); // Inicializa con una copia de la fecha de inicio
+
+    while (currentDate <= fechaFin) {
+      const dayOfWeek = currentDate.getDay();
+
+      // Si el día no es sábado (6) ni domingo (0), incrementa la diferencia
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        diferenciaDias++;
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1); // Avanza al siguiente día
+    }
+
+    return diferenciaDias;
+  }
+
+  calcularResultadoMultiplicado(fechaincio: string, fechafin: string) {
+    const resultadoDiferenciaDias = this.calcularDiferenciaDias(fechaincio, fechafin);
+    const resultadoMultiplicado = resultadoDiferenciaDias * 1.36363636363636;
+    return resultadoMultiplicado;
+  }
+
+  calcularDiferenciaHoras(horainicio: string, horafin: string) {
+    const horaInicio = new Date('1970-01-01 ' + horainicio);
+    const horaFin = new Date('1970-01-01 ' + horafin);
+
+    // Calculamos la diferencia en milisegundos
+    const diferenciaMilisegundos = horaFin.getTime() - horaInicio.getTime();
+
+    // Convertimos la diferencia a horas
+    const diferenciaHoras = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60));
+
+    return diferenciaHoras;
+  }
 
   getPermisosByUsuId(id: number) {
     this.permisoService.getPermisosByUsuId(id).subscribe((data) => {
@@ -367,6 +407,32 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('TIEMPO SOLICITADO ', 168, 153);
       doc.text('DIAS', 160, 157);
       doc.text('HORAS', 190, 157);
+      doc.setFontSize(10);
+      doc.text(this.calcularDiferenciaDias(data.permFechaInicio, data.permFechaFin).toString(), 162, 164);
+      doc.text(this.calcularDiferenciaHoras(data.permHorasInicio, data.permHorasFin).toString(), 192, 164);
+      doc.setFontSize(7);
+
+      //ajuste para que este dentro del cuadrado
+      const marco4 = {
+        x: 151,
+        y: 164,
+        width: 60,  // Ajusta según el ancho deseado del marco
+        height: 25  // Ajusta según la altura deseada del marco
+      };
+
+      const texto4 = 'VALOR A DESCONTAR (' + this.calcularResultadoMultiplicado(data.permFechaInicio, data.permFechaFin).toString() + ') EL TIEMPO SOLICITADO MULTIPLICA POR 1,36363636363636';
+
+      // Dividir el texto para ajustarlo al marco
+      const textoDividido4 = doc.splitTextToSize(texto4, marco4.width);
+
+      // Obtener dimensiones del texto dividido
+      const dimensiones4 = doc.getTextDimensions(textoDividido4);
+
+      // Calcular la posición y para centrar verticalmente el texto en el marco
+      const posY4 = marco4.y + (marco4.height - dimensiones4.h) / 2;
+
+      // Agregar el texto ajustado al marco
+      doc.text(textoDividido4, marco4.x, posY4);
       doc.rect(0, 160, 150, 30, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(150, 160, 30, 5, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(180, 160, 30, 5, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
