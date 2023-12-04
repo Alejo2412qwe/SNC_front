@@ -249,13 +249,17 @@ export class ListamispermisosComponent implements OnInit {
         // Puedes agregar más celdas según tus necesidades
       ];
 
-      // Iterar sobre las celdas y agregarlas al PDF
+      /// Iterar sobre las celdas y agregarlas al PDF
       celdas.forEach((celda) => {
         // Establecer color de fondo y dibujar el rectángulo
         doc.setFillColor(35, 44, 88);
         doc.rect(xPosition, 30, anchoCelda, 10, 'FD');
 
-        // Agregar etiqueta de la celda
+        // Verificar si la etiqueta es FECHA, PROVINCIA o RÉGIMEN
+        const isEtiquetaBlanca = ['FECHA', 'PROVINCIA', 'RÉGIMEN'].includes(celda.label);
+
+        // Establecer color de texto para la etiqueta
+        doc.setTextColor(isEtiquetaBlanca ? 255 : 0, isEtiquetaBlanca ? 255 : 255, isEtiquetaBlanca ? 255 : 255);
         doc.text(celda.label, xPosition + 1, 36);
 
         // Mover a la siguiente posición
@@ -265,6 +269,8 @@ export class ListamispermisosComponent implements OnInit {
         doc.setFillColor(35, 44, 88);
         doc.rect(xPosition, 30, anchoCelda, 10, 'S');
 
+        // Establecer color de texto negro para el valor de la celda
+        doc.setTextColor(0, 0, 0);
         // Agregar el valor de la celda
         doc.text(celda.value, xPosition + 2, 36);
 
@@ -275,7 +281,9 @@ export class ListamispermisosComponent implements OnInit {
       doc.setFontSize(18);
       doc.setFillColor(35, 44, 88);
       doc.rect(0, 40, 210, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('DATOS DEL SERVIDOR/TRABAJADOR', 45, 47);
+      doc.setTextColor(0, 0, 0);
       doc.rect(0, 50, 42, 20, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.setFontSize(9);
       doc.text('APELLIDOS Y NOMBRES:', 1, 54);
@@ -300,10 +308,14 @@ export class ListamispermisosComponent implements OnInit {
       doc.text(data.usuId.funId.funNombre, 176, 84);
       doc.setFillColor(35, 44, 88);
       doc.rect(0, 90, 150, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('MOTIVO:', 52, 96);
+      doc.setTextColor(0, 0, 0);
       doc.setFillColor(35, 44, 88);
       doc.rect(150, 90, 120, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('FECHA DEL PERMISO:', 157, 96);
+      doc.setTextColor(0, 0, 0);
       doc.setFontSize(7);
       doc.rect(0, 100, 150, 50, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(0, 100, 10, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
@@ -377,7 +389,9 @@ export class ListamispermisosComponent implements OnInit {
       }
 
       doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
       doc.text('EN CASO DE HORAS', 157, 125);
+      doc.setTextColor(0, 0, 0);
       doc.setFontSize(8);
       doc.text('DESDE (hh:mm)', 152, 135);
       doc.text('HASTA (hh:mm)', 182, 135);
@@ -399,14 +413,18 @@ export class ListamispermisosComponent implements OnInit {
       doc.setFontSize(12);
       doc.setFillColor(35, 44, 88);
       doc.rect(0, 150, 150, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('OBSERVACIONES O JUSTIFICATIVOS:', 40, 155);
+      doc.setTextColor(0, 0, 0);
       doc.text(data.permObservacion, 1, 165);
       doc.setFontSize(7);
       doc.setFillColor(35, 44, 88);
       doc.rect(150, 150, 120, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('TIEMPO SOLICITADO ', 168, 153);
       doc.text('DIAS', 160, 157);
       doc.text('HORAS', 190, 157);
+      doc.setTextColor(0, 0, 0);
       doc.setFontSize(10);
       doc.text(this.calcularDiferenciaDias(data.permFechaInicio, data.permFechaFin).toString(), 162, 164);
       doc.text(this.calcularDiferenciaHoras(data.permHorasInicio, data.permHorasFin).toString(), 192, 164);
@@ -481,11 +499,15 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('Talento Humano', 163, 224);
       doc.setFillColor(35, 44, 88);
       doc.rect(0, 225, 60, 5, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('TIPO DE PERMISO:', 17, 229);
+      doc.setTextColor(0, 0, 0);
       doc.rect(0, 230, 60, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.setFillColor(35, 44, 88);
       doc.rect(60, 225, 210, 5, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('DESCRIPCIÓN', 127, 229);
+      doc.setTextColor(0, 0, 0);
       doc.rect(60, 230, 210, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
 
       //ajuste para que este dentro del cuadrado
@@ -549,7 +571,9 @@ export class ListamispermisosComponent implements OnInit {
       const posY3 = marco3.y + (marco3.height - dimensiones3.h) / 2;
 
 
+      doc.setTextColor(255, 255, 255);
       doc.text(textoDividido3, marco3.x, posY3);
+      doc.setTextColor(0, 0, 0);
 
       const imageUrl2 = 'assets/img/pie.png';
       doc.addImage(imageUrl2, 'JPEG', 52, 278, 100, 15);// x, y, width, height
