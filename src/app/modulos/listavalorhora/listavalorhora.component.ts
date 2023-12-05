@@ -89,7 +89,10 @@ export class ListavalorhoraComponent implements OnInit {
       if (numeroDeRegistros < 1) {
         Swal.fire({
           title: 'Crear Nuevo Valor',
-          html: '<input id="swal-input1" class="swal2-input" placeholder="Ingrese el valor" [(ngModel)]="ValorHora.valorHora">',
+          html: `
+            <p style="color: red;">(solo números con punto decimal)</p>
+            <input id="swal-input1" class="swal2-input" placeholder="Ingrese el valor" [(ngModel)]="ValorHora.valorHora">
+          `,
           showCancelButton: true,
           confirmButtonText: 'Crear',
           cancelButtonText: 'Cancelar',

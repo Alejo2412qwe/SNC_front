@@ -33,7 +33,7 @@ export class ListamispermisosComponent implements OnInit {
   idUsuario: number = this.sessionStorage.getItem('userId') || 0;
 
   //OBJETOS
-  permisos: Permisos = new Permisos();
+  permiso: Permisos = new Permisos();
 
   //VARIABLES
   newFunciones: string = '';
@@ -43,6 +43,46 @@ export class ListamispermisosComponent implements OnInit {
   //LISTAS
   listapermisos: Permisos[] = [];
   uploadedFiles: File[] = [];
+
+  calcularDiferenciaDias(fechaincio: string, fechafin: string) {
+    const fechaInicio = new Date(fechaincio);
+    const fechaFin = new Date(fechafin);
+
+    let diferenciaDias = 0;
+    let currentDate = new Date(fechaInicio); // Inicializa con una copia de la fecha de inicio
+
+    while (currentDate <= fechaFin) {
+      const dayOfWeek = currentDate.getDay();
+
+      // Si el día no es sábado (6) ni domingo (0), incrementa la diferencia
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        diferenciaDias++;
+      }
+
+      currentDate.setDate(currentDate.getDate() + 1); // Avanza al siguiente día
+    }
+
+    return diferenciaDias;
+  }
+
+  calcularResultadoMultiplicado(fechaincio: string, fechafin: string) {
+    const resultadoDiferenciaDias = this.calcularDiferenciaDias(fechaincio, fechafin);
+    const resultadoMultiplicado = resultadoDiferenciaDias * 1.36363636363636;
+    return resultadoMultiplicado;
+  }
+
+  calcularDiferenciaHoras(horainicio: string, horafin: string) {
+    const horaInicio = new Date('1970-01-01 ' + horainicio);
+    const horaFin = new Date('1970-01-01 ' + horafin);
+
+    // Calculamos la diferencia en milisegundos
+    const diferenciaMilisegundos = horaFin.getTime() - horaInicio.getTime();
+
+    // Convertimos la diferencia a horas
+    const diferenciaHoras = Math.floor(diferenciaMilisegundos / (1000 * 60 * 60));
+
+    return diferenciaHoras;
+  }
 
   getPermisosByUsuId(id: number) {
     this.permisoService.getPermisosByUsuId(id).subscribe((data) => {
@@ -186,8 +226,8 @@ export class ListamispermisosComponent implements OnInit {
       const doc = new jsPDF();
       doc.setFont('tahoma');
       doc.setFontSize(14);
-      const imageUrl = 'assets/img/1.png';
-      doc.addImage(imageUrl, 'JPEG', 0, -9, 210, 37);// x, y, width, height
+      const imageUrl = 'assets/img/cabecera.png';
+      doc.addImage(imageUrl, 'JPEG', 0, 0, 210, 20);// x, y, width, height
       doc.rect(0, 20, 210, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.text('FORMULARIO DE LICENCIAS Y PERMISOS', 55, 26);
 
@@ -209,22 +249,28 @@ export class ListamispermisosComponent implements OnInit {
         // Puedes agregar más celdas según tus necesidades
       ];
 
-      // Iterar sobre las celdas y agregarlas al PDF
+      /// Iterar sobre las celdas y agregarlas al PDF
       celdas.forEach((celda) => {
         // Establecer color de fondo y dibujar el rectángulo
-        doc.setFillColor(200, 200, 200);
+        doc.setFillColor(35, 44, 88);
         doc.rect(xPosition, 30, anchoCelda, 10, 'FD');
 
-        // Agregar etiqueta de la celda
+        // Verificar si la etiqueta es FECHA, PROVINCIA o RÉGIMEN
+        const isEtiquetaBlanca = ['FECHA', 'PROVINCIA', 'RÉGIMEN'].includes(celda.label);
+
+        // Establecer color de texto para la etiqueta
+        doc.setTextColor(isEtiquetaBlanca ? 255 : 0, isEtiquetaBlanca ? 255 : 255, isEtiquetaBlanca ? 255 : 255);
         doc.text(celda.label, xPosition + 1, 36);
 
         // Mover a la siguiente posición
         xPosition += anchoCelda;
 
         // Establecer color de fondo y dibujar el rectángulo para el valor
-        doc.setFillColor(255, 255, 255);
+        doc.setFillColor(35, 44, 88);
         doc.rect(xPosition, 30, anchoCelda, 10, 'S');
 
+        // Establecer color de texto negro para el valor de la celda
+        doc.setTextColor(0, 0, 0);
         // Agregar el valor de la celda
         doc.text(celda.value, xPosition + 2, 36);
 
@@ -233,9 +279,11 @@ export class ListamispermisosComponent implements OnInit {
       });
 
       doc.setFontSize(18);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(0, 40, 210, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('DATOS DEL SERVIDOR/TRABAJADOR', 45, 47);
+      doc.setTextColor(0, 0, 0);
       doc.rect(0, 50, 42, 20, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.setFontSize(9);
       doc.text('APELLIDOS Y NOMBRES:', 1, 54);
@@ -258,12 +306,16 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('DIRECCIÓN O UNIDAD:', 126, 74);
       doc.setFontSize(12);
       doc.text(data.usuId.funId.funNombre, 176, 84);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(0, 90, 150, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('MOTIVO:', 52, 96);
-      doc.setFillColor(200, 200, 200);
+      doc.setTextColor(0, 0, 0);
+      doc.setFillColor(35, 44, 88);
       doc.rect(150, 90, 120, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('FECHA DEL PERMISO:', 157, 96);
+      doc.setTextColor(0, 0, 0);
       doc.setFontSize(7);
       doc.rect(0, 100, 150, 50, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(0, 100, 10, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
@@ -316,7 +368,7 @@ export class ListamispermisosComponent implements OnInit {
       doc.rect(180, 100, 30, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(150, 110, 30, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(180, 110, 30, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(150, 120, 60, 10, 'FD');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(150, 130, 30, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(180, 130, 30, 10, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
@@ -337,7 +389,9 @@ export class ListamispermisosComponent implements OnInit {
       }
 
       doc.setFontSize(12);
+      doc.setTextColor(255, 255, 255);
       doc.text('EN CASO DE HORAS', 157, 125);
+      doc.setTextColor(0, 0, 0);
       doc.setFontSize(8);
       doc.text('DESDE (hh:mm)', 152, 135);
       doc.text('HASTA (hh:mm)', 182, 135);
@@ -357,16 +411,46 @@ export class ListamispermisosComponent implements OnInit {
       }
 
       doc.setFontSize(12);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(0, 150, 150, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('OBSERVACIONES O JUSTIFICATIVOS:', 40, 155);
+      doc.setTextColor(0, 0, 0);
       doc.text(data.permObservacion, 1, 165);
       doc.setFontSize(7);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(150, 150, 120, 10, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('TIEMPO SOLICITADO ', 168, 153);
       doc.text('DIAS', 160, 157);
       doc.text('HORAS', 190, 157);
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(10);
+      doc.text(this.calcularDiferenciaDias(data.permFechaInicio, data.permFechaFin).toString(), 162, 164);
+      doc.text(this.calcularDiferenciaHoras(data.permHorasInicio, data.permHorasFin).toString(), 192, 164);
+      doc.setFontSize(7);
+
+      //ajuste para que este dentro del cuadrado
+      const marco4 = {
+        x: 151,
+        y: 164,
+        width: 60,  // Ajusta según el ancho deseado del marco
+        height: 25  // Ajusta según la altura deseada del marco
+      };
+
+      const texto4 = 'VALOR A DESCONTAR (' + this.calcularResultadoMultiplicado(data.permFechaInicio, data.permFechaFin).toString() + ') EL TIEMPO SOLICITADO MULTIPLICA POR 1,36363636363636';
+
+      // Dividir el texto para ajustarlo al marco
+      const textoDividido4 = doc.splitTextToSize(texto4, marco4.width);
+
+      // Obtener dimensiones del texto dividido
+      const dimensiones4 = doc.getTextDimensions(textoDividido4);
+
+      // Calcular la posición y para centrar verticalmente el texto en el marco
+      const posY4 = marco4.y + (marco4.height - dimensiones4.h) / 2;
+
+      // Agregar el texto ajustado al marco
+      doc.text(textoDividido4, marco4.x, posY4);
       doc.rect(0, 160, 150, 30, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(150, 160, 30, 5, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(180, 160, 30, 5, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
@@ -379,6 +463,29 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('SOLICITA ', 28, 194);
       doc.text('APRUEBA ', 97, 194);
       doc.text('REGISTRA ', 167, 194);
+      doc.setFontSize(14);
+      //ajuste para que este dentro del cuadrado
+      const marco5 = {
+        x: 2,
+        y: 195,
+        width: 70,  // Ajusta según el ancho deseado del marco
+        height: 25  // Ajusta según la altura deseada del marco
+      };
+
+      const texto5 = data.usuId.usuPerId.perApellido + ' ' + data.usuId.usuPerId.perNombre;
+
+      // Dividir el texto para ajustarlo al marco
+      const textoDividido5 = doc.splitTextToSize(texto5, marco5.width);
+
+      // Obtener dimensiones del texto dividido
+      const dimensiones5 = doc.getTextDimensions(textoDividido5);
+
+      // Calcular la posición y para centrar verticalmente el texto en el marco
+      const posY5 = marco5.y + (marco5.height - dimensiones5.h) / 2;
+
+      // Agregar el texto ajustado al marco
+      doc.text(textoDividido5, marco5.x, posY5);
+      doc.setFontSize(10);
       doc.rect(0, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(70, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
       doc.rect(140, 195, 70, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
@@ -390,13 +497,17 @@ export class ListamispermisosComponent implements OnInit {
       doc.text('Servidor/Trabajador', 20, 224);
       doc.text('Jefe Inmediato', 93, 224);
       doc.text('Talento Humano', 163, 224);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(0, 225, 60, 5, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('TIPO DE PERMISO:', 17, 229);
+      doc.setTextColor(0, 0, 0);
       doc.rect(0, 230, 60, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(60, 225, 210, 5, 'FD');// F significa relleno, D significa borde
+      doc.setTextColor(255, 255, 255);
       doc.text('DESCRIPCIÓN', 127, 229);
+      doc.setTextColor(0, 0, 0);
       doc.rect(60, 230, 210, 25, 'S');// x, y, width, height, style (S significa 'stroke' o borde)
 
       //ajuste para que este dentro del cuadrado
@@ -441,7 +552,7 @@ export class ListamispermisosComponent implements OnInit {
       doc.text(textoDividido2, marco2.x, posY2);
 
       doc.setFontSize(12);
-      doc.setFillColor(200, 200, 200);
+      doc.setFillColor(35, 44, 88);
       doc.rect(0, 255, 210, 20, 'FD');// F significa relleno, D significa borde
 
       const marco3 = {
@@ -460,10 +571,15 @@ export class ListamispermisosComponent implements OnInit {
       const posY3 = marco3.y + (marco3.height - dimensiones3.h) / 2;
 
 
+      doc.setTextColor(255, 255, 255);
       doc.text(textoDividido3, marco3.x, posY3);
+      doc.setTextColor(0, 0, 0);
+
+      const imageUrl2 = 'assets/img/pie.png';
+      doc.addImage(imageUrl2, 'JPEG', 52, 278, 100, 15);// x, y, width, height
 
       doc.save('permiso_' + data.usuId.usuPerId.perCedula + '_' + data.usuId.usuPerId.perApellido + '.pdf');
-      
+
     })
   }
 

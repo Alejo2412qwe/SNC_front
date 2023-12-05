@@ -18,6 +18,9 @@ export class GestionComponent implements OnInit {
     AllScripts.Cargar(["reportes"]);
   }
   username = this.sessionStorage.getItem('username');
+  rol: string = this.sessionStorage.getItem('rol') || '';
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
+
 }

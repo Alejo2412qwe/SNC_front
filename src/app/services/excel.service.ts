@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-import { LOGO } from '../enviroment/entorno'
+import { LOGO } from '../common/img64'
 import { IExcelReportParams } from '../interfaz/IExcelReportParams';
 
 @Injectable({

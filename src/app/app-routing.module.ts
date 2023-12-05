@@ -27,6 +27,7 @@ import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasisten
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 import { AuthGuard } from './guard/auth.guard';
+import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'listaasistencia', component: ListaasistenciaComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador', 'Jefe de Unidad', 'Docente', 'Funcionario', 'Administrativo'] } },
   { path: 'miasistencia', component: MiAsistenciaComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador', 'Jefe de Unidad', 'Docente', 'Funcionario', 'Administrativo'] } },
   { path: 'listazonales', component: ListazonalesComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador'] } },
+  { path: 'aboutus', component: SobrenosotrosComponent },
   { path: '**', redirectTo: 'login' },
 ];
 

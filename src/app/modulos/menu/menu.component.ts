@@ -4,6 +4,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { Usuario } from 'src/app/modelo/usuario';
+import { PROFILE } from 'src/app/common/img64';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,7 @@ export class MenuComponent implements OnInit {
   }
 
   usuario: Usuario = new Usuario();
+  userImg = PROFILE
 
   ngOnInit(): void {
     this.loadDataUser();

@@ -79,7 +79,6 @@ export class ListaarchivosComponent implements OnInit {
   cargarHistorial() {
     this.asistenciaService.historialArchivos().subscribe((response) => {
       this.historialAechivos = response; // Asigna los datos al array provincias
-      console.log(response)
     });
   }
 
