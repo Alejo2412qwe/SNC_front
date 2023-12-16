@@ -27,6 +27,31 @@ nav.main-menu.expanded {
 
 }
 
+.sideContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* Esto oculta la barra de desplazamiento horizontal */
+  max-height: 100vh;
+}
+
+/* Cambia el ancho del scroll en navegadores compatibles */
+.sideContainer::-webkit-scrollbar {
+  width: 5px;
+  height: 13px;
+}
+
+/* Cambia el color del scroll en navegadores compatibles */
+.sideContainer::-webkit-scrollbar-thumb {
+  background-color: #88888844;
+  /* Cambia el color del scroll */
+}
+
+/* Cambia el color del fondo del scroll en navegadores compatibles */
+.sideContainer::-webkit-scrollbar-track {
+  background-color: #eee;
+  /* Cambia el color del fondo del scroll */
+}
+
 .main-menu {
   background: #FFF;
   border-right: 1px solid #e5e5e5;
@@ -95,11 +120,13 @@ nav.main-menu.expanded {
 }
 
 .main-menu::-webkit-scrollbar {
-  width: 5px; /* Establece el ancho de la barra de desplazamiento */
+  width: 5px;
+  /* Establece el ancho de la barra de desplazamiento */
 }
 
 .main-menu::-webkit-scrollbar-thumb {
-  background-color: black; /* Establece el color del pulgar de la barra de desplazamiento */
+  background-color: black;
+  /* Establece el color del pulgar de la barra de desplazamiento */
 }
 
 .main-menu .nav-text {
