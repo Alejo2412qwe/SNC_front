@@ -15,7 +15,6 @@ import { DespegablemeneComponent } from './modulos/despegablemene/despegablemene
 import { ListainstitucionesComponent } from './modulos/listainstituciones/listainstituciones.component';
 import { ListaFuncionesComponent } from './modulos/listafunciones/lista-funciones.component';
 import { ListaperiodosComponent } from './modulos/listaperiodos/listaperiodos.component';
-import { ListamotivopermisoComponent } from './modulos/listamotivopermiso/listamotivopermiso.component';
 import { ListatipopermisosComponent } from './modulos/listatipopermisos/listatipopermisos.component';
 import { ListatipoformularioComponent } from './modulos/listatipoformulario/listatipoformulario.component';
 import { ListavalorhoraComponent } from './modulos/listavalorhora/listavalorhora.component';
@@ -59,7 +58,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule { }
