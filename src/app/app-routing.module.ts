@@ -27,6 +27,7 @@ import { ListazonalesComponent } from './modulos/listazonales/listazonales.compo
 import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 import { AuthGuard } from './guard/auth.guard';
 import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.component';
+import { ListaferiadosComponent } from './modulos/listaferiados/listaferiados.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'listaasistencia', component: ListaasistenciaComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador', 'Jefe de Unidad', 'Docente', 'Funcionario', 'Administrativo'] } },
   { path: 'miasistencia', component: MiAsistenciaComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador', 'Jefe de Unidad', 'Docente', 'Funcionario', 'Administrativo'] } },
   { path: 'listazonales', component: ListazonalesComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador'] } },
+  { path: 'listaferiados', component: ListaferiadosComponent, canActivate: [AuthGuard], data: { expectedRoles: ['Administrador'] } },
   { path: 'aboutus', component: SobrenosotrosComponent },
   { path: '**', redirectTo: 'login' },
 ];

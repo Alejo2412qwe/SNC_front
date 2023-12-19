@@ -1,7 +1,12 @@
 export const entorno = {
-   /*urlApi: 'http://localhost:80/api',
-   urlPublica: 'http://localhost:80/auth',
-   urlPrivada: 'http://localhost:80'*/
+
+  /*urlApi: 'http://localhost:8080/snc/api',
+  urlPublica: 'http://localhost:8080/snc/auth',
+  urlPrivada: 'http://localhost:8080/snc'*/
+
+  /*urlApi: 'http://localhost:80/api',
+  urlPublica: 'http://localhost:80/auth',
+  urlPrivada: 'http://localhost:80'*/
 
   /* urlApi: 'https://dsbackend.tecazuay.edu.ec/snc/api',
    urlPublica: 'https://dsbackend.tecazuay.edu.ec/snc/auth',

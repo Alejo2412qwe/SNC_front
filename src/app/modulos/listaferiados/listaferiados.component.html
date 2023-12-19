@@ -1,0 +1,135 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet"
+        href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+        integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
+    <link rel="stylesgeet"
+        href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
+</head>
+
+<div class="containerside">
+    <div style="border-radius: 15px;">
+
+        <app-sidebar></app-sidebar>
+    </div>
+    <div>
+
+        <body class="profile-page">
+
+            <app-header></app-header>
+
+
+            <div class="d-flex flex-column justify-content-center w-100 h-50">
+
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <h1 style="text-align: center;     margin-bottom: 170px;
+                    width: 100%; font-size: 72px; color: white;">TABLA DE FERIADOS</h1>
+                </div>
+            </div>
+            <div class="main main-raised">
+                <div class="profile-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto">
+                                <div class="profile">
+                                    <div class="containerregre">
+                                        <div></div>
+                                        <div><button class="cta" routerLink="/gestion">
+                                                <span class="hover-underline-animation">Menu Principal</span>
+                                                <svg viewBox="0 0 46 16" height="10" width="30"
+                                                    xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+                                                    <path transform="translate(30)"
+                                                        d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z"
+                                                        data-name="Path 10" id="Path_10"></path>
+                                                </svg>
+                                            </button></div>
+                                    </div>
+                                </div>
+                                <div class="containertabla" style="width: 100%;">
+
+                                    <div
+                                        style="display: flex;  padding-bottom: 10px;   justify-content: center;     align-items: center;     height: 100%;">
+                                        <div class="radio-inputs">
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=1
+                                                    (change)="loadFeriadosByEstado(1)">
+                                                <span class="name">Activo</span>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="radio" value=0
+                                                    (change)="loadFeriadosByEstado(0)">
+                                                <span class="name">Inactivo</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="Btn3" (click)="openCrearFeriado()">Crear Feriado
+                                            <svg class="svg" viewBox="0 0 20 20" width="40px" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M20 18L14 18M17 15V21M4 21C4 17.134 7.13401 14 11 14C11.695 14 12.3663 14.1013 13 14.2899M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
+                                                    stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div> <button class="Btn2" (click)="downloadExcel()">Generar Excel
+                                            <svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="5 0 30 48"
+                                                width="80px" height="48px">
+                                                <path fill="#4CAF50"
+                                                    d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z" />
+                                                <path fill="#FFF"
+                                                    d="M32 15H39V18H32zM32 25H39V28H32zM32 30H39V33H32zM32 20H39V23H32zM25 15H30V18H25zM25 25H30V28H25zM25 30H30V33H25zM25 20H30V23H25z" />
+                                                <path fill="#2E7D32" d="M27 42L6 38 6 10 27 6z" />
+                                                <path fill="#FFF"
+                                                    d="M19.129,31l-2.411-4.561c-0.092-0.171-0.186-0.483-0.284-0.938h-0.037c-0.046,0.215-0.154,0.541-0.324,0.979L13.652,31H9.895l4.462-7.001L10.274,17h3.837l2.001,4.196c0.156,0.331,0.296,0.725,0.42,1.179h0.04c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z" />
+                                            </svg>
+                                        </button></div>
+                                </div>
+                                <div style="width: 100%; margin-top: 50px;">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="job-table">
+                                            <thead className="theadTab">
+                                                <tr class="text-center" style="background-color: aquamarine;">
+                                                    <th class="tipo" scope="col">ID DEL FERIADO</th>
+                                                    <th class="tipo" scope="col">FECHA INICIO</th>
+                                                    <th class="tipo" scope="col">FECHA FIN</th>
+                                                    <th class="tipo" scope="col">EDITAR</th>
+                                                    <th class="tipo" scope="col">ELIMINAR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-center tableBody">
+                                                <tr key=key *ngFor="let fer of listaFeriados">
+                                                    <td>{{fer.ferId}}</td>
+                                                    <td>{{fer.ferFechaInicio | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{fer.ferFechaFin | date:'dd-MM-yyyy'}}</td>
+                                                    <td><button role="button" class="button-name"
+                                                            (click)="openUpdateFeriado(fer.ferId)">Editar</button>
+                                                    </td>
+                                                    <td>
+                                                        <button role="button" class="button-name2"
+                                                            *ngIf="fer.ferEstado === 1"
+                                                            (click)="updateEstFeriado(fer.ferId,0)">Eliminar</button>
+                                                        <button role="button" class="button-name3"
+                                                            *ngIf="fer.ferEstado === 0"
+                                                            (click)="updateEstFeriado(fer.ferId,1)">Activar</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="height: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+
+        </body>
+    </div>
+</div>

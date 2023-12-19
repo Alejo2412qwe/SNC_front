@@ -180,6 +180,21 @@
                     </span>
                 </a>
             </li>
+            <!--Feriados-->
+            <li id="feriados" class="has-subnav" *ngIf="rol === 'Administrador'">
+                <i class="fa fa-flag fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Feriados
+                </span>
+            </li>
+
+            <li id="verferiados" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
+                <a [routerLink]="['/listaferiados']">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Feriados
+                    </span>
+                </a>
+            </li>
             <!-- VALOR POR HORA -->
             <li id="otrasfun" class="has-subnav" *ngIf="rol === 'Administrador'">
                 <i class="fa fa-cog fa-2x"></i>

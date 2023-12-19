@@ -37,6 +37,7 @@ import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasisten
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.component';
+import { ListaferiadosComponent } from './modulos/listaferiados/listaferiados.component';
 
 
 
@@ -70,7 +71,8 @@ import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.co
     ListaasistenciaComponent,
     ListazonalesComponent,
     MiAsistenciaComponent,
-    SobrenosotrosComponent
+    SobrenosotrosComponent,
+    ListaferiadosComponent
   ],
   imports: [
     BrowserModule,
