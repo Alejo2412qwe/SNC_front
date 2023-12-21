@@ -37,6 +37,12 @@ export class ListaperiodosComponent implements OnInit {
   //LISTAS
   listaPeriodos: Periodos[] = [];
 
+  formatFecha(fecha: Date): string {
+    const fechaDate = new Date(fecha);
+    const fechaLocal = new Date(fechaDate.getTime() + fechaDate.getTimezoneOffset() * 60000);
+    return fechaLocal.toLocaleDateString();
+  }
+
   ngOnInit(): void {
     this.cargarPeriodos();
     this.loadPeriodosByEstado(1);

@@ -40,6 +40,12 @@ export class ListaferiadosComponent implements OnInit {
   //LISTAS
   listaFeriados: Feriados[] = [];
 
+  formatFecha(fecha: string): string {
+    const fechaDate = new Date(fecha);
+    const fechaLocal = new Date(fechaDate.getTime() + fechaDate.getTimezoneOffset() * 60000);
+    return fechaLocal.toLocaleDateString();
+  }
+
   loadExcelReportData(data: Feriados[]) {
 
     //NOMBRE DEL REPORTE

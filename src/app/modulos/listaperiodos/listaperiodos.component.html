@@ -49,12 +49,11 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
-                                
+
                                     <div>
                                         <div class="searchBox">
-                                            <input class="searchInput" type="text" name=""
-                                                placeholder="Por Fecha" [(ngModel)]="searchString"
-                                                (input)="searchPeriodos(searchString, 1)">
+                                            <input class="searchInput" type="text" name="" placeholder="Por Fecha"
+                                                [(ngModel)]="searchString" (input)="searchPeriodos(searchString, 1)">
                                         </div>
                                     </div>
 
@@ -114,8 +113,8 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key=key *ngFor="let pro of listaPeriodos">
                                                     <td>{{pro.periId}}</td>
-                                                    <td>{{ pro.periAnterior | date:'dd-MM-yyyy'}}</td>
-                                                    <td>{{ pro.periActual | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{ formatFecha(pro.periAnterior)}}</td>
+                                                    <td>{{ formatFecha(pro.periActual)}}</td>
                                                     <td>{{ pro.diasAnticipacion }}</td>
                                                     <td>
                                                         <button role="button" class="button-name"

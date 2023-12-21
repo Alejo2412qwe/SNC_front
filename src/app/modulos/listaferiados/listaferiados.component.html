@@ -104,8 +104,8 @@
                                             <tbody class="text-center tableBody">
                                                 <tr key=key *ngFor="let fer of listaFeriados">
                                                     <td>{{fer.ferId}}</td>
-                                                    <td>{{fer.ferFechaInicio | date:'dd-MM-yyyy'}}</td>
-                                                    <td>{{fer.ferFechaFin | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{formatFecha(fer.ferFechaInicio)}}</td>
+                                                    <td>{{formatFecha(fer.ferFechaFin)}}</td>
                                                     <td><button role="button" class="button-name"
                                                             (click)="openUpdateFeriado(fer.ferId)">Editar</button>
                                                     </td>
