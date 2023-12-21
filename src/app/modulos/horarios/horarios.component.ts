@@ -160,6 +160,8 @@ export class HorariosComponent implements OnInit {
 
           Swal.showValidationMessage('Por favor, llene todos los campos.');
 
+        } else if (selectHoraIngresoDia >= selectHoraSalidaDia && selectHoraIngresoTarde >= selectHoraSalidaTarde) {
+          Swal.showValidationMessage('El horario de ingreso debe ser menor que el de salida tanto en la mañana como en la tarde.');
         } else {
 
           this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
@@ -270,6 +272,8 @@ export class HorariosComponent implements OnInit {
 
             Swal.showValidationMessage('Por favor, llene todos los campos.');
 
+          } else if (selectHoraIngresoDia >= selectHoraSalidaDia && selectHoraIngresoTarde >= selectHoraSalidaTarde) {
+            Swal.showValidationMessage('El horario de ingreso debe ser menor que el de salida tanto en la mañana como en la tarde.');
           } else {
 
             // Si todas las validaciones pasan, procede con la lógica de agregar horario

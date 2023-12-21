@@ -103,10 +103,14 @@ export class ListaperiodosComponent implements OnInit {
         if (validarFecha(this.newPeriodos2)) {
           this.periodos.periActual = new Date(this.currentDate.toISOString().split('T')[0]); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
-          this.newDias
-          this.periodos.diasAnticipacion = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
-          this.saveProceso();
-          this.loadPeriodosByEstado(1);
+          if (this.periodos.periAnterior < this.periodos.periActual) {
+            this.newDias = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
+            this.periodos.diasAnticipacion = this.newDias;
+            this.saveProceso();
+            this.loadPeriodosByEstado(1);
+          } else {
+            Swal.showValidationMessage("El periodo anterior debe ser menor al actual.")
+          }
         } else {
           showErrorAlCrear();
         }

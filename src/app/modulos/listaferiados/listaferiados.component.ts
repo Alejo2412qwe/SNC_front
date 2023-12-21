@@ -157,11 +157,15 @@ export class ListaferiadosComponent implements OnInit {
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
 
-        if (this.newFechaInicio && this.newFechaFin && this.newFechaInicio < this.newFechaFin) {
+        if (this.newFechaInicio && this.newFechaFin) {
           this.feriado.ferFechaInicio = this.newFechaInicio;
           this.feriado.ferFechaFin = this.newFechaFin;
-          this.saveFeriado();
-          this.loadFeriadosByEstado(1);
+          if (this.feriado.ferFechaInicio < this.feriado.ferFechaFin) {
+            this.saveFeriado();
+            this.loadFeriadosByEstado(1);
+          } else {
+            Swal.showValidationMessage("La fecha de inicio debe ser menor a la fecha fin.")
+          }
         } else {
           showErrorAlCrear();
         }
@@ -248,11 +252,15 @@ export class ListaferiadosComponent implements OnInit {
             document.getElementById('swal-input2') as HTMLInputElement
           ).value;
 
-          if (this.newFechaInicio && this.newFechaFin && this.newFechaInicio < this.newFechaFin) {
+          if (this.newFechaInicio && this.newFechaFin) {
             this.feriado.ferFechaInicio = this.newFechaInicio;
             this.feriado.ferFechaFin = this.newFechaFin;
-            this.updateFeriados(id);
-            this.loadFeriadosByEstado(1);
+            if (this.feriado.ferFechaInicio < this.feriado.ferFechaFin) {
+              this.updateFeriados(id);
+              this.loadFeriadosByEstado(1);
+            } else {
+              Swal.showValidationMessage("La fecha.")
+            }
           } else {
             showErrorAlCrear();
           }
