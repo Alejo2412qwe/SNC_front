@@ -51,7 +51,7 @@ export class ListaasistenciaComponent implements OnInit {
   }
 
   filtroAsistencia() {
-    this.asistenciaService.asistenciaSearch(this.fechaMin, `${this.fechaMax} 23:59:59`, this.search).subscribe((response) => {
+    this.asistenciaService.asistenciaSearch(this.fechaMin, `${this.fechaMax}`, this.search).subscribe((response) => {
       this.listAsistencia = response; // Asigna los datos al array provincias
       this.loadExcelReportData(response)
     });
@@ -142,7 +142,12 @@ export class ListaasistenciaComponent implements OnInit {
           return { 'background-color': '#FFFBC1' };
         } else {
 
-          return {};  // Estilo predeterminado si no coincide con ninguna condición
+          if (asisEstadoStr === 'Feriado') {
+            return { 'background-color': '#84b6f4' };
+          } else {
+
+            return {};  // Estilo predeterminado si no coincide con ninguna condición
+          }
         }
   }
 

@@ -185,6 +185,26 @@ export function Date_String(fechaDT: string | null | undefined): string {
   return fechaFormateada;
 }
 
+export function final_Date(fechaDT: string | null | undefined): string {
+  if (!fechaDT) {
+    return ''; // O cualquier valor predeterminado que desees en caso de fecha nula o indefinida
+  }
+
+  const fecha = new Date(fechaDT);
+
+  const year = fecha.getUTCFullYear();
+  const month = (fecha.getUTCMonth() + 1).toString().padStart(2, '0');
+  const day = fecha.getUTCDate().toString().padStart(2, '0');
+
+  const hour = '23';
+  const minute = '59';
+  const second = '59';
+
+  const fechaFormateada = `${year}-${month}-${day}   ${hour}:${minute}:${second}`;
+
+  return fechaFormateada;
+}
+
 
 
 // export function json_Object(jsonData: any) {
