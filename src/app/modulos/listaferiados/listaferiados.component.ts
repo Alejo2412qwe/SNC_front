@@ -186,22 +186,16 @@ export class ListaferiadosComponent implements OnInit {
   updateEstFeriado(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` el feriado, ¿Está seguro de ello?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} el feriado?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.feriadoService.updateEst(id, est).subscribe({
@@ -230,31 +224,18 @@ export class ListaferiadosComponent implements OnInit {
       Swal.fire({
         title: 'Editar Feriado',
         html: `
-        <div class="input-container">
-        <label for="name" class="name">Fecha Inicio:</label>
-        <input style="padding: 10px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            background-color: #f1f1f1;
-            color: #777;
-            width: 100%;
-            outline: none;" placeholder="Enter your name" type="date" class="input" id="swal-input1" value="${data.ferFechaInicio}">
-        <div class="underline"></div>
-    </div>
-  
-    <div class="input-container">
-    <label for="name" class="name">Fecha Fin:</label>
-    <input style="padding: 10px;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        background-color: #f1f1f1;
-        color: #777;
-        width: 100%;
-        outline: none;" placeholder="Enter your name" type="date" class="input" id="swal-input2" value="${data.ferFechaFin}">
-    <div class="underline"></div>
-  </div>   `,
+          <div class="input-container">
+            <label for="swal-input1" class="name">Fecha Inicio:</label>
+            <input style="padding: 10px; font-size: 16px; border: none; border-radius: 4px; background-color: #f1f1f1; color: #777; width: 100%; outline: none;" placeholder="Enter your name" type="date" class="input" id="swal-input1" value="${data.ferFechaInicio}">
+            <div class="underline"></div>
+          </div>
+    
+          <div class="input-container">
+            <label for="swal-input2" class="name">Fecha Fin:</label>
+            <input style="padding: 10px; font-size: 16px; border: none; border-radius: 4px; background-color: #f1f1f1; color: #777; width: 100%; outline: none;" placeholder="Enter your name" type="date" class="input" id="swal-input2" value="${data.ferFechaFin}">
+            <div class="underline"></div>
+          </div>
+        `,
         showCancelButton: true,
         confirmButtonText: 'Editar',
         cancelButtonText: 'Cancelar',
@@ -265,7 +246,8 @@ export class ListaferiadosComponent implements OnInit {
           this.newFechaFin = (
             document.getElementById('swal-input2') as HTMLInputElement
           ).value;
-          if (this.newFechaFin && this.newFechaFin) {
+
+          if (this.newFechaIncio && this.newFechaFin) {
             this.feriado.ferFechaInicio = this.newFechaIncio;
             this.feriado.ferFechaFin = this.newFechaFin;
             this.updateFeriados(id);
@@ -275,6 +257,6 @@ export class ListaferiadosComponent implements OnInit {
           }
         },
       });
-    })
+    });
   }
 }

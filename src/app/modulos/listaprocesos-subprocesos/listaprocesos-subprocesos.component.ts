@@ -124,22 +124,16 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   updateEstProceso(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` el proceso, ¿Está seguro de ello?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} al proceso?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.procesoService.updateEst(id, est).subscribe({
@@ -285,22 +279,16 @@ export class ListaprocesosSubprocesosComponent implements OnInit {
   updateEstSubproceso(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` el subproceso, ¿desea continuar?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} al subproceso?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.subprocesosService.updateEst(id, est).subscribe({

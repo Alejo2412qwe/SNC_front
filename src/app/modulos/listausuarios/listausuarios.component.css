@@ -1188,3 +1188,47 @@ td::-webkit-scrollbar-track {
 .svgIcon {
     fill: rgb(255, 255, 255);
 }
+
+.button-name3 {
+    align-items: center;
+    appearance: none;
+    background-color: rgb(29, 216, 61);
+    border-radius: 4px;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+}
+
+.button-name3:focus {
+    box-shadow: #3d8d07 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-name3:hover {
+    box-shadow: rgba(34, 141, 13, 0.814)0 4px 8px, rgba(45, 35, 66, 0.2) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-name3:active {
+    box-shadow: #22990d 0 3px 7px inset;
+    transform: translateY(2px);
+}

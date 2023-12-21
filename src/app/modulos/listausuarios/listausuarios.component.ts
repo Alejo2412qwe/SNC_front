@@ -73,19 +73,29 @@ export class ListausuariosComponent implements OnInit {
   }
 
   updateEstUser(id: number, est: number) {
+    let mensaje;
+    if (est === 0) {
+      mensaje = 'eliminar'
+    } else {
+      mensaje = 'activar'
+    }
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción no se puede deshacer',
+      title: `¿Está seguro de que desea ${mensaje} al usuario?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.usuarioService.updateEst(id, est).subscribe({
           next: () => {
             this.loadUsers(est)
             this.estList = est;
+            if (est === 0) {
+              this.toastr.success('ELIMINADO CORRECTAMENTE', 'ÉXITO');
+            } else {
+              this.toastr.success('ACTIVADO CORRECTAMENTE', 'ÉXITO');
+            }
           },
           error: (error) => {
             // Manejar errores
@@ -94,7 +104,6 @@ export class ListausuariosComponent implements OnInit {
             // Manejar completado
           }
         });
-        Swal.fire('Eliminado', 'El elemento ha sido eliminado', 'success');
       }
     });
   }
