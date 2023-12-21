@@ -33,7 +33,7 @@ export class ListaferiadosComponent implements OnInit {
   feriado: Feriados = new Feriados();
 
   //VARIABLES
-  newFechaIncio: string = '';
+  newFechaInicio: string = '';
   newFechaFin: string = '';
   excelReportData: IExcelReportParams | null = null;
 
@@ -150,14 +150,15 @@ export class ListaferiadosComponent implements OnInit {
       confirmButtonText: 'Crear',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        this.newFechaIncio = (
+        this.newFechaInicio = (
           document.getElementById('swal-input1') as HTMLInputElement
         ).value;
         this.newFechaFin = (
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        if (this.newFechaFin && this.newFechaFin) {
-          this.feriado.ferFechaInicio = this.newFechaIncio;
+
+        if (this.newFechaInicio && this.newFechaFin && this.newFechaInicio < this.newFechaFin) {
+          this.feriado.ferFechaInicio = this.newFechaInicio;
           this.feriado.ferFechaFin = this.newFechaFin;
           this.saveFeriado();
           this.loadFeriadosByEstado(1);
@@ -240,15 +241,15 @@ export class ListaferiadosComponent implements OnInit {
         confirmButtonText: 'Editar',
         cancelButtonText: 'Cancelar',
         preConfirm: () => {
-          this.newFechaIncio = (
+          this.newFechaInicio = (
             document.getElementById('swal-input1') as HTMLInputElement
           ).value;
           this.newFechaFin = (
             document.getElementById('swal-input2') as HTMLInputElement
           ).value;
 
-          if (this.newFechaIncio && this.newFechaFin) {
-            this.feriado.ferFechaInicio = this.newFechaIncio;
+          if (this.newFechaInicio && this.newFechaFin && this.newFechaInicio < this.newFechaFin) {
+            this.feriado.ferFechaInicio = this.newFechaInicio;
             this.feriado.ferFechaFin = this.newFechaFin;
             this.updateFeriados(id);
             this.loadFeriadosByEstado(1);
