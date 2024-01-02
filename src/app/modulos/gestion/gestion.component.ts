@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { AllScriptsService } from '../scripts/all-scripts.service';
 import { SessionStorageService } from '../../services/session-storage.service'; // Importa SessionStorageService
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-gestion',
@@ -21,6 +22,19 @@ export class GestionComponent implements OnInit {
   rol: string = this.sessionStorage.getItem('rol') || '';
 
   ngOnInit(): void {
+    this.showInfo();
+  }
+
+  showInfo() {
+    if (this.rol === 'Administrador') {
+      Swal.fire({
+        title: 'AVISO',
+        html:
+          'Recuerde ingresar los feriados necesarios previamente a la subida del archivo.',
+        icon: 'info',
+        confirmButtonText: 'Aceptar',
+      });
+    }
   }
 
 }
