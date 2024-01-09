@@ -4,7 +4,7 @@ import { Periodos } from 'src/app/modelo/Periodos';
 import { PeriodosService } from 'src/app/services/periodos.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import Swal from 'sweetalert2';
-import { validarCadena } from 'src/app/common/validaciones';
+import { validarFecha } from 'src/app/common/validaciones';
 import { showErrorAlCrear } from 'src/app/common/validaciones';
 
 
@@ -31,11 +31,18 @@ export class ListaperiodosComponent implements OnInit {
   //VARIABLES
   newPeriodos: string = '';
   newPeriodos2: string = '';
+  newDias: number = 0;
   diasAnticipacion: number = 0;
   searchString: string = '';
 
   //LISTAS
   listaPeriodos: Periodos[] = [];
+
+  formatFecha(fecha: Date): string {
+    const fechaDate = new Date(fecha);
+    const fechaLocal = new Date(fechaDate.getTime() + fechaDate.getTimezoneOffset() * 60000);
+    return fechaLocal.toLocaleDateString();
+  }
 
   ngOnInit(): void {
     this.cargarPeriodos();
@@ -65,7 +72,6 @@ export class ListaperiodosComponent implements OnInit {
       this.loadPeriodosByEstado(1);
       Swal.fire({
         title: '¡Registro Exitoso!',
-        text: data.periActual + ' agregado correctamente<br>' + data.periAnterior + ' agregado correctamente',
         icon: 'success',
         confirmButtonText: 'Confirmar',
         showCancelButton: false, // No mostrar el botón de cancelar
@@ -94,22 +100,22 @@ export class ListaperiodosComponent implements OnInit {
           document.getElementById('swal-input2') as HTMLInputElement
         ).value;
 
-        if (this.validarFecha(this.newPeriodos2)) {
+        if (validarFecha(this.newPeriodos2)) {
           this.periodos.periActual = new Date(this.currentDate.toISOString().split('T')[0]); // Convierte la cadena a Date
           this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
-          this.periodos.diasAnticipacion = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
-          this.saveProceso();
-          this.loadPeriodosByEstado(1);
+          if (this.periodos.periAnterior < this.periodos.periActual) {
+            this.newDias = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
+            this.periodos.diasAnticipacion = this.newDias;
+            this.saveProceso();
+            this.loadPeriodosByEstado(1);
+          } else {
+            Swal.showValidationMessage("El periodo anterior debe ser menor al actual.")
+          }
         } else {
-          Swal.showValidationMessage('No se puede crear el periodo.');
+          showErrorAlCrear();
         }
       },
     });
-  }
-
-  validarFecha(dateString: string): boolean {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(dateString);
   }
 
   updatePeriodos(id: number) {
@@ -119,7 +125,6 @@ export class ListaperiodosComponent implements OnInit {
         this.loadPeriodosByEstado(1);
         Swal.fire({
           title: 'Edición Exitosa!',
-          text: data.periActual + ' agregado correctamente<br>' + data.periAnterior + ' agregado correctamente',
           icon: 'success',
           confirmButtonText: 'Confirmar',
           showCancelButton: false, // No mostrar el botón de cancelar
@@ -130,22 +135,16 @@ export class ListaperiodosComponent implements OnInit {
   updateEstPeriodos(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` el periodo, ¿Está seguro de ello?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} al periodo?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
         this.periodosService.updateEst(id, est).subscribe({
@@ -181,18 +180,20 @@ export class ListaperiodosComponent implements OnInit {
       title: 'Editar ' + fechaFormateada,
       html: `
       <label for="swal-input2">Período Anterior:</label>
-      <input id="swal-input2" class="swal2-input" placeholder="Período Anterior" [(ngModel)]="newPeriodos2" type="date">
+      <input id="swal-input2" class="swal2-input" placeholder="Período Anterior" type="date">
       `,
       showCancelButton: true,
       confirmButtonText: 'Editar',
       cancelButtonText: 'Cancelar',
       preConfirm: () => {
-        this.newPeriodos = (
-          document.getElementById('swal-input1') as HTMLInputElement
+        this.newPeriodos2 = (
+          document.getElementById('swal-input2') as HTMLInputElement
         ).value;
-        if (this.validarFecha(this.newPeriodos) && this.validarFecha(this.newPeriodos2)) {
-          this.periodos.periActual = new Date(this.newPeriodos); // Convierte la cadena a Date
-          this.periodos.periAnterior = new Date(this.newPeriodos2); // Convierte la cadena a Date
+
+        if (validarFecha(this.newPeriodos2)) {
+          this.periodos.periAnterior = new Date(this.newPeriodos2);
+          this.newDias = this.calcularAnticipacionDias(this.periodos.periActual, this.periodos.periAnterior);
+          this.periodos.diasAnticipacion = this.newDias;
           this.updatePeriodos(id);
           this.loadPeriodosByEstado(1);
         } else {

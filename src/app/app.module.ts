@@ -32,11 +32,12 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ListamispermisosComponent } from './modulos/listamispermisos/listamispermisos.component';
 import { AprobarpermisosComponent } from './modulos/aprobarpermisos/aprobarpermisos.component';
 import { ListaarchivosComponent } from './modulos/listaarchivos/listaarchivos.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ListaasistenciaComponent } from './modulos/listaasistencia/listaasistencia.component';
 import { ListazonalesComponent } from './modulos/listazonales/listazonales.component';
 import { MiAsistenciaComponent } from './modulos/miAsistencia/miAsistencia.component';
 import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.component';
+import { ListaferiadosComponent } from './modulos/listaferiados/listaferiados.component';
 
 
 
@@ -70,7 +71,8 @@ import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.co
     ListaasistenciaComponent,
     ListazonalesComponent,
     MiAsistenciaComponent,
-    SobrenosotrosComponent
+    SobrenosotrosComponent,
+    ListaferiadosComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +88,10 @@ import { SobrenosotrosComponent } from './modulos/sobrenosotros/sobrenosotros.co
       provide: HTTP_INTERCEPTORS,
       useClass: TokenExpirationInterceptor,
       multi: true,
+    }, 
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
     },
     DatePipe,
   ],

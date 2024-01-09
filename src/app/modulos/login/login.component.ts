@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
     private usuarioService: UsuarioService, private toastr: ToastrService, private sessionStorage: SessionStorageService,
   ) {
 
-    AllScripts.Cargar(["menu"]);
-
   }
 
   ngOnInit(): void {

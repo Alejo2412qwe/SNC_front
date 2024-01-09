@@ -160,6 +160,8 @@ export class HorariosComponent implements OnInit {
 
           Swal.showValidationMessage('Por favor, llene todos los campos.');
 
+        } else if (selectHoraIngresoDia > selectHoraSalidaDia || selectHoraIngresoTarde > selectHoraSalidaTarde) {
+          Swal.showValidationMessage('El horario de ingreso debe ser menor que el de salida tanto en la mañana como en la tarde.');
         } else {
 
           this.nuevoHorario.horHoraIngresoDia = selectHoraIngresoDia.value;
@@ -270,6 +272,8 @@ export class HorariosComponent implements OnInit {
 
             Swal.showValidationMessage('Por favor, llene todos los campos.');
 
+          } else if (selectHoraIngresoDia >= selectHoraSalidaDia && selectHoraIngresoTarde >= selectHoraSalidaTarde) {
+            Swal.showValidationMessage('El horario de ingreso debe ser menor que el de salida tanto en la mañana como en la tarde.');
           } else {
 
             // Si todas las validaciones pasan, procede con la lógica de agregar horario
@@ -315,22 +319,16 @@ export class HorariosComponent implements OnInit {
   updateEstProceso(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` el horario, ¿Está seguro de ello?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} el horario?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.horarioService.updateEst(id, est).subscribe({

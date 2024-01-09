@@ -49,12 +49,11 @@
                                     </div>
                                 </div>
                                 <div class="containertabla" style="width: 100%;">
-                                
+
                                     <div>
                                         <div class="searchBox">
-                                            <input class="searchInput" type="text" name=""
-                                                placeholder="Por Fecha" [(ngModel)]="searchString"
-                                                (input)="searchPeriodos(searchString, 1)">
+                                            <input class="searchInput" type="text" name="" placeholder="Por Fecha"
+                                                [(ngModel)]="searchString" (input)="searchPeriodos(searchString, 1)">
                                         </div>
                                     </div>
 
@@ -108,28 +107,46 @@
                                                     <th class="tipo" scope="col">PERIODO ACTUAL</th>
                                                     <th class="tipo" scope="col">DÍAS DE ANTICIPACIÓN</th>
                                                     <th class="tipo" scope="col">EDITAR</th>
-                                                    <th class="tipo" scope="col">ESTADO</th>
+                                                    <th class="tipo" scope="col">ACCiÓN</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center tableBody">
                                                 <tr key=key *ngFor="let pro of listaPeriodos">
                                                     <td>{{pro.periId}}</td>
-                                                    <td>{{ pro.periAnterior | date:'dd-MM-yyyy'}}</td>
-                                                    <td>{{ pro.periActual | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{ formatFecha(pro.periAnterior)}}</td>
+                                                    <td>{{ formatFecha(pro.periActual)}}</td>
                                                     <td>{{ pro.diasAnticipacion }}</td>
-                                                    <td>
-                                                        <button role="button" class="button-name"
-                                                            (click)="openUpdatePeriodos(pro.periAnterior, pro.periId)">
-                                                            Editar
+                                                    <td class="tdTbl">
+                                                        <button role="button" class="button-name2"
+                                                            (click)="openUpdatePeriodos(pro.periAnterior,pro.periId)">
+                                                            <svg class="svgTbl" xmlns="http://www.w3.org/2000/svg"
+                                                                height="1.25em" viewBox="0 0 512 512">
+                                                                <path
+                                                                    d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
+                                                            </svg>
                                                         </button>
                                                     </td>
                                                     <td>
                                                         <button role="button" class="button-name2"
                                                             *ngIf="pro.periEstado ===1"
-                                                            (click)="updateEstPeriodos(pro.periId,0)">Eliminar</button>
+                                                            (click)="updateEstPeriodos(pro.periId,0)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="svgTbl"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
+                                                            </svg>
+                                                        </button>
                                                         <button role="button" class="button-name3"
                                                             *ngIf="pro.periEstado ===0"
-                                                            (click)="updateEstPeriodos(pro.periId,1)">Activar</button>
+                                                            (click)="updateEstPeriodos(pro.periId,1)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="svgTbl"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022" />
+                                                            </svg>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </tbody>

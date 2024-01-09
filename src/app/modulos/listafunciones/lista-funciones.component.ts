@@ -116,22 +116,16 @@ export class ListaFuncionesComponent implements OnInit {
   updateEstFuncion(id: number, est: number) {
     let mensaje;
     if (est === 0) {
-      mensaje = 'eliminará'
+      mensaje = 'eliminar'
     } else {
-      mensaje = 'activará'
+      mensaje = 'activar'
     }
     Swal.fire({
-      title: `Se ` + mensaje + ` la función, ¿Está seguro de ello?`,
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: 'Si',
-      denyButtonText: 'No',
-      customClass: {
-        actions: 'my-actions',
-        cancelButton: 'order-1 right-gap',
-        confirmButton: 'order-2',
-        denyButton: 'order-3',
-      },
+      title: `¿Está seguro de que desea ${mensaje} la función?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: `Sí, ${mensaje}`,
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.funcionesService.updateEst(id, est).subscribe({

@@ -1,4 +1,4 @@
-import { Periodo } from "./periodo";
+import { Periodos } from "./Periodos";
 import { Usuario } from "./usuario";
 
 export class Vacaciones {
@@ -19,7 +19,7 @@ export class Vacaciones {
     vacDiasCaducados?: number;
     vacTotalDiasDisponibles?: number;
     vacDiasUsados?: number;
-    periId: Periodo;
+    periId: Periodos;
     usuId: Usuario;
 
     constructor(
@@ -39,7 +39,7 @@ export class Vacaciones {
         vacDiasCaducados?: number,
         vacTotalDiasDisponibles?: number,
         vacDiasUsados?: number,
-        periId?: Periodo,
+        periId?: Periodos,
         usuId?: Usuario
     ) {
         this.vacId = vacId || 0;
@@ -58,7 +58,7 @@ export class Vacaciones {
         this.vacDiasCaducados = vacDiasCaducados || 0;
         this.vacTotalDiasDisponibles = vacTotalDiasDisponibles || 0;
         this.vacDiasUsados = vacDiasUsados || 0;
-        this.periId = periId || new Periodo();
+        this.periId = periId || new Periodos();
         this.usuId = usuId || new Usuario();
     }
 }

@@ -7,10 +7,7 @@
 <body>
     <div class="area"></div>
     <nav class="main-menu">
-        <ul style=" overflow-y: scroll;
-        overflow-x: hidden; /* Esto oculta la barra de desplazamiento horizontal */
-        max-height: 100vh;;"
-        >
+        <ul class="sideContainer">
             <li class="has-subnav">
                 <i></i>
                 <span class="nav-text" style="font-weight: bolder;">
@@ -24,7 +21,7 @@
                 </span>
             </li>
             <li>
-                <a href="/perfil">
+                <a [routerLink]="['/perfil']">
                     <i class="fa fa-user fa-2x"></i>
                     <span class="nav-text">
                         Mi Perfil
@@ -32,7 +29,7 @@
                 </a>
             </li>
             <li>
-                <a href="/gestion">
+                <a [routerLink]="['/gestion']">
                     <i class="fa fa-home fa-2x"></i>
                     <span class="nav-text">
                         Home
@@ -47,7 +44,7 @@
                 </span>
             </li>
             <li id="verper" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listausu">
+                <a [routerLink]="['/listausu']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Personal
                     </span>
@@ -61,7 +58,7 @@
                 </span>
             </li>
             <li class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listaasistencia">
+                <a [routerLink]="['/listaasistencia']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Asistencia
                     </span>
@@ -69,7 +66,7 @@
             </li>
 
             <li class="has-subnav" style="height: 30px;">
-                <a href="/miasistencia">
+                <a [routerLink]="['/miasistencia']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Mi Asistencia
                     </span>
@@ -83,7 +80,7 @@
                 </span>
             </li>
             <li class="has-subnav" style="height: 30px;">
-                <a href="/listamispermisos">
+                <a [routerLink]="['/listamispermisos']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Mis Permisos
                     </span>
@@ -91,21 +88,21 @@
             </li>
             <li id="aprobarpermisos" class="has-subnav" style="height: 30px;"
                 *ngIf="rol === 'Administrador' || rol ==='Jefe de Unidad'">
-                <a href="/aprobarpermisos">
+                <a [routerLink]="['/aprobarpermisos']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Aprobar Permisos
                     </span>
                 </a>
             </li>
             <li id="tipopermiso" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listatipopermiso">
+                <a [routerLink]="['/listatipopermiso']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Tipo de Permiso
                     </span>
                 </a>
             </li>
             <li id="tipoformulario" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listatipoformulario">
+                <a [routerLink]="['/listatipoformulario']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Tipo de Formulario
                     </span>
@@ -119,7 +116,7 @@
                 </span>
             </li>
             <li id="ingresarpro" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listasub-procesos">
+                <a [routerLink]="['/listasub-procesos']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Procesos
                     </span>
@@ -133,7 +130,7 @@
                 </span>
             </li>
             <li id="verzonales" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listazonales">
+                <a [routerLink]="['/listazonales']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Zonales
                     </span>
@@ -147,7 +144,7 @@
                 </span>
             </li>
             <li id="ingresarinst" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listainstituciones">
+                <a [routerLink]="['/listainstituciones']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Instituciones
                     </span>
@@ -161,7 +158,7 @@
                 </span>
             </li>
             <li id="ingresarfun" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listaFun">
+                <a [routerLink]="['/listaFun']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Funciones
                     </span>
@@ -177,9 +174,24 @@
             </li>
 
             <li id="verhorarios" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/Horarios">
+                <a [routerLink]="['/Horarios']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Ver Horarios
+                    </span>
+                </a>
+            </li>
+            <!--Feriados-->
+            <li id="feriados" class="has-subnav" *ngIf="rol === 'Administrador'">
+                <i class="fa fa-flag fa-2x"></i>
+                <span class="nav-text" style="font-weight: bolder;">
+                    Feriados
+                </span>
+            </li>
+
+            <li id="verferiados" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
+                <a [routerLink]="['/listaferiados']">
+                    <span class="nav-text" style="padding-left: 60px;">
+                        Ver Feriados
                     </span>
                 </a>
             </li>
@@ -191,21 +203,21 @@
                 </span>
             </li>
             <li id="valor" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listavalor">
+                <a [routerLink]="['/listavalor']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Valor Por Hora
                     </span>
                 </a>
             </li>
             <li id="periodo" class="has-subnav" style="height: 30px;" *ngIf="rol === 'Administrador'">
-                <a href="/listaPeri">
+                <a [routerLink]="['/listaPeri']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Periodos
                     </span>
                 </a>
             </li>
             <li id="periodo" class="has-subnav" style="height: 30px;">
-                <a href="/aboutus">
+                <a [routerLink]="['/aboutus']">
                     <span class="nav-text" style="padding-left: 60px;">
                         Sobre Nosotros
                     </span>

@@ -670,7 +670,7 @@ body {
 
 .searchBox {
     display: flex;
-    max-width: 230px;
+    max-width: 100%px;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
@@ -692,7 +692,6 @@ body {
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
 
-/*hover effect*/
 .searchButton:hover {
     color: #000000;
     background-color: #3245a8;
@@ -700,7 +699,6 @@ body {
     transform: translateY(-3px);
 }
 
-/*button pressing effect*/
 .searchButton:active {
     box-shadow: none;
     transform: translateY(0);
@@ -711,8 +709,9 @@ body {
     background: none;
     outline: none;
     color: rgb(0, 0, 0);
-    font-size: 15px;
+    font-size: 10px;
     padding: 24px 46px 24px 26px;
+    width: 100%;
 }
 
 /* REFRESCAR BOTON */

@@ -30,7 +30,6 @@ export class AsistenciaService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.sessionStorage.getItem('token')}` // Agrega el token JWT aquí
     });
-    console.log(`${this.url}/asistenciaSearch?fechaMin=${fechaMin}&fechaMax=${fechaMax}&search=${search}`)
 
     return this.http.get<any[]>(`${this.url}/asistenciaSearch?fechaMin=${fechaMin}&fechaMax=${fechaMax}&search=${search}`, { headers });
 
